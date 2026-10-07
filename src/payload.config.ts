@@ -39,7 +39,10 @@ export default buildConfig({
     },
     meta: {
       titleSuffix: '- NOB TECHNOLOGIES',
-      icons: [{ rel: 'icon', url: '/favicon.ico' }],
+      icons: [
+        { rel: 'icon', url: '/favicon.svg', type: 'image/svg+xml' },
+        { rel: 'icon', url: '/favicon.ico' },
+      ],
     },
     avatar: {
       Component: '@/components/admin/CustomAvatar#CustomAvatar',
