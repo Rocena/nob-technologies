@@ -190,7 +190,7 @@ export function ChatBot() {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Fermer le chat' : 'Ouvrir le chat'}
         className={cn(
-          'fixed bottom-8 right-4 sm:right-24 z-[150] flex items-center gap-2 rounded-full px-4 py-3 shadow-[0_8px_32px_rgba(0,212,255,0.25)] transition-all duration-300 hover:scale-105 active:scale-95',
+          'fixed bottom-6 right-4 sm:bottom-8 sm:right-8 z-[150] flex items-center gap-2 rounded-full px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_8px_32px_rgba(0,212,255,0.3)] transition-all duration-300 hover:scale-105 active:scale-95',
           open
             ? 'bg-[#020617] border border-[#00D4FF]/40 text-[#00D4FF]'
             : 'bg-[#00D4FF] text-[#020617]'
@@ -210,7 +210,7 @@ export function ChatBot() {
       {/* Chat window */}
       <div
         className={cn(
-          'fixed bottom-24 right-4 sm:right-24 z-[140] w-[320px] sm:w-[380px] rounded-2xl border border-white/10 shadow-[0_24px_64px_rgba(0,0,0,0.5)] backdrop-blur-xl bg-[#020617]/95 flex flex-col overflow-hidden transition-all duration-300 origin-bottom-right',
+          'fixed bottom-20 right-3 sm:bottom-24 sm:right-8 z-[140] w-[calc(100vw-24px)] max-w-[380px] sm:w-[380px] rounded-2xl border border-white/10 shadow-[0_24px_64px_rgba(0,0,0,0.5)] backdrop-blur-xl bg-[#020617]/95 flex flex-col overflow-hidden transition-all duration-300 origin-bottom-right',
           open
             ? 'opacity-100 scale-100 pointer-events-auto translate-y-0'
             : 'opacity-0 scale-95 pointer-events-none translate-y-4'
