@@ -20,7 +20,7 @@ export function FooterEmergeText() {
   const blur = useTransform(scrollYProgress, [0, 1], ["blur(10px)", "blur(0px)"]);
 
   return (
-    <div ref={ref} className="w-full flex justify-center pointer-events-none select-none pb-4 relative min-h-[10vw]">
+    <div ref={ref} className="w-full flex justify-center pointer-events-none select-none relative py-2 overflow-hidden">
       <motion.h2
         style={{
           opacity,
@@ -29,9 +29,10 @@ export function FooterEmergeText() {
           filter: blur,
           WebkitFilter: blur,
         }}
-        className="text-[13vw] sm:text-[10vw] md:text-[8vw] lg:text-[6.5vw] tracking-tighter leading-none text-transparent bg-clip-text bg-gradient-to-b from-[#00D4FF] via-[#0055A4] to-[#020617] whitespace-nowrap text-center max-w-full font-sans absolute bottom-0"
+        className="text-[8vw] sm:text-[9vw] md:text-[7.5vw] lg:text-[6.5vw] tracking-normal sm:tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-b from-[#00D4FF] via-[#0055A4] to-[#020617] whitespace-nowrap text-center max-w-full font-sans"
       >
-        <span className="font-black">NOB</span> <span className="font-light tracking-wide opacity-90">TECHNOLOGIES</span>
+        <span className="font-black">NOB</span>{' '}
+        <span className="font-light tracking-wide opacity-90">TECHNOLOGIES</span>
       </motion.h2>
     </div>
   );
