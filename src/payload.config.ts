@@ -116,17 +116,29 @@ export default buildConfig({
       }
     }
   },
-  db: (process.env.POSTGRES_URL || process.env.DATABASE_URI?.startsWith('postgres'))
-    ? postgresAdapter({
+  db: (() => {
+    const postgresUri =
+      process.env.POSTGRES_URL ||
+      process.env.STORAGE_URL ||
+      process.env.POSTGRES_PRISMA_URL ||
+      process.env.POSTGRES_URL_NON_POOLING ||
+      process.env.DATABASE_URL ||
+      (process.env.DATABASE_URI?.startsWith('postgres') ? process.env.DATABASE_URI : null);
+
+    if (postgresUri) {
+      return postgresAdapter({
         pool: {
-          connectionString: process.env.POSTGRES_URL || process.env.DATABASE_URI,
+          connectionString: postgresUri,
         },
-      })
-    : sqliteAdapter({
-        client: {
-          url: process.env.DATABASE_URI || 'file:./payload.db',
-        },
-      }),
+      });
+    }
+
+    return sqliteAdapter({
+      client: {
+        url: process.env.DATABASE_URI || 'file:./payload.db',
+      },
+    });
+  })(),
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
