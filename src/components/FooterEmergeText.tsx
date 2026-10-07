@@ -11,8 +11,8 @@ export function FooterEmergeText() {
     offset: ["start 100%", "end 100%"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [30, 0]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [25, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.75, 1]);
 
   return (
     <div ref={ref} className="w-full flex justify-center pointer-events-none select-none py-6 sm:py-8 overflow-hidden">
@@ -21,10 +21,14 @@ export function FooterEmergeText() {
           opacity,
           y,
         }}
-        className="text-[7.5vw] sm:text-[8vw] md:text-[6.5vw] lg:text-[5.5vw] tracking-wider uppercase leading-none text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#38bdf8] to-[#0284c7] whitespace-nowrap text-center max-w-full font-sans select-none drop-shadow-[0_0_25px_rgba(0,212,255,0.25)]"
+        className="text-[6.8vw] sm:text-[7.8vw] md:text-[6.5vw] lg:text-[5.5vw] uppercase leading-none whitespace-nowrap text-center max-w-full font-sans select-none"
       >
-        <span className="font-extrabold text-[#00D4FF]">NOB</span>{' '}
-        <span className="font-semibold text-sky-400/90 tracking-widest">TECHNOLOGIES</span>
+        <span className="font-[900] tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-[#70E1FF] via-[#0099DD] to-[#041E42] drop-shadow-[0_2px_12px_rgba(0,212,255,0.3)]">
+          NOB
+        </span>{' '}
+        <span className="font-[300] tracking-[0.18em] sm:tracking-[0.22em] bg-clip-text text-transparent bg-gradient-to-b from-[#60D0FF] via-[#0077B6] to-[#021329] opacity-95">
+          TECHNOLOGIES
+        </span>
       </motion.h2>
     </div>
   );
