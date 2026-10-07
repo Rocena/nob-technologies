@@ -1,0 +1,1295 @@
+/* =======================================================
+   NOB TECHNOLOGIES - OS LAUNCHER THEME
+   (Supports both Light and Dark mode)
+   ======================================================= */
+
+/* Force custom colors on Dark Mode (Slate 900 - Not too dark) */
+html[data-theme="dark"] {
+  --theme-bg: #0F172A !important; 
+  --theme-elevation-0: #0F172A !important;
+  --theme-elevation-50: #1E293B !important; 
+  --theme-elevation-100: #334155 !important; 
+  --theme-elevation-150: #475569 !important;
+  --theme-text: #F8FAFC !important;
+}
+
+/* Force custom colors on Light Mode */
+html[data-theme="light"] {
+  --theme-bg: #F8FAFC !important;
+  --theme-elevation-0: #F8FAFC !important;
+  --theme-elevation-50: #FFFFFF !important;
+  --theme-elevation-100: #F1F5F9 !important;
+  --theme-text: #0F172A !important;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+/* =======================================================
+   OS-STYLE LAYOUT (NO SIDEBAR)
+   ======================================================= */
+
+
+
+/* 2. Header Redesign (Title on Left, Button on Right) */
+.collection-list__header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  margin-bottom: 40px !important;
+  border-bottom: 1px solid var(--theme-elevation-150) !important;
+  padding-bottom: 24px !important;
+}
+
+/* Push the 'Ajouter' button to the far right */
+.collection-list__header .btn {
+  margin-left: auto !important;
+  
+  /* Make it pop like a primary action */
+  background: linear-gradient(135deg, #00D4FF 0%, #0077b6 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.collection-list__header .btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 25px rgba(0, 212, 255, 0.35) !important;
+  color: white !important;
+}
+
+/* Hide the redundant empty state 'Ajouter' button if we made the top one prominent */
+/* Actually, Payload's empty state button is usually .btn--style-primary in a different wrapper. */
+/* We can just ensure it matches the same beautiful style. */
+.no-results .btn {
+  background: linear-gradient(135deg, #00D4FF 0%, #0077b6 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25) !important;
+}
+.no-results {
+  text-align: center;
+  padding: 60px 20px !important;
+  background: var(--theme-elevation-50) !important;
+  border-radius: 16px !important;
+  border: 1px dashed var(--theme-elevation-150) !important;
+  margin-top: 40px;
+}
+
+/* UX: Hide duplicate 'Ajouter' in header when the empty state is showing */
+body:has(.no-results) .collection-list__header .btn {
+  display: none !important;
+}
+
+/* =======================================================
+   DASHBOARD OVERRIDE (Fix vertical bands)
+   ======================================================= */
+/* The layout constraints we added for lists should NOT apply to our custom OS Dashboard */
+body:has(.custom-os-dashboard) .template-default__wrap,
+.template-default:has(.custom-os-dashboard) .template-default__wrap,
+.template-default__wrap:has(.custom-os-dashboard) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* =======================================================
+   SILICON VALLEY UX REVAMP - SPACING & ALIGNMENT
+   ======================================================= */
+
+/* Apply breathing space ONLY to collection lists and documents, 
+   NOT to the OS Dashboard! */
+.collection-list, .document {
+  padding-top: 50px !important;
+  
+  
+  
+  
+}
+
+/* Header Redesign */
+.collection-list__header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  margin-bottom: 40px !important;
+  border-bottom: 1px solid var(--theme-elevation-150) !important;
+  padding-bottom: 24px !important;
+}
+
+/* Push the top 'Ajouter' button to the far right */
+.collection-list__header > .btn,
+.collection-list__header > a[href*="/create"] {
+  margin-left: auto !important;
+  background: linear-gradient(135deg, #00D4FF 0%, #0077b6 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25) !important;
+  transition: all 0.3s ease !important;
+}
+
+.collection-list__header > .btn:hover,
+.collection-list__header > a[href*="/create"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 25px rgba(0, 212, 255, 0.35) !important;
+}
+
+/* HIDDEN DUPLICATES: Hide the header button entirely when the list is empty */
+/* Payload usually renders an element containing 'Aucun r' or similar */
+.collection-list:has(.no-results) .collection-list__header > a[href*="/create"],
+.collection-list:has(h4) .collection-list__header > a[href*="/create"] {
+  display: none !important;
+}
+
+/* Style the empty state itself */
+.no-results {
+  text-align: center;
+  padding: 60px 20px !important;
+  background: var(--theme-elevation-50) !important;
+  border-radius: 16px !important;
+  border: 1px dashed var(--theme-elevation-150) !important;
+  margin-top: 40px;
+}
+
+.no-results a[href*="/create"] {
+  background: linear-gradient(135deg, #00D4FF 0%, #0077b6 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 12px 28px !important;
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25) !important;
+  display: inline-block !important;
+  margin-top: 20px !important;
+}
+
+/* =======================================================
+   DOCUMENT EDIT & UPLOAD VIEW REVAMP
+   ======================================================= */
+
+/* 1. Header of the Document (Edit/Create view) */
+.document-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 20px !important;
+  border-bottom: 1px solid var(--theme-elevation-150) !important;
+  padding-bottom: 24px !important;
+  margin-bottom: 32px !important;
+}
+
+/* Push actions to the right if possible */
+.document-header__controls, .document-header .step-nav + div {
+  margin-left: auto !important;
+  display: flex !important;
+  gap: 16px !important;
+}
+
+/* Primary Save Button */
+#action-save, button[type="submit"] {
+  background: linear-gradient(135deg, #00D4FF 0%, #0077b6 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 12px 28px !important;
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25) !important;
+  transition: all 0.3s ease !important;
+  font-size: 1rem !important;
+}
+
+#action-save:hover, button[type="submit"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 25px rgba(0, 212, 255, 0.35) !important;
+}
+
+/* Secondary Actions (Draft, etc) */
+.document-header__controls .btn--style-secondary {
+  border-radius: 12px !important;
+  padding: 12px 24px !important;
+}
+
+/* Typography for Document Title */
+.document-header__title {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  color: var(--theme-text) !important;
+  margin: 0 !important;
+}
+
+/* Muted look for "[Sans titre]" */
+.document-header__title.fallback, span[title*="Sans titre"] {
+  color: var(--theme-elevation-400) !important;
+  font-style: italic !important;
+  opacity: 0.8 !important;
+}
+
+/* 2. Premium Upload Dropzone */
+.file-field__dropzone {
+  background: var(--theme-elevation-50) !important;
+  border: 2px dashed #00D4FF !important;
+  border-radius: 20px !important;
+  padding: 24px !important;
+  text-align: center !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.02) !important;
+}
+
+.file-field__dropzone:hover {
+  background: rgba(0, 212, 255, 0.05) !important;
+  border-color: #0077b6 !important;
+  transform: scale(1.01) !important;
+}
+
+/* Better typography inside dropzone */
+.file-field__dropzone button {
+  font-weight: 600 !important;
+  color: #00D4FF !important;
+  text-decoration: underline !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 5px !important;
+}
+
+/* Add nice spacing around form fields */
+.field-type {
+  margin-bottom: 24px !important;
+}
+
+/* Improve standard form inputs to match Silicon Valley style */
+.field-type input[type="text"], 
+.field-type input[type="number"], 
+.field-type input[type="email"], 
+.field-type textarea {
+  background: var(--theme-elevation-50) !important;
+  border: 1px solid var(--theme-elevation-150) !important;
+  color: var(--theme-text) !important;
+  border-radius: 12px !important;
+  padding: 14px 16px !important;
+  font-size: 1rem !important;
+  transition: all 0.2s ease !important;
+  width: 100% !important;
+}
+
+.field-type input[type="text"]:focus, 
+.field-type input[type="number"]:focus, 
+.field-type input[type="email"]:focus, 
+.field-type textarea:focus {
+  border-color: #00D4FF !important;
+  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1) !important;
+  outline: none !important;
+}
+
+.field-type label {
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+  color: var(--theme-text) !important;
+  display: block !important;
+}
+
+/* =======================================================
+   SILICON VALLEY LOGIN PAGE (Dark Glassmorphism)
+   ======================================================= */
+
+/* 1. Full Page Dark Radial Background */
+body:has(.template-minimal) {
+  background: radial-gradient(circle at center, #1e293b 0%, #020617 100%) !important;
+  min-height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Override Payload's default minimal template backgrounds */
+body:has(.template-minimal) #app, 
+body:has(.template-minimal) .template-minimal {
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+}
+
+/* 2. Glassmorphism Card for the Form */
+body:has(.template-minimal) .template-minimal__wrap {
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 24px !important;
+  padding: 50px 40px !important;
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  max-width: 420px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+}
+
+/* Ensure the Logo is centered and looks good */
+body:has(.template-minimal) .template-minimal__wrap > div:first-child {
+  justify-content: center !important;
+  margin-bottom: 40px !important;
+}
+
+/* 3. Text and Labels */
+body:has(.template-minimal) h1,
+body:has(.template-minimal) h2,
+body:has(.template-minimal) h3 {
+  color: white !important;
+  text-align: center !important;
+  margin-bottom: 30px !important;
+}
+
+body:has(.template-minimal) label {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-weight: 500 !important;
+  margin-bottom: 8px !important;
+  display: block !important;
+}
+
+/* 4. Neon Glowing Inputs */
+body:has(.template-minimal) input[type="text"],
+body:has(.template-minimal) input[type="email"],
+body:has(.template-minimal) input[type="password"] {
+  background: rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+  padding: 16px 20px !important;
+  border-radius: 12px !important;
+  font-size: 1rem !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  width: 100% !important;
+}
+
+body:has(.template-minimal) input[type="text"]:focus,
+body:has(.template-minimal) input[type="email"]:focus,
+body:has(.template-minimal) input[type="password"]:focus {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border-color: #00D4FF !important;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.2) !important;
+  outline: none !important;
+}
+
+/* 5. Primary Submit Button */
+body:has(.template-minimal) button[type="submit"],
+body:has(.template-minimal) .btn--style-primary {
+  background: linear-gradient(135deg, #00D4FF 0%, #0077b6 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  color: white !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  padding: 16px !important;
+  width: 100% !important;
+  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3) !important;
+  transition: all 0.3s ease !important;
+  margin-top: 30px !important;
+  cursor: pointer !important;
+}
+
+body:has(.template-minimal) button[type="submit"]:hover,
+body:has(.template-minimal) .btn--style-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 30px rgba(0, 212, 255, 0.4) !important;
+}
+
+/* 6. Links (Mot de passe oublié) */
+body:has(.template-minimal) a {
+  color: #00D4FF !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  font-size: 0.9rem !important;
+}
+
+body:has(.template-minimal) a:hover {
+  text-decoration: underline !important;
+  color: white !important;
+}
+
+/* =======================================================
+   HIDE GENERIC AVATAR & POLISH ACCOUNT PAGE
+   ======================================================= */
+/* Hide the cheap generic grey avatar everywhere */
+.avatar,
+.payload-avatar,
+.account__avatar,
+.app-header .avatar,
+svg[class*="avatar"],
+div[class*="avatar"] {
+  display: none !important;
+}
+
+/* Transform the header account link into a premium 'Profil' button */
+.app-header a[href$="/account"] {
+  background: var(--theme-elevation-100) !important;
+  color: var(--theme-text) !important;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  border: 1px solid var(--theme-elevation-200) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+}
+
+.app-header a[href$="/account"]:hover {
+  background: var(--theme-elevation-150) !important;
+  border-color: #00D4FF !important;
+}
+
+/* Because we hid the SVG icon inside it, we inject text */
+.app-header a[href$="/account"]::after {
+  content: 'Profil' !important;
+}
+
+/* =======================================================
+   HIDE REDUNDANT TOP-RIGHT PROFILE BUTTON
+   ======================================================= */
+/* The user requested to completely hide the account link in the header 
+   because the bottom Dock already handles it perfectly. */
+.app-header a[href$="/account"] {
+  display: none !important;
+}
+
+/* =======================================================
+   ERADICATE THE GREY BAND (NAV WIDTH) GLOBALLY
+   ======================================================= */
+:root, body, html {
+  --nav-width: 0px !important;
+  --gutter-h: 40px !important; /* Adjust if needed */
+}
+
+/* Make sure drawers/modals take the full width and don't leave a gap for the sidebar */
+.drawer {
+  left: 0 !important;
+}
+
+/* Also ensure the Drawer header isn't doing anything weird */
+.drawer__header {
+  padding-left: 20px !important;
+}
+
+/* =======================================================
+   PREMIUM ANIMATIONS & TRANSITIONS (SILICON VALLEY)
+   ======================================================= */
+/* Global Fade & Slide Up */
+@keyframes premiumFadeInUp {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes premiumFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Apply to Dashboard */
+.custom-os-dashboard {
+  animation: premiumFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Apply to Lists and Forms */
+.collection-list, .collection-edit {
+  animation: premiumFadeIn 0.4s ease-out forwards;
+}
+
+/* Premium Drawer (Modals) */
+.drawer {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease !important;
+  box-shadow: -10px 0 40px rgba(0,0,0,0.15) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+.drawer__content {
+  background: var(--theme-bg) !important;
+}
+
+/* Hide Payload's ugly gray backdrop gap on the left completely */
+.drawer-backdrop {
+  background: rgba(15, 23, 42, 0.4) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* Smooth Buttons */
+.btn {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.btn:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2) !important;
+}
+
+/* =======================================================
+   FULLY RESPONSIVE BACK-OFFICE (MOBILE FIRST)
+   ======================================================= */
+
+/* Dashboard Responsive Layout */
+.os-dashboard-container {
+  padding: 40px 40px 120px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.os-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  /* Smaller paddings on mobile */
+  .os-dashboard-container {
+    padding: 20px 15px 100px 15px !important;
+  }
+  
+  /* 2 columns on small screens, 1 on very small */
+  .os-dashboard-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+    gap: 15px !important;
+  }
+  
+  /* Make cards smaller on mobile */
+  .os-app-card {
+    padding: 20px 10px !important;
+  }
+  .os-app-card .icon-wrapper {
+    width: 48px !important;
+    height: 48px !important;
+  }
+  .os-app-card span {
+    font-size: 0.95rem !important;
+  }
+  
+  /* Drawer takes full width on mobile */
+  .drawer {
+    width: 100% !important;
+    max-width: 100% !important;
+    left: 0 !important;
+  }
+
+  /* Header adjustments for mobile */
+  .app-header {
+    padding: 10px 15px !important;
+  }
+  
+  /* Form fields full width */
+  .field-type {
+    width: 100% !important;
+  }
+  
+  /* Fix Payload Columns on Mobile */
+  .render-fields {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Ensure no grey band ever */
+.template-default, .app-layout {
+  --nav-width: 0px !important;
+  overflow-x: hidden !important;
+}
+
+/* =======================================================
+   FALLBACK TITLE SAFEGUARD & PREMIUM STYLING
+   ======================================================= */
+/* Mute the fallback title and hide "Sans titre" text if it slips through */
+.document-header__title.fallback {
+  color: var(--theme-elevation-400) !important;
+  font-style: italic !important;
+  opacity: 0.8 !important;
+}
+
+/* =======================================================
+   CONTEXTUAL CREATION TITLES (ADAPTED TO EACH CONTEXT)
+   ======================================================= */
+/* Hide default empty/Sans titre fallback */
+.doc-header__title.render-title[title*="Sans titre"],
+.doc-header__title.render-title[title*="[Sans titre]"],
+h1.render-title[title*="Sans titre"],
+h1.render-title[title*="[Sans titre]"],
+h1.fallback,
+span.fallback,
+[title*="Sans titre"] {
+  font-size: 0 !important;
+  color: transparent !important;
+}
+
+/* Hide default title when our rich Dynamic Title Enhancer is present */
+body:has(#custom-dynamic-header) .doc-header__title.render-title,
+body:has(#custom-dynamic-header) h1.render-title,
+body:has(#custom-dynamic-header) span[title*="Sans titre"] {
+  display: none !important;
+}
+
+/* Fallback contextual CSS titles per collection */
+body:has(a[href*="/collections/articles"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/articles"]) [title*="Sans titre"]::after {
+  content: 'Nouvel Article' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/services"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/services"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Service' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/projects"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/projects"]) [title*="Sans titre"]::after {
+  content: 'Nouvelle Réalisation' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/pages"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/pages"]) [title*="Sans titre"]::after {
+  content: 'Nouvelle Page Web' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/quotes"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/quotes"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Devis' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/invoices"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/invoices"]) [title*="Sans titre"]::after {
+  content: 'Nouvelle Facture' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/customers"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/customers"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Client' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/clients"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/clients"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Logo Partenaire' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/testimonials"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/testimonials"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Témoignage' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/partners"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/partners"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Partenaire' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/faq"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/faq"]) [title*="Sans titre"]::after {
+  content: 'Nouvelle Question FAQ' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/job-offers"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/job-offers"]) [title*="Sans titre"]::after {
+  content: "Nouvelle Offre d'Emploi" !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/pricing-plans"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/pricing-plans"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Tarif' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/media"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/media"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Média' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/news"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/news"]) [title*="Sans titre"]::after {
+  content: 'Nouvelle Actualité' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/users"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/users"]) [title*="Sans titre"]::after {
+  content: 'Nouvel Utilisateur' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/contact-messages"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/contact-messages"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Message' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+/* Also eradicate "Création d'un(e) nouveau ou nouvelle..." */
+.step-nav {
+  display: none !important;
+}
+
+/* If there is a header title containing "Création", hide its original text */
+header h1, .drawer__header h3 {
+  /* We don't want to hide all H1s, but we can't regex in CSS. 
+     Since the user hates this text, let's just make the drawer header cleaner. */
+}
+
+/* Restore and fix step-nav */
+.step-nav {
+  display: flex !important;
+}
+.step-nav span {
+  font-size: 14px !important;
+}
+.step-nav span:last-child {
+  color: #00D4FF !important;
+  font-weight: 600 !important;
+}
+
+
+
+
+/* =======================================================
+   SILICON VALLEY AUTH PAGES (FINAL - PREMIUM SAAS)
+   ======================================================= */
+
+/* 1. The Global Canvas */
+body.is-auth-page {
+  background-color: #0B0F19 !important;
+  background-image: radial-gradient(circle at top center, rgba(0, 119, 182, 0.15) 0%, transparent 60%) !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #F8FAFC !important;
+}
+
+/* 2. Reset the Main Payload Wrapper */
+body.is-auth-page main {
+  display: flex !important;
+  width: 100% !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  padding: 24px !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* 3. The Form Card (Bulletproof targeting of the inner wrapper) */
+/* We target the direct wrapper inside main, which is usually template-minimal */
+body.is-auth-page main > div {
+  background: #131825 !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 16px !important;
+  padding: 48px !important;
+  width: 100% !important;
+  max-width: 460px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+  position: relative !important;
+}
+
+/* 4. Typography (Clean & Professional) */
+body.is-auth-page h1,
+body.is-auth-page h2 {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 1.8rem !important;
+  font-weight: 700 !important;
+  color: #F8FAFC !important;
+  text-align: center !important;
+  margin-bottom: 8px !important;
+  letter-spacing: -0.02em !important;
+}
+
+body.is-auth-page p,
+body.is-auth-page .document-header__subtitle {
+  font-family: 'Inter', sans-serif !important;
+  color: #94A3B8 !important;
+  text-align: center !important;
+  font-size: 0.95rem !important;
+  margin-bottom: 32px !important;
+}
+
+/* 5. Inputs & Labels */
+body.is-auth-page form {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+}
+
+body.is-auth-page label {
+  font-family: 'Inter', sans-serif !important;
+  color: #CBD5E1 !important;
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  margin-bottom: 6px !important;
+  display: block !important;
+}
+
+body.is-auth-page input:not([type="hidden"]),
+body.is-auth-page textarea {
+  background: #0B0F19 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #F8FAFC !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  font-size: 0.95rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1) inset !important;
+}
+
+body.is-auth-page input:not([type="hidden"]):focus {
+  border-color: #00D4FF !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15) !important;
+}
+
+/* 6. React-Select (Role Dropdown) */
+body.is-auth-page .rs__control {
+  background: #0B0F19 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  min-height: 44px !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1) inset !important;
+}
+
+body.is-auth-page .rs__control--is-focused {
+  border-color: #00D4FF !important;
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15) !important;
+}
+
+body.is-auth-page .rs__single-value {
+  color: #F8FAFC !important;
+}
+
+body.is-auth-page .rs__menu {
+  background: #131825 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5) !important;
+}
+
+body.is-auth-page .rs__option {
+  background: transparent !important;
+  color: #CBD5E1 !important;
+  padding: 10px 16px !important;
+}
+
+body.is-auth-page .rs__option:hover,
+body.is-auth-page .rs__option--is-focused {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #F8FAFC !important;
+}
+
+body.is-auth-page .rs__multi-value {
+  background: rgba(0, 212, 255, 0.15) !important;
+  border: 1px solid rgba(0, 212, 255, 0.3) !important;
+  border-radius: 6px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  margin: 2px 4px 2px 0 !important;
+  height: 26px !important;
+}
+
+body.is-auth-page .rs__multi-value__label {
+  color: #00D4FF !important;
+  padding: 0 8px !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+}
+
+body.is-auth-page .rs__multi-value__remove {
+  color: #00D4FF !important;
+  cursor: pointer !important;
+  padding: 0 6px 0 0 !important;
+}
+
+body.is-auth-page .rs__multi-value__remove:hover {
+  background: transparent !important;
+  color: #F8FAFC !important;
+}
+
+/* 7. Primary Action Button */
+body.is-auth-page button[type="submit"] {
+  background: #0077b6 !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  padding: 14px !important;
+  border-radius: 8px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  width: 100% !important;
+  margin-top: 16px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+body.is-auth-page button[type="submit"]:hover {
+  background: #0088cc !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 119, 182, 0.3) !important;
+}
+
+/* Logo Alignment */
+body.is-auth-page .payload-brand {
+  display: flex !important;
+  justify-content: center !important;
+  margin-bottom: 24px !important;
+}
+
+/* =======================================================
+   SURGICAL FIX: STOP REACT-SELECT PILL STRETCHING
+   ======================================================= */
+
+/* 1. Force the parent container to vertically center its children (stops sibling stretching) */
+body.is-auth-page .rs__value-container,
+body.is-auth-page div[class*="-ValueContainer"] {
+  display: flex !important;
+  align-items: center !important; 
+  flex-wrap: wrap !important;
+  padding: 4px 12px !important;
+}
+
+/* 2. Brutal lockdown on the Pill (multiValue) dimensions */
+body.is-auth-page .rs__multi-value,
+body.is-auth-page div[class*="-multiValue"] {
+  background: rgba(0, 212, 255, 0.1) !important;
+  border: 1px solid rgba(0, 212, 255, 0.4) !important;
+  border-radius: 4px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  align-self: center !important;
+  height: 24px !important;
+  max-height: 24px !important;
+  min-height: 24px !important;
+  margin: 2px 4px 2px 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+/* 3. Text label inside the pill */
+body.is-auth-page .rs__multi-value__label,
+body.is-auth-page div[class*="-multiValueLabel"] {
+  color: #00D4FF !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 22px !important; /* strictly align text vertically */
+  padding: 0 6px !important;
+  margin: 0 !important;
+  display: inline-block !important;
+  height: 100% !important;
+}
+
+/* 4. Remove button ("x") inside the pill */
+body.is-auth-page .rs__multi-value__remove,
+body.is-auth-page div[class*="-multiValueRemove"] {
+  color: #00D4FF !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 4px !important;
+  margin: 0 !important;
+  height: 100% !important;
+  cursor: pointer !important;
+}
+
+body.is-auth-page .rs__multi-value__remove:hover,
+body.is-auth-page div[class*="-multiValueRemove"]:hover {
+  background: rgba(0, 212, 255, 0.2) !important;
+  color: #FFFFFF !important;
+}
+
+/* =======================================================
+   SILICON VALLEY PROFILE / ACCOUNT PAGE REDESIGN
+   ======================================================= */
+/* Center the account form and make it look like a settings modal */
+body:has(.account) .template-default__wrap {
+  display: flex !important;
+  justify-content: center !important;
+  padding-top: 60px !important;
+}
+
+.account {
+  width: 100% !important;
+  max-width: 600px !important;
+  background: var(--theme-elevation-50) !important;
+  border: 1px solid var(--theme-elevation-150) !important;
+  border-radius: 16px !important;
+  padding: 40px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
+}
+
+html[data-theme="dark"] .account {
+  background: #0A0A0A !important;
+  border: 1px solid #1E293B !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5) !important;
+}
+
+/* Redesign the Account Header */
+.account .document-header {
+  border-bottom: 1px solid var(--theme-elevation-150) !important;
+  padding-bottom: 20px !important;
+  margin-bottom: 30px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+}
+
+.account .document-header__title {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Style the form fields inside Account */
+.account .field-type {
+  margin-bottom: 24px !important;
+}
+
+.account label {
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: var(--theme-elevation-400) !important;
+  margin-bottom: 8px !important;
+}
+
+.account input[type="text"],
+.account input[type="email"],
+.account input[type="password"] {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid var(--theme-elevation-150) !important;
+  border-radius: 0 !important;
+  padding: 10px 0 !important;
+  font-size: 1rem !important;
+  transition: all 0.2s ease !important;
+}
+
+.account input[type="text"]:focus,
+.account input[type="email"]:focus,
+.account input[type="password"]:focus {
+  border-bottom: 1px solid #FFFFFF !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="light"] .account input:focus {
+  border-bottom: 1px solid #000000 !important;
+}
+
+/* Account Save Button */
+.account .form-submit button {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border-radius: 6px !important;
+  padding: 12px 24px !important;
+  font-weight: 500 !important;
+  width: 100% !important;
+  margin-top: 20px !important;
+}
+
+html[data-theme="light"] .account .form-submit button {
+  background: #000000 !important;
+  color: #FFFFFF !important;
+}
+
+/* =======================================================
+   HEADER PROPRE & LOGO CENTRÉ SANS AUCUNE SUPERPOSITION (DESKTOP & MOBILE)
+   ======================================================= */
+.app-header {
+  border: none !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+  background: transparent !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  height: 60px !important;
+  position: relative !important;
+  z-index: 50 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  padding: 0 16px !important;
+}
+
+html[data-nob-theme="light"] .app-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+  background: transparent !important;
+}
+
+/* 1. ÉLIMINATION TOTALE DU FIL D'ARIANE (BREADCRUMB) POUR SUPPRIMER TOUT CHEVAUCHEMENT */
+.step-nav > *:not(.step-nav__home),
+.step-nav span:not(.step-nav__home *),
+.step-nav a:not(.step-nav__home) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  font-size: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+.step-nav::after,
+.step-nav::before {
+  display: none !important;
+}
+
+/* 2. CONTENEUR DU STEP-NAV : FLEXBOX CENTRÉ UNIFIÉ */
+.step-nav {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  position: relative !important;
+  overflow: visible !important;
+}
+
+/* 3. LOGO CENTRÉ NATURELLEMENT (ZÉRO ABSOLUTE HACK, S'ADAPTE AUTOMATIQUEMENT AU MOBILE) */
+.step-nav__home {
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  max-width: 90vw !important;
+  height: 100% !important;
+  min-width: 0 !important;
+}
+
+.step-nav__home a,
+.step-nav__home > span {
+  all: unset !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 2px 8px !important;
+  background: transparent !important;
+  border: none !important;
+  max-width: 100% !important;
+  transition: transform 0.2s ease !important;
+}
+
+.step-nav__home a:hover,
+.step-nav__home > span:hover {
+  transform: scale(1.03) !important;
+}
+
+.step-nav__home svg {
+  overflow: visible !important;
+  max-width: 100% !important;
+  height: 32px !important;
+  width: auto !important;
+}
+
+html[data-nob-theme="light"] .step-nav__home svg text,
+html[data-nob-theme="light"] .step-nav__home a svg text {
+  fill: #0F172A !important;
+}
+
+/* 4. VERSION MOBILE (SMARTPHONES ET PETITS ÉCRANS) */
+@media (max-width: 768px) {
+  .app-header {
+    height: 52px !important;
+    padding: 0 10px !important;
+  }
+  .step-nav__home {
+    max-width: calc(100vw - 40px) !important;
+  }
+  .step-nav__home svg {
+    height: 26px !important;
+    max-width: 210px !important;
+  }
+}

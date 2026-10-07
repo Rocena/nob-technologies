@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+:root {
+  /* Premium Tech Palette for NOB */
+  --primary: #0A2540; /* Deep professional navy */
+  --primary-dark: #001224;
+  --primary-light: #1A3E63;
+  --accent: #00D4FF; /* Tech blue for CTA/Hover */
+  
+  --background: #FAFAFA;
+  --surface: #FFFFFF;
+  --surface-elevated: #FFFFFF;
+  
+  --text: #1F2937;
+  --muted: #6B7280;
+  --border: #E5E7EB;
+  
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+  --color-accent: var(--accent);
+  
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --font-sans: var(--font-inter), Arial, sans-serif;
+  --font-display: var(--font-inter), Arial, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+
+  --animate-spin-slow: spin 4s linear infinite;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #0F3255;
+    --background: #050505;
+    --surface: #111111;
+    --surface-elevated: #1A1A1A;
+    --text: #F3F4F6;
+    --muted: #9CA3AF;
+    --border: #27272A;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+}
+
+@keyframes shimmer { 100% { transform: translateX(100%); } }

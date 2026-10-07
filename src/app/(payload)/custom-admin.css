@@ -1,0 +1,1902 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* =======================================================
+   NOB TECHNOLOGIES - OS LAUNCHER THEME
+   (Authentic Light & Dark mode support across all modules)
+   ======================================================= */
+
+/* 1. DARK MODE VARIABLES (Midnight & Slate 900) */
+:root, html, html[data-theme="dark"], html[data-nob-theme="dark"] {
+  --theme-bg: #0B0F19 !important;
+  --theme-elevation-0: #0B0F19 !important;
+  --theme-elevation-50: #131825 !important;
+  --theme-elevation-100: #1E293B !important;
+  --theme-elevation-150: #334155 !important;
+  --theme-elevation-200: #475569 !important;
+  --theme-text: #F8FAFC !important;
+  --theme-text-muted: #94A3B8 !important;
+  --theme-border: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* 2. LIGHT MODE VARIABLES (Apple Daylight & Crisp Canvas) */
+html[data-theme="light"], html[data-nob-theme="light"] {
+  --theme-bg: #F8FAFC !important;
+  --theme-elevation-0: #F8FAFC !important;
+  --theme-elevation-50: #FFFFFF !important;
+  --theme-elevation-100: #F1F5F9 !important;
+  --theme-elevation-150: #E2E8F0 !important;
+  --theme-elevation-200: #CBD5E1 !important;
+  --theme-text: #0F172A !important;
+  --theme-text-muted: #64748B !important;
+  --theme-border: rgba(0, 0, 0, 0.08) !important;
+}
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important; letter-spacing: -0.012em;
+}
+
+/* =======================================================
+   OS-STYLE LAYOUT (NO SIDEBAR)
+   ======================================================= */
+
+
+
+/* 2. Header Redesign (Title on Left, Button on Right) */
+.collection-list__header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  margin-bottom: 40px !important;
+  border-bottom: 1px solid var(--theme-elevation-150) !important;
+  padding-bottom: 24px !important;
+}
+
+/* Push the 'Ajouter' button to the far right */
+.collection-list__header .btn {
+  margin-left: auto !important;
+  
+  /* Make it pop like a primary action */
+  background: linear-gradient(135deg, #00D4FF 0%, #0077b6 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.collection-list__header .btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 25px rgba(0, 212, 255, 0.35) !important;
+  color: white !important;
+}
+
+/* Hide the redundant empty state 'Ajouter' button if we made the top one prominent */
+/* Actually, Payload's empty state button is usually .btn--style-primary in a different wrapper. */
+/* We can just ensure it matches the same beautiful style. */
+.no-results .btn {
+  background: linear-gradient(135deg, #00D4FF 0%, #0077b6 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25) !important;
+}
+.no-results {
+  text-align: center;
+  padding: 60px 20px !important;
+  background: var(--theme-elevation-50) !important;
+  border-radius: 16px !important;
+  border: 1px dashed var(--theme-elevation-150) !important;
+  margin-top: 40px;
+}
+
+/* UX: Hide duplicate 'Ajouter' in header when the empty state is showing */
+body:has(.no-results) .collection-list__header .btn {
+  display: none !important;
+}
+
+/* =======================================================
+   DASHBOARD OVERRIDE (Zero scroll, full viewport fit)
+   ======================================================= */
+html:has(.custom-os-dashboard),
+body:has(.custom-os-dashboard) {
+  overflow: hidden !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+}
+
+body:has(.custom-os-dashboard) .template-default,
+.template-default:has(.custom-os-dashboard) {
+  height: calc(100vh - 64px) !important;
+  max-height: calc(100vh - 64px) !important;
+  overflow: hidden !important;
+}
+
+body:has(.custom-os-dashboard) .template-default__wrap,
+.template-default:has(.custom-os-dashboard) .template-default__wrap,
+.template-default__wrap:has(.custom-os-dashboard) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  height: calc(100vh - 64px) !important;
+  max-height: calc(100vh - 64px) !important;
+  overflow: hidden !important;
+}
+
+/* =======================================================
+   SILICON VALLEY UX REVAMP - SPACING & ALIGNMENT
+   ======================================================= */
+
+/* Apply breathing space ONLY to collection lists and documents, 
+   NOT to the OS Dashboard! */
+.collection-list, .document {
+  padding-top: 50px !important;
+  
+  
+  
+  
+}
+
+/* Header Redesign */
+.collection-list__header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  margin-bottom: 40px !important;
+  border-bottom: 1px solid var(--theme-elevation-150) !important;
+  padding-bottom: 24px !important;
+}
+
+/* Push the top 'Ajouter' button to the far right */
+.collection-list__header > .btn,
+.collection-list__header > a[href*="/create"] {
+  margin-left: auto !important;
+  background: linear-gradient(135deg, #00D4FF 0%, #0077b6 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25) !important;
+  transition: all 0.3s ease !important;
+}
+
+.collection-list__header > .btn:hover,
+.collection-list__header > a[href*="/create"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 25px rgba(0, 212, 255, 0.35) !important;
+}
+
+/* HIDDEN DUPLICATES: Hide the header button entirely when the list is empty */
+/* Payload usually renders an element containing 'Aucun r' or similar */
+.collection-list:has(.no-results) .collection-list__header > a[href*="/create"],
+.collection-list:has(h4) .collection-list__header > a[href*="/create"] {
+  display: none !important;
+}
+
+/* Style the empty state itself */
+.no-results {
+  text-align: center;
+  padding: 60px 20px !important;
+  background: var(--theme-elevation-50) !important;
+  border-radius: 16px !important;
+  border: 1px dashed var(--theme-elevation-150) !important;
+  margin-top: 40px;
+}
+
+.no-results a[href*="/create"] {
+  background: linear-gradient(135deg, #00D4FF 0%, #0077b6 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 12px 28px !important;
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25) !important;
+  display: inline-block !important;
+  margin-top: 20px !important;
+}
+
+/* =======================================================
+   DOCUMENT EDIT & UPLOAD VIEW REVAMP
+   ======================================================= */
+
+/* 1. Header of the Document (Edit/Create view) */
+.document-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 20px !important;
+  border-bottom: 1px solid var(--theme-elevation-150) !important;
+  padding-bottom: 24px !important;
+  margin-bottom: 32px !important;
+}
+
+/* Push actions to the right if possible */
+.document-header__controls, .document-header .step-nav + div {
+  margin-left: auto !important;
+  display: flex !important;
+  gap: 16px !important;
+}
+
+/* Primary Save Button */
+#action-save, button[type="submit"] {
+  background: linear-gradient(135deg, #00D4FF 0%, #0077b6 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 12px 28px !important;
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25) !important;
+  transition: all 0.3s ease !important;
+  font-size: 1rem !important;
+}
+
+#action-save:hover, button[type="submit"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 25px rgba(0, 212, 255, 0.35) !important;
+}
+
+/* Secondary Actions (Draft, etc) */
+.document-header__controls .btn--style-secondary {
+  border-radius: 12px !important;
+  padding: 12px 24px !important;
+}
+
+/* Typography for Document Title */
+.document-header__title {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  color: var(--theme-text) !important;
+  margin: 0 !important;
+}
+
+/* Muted look for "[Sans titre]" */
+.document-header__title.fallback, span[title*="Sans titre"] {
+  color: var(--theme-elevation-400) !important;
+  font-style: italic !important;
+  opacity: 0.8 !important;
+}
+
+/* 2. Premium Upload Dropzone */
+.file-field__dropzone {
+  background: var(--theme-elevation-50) !important;
+  border: 2px dashed #00D4FF !important;
+  border-radius: 20px !important;
+  padding: 24px !important;
+  text-align: center !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.02) !important;
+}
+
+.file-field__dropzone:hover {
+  background: rgba(0, 212, 255, 0.05) !important;
+  border-color: #0077b6 !important;
+  transform: scale(1.01) !important;
+}
+
+/* Better typography inside dropzone */
+.file-field__dropzone button {
+  font-weight: 600 !important;
+  color: #00D4FF !important;
+  text-decoration: underline !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 5px !important;
+}
+
+/* Add nice spacing around form fields */
+.field-type {
+  margin-bottom: 24px !important;
+}
+
+/* Improve standard form inputs to match Silicon Valley style */
+.field-type input[type="text"], 
+.field-type input[type="number"], 
+.field-type input[type="email"], 
+.field-type textarea {
+  background: var(--theme-elevation-50) !important;
+  border: 1px solid var(--theme-elevation-150) !important;
+  color: var(--theme-text) !important;
+  border-radius: 12px !important;
+  padding: 14px 16px !important;
+  font-size: 1rem !important;
+  transition: all 0.2s ease !important;
+  width: 100% !important;
+}
+
+.field-type input[type="text"]:focus, 
+.field-type input[type="number"]:focus, 
+.field-type input[type="email"]:focus, 
+.field-type textarea:focus {
+  border-color: #00D4FF !important;
+  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1) !important;
+  outline: none !important;
+}
+
+.field-type label {
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+  color: var(--theme-text) !important;
+  display: block !important;
+}
+
+/* =======================================================
+   SILICON VALLEY LOGIN PAGE (Dark Glassmorphism)
+   ======================================================= */
+
+/* 1. Full Page Dark Radial Background */
+body:has(.template-minimal) {
+  background: radial-gradient(circle at center, #1e293b 0%, #020617 100%) !important;
+  min-height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Override Payload's default minimal template backgrounds */
+body:has(.template-minimal) #app, 
+body:has(.template-minimal) .template-minimal {
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+}
+
+/* 2. Glassmorphism Card for the Form */
+body:has(.template-minimal) .template-minimal__wrap {
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 24px !important;
+  padding: 50px 40px !important;
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  max-width: 420px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+}
+
+/* Ensure the Logo is centered and looks good */
+body:has(.template-minimal) .template-minimal__wrap > div:first-child {
+  justify-content: center !important;
+  margin-bottom: 40px !important;
+}
+
+/* 3. Text and Labels */
+body:has(.template-minimal) h1,
+body:has(.template-minimal) h2,
+body:has(.template-minimal) h3 {
+  color: white !important;
+  text-align: center !important;
+  margin-bottom: 30px !important;
+}
+
+body:has(.template-minimal) label {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-weight: 500 !important;
+  margin-bottom: 8px !important;
+  display: block !important;
+}
+
+/* 4. Neon Glowing Inputs */
+body:has(.template-minimal) input[type="text"],
+body:has(.template-minimal) input[type="email"],
+body:has(.template-minimal) input[type="password"] {
+  background: rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+  padding: 16px 20px !important;
+  border-radius: 12px !important;
+  font-size: 1rem !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  width: 100% !important;
+}
+
+body:has(.template-minimal) input[type="text"]:focus,
+body:has(.template-minimal) input[type="email"]:focus,
+body:has(.template-minimal) input[type="password"]:focus {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border-color: #00D4FF !important;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.2) !important;
+  outline: none !important;
+}
+
+/* 5. Primary Submit Button */
+body:has(.template-minimal) button[type="submit"],
+body:has(.template-minimal) .btn--style-primary {
+  background: linear-gradient(135deg, #00D4FF 0%, #0077b6 100%) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  color: white !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  padding: 16px !important;
+  width: 100% !important;
+  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3) !important;
+  transition: all 0.3s ease !important;
+  margin-top: 30px !important;
+  cursor: pointer !important;
+}
+
+body:has(.template-minimal) button[type="submit"]:hover,
+body:has(.template-minimal) .btn--style-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 30px rgba(0, 212, 255, 0.4) !important;
+}
+
+/* 6. Links (Mot de passe oublié) */
+body:has(.template-minimal) a {
+  color: #00D4FF !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  font-size: 0.9rem !important;
+}
+
+body:has(.template-minimal) a:hover {
+  text-decoration: underline !important;
+  color: white !important;
+}
+
+/* =======================================================
+   HIDE GENERIC AVATAR & POLISH ACCOUNT PAGE
+   ======================================================= */
+/* Hide the cheap generic grey avatar everywhere */
+.avatar,
+.payload-avatar,
+.account__avatar,
+.app-header .avatar,
+svg[class*="avatar"],
+div[class*="avatar"] {
+  display: none !important;
+}
+
+/* Transform the header account link into a premium 'Profil' button */
+.app-header a[href$="/account"] {
+  background: var(--theme-elevation-100) !important;
+  color: var(--theme-text) !important;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  border: 1px solid var(--theme-elevation-200) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+}
+
+.app-header a[href$="/account"]:hover {
+  background: var(--theme-elevation-150) !important;
+  border-color: #00D4FF !important;
+}
+
+/* Because we hid the SVG icon inside it, we inject text */
+.app-header a[href$="/account"]::after {
+  content: 'Profil' !important;
+}
+
+/* =======================================================
+   HIDE REDUNDANT TOP-RIGHT PROFILE BUTTON
+   ======================================================= */
+/* The user requested to completely hide the account link in the header 
+   because the bottom Dock already handles it perfectly. */
+.app-header a[href$="/account"] {
+  display: none !important;
+}
+
+/* =======================================================
+   ERADICATE THE GREY BAND (NAV WIDTH) GLOBALLY
+   ======================================================= */
+:root, body, html {
+  --nav-width: 0px !important;
+  --gutter-h: 40px !important; /* Adjust if needed */
+}
+
+/* Make sure drawers/modals take the full width and don't leave a gap for the sidebar */
+.drawer {
+  left: 0 !important;
+}
+
+/* Also ensure the Drawer header isn't doing anything weird */
+.drawer__header {
+  padding-left: 20px !important;
+}
+
+/* =======================================================
+   PREMIUM ANIMATIONS & TRANSITIONS (SILICON VALLEY)
+   ======================================================= */
+/* Global Fade & Slide Up */
+@keyframes premiumFadeInUp {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes premiumFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Apply to Dashboard */
+.custom-os-dashboard {
+  animation: premiumFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Apply to Lists and Forms */
+.collection-list, .collection-edit {
+  animation: premiumFadeIn 0.4s ease-out forwards;
+}
+
+/* Premium Drawer (Modals) */
+.drawer {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease !important;
+  box-shadow: -10px 0 40px rgba(0,0,0,0.15) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+.drawer__content {
+  background: var(--theme-bg) !important;
+}
+
+/* Hide Payload's ugly gray backdrop gap on the left completely */
+.drawer-backdrop {
+  background: rgba(15, 23, 42, 0.4) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* Smooth Buttons */
+.btn {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.btn:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2) !important;
+}
+
+/* =======================================================
+   FULLY RESPONSIVE BACK-OFFICE (MOBILE FIRST)
+   ======================================================= */
+
+/* Dashboard Responsive Layout */
+.os-dashboard-container {
+  padding: 40px 40px 120px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.os-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  /* Smaller paddings on mobile */
+  .os-dashboard-container {
+    padding: 20px 15px 100px 15px !important;
+  }
+  
+  /* 2 columns on small screens, 1 on very small */
+  .os-dashboard-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+    gap: 15px !important;
+  }
+  
+  /* Make cards smaller on mobile */
+  .os-app-card {
+    padding: 20px 10px !important;
+  }
+  .os-app-card .icon-wrapper {
+    width: 48px !important;
+    height: 48px !important;
+  }
+  .os-app-card span {
+    font-size: 0.95rem !important;
+  }
+  
+  /* Drawer takes full width on mobile */
+  .drawer {
+    width: 100% !important;
+    max-width: 100% !important;
+    left: 0 !important;
+  }
+
+  /* Header adjustments for mobile */
+  .app-header {
+    padding: 10px 15px !important;
+  }
+  
+  /* Form fields full width */
+  .field-type {
+    width: 100% !important;
+  }
+  
+  /* Fix Payload Columns on Mobile */
+  .render-fields {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Ensure no grey band ever */
+.template-default, .app-layout {
+  --nav-width: 0px !important;
+  overflow-x: hidden !important;
+}
+
+/* =======================================================
+   FALLBACK TITLE SAFEGUARD & PREMIUM STYLING
+   ======================================================= */
+/* Mute the fallback title and hide "Sans titre" text if it slips through */
+.document-header__title.fallback {
+  color: var(--theme-elevation-400) !important;
+  font-style: italic !important;
+  opacity: 0.8 !important;
+}
+
+/* =======================================================
+   CONTEXTUAL CREATION TITLES (ADAPTED TO EACH CONTEXT)
+   ======================================================= */
+/* Hide default empty/Sans titre fallback */
+.doc-header__title.render-title[title*="Sans titre"],
+.doc-header__title.render-title[title*="[Sans titre]"],
+h1.render-title[title*="Sans titre"],
+h1.render-title[title*="[Sans titre]"],
+h1.fallback,
+span.fallback,
+[title*="Sans titre"] {
+  font-size: 0 !important;
+  color: transparent !important;
+}
+
+/* Hide default title when our rich Dynamic Title Enhancer is present */
+body:has(#custom-dynamic-header) .doc-header__title.render-title,
+body:has(#custom-dynamic-header) h1.render-title,
+body:has(#custom-dynamic-header) span[title*="Sans titre"] {
+  display: none !important;
+}
+
+/* Fallback contextual CSS titles per collection */
+body:has(a[href*="/collections/articles"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/articles"]) [title*="Sans titre"]::after {
+  content: 'Nouvel Article' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/services"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/services"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Service' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/projects"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/projects"]) [title*="Sans titre"]::after {
+  content: 'Nouvelle Réalisation' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/pages"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/pages"]) [title*="Sans titre"]::after {
+  content: 'Nouvelle Page Web' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/quotes"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/quotes"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Devis' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/invoices"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/invoices"]) [title*="Sans titre"]::after {
+  content: 'Nouvelle Facture' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/customers"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/customers"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Client' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/clients"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/clients"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Logo Partenaire' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/testimonials"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/testimonials"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Témoignage' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/partners"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/partners"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Partenaire' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/faq"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/faq"]) [title*="Sans titre"]::after {
+  content: 'Nouvelle Question FAQ' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/job-offers"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/job-offers"]) [title*="Sans titre"]::after {
+  content: "Nouvelle Offre d'Emploi" !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/pricing-plans"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/pricing-plans"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Tarif' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/media"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/media"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Média' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/news"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/news"]) [title*="Sans titre"]::after {
+  content: 'Nouvelle Actualité' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/users"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/users"]) [title*="Sans titre"]::after {
+  content: 'Nouvel Utilisateur' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+body:has(a[href*="/collections/contact-messages"].active) [title*="Sans titre"]::after,
+body:has(a[href*="/collections/contact-messages"]) [title*="Sans titre"]::after {
+  content: 'Nouveau Message' !important;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #00D4FF !important;
+  visibility: visible !important;
+}
+
+/* Also eradicate "Création d'un(e) nouveau ou nouvelle..." */
+.step-nav {
+  display: none !important;
+}
+
+/* If there is a header title containing "Création", hide its original text */
+header h1, .drawer__header h3 {
+  /* We don't want to hide all H1s, but we can't regex in CSS. 
+     Since the user hates this text, let's just make the drawer header cleaner. */
+}
+
+/* Restore and fix step-nav */
+.step-nav {
+  display: flex !important;
+}
+.step-nav span {
+  font-size: 14px !important;
+}
+.step-nav span:last-child {
+  color: #00D4FF !important;
+  font-weight: 600 !important;
+}
+
+
+
+
+/* =======================================================
+   SILICON VALLEY AUTH PAGES (FINAL - PREMIUM SAAS)
+   ======================================================= */
+
+/* 1. The Global Canvas */
+body.is-auth-page {
+  background-color: #0B0F19 !important;
+  background-image: radial-gradient(circle at top center, rgba(0, 119, 182, 0.15) 0%, transparent 60%) !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #F8FAFC !important;
+}
+
+/* 2. Reset the Main Payload Wrapper */
+body.is-auth-page main {
+  display: flex !important;
+  width: 100% !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  padding: 24px !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* 3. The Form Card (Bulletproof targeting of the inner wrapper) */
+/* We target the direct wrapper inside main, which is usually template-minimal */
+body.is-auth-page main > div {
+  background: #131825 !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 16px !important;
+  padding: 48px !important;
+  width: 100% !important;
+  max-width: 460px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+  position: relative !important;
+}
+
+/* 4. Typography (Clean & Professional) */
+body.is-auth-page h1,
+body.is-auth-page h2 {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 1.8rem !important;
+  font-weight: 700 !important;
+  color: #F8FAFC !important;
+  text-align: center !important;
+  margin-bottom: 8px !important;
+  letter-spacing: -0.02em !important;
+}
+
+body.is-auth-page p,
+body.is-auth-page .document-header__subtitle {
+  font-family: 'Inter', sans-serif !important;
+  color: #94A3B8 !important;
+  text-align: center !important;
+  font-size: 0.95rem !important;
+  margin-bottom: 32px !important;
+}
+
+/* 5. Inputs & Labels */
+body.is-auth-page form {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+}
+
+body.is-auth-page label {
+  font-family: 'Inter', sans-serif !important;
+  color: #CBD5E1 !important;
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  margin-bottom: 6px !important;
+  display: block !important;
+}
+
+body.is-auth-page input:not([type="hidden"]),
+body.is-auth-page textarea {
+  background: #0B0F19 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #F8FAFC !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  font-size: 0.95rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1) inset !important;
+}
+
+body.is-auth-page input:not([type="hidden"]):focus {
+  border-color: #00D4FF !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15) !important;
+}
+
+/* 6. React-Select (Role Dropdown) */
+body.is-auth-page .rs__control {
+  background: #0B0F19 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  min-height: 44px !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1) inset !important;
+}
+
+body.is-auth-page .rs__control--is-focused {
+  border-color: #00D4FF !important;
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15) !important;
+}
+
+body.is-auth-page .rs__single-value {
+  color: #F8FAFC !important;
+}
+
+body.is-auth-page .rs__menu {
+  background: #131825 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5) !important;
+}
+
+body.is-auth-page .rs__option {
+  background: transparent !important;
+  color: #CBD5E1 !important;
+  padding: 10px 16px !important;
+}
+
+body.is-auth-page .rs__option:hover,
+body.is-auth-page .rs__option--is-focused {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #F8FAFC !important;
+}
+
+body.is-auth-page .rs__multi-value {
+  background: rgba(0, 212, 255, 0.15) !important;
+  border: 1px solid rgba(0, 212, 255, 0.3) !important;
+  border-radius: 6px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  margin: 2px 4px 2px 0 !important;
+  height: 26px !important;
+}
+
+body.is-auth-page .rs__multi-value__label {
+  color: #00D4FF !important;
+  padding: 0 8px !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+}
+
+body.is-auth-page .rs__multi-value__remove {
+  color: #00D4FF !important;
+  cursor: pointer !important;
+  padding: 0 6px 0 0 !important;
+}
+
+body.is-auth-page .rs__multi-value__remove:hover {
+  background: transparent !important;
+  color: #F8FAFC !important;
+}
+
+/* 7. Primary Action Button */
+body.is-auth-page button[type="submit"] {
+  background: #0077b6 !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  padding: 14px !important;
+  border-radius: 8px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  width: 100% !important;
+  margin-top: 16px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+body.is-auth-page button[type="submit"]:hover {
+  background: #0088cc !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 119, 182, 0.3) !important;
+}
+
+/* Logo Alignment */
+body.is-auth-page .payload-brand {
+  display: flex !important;
+  justify-content: center !important;
+  margin-bottom: 24px !important;
+}
+
+/* =======================================================
+   SURGICAL FIX: STOP REACT-SELECT PILL STRETCHING
+   ======================================================= */
+
+/* 1. Force the parent container to vertically center its children (stops sibling stretching) */
+body.is-auth-page .rs__value-container,
+body.is-auth-page div[class*="-ValueContainer"] {
+  display: flex !important;
+  align-items: center !important; 
+  flex-wrap: wrap !important;
+  padding: 4px 12px !important;
+}
+
+/* 2. Brutal lockdown on the Pill (multiValue) dimensions */
+body.is-auth-page .rs__multi-value,
+body.is-auth-page div[class*="-multiValue"] {
+  background: rgba(0, 212, 255, 0.1) !important;
+  border: 1px solid rgba(0, 212, 255, 0.4) !important;
+  border-radius: 4px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  align-self: center !important;
+  height: 24px !important;
+  max-height: 24px !important;
+  min-height: 24px !important;
+  margin: 2px 4px 2px 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+/* 3. Text label inside the pill */
+body.is-auth-page .rs__multi-value__label,
+body.is-auth-page div[class*="-multiValueLabel"] {
+  color: #00D4FF !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 22px !important; /* strictly align text vertically */
+  padding: 0 6px !important;
+  margin: 0 !important;
+  display: inline-block !important;
+  height: 100% !important;
+}
+
+/* 4. Remove button ("x") inside the pill */
+body.is-auth-page .rs__multi-value__remove,
+body.is-auth-page div[class*="-multiValueRemove"] {
+  color: #00D4FF !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 4px !important;
+  margin: 0 !important;
+  height: 100% !important;
+  cursor: pointer !important;
+}
+
+body.is-auth-page .rs__multi-value__remove:hover,
+body.is-auth-page div[class*="-multiValueRemove"]:hover {
+  background: rgba(0, 212, 255, 0.2) !important;
+  color: #FFFFFF !important;
+}
+
+/* =======================================================
+   SILICON VALLEY PROFILE / ACCOUNT PAGE REDESIGN
+   ======================================================= */
+/* Center the account form and make it look like a settings modal */
+body:has(.account) .template-default__wrap {
+  display: flex !important;
+  justify-content: center !important;
+  padding-top: 60px !important;
+}
+
+.account {
+  width: 100% !important;
+  max-width: 600px !important;
+  background: var(--theme-elevation-50) !important;
+  border: 1px solid var(--theme-elevation-150) !important;
+  border-radius: 16px !important;
+  padding: 40px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
+}
+
+:root, html, html[data-theme="dark"], html[data-theme="light"] .account {
+  background: #0A0A0A !important;
+  border: 1px solid #1E293B !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5) !important;
+}
+
+/* Redesign the Account Header */
+.account .document-header {
+  border-bottom: 1px solid var(--theme-elevation-150) !important;
+  padding-bottom: 20px !important;
+  margin-bottom: 30px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+}
+
+.account .document-header__title {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Style the form fields inside Account */
+.account .field-type {
+  margin-bottom: 24px !important;
+}
+
+.account label {
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: var(--theme-elevation-400) !important;
+  margin-bottom: 8px !important;
+}
+
+.account input[type="text"],
+.account input[type="email"],
+.account input[type="password"] {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid var(--theme-elevation-150) !important;
+  border-radius: 0 !important;
+  padding: 10px 0 !important;
+  font-size: 1rem !important;
+  transition: all 0.2s ease !important;
+}
+
+.account input[type="text"]:focus,
+.account input[type="email"]:focus,
+.account input[type="password"]:focus {
+  border-bottom: 1px solid #FFFFFF !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="light"] .account input:focus {
+  border-bottom: 1px solid #000000 !important;
+}
+
+/* Account Save Button */
+.account .form-submit button {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border-radius: 6px !important;
+  padding: 12px 24px !important;
+  font-weight: 500 !important;
+  width: 100% !important;
+  margin-top: 20px !important;
+}
+
+html[data-theme="light"] .account .form-submit button {
+  background: #000000 !important;
+  color: #FFFFFF !important;
+}
+
+
+/* =======================================================
+   FRAME FIX : aucune bordure / bande autour de la page
+   ======================================================= */
+html, body {
+  background: var(--theme-bg) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  min-height: 100vh;
+}
+
+#app, .template-default, .template-default__wrap, .app-layout, main, .app-header {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.template-default { 
+  padding: 0 !important; 
+  margin: 0 !important; 
+  min-height: 100vh; 
+  border: none !important;
+}
+
+.template-default__wrap { 
+  width: 100% !important; 
+  max-width: 100% !important; 
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* Supprimer le bouton toggle menu inutile en haut à gauche */
+.template-default__nav-toggler-wrapper,
+.template-default__nav-toggler-container,
+.template-default__nav-toggler,
+.app-header__mobile-nav-toggler,
+#nav-toggler {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Style moderne et aéré pour le App Header */
+.app-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  background: rgba(15, 23, 42, 0.65) !important;
+  height: 64px !important;
+  position: relative !important;
+  z-index: 50 !important;
+  transition: background 0.3s ease, border-color 0.3s ease !important;
+}
+
+html[data-nob-theme="light"] .app-header {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+html[data-nob-theme="light"] .step-nav__home a {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+html[data-nob-theme="light"] .step-nav__home a:hover {
+  background: rgba(0, 0, 0, 0.08) !important;
+}
+
+html[data-nob-theme="light"] .step-nav__home a svg text {
+  fill: #0F172A !important;
+}
+
+html[data-nob-theme="light"] .app-header * {
+  color: #0F172A;
+}
+
+/* Section step-nav déplacée et unifiée en fin de fichier */
+
+/* =======================================================
+/* =======================================================
+   GLOBAL BACKGROUND (THEME AWARE)
+   ======================================================= */
+html,
+body,
+#app,
+#portal,
+.template-default,
+.template-default__wrap,
+.app-layout,
+main {
+  background-color: var(--theme-bg) !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  padding-bottom: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.has-nob-dock {
+  background-color: var(--theme-bg) !important;
+  padding-bottom: 0 !important;
+}
+
+/* =======================================================
+   MODULES THEME ADAPTATION (Lists, Tables, Documents, Inputs)
+   ======================================================= */
+
+/* TITRES ET LABELS */
+html[data-nob-theme="light"] h1,
+html[data-nob-theme="light"] h2,
+html[data-nob-theme="light"] h3,
+html[data-nob-theme="light"] .collection-list__title,
+html[data-nob-theme="light"] .document-header__title {
+  color: #0F172A !important;
+}
+
+html[data-nob-theme="light"] .collection-list,
+html[data-nob-theme="light"] .document {
+  color: #0F172A !important;
+}
+
+/* TABLES EN MODE CLAIR (APPLE CLEAN STYLE) */
+html[data-nob-theme="light"] .table,
+html[data-nob-theme="light"] table {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+}
+
+html[data-nob-theme="light"] thead tr,
+html[data-nob-theme="light"] th {
+  background: #F8FAFC !important;
+  color: #475569 !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+  font-weight: 600 !important;
+}
+
+html[data-nob-theme="light"] tbody tr {
+  background: #FFFFFF !important;
+  border-bottom: 1px solid #F1F5F9 !important;
+  color: #0F172A !important;
+  transition: background 0.15s ease !important;
+}
+
+html[data-nob-theme="light"] tbody tr:hover {
+  background: #F0F9FF !important;
+}
+
+html[data-nob-theme="light"] td {
+  color: #1E293B !important;
+}
+
+html[data-nob-theme="light"] td a {
+  color: #0284C7 !important;
+  font-weight: 500 !important;
+}
+
+/* FORMULAIRES & INPUTS EN MODE CLAIR */
+html[data-nob-theme="light"] input[type="text"],
+html[data-nob-theme="light"] input[type="number"],
+html[data-nob-theme="light"] input[type="email"],
+html[data-nob-theme="light"] input[type="password"],
+html[data-nob-theme="light"] textarea,
+html[data-nob-theme="light"] select,
+html[data-nob-theme="light"] .rs__control {
+  background: #FFFFFF !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #0F172A !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+html[data-nob-theme="light"] input:focus,
+html[data-nob-theme="light"] textarea:focus,
+html[data-nob-theme="light"] select:focus,
+html[data-nob-theme="light"] .rs__control--is-focused {
+  border-color: #0284C7 !important;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+  background: #FFFFFF !important;
+}
+
+html[data-nob-theme="light"] label,
+html[data-nob-theme="light"] .field-label {
+  color: #334155 !important;
+}
+
+/* CARTE DOCUMENT EN MODE CLAIR */
+html[data-nob-theme="light"] .document-fields,
+html[data-nob-theme="light"] .render-fields {
+  background: transparent !important;
+}
+
+html[data-nob-theme="light"] .field-type {
+  color: #0F172A !important;
+}
+
+/* CONTROLES DE RECHERCHE ET FILTRES */
+html[data-nob-theme="light"] .list-controls {
+  background: transparent !important;
+}
+
+html[data-nob-theme="light"] .search-filter input {
+  background: #FFFFFF !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+html[data-nob-theme="light"] .pill,
+html[data-nob-theme="light"] .pill--style-light {
+  background: #E2E8F0 !important;
+  color: #1E293B !important;
+  border-color: #CBD5E1 !important;
+}
+
+/* PAGINATEUR */
+html[data-nob-theme="light"] .paginator {
+  color: #475569 !important;
+}
+
+html[data-nob-theme="light"] .paginator button,
+html[data-nob-theme="light"] .paginator a {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #334155 !important;
+}
+
+html[data-nob-theme="light"] .paginator button:hover,
+html[data-nob-theme="light"] .paginator a:hover {
+  background: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+/* NO RESULTS */
+html[data-nob-theme="light"] .no-results {
+  background: #FFFFFF !important;
+  border: 1px dashed #CBD5E1 !important;
+  color: #475569 !important;
+}
+
+/* MENUS DEROULANTS & POPUPS */
+html[data-nob-theme="light"] .popup__content,
+html[data-nob-theme="light"] .rs__menu {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+  color: #0F172A !important;
+}
+
+html[data-nob-theme="light"] .rs__option {
+  color: #334155 !important;
+}
+
+html[data-nob-theme="light"] .rs__option--is-focused,
+html[data-nob-theme="light"] .rs__option:hover {
+  background: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+html[data-nob-theme="light"] .rs__single-value {
+  color: #0F172A !important;
+}
+
+/* TIROIR MODAL (DRAWER) EN MODE CLAIR */
+html[data-nob-theme="light"] .drawer__content {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border-left: 1px solid #E2E8F0 !important;
+}
+
+html[data-nob-theme="light"] .drawer__header {
+  border-bottom: 1px solid #E2E8F0 !important;
+}
+
+html[data-nob-theme="light"] .drawer__header h3,
+html[data-nob-theme="light"] .drawer__header h2 {
+  color: #0F172A !important;
+}
+
+html[data-nob-theme="light"] .drawer-backdrop {
+  background: rgba(15, 23, 42, 0.25) !important;
+}
+
+/* =======================================================
+   TABLES ET INPUTS EN MODE SOMBRE (MIDNIGHT STYLING)
+   ======================================================= */
+html[data-nob-theme="dark"] .table,
+html[data-nob-theme="dark"] table {
+  background: #0F172A !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+}
+
+html[data-nob-theme="dark"] thead tr,
+html[data-nob-theme="dark"] th {
+  background: #1E293B !important;
+  color: #E2E8F0 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-nob-theme="dark"] tbody tr {
+  background: #0F172A !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+  color: #F8FAFC !important;
+}
+
+html[data-nob-theme="dark"] tbody tr:hover {
+  background: #1E293B !important;
+}
+
+html[data-nob-theme="dark"] td {
+  color: #CBD5E1 !important;
+}
+
+html[data-nob-theme="dark"] td a {
+  color: #00D4FF !important;
+}
+
+html[data-nob-theme="dark"] input[type="text"],
+html[data-nob-theme="dark"] input[type="number"],
+html[data-nob-theme="dark"] input[type="email"],
+html[data-nob-theme="dark"] input[type="password"],
+html[data-nob-theme="dark"] textarea,
+html[data-nob-theme="dark"] select,
+html[data-nob-theme="dark"] .rs__control {
+  background: #0F172A !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #F8FAFC !important;
+}
+
+html[data-nob-theme="dark"] input:focus,
+html[data-nob-theme="dark"] textarea:focus,
+html[data-nob-theme="dark"] select:focus,
+html[data-nob-theme="dark"] .rs__control--is-focused {
+  border-color: #00D4FF !important;
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15) !important;
+}
+footer,
+.template-default__footer,
+.app-footer,
+.payload-default__footer {
+  display: none !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* =======================================================
+   SUPPRESSION COMPLÈTE DE TOUTE BORDURE SOMBRE AUTOUR DE LA PAGE (ACCUEIL & AUTRES)
+   ======================================================= */
+*, *::before, *::after {
+  outline-color: transparent !important;
+}
+
+html, body, #app, #portal, .template-default, .template-default__wrap, .app-layout, main, .app-header,
+.collection-list, .collection-list__wrap, .document, .document__wrap, .nav, .nav__wrapper {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Élimine les bordures résiduelles Payload sur les conteneurs principaux */
+.app-layout, .template-default {
+  border: 0 !important;
+}
+
+/* =======================================================
+   HEADER DU BACK-OFFICE :
+   1. SUR L'ACCUEIL (/admin) : AUCUN HEADER (DASHBOARD PLEIN ÉCRAN ÉPURÉ)
+   2. SUR LES AUTRES PAGES : JUSTE LE LOGO & TEXTE NOB TECHNOLOGIES CENTRÉ EN HAUT
+   ======================================================= */
+
+/* Masquage total du header sur la page d'accueil du back-office */
+html:has(.custom-os-dashboard) .app-header,
+body:has(.custom-os-dashboard) .app-header {
+  display: none !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+}
+
+/* Template dashboard occupe 100vh sans scroll */
+html:has(.custom-os-dashboard),
+body:has(.custom-os-dashboard),
+body:has(.custom-os-dashboard) .template-default,
+body:has(.custom-os-dashboard) .template-default__wrap {
+  height: 100vh !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+}
+
+/* Sur les autres pages : header transparent, sans bordures, avec logo centré et avatar à droite */
+.app-header {
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  height: 64px !important;
+  position: relative !important;
+  z-index: 50 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  overflow: visible !important;
+  padding: 8px 24px !important;
+  outline: none !important;
+}
+
+html[data-nob-theme="light"] .app-header {
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Masquer les éléments superflus de navigation dans le header */
+.step-nav > *:not(.step-nav__home),
+.step-nav span:not(.step-nav__home *),
+.step-nav a:not(.step-nav__home),
+.app-header__mobile-nav-toggler {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+/* AVATAR DANS LE HEADER : Visible, interactif et positionné avec élégance */
+.app-header .avatar,
+.app-header a[href$="/account"],
+.app-header .app-header__account {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  left: auto !important;
+  pointer-events: auto !important;
+  width: auto !important;
+  height: auto !important;
+  text-decoration: none !important;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  cursor: pointer !important;
+  margin-left: auto !important;
+  z-index: 60 !important;
+}
+
+.app-header .avatar:hover,
+.app-header a[href$="/account"]:hover {
+  transform: scale(1.08) !important;
+}
+
+.step-nav::after,
+.step-nav::before {
+  display: none !important;
+}
+
+/* Conteneur flex centré pour le logo et texte NOB TECHNOLOGIES */
+.step-nav {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: auto !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  pointer-events: auto !important;
+}
+
+.step-nav__home {
+  position: static !important;
+  margin: 0 auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100% !important;
+}
+
+.step-nav__home a,
+.step-nav__home > span {
+  all: unset !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 4px 12px !important;
+  background: transparent !important;
+  border: none !important;
+  transition: transform 0.2s ease !important;
+}
+
+.step-nav__home a:hover,
+.step-nav__home > span:hover {
+  transform: scale(1.03) !important;
+}
+
+.step-nav__home svg {
+  overflow: visible !important;
+  max-width: 100% !important;
+  height: 36px !important;
+  width: auto !important;
+}
+
+html[data-nob-theme="light"] .step-nav__home svg text,
+html[data-nob-theme="light"] .step-nav__home a svg text {
+  fill: #0F172A !important;
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    height: 52px !important;
+    padding: 0 10px !important;
+  }
+  .step-nav__home svg {
+    height: 28px !important;
+    max-width: 240px !important;
+  }
+}
+
+/* =======================================================
+   FORMULAIRES & MESSAGES (BACK-OFFICE LUXE & STATUS PILLS)
+   ======================================================= */
+/* Contact Messages Status Badges in List View */
+.cell-status {
+  display: inline-flex !important;
+  align-items: center !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Modern tabs navigation for requests */
+.tabs-field__tabs {
+  gap: 8px !important;
+  margin-bottom: 24px !important;
+  border-bottom: 1px solid var(--theme-elevation-150) !important;
+  padding-bottom: 8px !important;
+}
+
+.tabs-field__tab-button {
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  padding: 8px 16px !important;
+  transition: all 0.2s ease !important;
+}
+
+
+/* =======================================================
+   TOP BAR UNIFIEE (logo centre + menu avatar) - remplace le header natif Payload
+   ======================================================= */
+html .app-header, html body .app-header { display: none !important; height: 0 !important; min-height: 0 !important; padding: 0 !important; margin: 0 !important; overflow: hidden !important; }
+body.has-nob-topbar:not(:has(.custom-os-dashboard)) .template-default { padding-top: 64px !important; }
+@media (max-width: 640px) { body.has-nob-topbar:not(:has(.custom-os-dashboard)) .template-default { padding-top: 58px !important; } }
+
+/* ===== Listes déroulantes (react-select) : style unifié premium ===== */
+html .rs__control {
+  min-height: 42px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(100,116,139,0.35) !important;
+  background: rgba(255,255,255,0.04) !important;
+  box-shadow: none !important;
+  transition: border-color .15s, box-shadow .15s !important;
+}
+html .rs__control:hover { border-color: rgba(34,211,238,0.55) !important; }
+html .rs__control--is-focused,
+html .rs__control--menu-is-open {
+  border-color: #22d3ee !important;
+  box-shadow: 0 0 0 3px rgba(34,211,238,0.18) !important;
+}
+html .rs__value-container { padding: 2px 12px !important; gap: 4px; }
+html .rs__indicator-separator { display: none !important; }
+html .rs__indicator { color: #64748b !important; padding: 8px 10px !important; }
+html .rs__control--menu-is-open .rs__dropdown-indicator { color: #22d3ee !important; transform: rotate(180deg); }
+html .rs__menu {
+  margin-top: 6px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(100,116,139,0.35) !important;
+  background: #0f172a !important;
+  box-shadow: 0 16px 40px rgba(2,6,23,0.45) !important;
+  overflow: hidden !important;
+  z-index: 9999 !important;
+}
+html .rs__menu-list { padding: 6px !important; max-height: 260px; }
+html .rs__option {
+  border-radius: 8px !important;
+  padding: 9px 12px !important;
+  font-size: 14px !important;
+  color: #e2e8f0 !important;
+  cursor: pointer;
+  background: transparent !important;
+}
+html .rs__option--is-focused { background: rgba(34,211,238,0.12) !important; }
+html .rs__option--is-selected { background: rgba(34,211,238,0.22) !important; color: #fff !important; }
+html .rs__single-value, html .rs__input-container { color: inherit !important; }
+html .rs__placeholder { color: #94a3b8 !important; }
+html .rs__multi-value {
+  border-radius: 999px !important;
+  background: rgba(34,211,238,0.14) !important;
+  border: 1px solid rgba(34,211,238,0.35) !important;
+}
+html .rs__multi-value__label { color: inherit !important; font-size: 12px !important; padding: 2px 8px !important; }
+html .rs__multi-value__remove { border-radius: 0 999px 999px 0 !important; background: transparent !important; }
+html .rs__multi-value__remove:hover { background: rgba(239,68,68,0.2) !important; color: #ef4444 !important; }
+
+html[data-nob-theme="light"] .rs__control { background: #fff !important; border-color: #cbd5e1 !important; }
+html[data-nob-theme="light"] .rs__menu { background: #fff !important; border-color: #e2e8f0 !important; box-shadow: 0 16px 40px rgba(15,23,42,0.15) !important; }
+html[data-nob-theme="light"] .rs__option { color: #0f172a !important; }
+html[data-nob-theme="light"] .rs__option--is-focused { background: #ecfeff !important; }
+html[data-nob-theme="light"] .rs__option--is-selected { background: #cffafe !important; color: #0f172a !important; }
+html[data-nob-theme="light"] .rs__multi-value { background: #ecfeff !important; }
+
+/* Un seul logo : celui de la barre du haut (gauche). On masque les logos/icones natifs Payload dans la navigation. */
+html .nav__brand, html .nav__header, html .nav a[href="/admin"][aria-label], html .nav .graphic-icon, html .nav .graphic-logo,
+html .step-nav__home, html .app-header__logo { display: none !important; }
+
+/* =======================================================
+   SUPPRESSION STRICTE ET RADICALE DES CONTOURS / BORDURES BLEU NUIT
+   (Plein écran bord à bord sans encadrement visible)
+   ======================================================= */
+html,
+body,
+#app,
+#portal,
+main,
+.app-layout,
+.template-default,
+.template-default__wrap,
+.collection-list,
+.collection-list__wrap,
+.document,
+.document__wrap,
+.document__main,
+.document-fields,
+.render-fields,
+.tabs-field,
+.tabs-field__content,
+.account,
+.account__wrap,
+.custom-os-dashboard,
+.nh-root,
+.nh-wall {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Supprime le halo/vignette sombre périphérique sur le wallpaper */
+.nh-wall::after,
+.nh-wall.dark::after {
+  display: none !important;
+  background: none !important;
+}
+
+/* Supprime le contour bleu nuit sur la boîte de profil / compte */
+:root, html, html[data-theme="dark"], html[data-theme="light"] .account {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Supprime les bordures sous la barre de navigation supérieure */
+.ntb,
+.ntb.is-light,
+.ntb.is-dark,
+.app-header {
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+/* Supprime tout contour/encadrement sur les conteneurs de formulaire */
+.document-fields,
+.render-fields,
+.collection-list__header {
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
