@@ -84,12 +84,17 @@ const fallbackFaqs = [
 ];
 
 export default async function FAQPage() {
-  const payload = await getPayloadClient()
-  
-  const { docs: fetchedFaqs } = await payload.find({
-    collection: 'faq',
-    sort: 'order',
-  })
+  let fetchedFaqs: any[] = [];
+  try {
+    const payload = await getPayloadClient();
+    const res = await payload.find({
+      collection: 'faq',
+      sort: 'order',
+    });
+    fetchedFaqs = res?.docs || [];
+  } catch (err) {
+    // Fallback if db is unseeded
+  }
 
   // Use DB FAQs if available, otherwise fallback to hardcoded ones
   // We can't render JSX elements if they are stored as strings from Payload without an HTML parser.

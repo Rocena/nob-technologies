@@ -32,13 +32,18 @@ const getIcon = (slug: string) => {
 }
 
 export default async function ServicesPage() {
-  const payload = await getPayloadClient()
-  
-  const { docs: services } = await payload.find({
-    collection: 'services',
-    where: { status: { equals: 'published' } },
-    sort: 'title',
-  })
+  let services: any[] = [];
+  try {
+    const payload = await getPayloadClient();
+    const res = await payload.find({
+      collection: 'services',
+      where: { status: { equals: 'published' } },
+      sort: 'title',
+    });
+    services = res?.docs || [];
+  } catch (err) {
+    // Fallback if db is unseeded
+  }
 
   return (
     <>

@@ -1,4 +1,4 @@
-﻿import { getPayloadClient } from '@/lib/payload'
+import { getPayloadClient } from '@/lib/payload'
 import { Container, Section } from '@/components/ui/layout'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
@@ -14,14 +14,18 @@ export const metadata = {
 }
 
 export default async function ArticlesPage() {
-  const payload = await getPayloadClient()
-
-  // Retrieve published articles sorted by publication date
-  const { docs: articles } = await payload.find({
-    collection: 'articles',
-    where: { status: { equals: 'published' } },
-    sort: '-publishedDate',
-  })
+  let articles: any[] = [];
+  try {
+    const payload = await getPayloadClient();
+    const res = await payload.find({
+      collection: 'articles',
+      where: { status: { equals: 'published' } },
+      sort: '-publishedDate',
+    });
+    articles = res?.docs || [];
+  } catch (err) {
+    // Fallback if db is unseeded
+  }
 
   return (
     <>

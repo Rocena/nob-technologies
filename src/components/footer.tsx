@@ -8,8 +8,13 @@ import { FooterEmergeText } from "./FooterEmergeText";
 import { NobLogo } from "./NobLogo";
 
 export async function Footer() {
-  const payload = await getPayloadClient();
-  const settings = await payload.findGlobal({ slug: 'site-settings' });
+  let settings: any = null;
+  try {
+    const payload = await getPayloadClient();
+    settings = await payload.findGlobal({ slug: 'site-settings' });
+  } catch (err) {
+    // Graceful fallback during build or when database tables are initializing
+  }
   
   const siteName = settings?.general?.siteName || "NOB TECHNOLOGIES";
   const desc = settings?.general?.siteDescription || "Votre partenaire de confiance pour la transformation digitale et l'intégration de solutions technologiques avancées.";

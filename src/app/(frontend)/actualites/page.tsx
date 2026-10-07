@@ -16,13 +16,18 @@ export const metadata = {
 }
 
 export default async function NewsPage() {
-  const payload = await getPayloadClient()
-  
-  const { docs: news } = await payload.find({
-    collection: 'news',
-    where: { status: { equals: 'published' } },
-    sort: '-publishedAt',
-  })
+  let news: any[] = [];
+  try {
+    const payload = await getPayloadClient();
+    const res = await payload.find({
+      collection: 'news',
+      where: { status: { equals: 'published' } },
+      sort: '-publishedAt',
+    });
+    news = res?.docs || [];
+  } catch (err) {
+    // Fallback if db is unseeded
+  }
 
   return (
     <>

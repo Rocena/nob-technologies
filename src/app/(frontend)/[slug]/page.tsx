@@ -19,34 +19,43 @@ export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const payload = await getPayloadClient();
-  const res = await payload.find({
-    collection: 'pages',
-    where: { slug: { equals: slug } },
-    limit: 1,
-  });
+  try {
+    const payload = await getPayloadClient();
+    const res = await payload.find({
+      collection: 'pages',
+      where: { slug: { equals: slug } },
+      limit: 1,
+    });
 
-  const page = res.docs[0];
-  if (!page) return { title: 'Page non trouvée | NOB TECHNOLOGIES' };
+    const page = res?.docs?.[0];
+    if (!page) return { title: 'Page non trouvée | NOB TECHNOLOGIES' };
 
-  return {
-    title: `${page.metaTitle || page.title} | NOB TECHNOLOGIES`,
-    description: page.metaDescription || page.shortDescription || 'Page NOB TECHNOLOGIES',
-  };
+    return {
+      title: `${page.metaTitle || page.title} | NOB TECHNOLOGIES`,
+      description: page.metaDescription || page.shortDescription || 'Page NOB TECHNOLOGIES',
+    };
+  } catch {
+    return { title: 'Page | NOB TECHNOLOGIES' };
+  }
 }
 
 export default async function DynamicCMSPage({ params }: PageProps) {
   const { slug } = await params;
-  const payload = await getPayloadClient();
+  let page: any = null;
 
-  const res = await payload.find({
-    collection: 'pages',
-    where: { slug: { equals: slug } },
-    limit: 1,
-    depth: 2,
-  });
+  try {
+    const payload = await getPayloadClient();
+    const res = await payload.find({
+      collection: 'pages',
+      where: { slug: { equals: slug } },
+      limit: 1,
+      depth: 2,
+    });
+    page = res?.docs?.[0];
+  } catch (err) {
+    // Fallback if db is unseeded
+  }
 
-  const page = res.docs[0];
   if (!page) {
     notFound();
   }

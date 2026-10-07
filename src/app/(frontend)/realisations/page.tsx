@@ -16,12 +16,17 @@ export const metadata = {
 }
 
 export default async function ProjectsPage() {
-  const payload = await getPayloadClient()
-  
-  const { docs: projects } = await payload.find({
-    collection: 'projects',
-    where: { status: { equals: 'published' } },
-  })
+  let projects: any[] = [];
+  try {
+    const payload = await getPayloadClient();
+    const res = await payload.find({
+      collection: 'projects',
+      where: { status: { equals: 'published' } },
+    });
+    projects = res?.docs || [];
+  } catch (err) {
+    // Fallback if db is unseeded
+  }
 
   return (
     <>

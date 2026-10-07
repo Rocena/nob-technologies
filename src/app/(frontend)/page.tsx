@@ -9,23 +9,33 @@ import { CTA } from "@/components/cta";
 import { getPayloadClient } from "@/lib/payload";
 
 export default async function Home() {
-  const payload = await getPayloadClient();
+  let servicesDocs: any[] = [];
+  let testimonialsDocs: any[] = [];
+  let clientsDocs: any[] = [];
 
-  const [servicesRes, testimonialsRes, clientsRes] = await Promise.all([
-    payload.find({ collection: 'services' }),
-    payload.find({ collection: 'testimonials' }),
-    payload.find({ collection: 'clients' })
-  ]);
+  try {
+    const payload = await getPayloadClient();
+    const [servicesRes, testimonialsRes, clientsRes] = await Promise.all([
+      payload.find({ collection: 'services' }),
+      payload.find({ collection: 'testimonials' }),
+      payload.find({ collection: 'clients' })
+    ]);
+    servicesDocs = servicesRes?.docs || [];
+    testimonialsDocs = testimonialsRes?.docs || [];
+    clientsDocs = clientsRes?.docs || [];
+  } catch (err) {
+    // Fallback if db is unseeded
+  }
 
   return (
     <>
       <Header />
       <main className="flex-1">
         <Hero />
-        <Clients clients={clientsRes.docs} />
+        <Clients clients={clientsDocs} />
         <ValueProposition />
-        <Expertises services={servicesRes.docs} />
-        <Testimonials testimonials={testimonialsRes.docs} />
+        <Expertises services={servicesDocs} />
+        <Testimonials testimonials={testimonialsDocs} />
         <CTA />
       </main>
       <Footer />

@@ -18,9 +18,13 @@ export default async function ContactPage({
 }: {
   searchParams: Promise<{ type?: string }>;
 }) {
-  const { type = 'contact' } = await searchParams;
-  const payload = await getPayloadClient();
-  const settings = await payload.findGlobal({ slug: 'site-settings' });
+  let settings: any = null;
+  try {
+    const payload = await getPayloadClient();
+    settings = await payload.findGlobal({ slug: 'site-settings' });
+  } catch (err) {
+    // Fallback if db is empty during build
+  }
   
   const phone = settings?.contact?.phone || "+221 33 814 04 35 / +221 77 301 08 38";
   const email = settings?.contact?.email || "contact@nobtech.fr";

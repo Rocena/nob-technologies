@@ -17,8 +17,14 @@ export const metadata = {
 }
 
 export default async function AboutPage() {
-  const payload = await getPayloadClient();
-  const clientsRes = await payload.find({ collection: 'clients' });
+  let clientsDocs: any[] = [];
+  try {
+    const payload = await getPayloadClient();
+    const clientsRes = await payload.find({ collection: 'clients' });
+    clientsDocs = clientsRes?.docs || [];
+  } catch (err) {
+    // Fallback if db is unseeded
+  }
 
   return (
     <>
@@ -76,7 +82,7 @@ export default async function AboutPage() {
           </Container>
         </Section>
 
-        <Clients clients={clientsRes.docs} />
+        <Clients clients={clientsDocs} />
 
         {/* What we do */}
         <Section className="py-12 md:py-20 lg:py-32 bg-white relative overflow-hidden">
