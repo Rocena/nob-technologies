@@ -18,6 +18,7 @@ export default async function ContactPage({
 }: {
   searchParams: Promise<{ type?: string }>;
 }) {
+  const { type = 'contact' } = await searchParams;
   let settings: any = null;
   try {
     const payload = await getPayloadClient();
