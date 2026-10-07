@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation';
+import { isRedirectError } from 'next/dist/client/components/redirect-error';
 import { getPayloadClient } from '@/lib/payload';
 import { CustomLogin } from '@/components/admin/CustomLogin';
 
@@ -15,8 +16,11 @@ export default async function LoginPage() {
       redirect('/create-first-user');
     }
   } catch (error) {
-    // Si la base n'est pas encore initialisée ou en cas de count fail, on laisse le formulaire s'afficher
-    console.error('Check user count in LoginPage:', error);
+    if (isRedirectError(error)) {
+      throw error;
+    }
+    // Si la table n'existe pas encore ou erreur DB, on redirige vers la création initiale
+    redirect('/create-first-user');
   }
 
   return <CustomLogin />;

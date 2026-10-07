@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation';
+import { isRedirectError } from 'next/dist/client/components/redirect-error';
 import { getPayloadClient } from '@/lib/payload';
 import { CustomCreateFirstUser } from '@/components/admin/CustomCreateFirstUser';
 
@@ -15,7 +16,10 @@ export default async function CreateFirstUserPage() {
       redirect('/login');
     }
   } catch (error) {
-    console.error('Check user count in CreateFirstUserPage:', error);
+    if (isRedirectError(error)) {
+      throw error;
+    }
+    // Si la table n'est pas encore créée, c'est bien la première création
   }
 
   return <CustomCreateFirstUser />;
