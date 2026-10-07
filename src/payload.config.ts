@@ -1,5 +1,6 @@
 import { fr } from '@payloadcms/translations/languages/fr';
 import { sqliteAdapter } from '@payloadcms/db-sqlite';
+import { postgresAdapter } from '@payloadcms/db-postgres';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import path from 'path';
 import { buildConfig } from 'payload';
@@ -115,11 +116,17 @@ export default buildConfig({
       }
     }
   },
-  db: sqliteAdapter({
-    client: {
-      url: process.env.DATABASE_URI || 'file:./payload.db',
-    },
-  }),
+  db: (process.env.POSTGRES_URL || process.env.DATABASE_URI?.startsWith('postgres'))
+    ? postgresAdapter({
+        pool: {
+          connectionString: process.env.POSTGRES_URL || process.env.DATABASE_URI,
+        },
+      })
+    : sqliteAdapter({
+        client: {
+          url: process.env.DATABASE_URI || 'file:./payload.db',
+        },
+      }),
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
