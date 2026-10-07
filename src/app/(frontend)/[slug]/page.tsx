@@ -64,7 +64,7 @@ export default async function DynamicCMSPage({ params }: PageProps) {
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-4">
                 NOB TECHNOLOGIES
               </span>
-              <Heading as="h1" className="text-3xl md:text-5xl font-black mb-4 tracking-tight text-white">
+              <Heading level={1} className="text-3xl md:text-5xl font-black mb-4 tracking-tight text-white">
                 {page.title}
               </Heading>
               {page.shortDescription && (
@@ -83,7 +83,7 @@ export default async function DynamicCMSPage({ params }: PageProps) {
               return (
                 <Section key={idx} className="bg-[#020617] text-white py-20 md:py-32 relative overflow-hidden">
                   <Container className="relative z-10 text-center max-w-4xl mx-auto">
-                    <Heading as="h1" className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white">
+                    <Heading level={1} className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-white">
                       {block.headline}
                     </Heading>
                     {block.subhead && (
@@ -137,7 +137,7 @@ export default async function DynamicCMSPage({ params }: PageProps) {
                 <Section key={idx} className="py-16 bg-slate-50 border-y border-slate-200/60">
                   <Container>
                     {block.sectionTitle && (
-                      <Heading as="h2" className="text-2xl md:text-4xl font-bold text-center mb-12 text-slate-900">
+                      <Heading level={2} className="text-2xl md:text-4xl font-bold text-center mb-12 text-slate-900">
                         {block.sectionTitle}
                       </Heading>
                     )}
@@ -158,7 +158,7 @@ export default async function DynamicCMSPage({ params }: PageProps) {
               return (
                 <Section key={idx} className="py-16 bg-gradient-to-br from-slate-900 to-slate-950 text-white text-center">
                   <Container className="max-w-3xl mx-auto">
-                    <Heading as="h2" className="text-3xl font-bold mb-4 text-white">{block.headline}</Heading>
+                    <Heading level={2} className="text-3xl font-bold mb-4 text-white">{block.headline}</Heading>
                     {block.text && <p className="text-slate-300 mb-8">{block.text}</p>}
                     <GlowButton href={block.buttonLink}>{block.buttonLabel}</GlowButton>
                   </Container>
@@ -187,7 +187,7 @@ export default async function DynamicCMSPage({ params }: PageProps) {
                   <Container className="max-w-4xl mx-auto">
                     <div className="text-center mb-10">
                       <HelpCircle className="w-10 h-10 text-cyan-500 mx-auto mb-3" />
-                      <Heading as="h2" className="text-3xl font-bold text-slate-900">{block.title || 'FAQ'}</Heading>
+                      <Heading level={2} className="text-3xl font-bold text-slate-900">{block.title || 'FAQ'}</Heading>
                     </div>
                     <div className="space-y-4">
                       {block.relation?.map((item: any, qIdx: number) => (

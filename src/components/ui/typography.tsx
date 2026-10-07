@@ -3,9 +3,15 @@ import { cn } from "@/lib/utils";
 
 export const Heading = React.forwardRef<
   HTMLHeadingElement,
-  React.HTMLAttributes<HTMLHeadingElement> & { level?: 1 | 2 | 3 | 4 | 5 | 6 }
->(({ className, level = 2, ...props }, ref) => {
-  const Tag = `h${level}` as React.ElementType;
+  React.HTMLAttributes<HTMLHeadingElement> & {
+    level?: 1 | 2 | 3 | 4 | 5 | 6;
+    as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | string;
+  }
+>(({ className, level = 2, as, ...props }, ref) => {
+  const resolvedLevel = as
+    ? (parseInt(as.replace('h', ''), 10) as 1 | 2 | 3 | 4 | 5 | 6) || level
+    : level;
+  const Tag = (as || `h${resolvedLevel}`) as React.ElementType;
   
   const sizes = {
     1: "font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tighter text-primary",
@@ -17,7 +23,7 @@ export const Heading = React.forwardRef<
   };
 
   return (
-    <Tag ref={ref as any} className={cn(sizes[level], className)} {...props} />
+    <Tag ref={ref as any} className={cn(sizes[resolvedLevel] || sizes[2], className)} {...props} />
   );
 });
 Heading.displayName = "Heading";
