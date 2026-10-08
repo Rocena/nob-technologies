@@ -11,26 +11,43 @@ import {
   Lock, 
   CheckCircle2, 
   Layers,
-  Sparkles
+  Sparkles,
+  Loader2
 } from "lucide-react";
 
 interface VercelSitePreviewProps {
   url: string;
+  previewUrl?: string;
   title: string;
   fallbackImage: string;
 }
 
 export function VercelSitePreview({
   url,
+  previewUrl,
   title,
   fallbackImage,
 }: VercelSitePreviewProps) {
   const [device, setDevice] = useState<"desktop" | "mobile">("desktop");
-  const [viewMode, setViewMode] = useState<"interactive" | "screenshot">("screenshot");
+  const [viewMode, setViewMode] = useState<"interactive" | "screenshot">("interactive");
   const [key, setKey] = useState(0);
+  const [iframeLoading, setIframeLoading] = useState(true);
+
+  const iframeSrc = previewUrl || (url.includes("parcexotique.sn") ? "/api/preview/parcexotique" : url);
 
   const handleRefresh = () => {
+    setIframeLoading(true);
     setKey((prev) => prev + 1);
+  };
+
+  const handleDeviceChange = (newDevice: "desktop" | "mobile") => {
+    setIframeLoading(true);
+    setDevice(newDevice);
+  };
+
+  const handleViewModeChange = (newMode: "interactive" | "screenshot") => {
+    if (newMode === "interactive") setIframeLoading(true);
+    setViewMode(newMode);
   };
 
   return (
@@ -73,17 +90,7 @@ export function VercelSitePreview({
           {/* View mode toggle (Live interactive vs Screenshot) */}
           <div className="hidden md:flex items-center bg-[#020617] p-0.5 rounded-lg border border-slate-800 text-[11px]">
             <button
-              onClick={() => setViewMode("screenshot")}
-              className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
-                viewMode === "screenshot"
-                  ? "bg-cyan-500 text-slate-950 font-bold"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              Capture HD
-            </button>
-            <button
-              onClick={() => setViewMode("interactive")}
+              onClick={() => handleViewModeChange("interactive")}
               className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                 viewMode === "interactive"
                   ? "bg-cyan-500 text-slate-950 font-bold"
@@ -92,12 +99,22 @@ export function VercelSitePreview({
             >
               Live iFrame
             </button>
+            <button
+              onClick={() => handleViewModeChange("screenshot")}
+              className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
+                viewMode === "screenshot"
+                  ? "bg-cyan-500 text-slate-950 font-bold"
+                  : "text-slate-400 hover:text-white"
+              }`}
+            >
+              Capture HD
+            </button>
           </div>
 
           {/* Device viewport toggle */}
           <div className="flex items-center bg-[#020617] p-0.5 rounded-lg border border-slate-800">
             <button
-              onClick={() => setDevice("desktop")}
+              onClick={() => handleDeviceChange("desktop")}
               title="Aperçu Ordinateur"
               className={`p-1.5 rounded-md transition-colors ${
                 device === "desktop" ? "bg-slate-700 text-white" : "text-slate-400 hover:text-white"
@@ -106,7 +123,7 @@ export function VercelSitePreview({
               <Monitor className="w-3.5 h-3.5" />
             </button>
             <button
-              onClick={() => setDevice("mobile")}
+              onClick={() => handleDeviceChange("mobile")}
               title="Aperçu Mobile"
               className={`p-1.5 rounded-md transition-colors ${
                 device === "mobile" ? "bg-slate-700 text-white" : "text-slate-400 hover:text-white"
@@ -140,15 +157,26 @@ export function VercelSitePreview({
             </div>
 
             {/* Mobile Viewport */}
-            <div className="flex-1 relative overflow-y-auto">
+            <div className="flex-1 relative overflow-y-auto bg-slate-900">
               {viewMode === "interactive" ? (
-                <iframe
-                  key={`mobile-${key}`}
-                  src={url}
-                  title={`${title} - Mobile Preview`}
-                  className="w-full h-full border-0 bg-white"
-                  sandbox="allow-scripts allow-same-origin allow-forms"
-                />
+                <div className="w-full h-full relative">
+                  {iframeLoading && (
+                    <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-xs flex flex-col items-center justify-center gap-2 z-20 pointer-events-none p-4 text-center">
+                      <Loader2 className="w-6 h-6 text-cyan-400 animate-spin" />
+                      <span className="text-[11px] font-mono text-slate-300">
+                        Chargement de la version mobile...
+                      </span>
+                    </div>
+                  )}
+                  <iframe
+                    key={`mobile-${key}`}
+                    src={iframeSrc}
+                    title={`${title} - Mobile Preview`}
+                    onLoad={() => setIframeLoading(false)}
+                    className="w-full h-full border-0 bg-white"
+                    sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-top-navigation-by-user-activation"
+                  />
+                </div>
               ) : (
                 <div className="relative w-full h-full min-h-[500px]">
                   <Image
@@ -171,24 +199,36 @@ export function VercelSitePreview({
           /* Desktop Viewport */
           <div className="w-full h-[520px] md:h-[620px] rounded-xl border border-slate-800/80 bg-slate-950 overflow-hidden relative shadow-inner">
             {viewMode === "interactive" ? (
-              <div className="w-full h-full relative">
+              <div className="w-full h-full relative bg-slate-900">
+                {iframeLoading && (
+                  <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-xs flex flex-col items-center justify-center gap-3 z-20 pointer-events-none">
+                    <Loader2 className="w-8 h-8 text-cyan-400 animate-spin" />
+                    <span className="text-xs font-mono text-slate-300">
+                      Connexion au direct ({url.replace(/^https?:\/\//, '')})...
+                    </span>
+                  </div>
+                )}
                 <iframe
                   key={`desktop-${key}`}
-                  src={url}
+                  src={iframeSrc}
                   title={`${title} - Desktop Preview`}
+                  onLoad={() => setIframeLoading(false)}
                   className="w-full h-full border-0 bg-white"
-                  sandbox="allow-scripts allow-same-origin allow-forms"
+                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-top-navigation-by-user-activation"
                 />
                 {/* Information helper overlay at bottom */}
-                <div className="absolute bottom-3 right-3 px-3 py-1.5 rounded-lg bg-black/80 backdrop-blur-md border border-slate-700 text-[11px] text-slate-300 flex items-center gap-2">
-                  <span>Navigation en direct</span>
+                <div className="absolute bottom-3 right-3 px-3 py-1.5 rounded-lg bg-black/85 backdrop-blur-md border border-slate-700 text-[11px] text-slate-300 flex items-center gap-2 shadow-lg">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>Navigation interactive</span>
+                  </span>
                   <a
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-cyan-400 hover:underline flex items-center gap-1 font-bold"
+                    className="text-cyan-400 hover:text-cyan-300 hover:underline flex items-center gap-1 font-bold ml-1"
                   >
-                    Ouvrir en grand <ExternalLink className="w-3 h-3" />
+                    Ouvrir en plein écran <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
               </div>
@@ -207,7 +247,7 @@ export function VercelSitePreview({
 
                 {/* Floating interactive hover pill */}
                 <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3 px-5 py-2.5 rounded-full bg-slate-950/90 backdrop-blur-xl border border-cyan-500/40 shadow-2xl text-xs text-white">
-                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+                  <Globe className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
                   <span>Site web actif en production &bull; {url.replace(/^https?:\/\//, '')}</span>
                   <a
                     href={url}
