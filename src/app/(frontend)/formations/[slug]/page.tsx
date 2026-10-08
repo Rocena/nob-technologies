@@ -133,10 +133,13 @@ export default async function FormationDetailPage({ params }: Props) {
         <Section className="py-16 bg-slate-900 border-y border-white/10">
           <Container>
             <FadeUp>
-              <div className="mb-10 text-center max-w-2xl mx-auto">
+              <div className="mb-10 text-center max-w-3xl mx-auto">
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-                  Certifications ciblées par ce programme
+                  Certifications Officielles &amp; Titres Constructeurs Ciblés
                 </h2>
+                <p className="text-slate-400 text-sm mt-2 leading-relaxed">
+                  Examens officiels reconnus mondialement, délivrés directement par les constructeurs et organismes accrédités internationaux, passables depuis le Sénégal.
+                </p>
               </div>
             </FadeUp>
 

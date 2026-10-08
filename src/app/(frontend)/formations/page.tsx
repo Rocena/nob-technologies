@@ -123,7 +123,7 @@ export default async function FormationsCatalogPage() {
                       {/* Targeted Certifications Badges */}
                       <div className="mb-6 pb-6 border-b border-white/10">
                         <p className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-2.5">
-                          Certifications visées :
+                          Certifications officielles visées :
                         </p>
                         <div className="flex flex-wrap gap-1.5">
                           {track.targetCertifications.map((cert, i) => (
