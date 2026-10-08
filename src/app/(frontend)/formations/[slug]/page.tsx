@@ -19,6 +19,9 @@ import {
   ArrowRight,
   ShieldCheck,
   GraduationCap,
+  Briefcase,
+  Building2,
+  Banknote,
 } from "lucide-react";
 
 interface Props {
@@ -194,61 +197,205 @@ export default async function FormationDetailPage({ params }: Props) {
           </Container>
         </Section>
 
-        {/* Prerequisites & Outcomes Grid */}
-        <Section className="py-16 bg-slate-900 border-t border-white/10">
+        {/* Career Opportunities, Salary Grid & Outcomes */}
+        <Section className="py-20 bg-slate-900 border-t border-white/10">
           <Container>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {/* Target audience & Prerequisites */}
-              <div className="p-7 rounded-2xl bg-white/5 border border-white/10">
-                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <GraduationCap className="w-5 h-5 text-cyan-400" />
-                  Public Cible &amp; Prérequis
-                </h3>
-
-                <p className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold mb-2">
-                  À qui s&apos;adresse ce cursus :
+            <div className="max-w-5xl mx-auto space-y-12">
+              
+              {/* Section Header */}
+              <div className="text-center max-w-3xl mx-auto">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3">
+                  Débouchés Professionnels &amp; Rémunérations au Sénégal
+                </h2>
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                  Ce cursus intensif de 6 mois est calibré pour répondre aux besoins critiques de recrutement des entreprises sénégalaises, banques de la place et multinationales basées à Dakar.
                 </p>
-                <ul className="space-y-2 mb-6">
-                  {formation.targetAudience.map((aud, i) => (
-                    <li key={i} className="flex items-start gap-2 text-xs text-slate-300">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
-                      <span>{aud}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <p className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">
-                  Prérequis recommandés :
-                </p>
-                <ul className="space-y-2">
-                  {formation.prerequisites.map((req, i) => (
-                    <li key={i} className="flex items-start gap-2 text-xs text-slate-400">
-                      <span className="text-cyan-400 font-bold">&bull;</span>
-                      <span>{req}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
 
-              {/* Outcomes */}
-              <div className="p-7 rounded-2xl bg-white/5 border border-white/10">
-                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <Award className="w-5 h-5 text-emerald-400" />
-                  Bénéfices &amp; Débouchés
-                </h3>
+              {/* 1. Métiers Cibles & Postes auxquels postuler */}
+              {formation.career?.targetRoles && (
+                <div className="space-y-4">
+                  <h3 className="text-lg font-bold text-white flex items-center gap-2.5">
+                    <Briefcase className="w-5 h-5 text-cyan-400" />
+                    <span>Postes &amp; Métiers auxquels vous pourrez postuler</span>
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {formation.career.targetRoles.map((role, i) => (
+                      <div
+                        key={i}
+                        className="p-5 rounded-xl bg-slate-950/70 border border-white/10 hover:border-cyan-500/30 transition-all flex flex-col justify-between"
+                      >
+                        <div>
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="w-2 h-2 rounded-full bg-cyan-400 shrink-0" />
+                            <h4 className="text-sm font-bold text-white">
+                              {role.title}
+                            </h4>
+                          </div>
+                          <p className="text-xs text-slate-300 leading-relaxed">
+                            {role.desc}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
-                <p className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold mb-3">
-                  Ce que vous maîtriserez à l&apos;issue des 6 mois :
-                </p>
-                <ul className="space-y-3">
-                  {formation.keyOutcomes.map((out, i) => (
-                    <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                      <span>{out}</span>
-                    </li>
-                  ))}
-                </ul>
+              {/* 2. Grille de Rémunération Mensuelle Estimée au Sénégal */}
+              {formation.career?.salarySenegal && (
+                <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/30 border border-cyan-500/30 shadow-xl">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/10">
+                    <div>
+                      <div className="flex items-center gap-2 text-cyan-400 mb-1">
+                        <Banknote className="w-5 h-5" />
+                        <span className="text-xs font-mono font-bold uppercase tracking-wider">
+                          Marché de l&apos;emploi IT • Dakar &amp; Sénégal
+                        </span>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-extrabold text-white">
+                        Grille des Rémunérations Mensuelles Estimées
+                      </h3>
+                    </div>
+                    <span className="self-start md:self-auto text-[11px] font-mono px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300">
+                      En FCFA Net / Mois
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5 my-6">
+                    {/* Profil Junior */}
+                    <div className="p-5 rounded-xl bg-slate-900/90 border border-white/10 relative overflow-hidden">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                          Profil Débutant / Junior
+                        </span>
+                        <span className="text-[11px] font-mono text-cyan-400 font-bold">0 - 2 ans</span>
+                      </div>
+                      <p className="text-xl sm:text-2xl font-black text-white mt-1">
+                        {formation.career.salarySenegal.junior}
+                      </p>
+                      <p className="text-[11px] text-slate-400 mt-2 leading-relaxed">
+                        Titulaire d&apos;une certification constructeur officielle (ex. CCNA, NSE4, ISO 27001).
+                      </p>
+                    </div>
+
+                    {/* Profil Intermédiaire */}
+                    <div className="p-5 rounded-xl bg-slate-900/90 border border-cyan-500/40 relative overflow-hidden shadow-lg shadow-cyan-950/40">
+                      <div className="absolute top-0 right-0 w-16 h-16 bg-cyan-500/10 rounded-full blur-xl pointer-events-none" />
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-semibold text-cyan-300 uppercase tracking-wider">
+                          Profil Confirmé / Intermédiaire
+                        </span>
+                        <span className="text-[11px] font-mono text-cyan-400 font-bold">2 - 5 ans</span>
+                      </div>
+                      <p className="text-xl sm:text-2xl font-black text-cyan-300 mt-1">
+                        {formation.career.salarySenegal.intermediate}
+                      </p>
+                      <p className="text-[11px] text-slate-400 mt-2 leading-relaxed">
+                        Autonome sur la gestion de projets, les incidents critiques et la maintenance opérationnelle.
+                      </p>
+                    </div>
+
+                    {/* Profil Senior / Lead */}
+                    <div className="p-5 rounded-xl bg-slate-900/90 border border-white/10 relative overflow-hidden">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">
+                          Senior / Lead / Consultant
+                        </span>
+                        <span className="text-[11px] font-mono text-emerald-400 font-bold">5+ ans</span>
+                      </div>
+                      <p className="text-xl sm:text-2xl font-black text-emerald-400 mt-1">
+                        {formation.career.salarySenegal.senior}
+                      </p>
+                      <p className="text-[11px] text-slate-400 mt-2 leading-relaxed">
+                        Pilotage d&apos;équipes, architecture d&apos;infrastructures critiques ou missions internationales.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 rounded-lg bg-slate-950/80 border border-white/5 text-xs text-slate-400 leading-relaxed">
+                    <strong className="text-slate-300 font-medium">Contexte du marché sénégalais : </strong>
+                    {formation.career.salarySenegal.context}
+                  </div>
+                </div>
+              )}
+
+              {/* 3. Secteurs & Entreprises Recruteuses au Sénégal */}
+              {formation.career?.sectors && (
+                <div className="space-y-4">
+                  <h3 className="text-lg font-bold text-white flex items-center gap-2.5">
+                    <Building2 className="w-5 h-5 text-cyan-400" />
+                    <span>Secteurs &amp; types d&apos;entreprises qui recrutent au Sénégal</span>
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {formation.career.sectors.map((sector, i) => (
+                      <div
+                        key={i}
+                        className="p-3.5 rounded-xl bg-slate-950/60 border border-white/10 flex items-center gap-3 text-xs text-slate-300"
+                      >
+                        <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
+                        <span>{sector}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 4. Public Cible, Prérequis & Compétences Clés */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-white/10">
+                {/* Target audience & Prerequisites */}
+                <div className="p-7 rounded-2xl bg-white/5 border border-white/10">
+                  <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <GraduationCap className="w-5 h-5 text-cyan-400" />
+                    Public Cible &amp; Prérequis
+                  </h3>
+
+                  <p className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold mb-2">
+                    À qui s&apos;adresse ce cursus :
+                  </p>
+                  <ul className="space-y-2 mb-6">
+                    {formation.targetAudience.map((aud, i) => (
+                      <li key={i} className="flex items-start gap-2 text-xs text-slate-300">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                        <span>{aud}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <p className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">
+                    Prérequis recommandés :
+                  </p>
+                  <ul className="space-y-2">
+                    {formation.prerequisites.map((req, i) => (
+                      <li key={i} className="flex items-start gap-2 text-xs text-slate-400">
+                        <span className="text-cyan-400 font-bold">&bull;</span>
+                        <span>{req}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Outcomes */}
+                <div className="p-7 rounded-2xl bg-white/5 border border-white/10">
+                  <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <Award className="w-5 h-5 text-emerald-400" />
+                    Bénéfices &amp; Compétences Maîtrisées
+                  </h3>
+
+                  <p className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold mb-3">
+                    Ce que vous maîtriserez à l&apos;issue des 6 mois :
+                  </p>
+                  <ul className="space-y-3">
+                    {formation.keyOutcomes.map((out, i) => (
+                      <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                        <span>{out}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
+
             </div>
           </Container>
         </Section>

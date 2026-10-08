@@ -63,6 +63,7 @@ export async function getAllFormations(): Promise<Formation[]> {
           keyOutcomes: Array.isArray(doc.keyOutcomes) && doc.keyOutcomes.length > 0
             ? doc.keyOutcomes.map((o: any) => typeof o === 'string' ? o : (o.outcome || ''))
             : (defaultData?.keyOutcomes || []),
+          career: defaultData?.career,
         };
       });
     }
@@ -134,6 +135,7 @@ export async function getFormationBySlug(slug: string): Promise<Formation | null
         keyOutcomes: Array.isArray(doc.keyOutcomes) && doc.keyOutcomes.length > 0
           ? doc.keyOutcomes.map((o: any) => typeof o === 'string' ? o : (o.outcome || ''))
           : (defaultData?.keyOutcomes || []),
+        career: defaultData?.career,
       };
     }
   } catch (error) {

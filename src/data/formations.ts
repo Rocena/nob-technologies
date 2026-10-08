@@ -8,6 +8,17 @@ export interface FormationMonth {
   deliverable: string;
 }
 
+export interface FormationCareer {
+  targetRoles: { title: string; desc: string }[];
+  sectors: string[];
+  salarySenegal: {
+    junior: string;
+    intermediate: string;
+    senior: string;
+    context: string;
+  };
+}
+
 export interface Formation {
   slug: string;
   title: string;
@@ -29,6 +40,7 @@ export interface Formation {
   }[];
   months: FormationMonth[];
   keyOutcomes: string[];
+  career?: FormationCareer;
 }
 
 export const FORMATIONS_DATA: Record<string, Formation> = {
@@ -180,6 +192,40 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       "Portfolio de projets concrets et labs documentés à valoriser auprès des recruteurs",
       "Réseau professionnel et parrainage technique par les ingénieurs seniors de NOB TECH",
     ],
+    career: {
+      targetRoles: [
+        {
+          title: "Administrateur Réseaux & Sécurité",
+          desc: "Gestion quotidienne des commutateurs Cisco, routage OSPF, segmentation VLAN et maintien de la sécurité opérationnelle.",
+        },
+        {
+          title: "Ingénieur Déploiement Firewalls (Fortinet / Sophos)",
+          desc: "Mise en service des appliances de sécurité périmétrique, politiques de filtrage, inspection SSL et VPNs d'interconnexion.",
+        },
+        {
+          title: "Technicien Réseaux & Datacenter N2 / N3",
+          desc: "Résolution des incidents d'infrastructure complexes, supervision SNMP/PRTG et maintenance des équipements en baie.",
+        },
+        {
+          title: "Consultant Infrastructure Réseau Junior",
+          desc: "Audit technique, assistance à maîtrise d'ouvrage et participation aux projets de refonte réseau d'entreprise.",
+        },
+      ],
+      sectors: [
+        "Opérateurs Télécoms & FAI (Orange / Sonatel, Free Sénégal, Expresso)",
+        "Secteur Bancaire & Établissements Financiers (BCEAO, SGBS, CBAO, Ecobank, BHS)",
+        "Sociétés de Services Numériques (ESN / SSII) & Intégrateurs Réseaux à Dakar",
+        "Multinationales, Sièges Régionaux & Grandes ONG Internationales",
+        "Institutions Publiques & Agences Gouvernementales (SENUM SA, Douanes, Port Autonome)",
+      ],
+      salarySenegal: {
+        junior: "450 000 à 700 000 FCFA / mois",
+        intermediate: "800 000 à 1 350 000 FCFA / mois",
+        senior: "1 500 000 à 2 400 000+ FCFA / mois",
+        context:
+          "Salaires nets indicatifs observés à Dakar pour les profils certifiés Cisco (CCNA) et Fortinet (NSE4/FCP). Les profils bilingues intervenant sur des missions régionales ou pour des multinationales accèdent aux tranches supérieures.",
+      },
+    },
   },
 
   "cybersecurite-audit": {
@@ -330,6 +376,40 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       "Éligibilité immédiate à des fonctions très demandées : RSSI adjoint, auditeur cyber, analyste SOC",
       "Accompagnement méthodologique pour le passage des certifications internationales PECB et CompTIA",
     ],
+    career: {
+      targetRoles: [
+        {
+          title: "Analyste SOC (Security Operations Center) N1 / N2",
+          desc: "Surveillance des alertes de sécurité en temps réel, corrélation des événements SIEM et qualification des incidents d'intrusion.",
+        },
+        {
+          title: "Consultant Cybersécurité & Audit ISO 27001",
+          desc: "Audit de conformité organisationnelle, analyse de risques EBIOS RM et accompagnement des entreprises vers la certification.",
+        },
+        {
+          title: "Responsable de la Sécurité des SI (RSSI) Adjoint",
+          desc: "Déploiement de la politique de sécurité (PSSI), sensibilisation du personnel et gestion des plans de continuité d'activité (PCA/PRA).",
+        },
+        {
+          title: "Ingénieur Sécurité Opérationnelle & PAM",
+          desc: "Administration des coffres-forts numériques de mots de passe, bastion Wallix et durcissement des accès à privilèges.",
+        },
+      ],
+      sectors: [
+        "Banques, Assurances & Fintechs (Secteurs soumis à la stricte réglementation cyber BCEAO)",
+        "Opérateurs Télécoms, Datacenters souverains & Cloud providers à Dakar",
+        "Cabinets d'Audit International (Big 4 : PwC, Deloitte, EY, KPMG) & Cabinets Conseils",
+        "Grandes Entreprises Industrielles, Énergie, Mines, Pétrole & Gaz au Sénégal",
+        "Agences Nationales de Cyberdéfense, Ministères & Défense / Renseignement",
+      ],
+      salarySenegal: {
+        junior: "500 000 à 850 000 FCFA / mois",
+        intermediate: "900 000 à 1 600 000 FCFA / mois",
+        senior: "1 700 000 à 2 800 000+ FCFA / mois",
+        context:
+          "La forte pénurie de profils cyber qualifiés au Sénégal et dans l'espace UEMOA fait de la sécurité des SI l'un des domaines les mieux payés à Dakar, avec une prime majeure accordée aux certifiés ISO 27001 et Blue Team.",
+      },
+    },
   },
 
   "automatisation-ia": {
@@ -478,5 +558,39 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       "Économies directes de temps et d'argent immédiatement démontrables pour les entreprises clientes ou employeurs",
       "Accompagnement continu et adhésion au réseau d'experts alumni NOB TECHNOLOGIES",
     ],
+    career: {
+      targetRoles: [
+        {
+          title: "Ingénieur Automatisation & Workflows (n8n / Python)",
+          desc: "Conception de flux automatisés transversaux, synchronisation d'APIs tierces et suppression des tâches manuelles répétitives.",
+        },
+        {
+          title: "Consultant Intégration ERP (Odoo & Dolibarr)",
+          desc: "Déploiement, personnalisation des modules de gestion commerciale, comptabilité et interfaçage avec les plateformes e-commerce.",
+        },
+        {
+          title: "Développeur Solutions IA & Agents d'Entreprise",
+          desc: "Mise en place d'architectures RAG privées, assistants métiers connectés aux données de l'entreprise et automatisation documentaire.",
+        },
+        {
+          title: "Ingénieur DevOps & Cloud Operations Junior",
+          desc: "Conteneurisation Docker, gestion des pipelines CI/CD et surveillance des serveurs hébergeant les automates d'entreprise.",
+        },
+      ],
+      sectors: [
+        "Startups Tech, Scale-ups & Écosystème FinTech / E-commerce à Dakar",
+        "Grandes Entreprises Commerciales, Logistiques & Distributeurs au Sénégal",
+        "Cabinets de Conseil en Organisation & Transformation Digitale",
+        "PME & Industries locales modernisant leurs processus opérationnels",
+        "Clients Européens & Entreprises Internationales en Télétravail (Full Remote)",
+      ],
+      salarySenegal: {
+        junior: "400 000 à 700 000 FCFA / mois",
+        intermediate: "750 000 à 1 300 000 FCFA / mois",
+        senior: "1 400 000 à 2 200 000+ FCFA / mois",
+        context:
+          "Salaires nets indicatifs sur le marché sénégalais. Les compétences en ERP et automatisation IA permettent également des opportunités très lucratives en prestation indépendante (freelance) ou en télétravail international payé en devises.",
+      },
+    },
   },
 };
