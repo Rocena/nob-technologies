@@ -7,6 +7,7 @@ import { Menu, X, ArrowRight, Phone, Mail, Layers, Globe, Star, BookOpen, Info, 
 import { cn } from "@/lib/utils";
 import { AnimatedLogo } from "./AnimatedLogo";
 import { GlowButton } from "./GlowButton";
+import { useQuoteModal } from "./EngineerModalContext";
 import { SearchButton } from "./SearchButton";
 import { usePalette } from "./CommandPaletteProvider";
 
@@ -81,13 +82,6 @@ const DEFAULT_NAV: NavItem[] = [
     desc: 'Culture d’ingénierie sénégalaise et présence internationale',
     order: 6,
   },
-  { 
-    id: 'tarifs',
-    name: 'Tarifs & Devis', 
-    href: '/tarifs', 
-    desc: 'Grille tarifaire et estimation rapide pour vos projets',
-    order: 7,
-  },
 ];
 
 const getNavIcon = (name: string) => {
@@ -106,6 +100,7 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [navItems, setNavItems] = useState<NavItem[]>(DEFAULT_NAV);
   const { setOpen: openSearch } = usePalette();
+  const { openQuoteModal } = useQuoteModal();
 
   // Fetch dynamic pages marked to be included in navigation from CMS
   useEffect(() => {
@@ -247,7 +242,7 @@ export function Header() {
               {/* Desktop Quick Actions */}
               <div className="hidden lg:flex items-center gap-3">
                 <SearchButton />
-                <GlowButton href="/contact">Demander un devis</GlowButton>
+                <GlowButton onClick={() => openQuoteModal()}>Demander un devis</GlowButton>
               </div>
 
               {/* Mobile & Tablet Burger Button */}
@@ -352,7 +347,13 @@ export function Header() {
           {/* Drawer Footer with Quick Calls & Devis CTA */}
           <div className="p-5 sm:p-8 bg-slate-50/90 border-t border-slate-200 mt-auto shrink-0">
             <div className="max-w-3xl mx-auto w-full space-y-3">
-              <GlowButton href="/contact" onClick={closeMenu} className="w-full h-12 text-sm sm:text-base shadow-md">
+              <GlowButton
+                onClick={() => {
+                  closeMenu();
+                  openQuoteModal();
+                }}
+                className="w-full h-12 text-sm sm:text-base shadow-md"
+              >
                 Demander un devis en ligne
               </GlowButton>
 

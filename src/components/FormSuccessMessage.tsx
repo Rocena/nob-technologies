@@ -15,11 +15,11 @@ interface FormSuccessMessageProps {
 }
 
 export function FormSuccessMessage({
-  title = "Demande prise en compte !",
-  message = "Vos informations ont été enregistrées avec succès. Un de nos ingénieurs experts analyse votre demande et vous recontactera sous 24h ouvrées.",
-  badge = "Confirmation instantanée",
+  title = "Merci d'avoir rempli notre formulaire !",
+  message = "Votre demande a bien été envoyée et prise en compte par nos équipes. Un ingénieur NOB TECHNOLOGIES analysera vos spécifications et vous recontactera personnellement sous 24h ouvrées.",
+  badge = "Demande envoyée & prise en compte",
   onReset,
-  resetButtonText = "Envoyer un autre message",
+  resetButtonText = "Fermer la fenêtre",
   variant = "light",
 }: FormSuccessMessageProps) {
   const isDark = variant === "dark";
