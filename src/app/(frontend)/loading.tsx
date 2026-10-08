@@ -4,134 +4,118 @@ import React from 'react';
 
 export default function Loading() {
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#020617] overflow-hidden select-none">
-      {/* Background ambient lighting matching brand colors (Cyan & Emerald) */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[580px] h-[580px] bg-[radial-gradient(circle,rgba(0,212,255,0.18)_0%,rgba(16,231,96,0.1)_45%,transparent_70%)] blur-3xl pointer-events-none animate-pulse" />
-      
-      {/* Tech grid texture in background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#030712] select-none overflow-hidden">
+      {/* Subtle, soft ambient depth - Calm, high-end studio lighting */}
+      <div 
+        className="absolute w-[460px] h-[460px] rounded-full pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, rgba(16, 231, 96, 0.03) 42%, transparent 70%)',
+          filter: 'blur(60px)',
+        }}
+      />
 
-      {/* Central Branding & Loader Stage */}
+      {/* Main Brand Presentation Stage */}
       <div className="relative z-10 flex flex-col items-center">
         
-        {/* Animated Brand Shield Loader */}
-        <div className="relative w-28 h-28 mb-6 flex items-center justify-center">
-          {/* Subtle spinning halo rings */}
-          <div className="absolute inset-0 rounded-full border border-[#00D4FF]/30 animate-spin-slow pointer-events-none" />
-          <div className="absolute -inset-2.5 rounded-full border border-dashed border-[#10E760]/25 animate-spin-reverse pointer-events-none" />
-          
-          {/* Outer glowing pulsing aura */}
-          <div className="absolute inset-2 rounded-full bg-gradient-to-tr from-[#00D4FF]/20 to-[#10E760]/20 blur-md animate-pulse" />
+        {/* Emblem Stage with Sophisticated Breathing Glow & Light Sheen */}
+        <div className="relative w-20 h-20 sm:w-24 sm:h-24 mb-6 flex items-center justify-center">
+          {/* Soft ambient back-glow aura */}
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-[#00D4FF]/15 to-[#10E760]/10 blur-xl animate-emblem-glow pointer-events-none" />
 
-          {/* Official NOBTECH Shield Emblem with floating animation */}
-          <div className="relative w-20 h-20 animate-float-shield drop-shadow-[0_0_28px_rgba(0,212,255,0.6)] flex items-center justify-center">
+          {/* Shield Container */}
+          <div className="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center animate-emblem-breathe">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src="/images/nobtech-shield.png" 
-              alt="NOBTECH Shield" 
-              className="w-full h-full object-contain filter contrast-105"
+              alt="NOBTECH" 
+              className="w-full h-full object-contain filter drop-shadow-[0_4px_24px_rgba(0,212,255,0.28)]"
             />
-          </div>
 
-          {/* Orbiting glowing particles */}
-          <div className="absolute inset-0 animate-spin-slow pointer-events-none">
-            <span className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#00D4FF] shadow-[0_0_10px_#00D4FF]" />
-          </div>
-          <div className="absolute -inset-2 animate-spin-reverse pointer-events-none">
-            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#10E760] shadow-[0_0_10px_#10E760]" />
+            {/* Subtle specular sheen sweep across emblem */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-2xl">
+              <div className="w-full h-full animate-light-sweep bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12" />
+            </div>
           </div>
         </div>
 
-        {/* Official Brand Logotype (NOBTECH typography) */}
-        <div className="flex items-center gap-1.5 mb-2 tracking-normal select-none">
-          <span className="text-3xl sm:text-4xl font-[900] text-white tracking-[-0.03em] drop-shadow-[0_2px_12px_rgba(255,255,255,0.2)]">
-            NOB
-          </span>
-          <span className="text-3xl sm:text-4xl font-[900] bg-clip-text text-transparent bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] tracking-[-0.02em] drop-shadow-[0_2px_16px_rgba(0,212,255,0.4)]">
-            TECH
-          </span>
+        {/* Senior Brand Logotype */}
+        <div className="flex items-center font-sans font-black tracking-[-0.03em] leading-none mb-3 text-2xl sm:text-3xl">
+          <span className="text-white">NOB</span>
+          <span className="bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] bg-clip-text text-transparent">TECH</span>
         </div>
 
-        {/* Official Slogan */}
-        <div className="flex items-center gap-2.5 mb-6 opacity-90 select-none">
-          <span className="h-[1.5px] w-5 bg-gradient-to-r from-transparent to-[#00D4FF]" />
-          <span className="text-[10px] sm:text-[11px] font-bold text-slate-300 tracking-[0.26em] uppercase">
-            LA TECHNOLOGIE À VOTRE PORTÉE
-          </span>
-          <span className="h-[1.5px] w-5 bg-gradient-to-r from-[#10E760] to-transparent" />
-        </div>
+        {/* Official Slogan: subtle, balanced, understated elegance */}
+        <p className="text-[10px] sm:text-[11px] font-semibold tracking-[0.24em] text-slate-400 uppercase mb-8">
+          LA TECHNOLOGIE À VOTRE PORTÉE
+        </p>
 
-        {/* High-tech Cyan to Emerald Loading Progress Bar */}
-        <div className="w-56 sm:w-64 h-1 rounded-full bg-slate-900 border border-white/10 overflow-hidden p-[1px] shadow-inner mb-3">
-          <div className="h-full rounded-full bg-gradient-to-r from-[#00D4FF] via-[#06B6D4] to-[#10E760] animate-laser-progress shadow-[0_0_12px_#00D4FF]" />
+        {/* Minimal Precision Progress Micro-Bar (2px sleek line) */}
+        <div className="w-40 sm:w-48 h-[2px] rounded-full bg-white/[0.08] overflow-hidden relative">
+          <div className="absolute top-0 bottom-0 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] animate-precision-bar shadow-[0_0_8px_rgba(0,212,255,0.6)]" />
         </div>
-
-        {/* Dynamic Status Indicator */}
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#10E760] animate-ping" />
-          <p className="text-[11px] font-medium text-slate-400 tracking-[0.2em] uppercase font-mono">
-            Initialisation sécurisée<span className="text-[#00D4FF] animate-pulse">...</span>
-          </p>
-        </div>
-
       </div>
 
       <style jsx>{`
-        @keyframes laserProgress {
-          0% {
-            transform: translateX(-100%);
-            width: 40%;
+        @keyframes emblemBreathe {
+          0%, 100% {
+            transform: scale(0.985);
+            opacity: 0.94;
           }
           50% {
-            width: 75%;
+            transform: scale(1.02);
+            opacity: 1;
+          }
+        }
+
+        @keyframes emblemGlow {
+          0%, 100% {
+            opacity: 0.45;
+            transform: scale(0.96);
+          }
+          50% {
+            opacity: 0.85;
+            transform: scale(1.04);
+          }
+        }
+
+        @keyframes lightSweep {
+          0% {
+            transform: translateX(-160%) skewX(-20deg);
+          }
+          38%, 100% {
+            transform: translateX(180%) skewX(-20deg);
+          }
+        }
+
+        @keyframes precisionBar {
+          0% {
+            left: -35%;
+            width: 30%;
+          }
+          50% {
+            left: 25%;
+            width: 55%;
           }
           100% {
-            transform: translateX(250%);
-            width: 40%;
+            left: 105%;
+            width: 30%;
           }
         }
 
-        @keyframes floatShield {
-          0%, 100% {
-            transform: translateY(0px) scale(1);
-          }
-          50% {
-            transform: translateY(-6px) scale(1.04);
-          }
+        .animate-emblem-breathe {
+          animation: emblemBreathe 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
 
-        @keyframes spinSlow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
+        .animate-emblem-glow {
+          animation: emblemGlow 2.8s ease-in-out infinite;
         }
 
-        @keyframes spinReverse {
-          from {
-            transform: rotate(360deg);
-          }
-          to {
-            transform: rotate(0deg);
-          }
+        .animate-light-sweep {
+          animation: lightSweep 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
 
-        .animate-laser-progress {
-          animation: laserProgress 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-        }
-
-        .animate-float-shield {
-          animation: floatShield 3s ease-in-out infinite;
-        }
-
-        .animate-spin-slow {
-          animation: spinSlow 8s linear infinite;
-        }
-
-        .animate-spin-reverse {
-          animation: spinReverse 12s linear infinite;
+        .animate-precision-bar {
+          animation: precisionBar 1.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
         }
       `}</style>
     </div>
