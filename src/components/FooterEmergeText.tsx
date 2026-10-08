@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export function FooterEmergeText() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -15,30 +15,36 @@ export function FooterEmergeText() {
   const opacity = useTransform(scrollYProgress, [0, 1], [0.45, 0.95]);
 
   return (
-    <div ref={ref} className="w-full flex flex-col items-center justify-center pointer-events-none select-none py-6 sm:py-10 overflow-hidden relative">
-      {/* Main typographic watermark: NOBTECH */}
-      <motion.h2
+    <div
+      ref={ref}
+      className="w-full flex flex-col items-center justify-center pointer-events-none select-none py-6 sm:py-10 overflow-hidden relative [perspective:1000px]"
+    >
+      {/* 3D Emergent Typographic Watermark: NOBTECH */}
+      <motion.div
         style={{ opacity, y }}
-        className="text-[13vw] sm:text-[11vw] md:text-[9.5vw] lg:text-[8.5vw] leading-none whitespace-nowrap text-center max-w-full font-sans select-none tracking-tight flex items-baseline justify-center relative z-10"
+        className="w-full flex items-center justify-center relative [transform-style:preserve-3d] px-4"
       >
-        <span className="font-[900] tracking-[-0.04em] bg-clip-text text-transparent bg-gradient-to-b from-white/35 via-white/18 to-white/5 drop-shadow-[0_4px_16px_rgba(255,255,255,0.05)]">
-          NOB
-        </span>
-        <span className="font-[900] tracking-[-0.03em] bg-clip-text text-transparent bg-gradient-to-r from-[#00D4FF]/70 via-[#00F0FF]/60 to-[#10E760]/70 drop-shadow-[0_4px_24px_rgba(0,212,255,0.25)]">
-          TECH
-        </span>
-      </motion.h2>
+        <h2
+          style={{
+            transform: "rotateX(24deg)",
+            transformOrigin: "50% 100%",
+            WebkitTransform: "rotateX(24deg)",
+            WebkitTransformOrigin: "50% 100%",
+          }}
+          className="text-[13vw] sm:text-[11vw] md:text-[9.5vw] lg:text-[8.5vw] font-[900] tracking-tight leading-[0.9] whitespace-nowrap text-center select-none bg-clip-text text-transparent bg-gradient-to-t from-white via-white/20 to-transparent drop-shadow-[0_10px_35px_rgba(0,212,255,0.08)] px-6"
+        >
+          NOBTECH
+        </h2>
+      </motion.div>
 
-      {/* Official Slogan flanked by cyan and green gradient lines - STRICT SINGLE LINE */}
+      {/* Official Slogan - Formatted like `>_ PASSEZ A L'ACTION` */}
       <motion.div
         style={{ opacity }}
-        className="mt-3 sm:mt-5 flex items-center justify-center gap-2 sm:gap-5 md:gap-6 max-w-full px-2 select-none relative z-10 overflow-hidden whitespace-nowrap"
+        className="mt-2 sm:mt-4 flex items-center justify-center max-w-full px-4 select-none relative z-20 overflow-hidden whitespace-nowrap"
       >
-        <span className="hidden xs:inline-block h-[1.5px] w-6 sm:w-16 md:w-24 bg-gradient-to-r from-transparent to-[#00D4FF] shrink-0" />
-        <span className="whitespace-nowrap shrink-0 text-[10px] xs:text-xs sm:text-sm md:text-base font-bold uppercase tracking-[0.16em] sm:tracking-[0.26em] md:tracking-[0.34em] bg-clip-text text-transparent bg-gradient-to-r from-slate-200 via-white to-slate-200 drop-shadow-[0_2px_10px_rgba(255,255,255,0.08)]">
-          LA TECHNOLOGIE À VOTRE PORTÉE
-        </span>
-        <span className="hidden xs:inline-block h-[1.5px] w-6 sm:w-16 md:w-24 bg-gradient-to-r from-[#10E760] to-transparent shrink-0" />
+        <p className="font-mono text-accent text-[11px] xs:text-xs sm:text-sm md:text-base tracking-[0.2em] sm:tracking-[0.28em] uppercase font-bold text-center whitespace-nowrap drop-shadow-[0_0_12px_rgba(0,212,255,0.3)]">
+          &gt;_ LA TECHNOLOGIE À VOTRE PORTÉE
+        </p>
       </motion.div>
     </div>
   );
