@@ -42,8 +42,8 @@ const DEFAULT_KNOWLEDGE_BASE: KnowledgeItem[] = [
     response: "Nous proposons des programmes d'immersion de 6 mois pour préparer vos équipes aux certifications d'élite : Cisco (CCNA/CCNP), Fortinet (NSE), CompTIA Security+, ainsi que des cursus en Audit Cybersécurité et Automatisation/IA. Découvrez notre page [Formations](/formations) ! 🎓"
   },
   {
-    keywords: ["erp", "odoo", "dolibarr", "gestion", "logiciel", "web", "mobile", "parc", "exotique"],
-    response: "Nous intégrons des ERP pour digitaliser vos flux (Dolibarr, Odoo) et développons des applications web et mobiles sur-mesure, comme le site officiel du Parc Exotique du Sénégal. 🚀"
+    keywords: ["erp", "odoo", "dolibarr", "gestion", "logiciel", "web", "mobile", "sur-mesure", "progiciel"],
+    response: "Nous concevons des ERP sur-mesure développés selon vos processus métiers spécifiques, et nous intégrons également les solutions de référence comme Dolibarr et Odoo. Nous développons aussi vos applications web & mobiles sur-mesure. 🚀"
   },
   {
     keywords: ["bonjour", "salut", "hello", "bonsoir", "bjr", "coucou", "yo"],

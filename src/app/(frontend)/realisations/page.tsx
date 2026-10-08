@@ -20,10 +20,10 @@ export const metadata = {
 const secondaryProjects: ProjectItem[] = [
   {
     id: 'erp-gestion',
-    title: 'Déploiement ERP d’Entreprise (Odoo / Dolibarr)',
-    sector: 'ERP & Gestion Commerciale',
-    description: 'Installation et paramétrage d’ERP complets pour la gestion des stocks, facturation, devis et comptabilité de PME sénégalaises. Centralisation des flux et formation des équipes utilisatrices.',
-    tags: ['ERP Odoo / Dolibarr', 'Gestion Commerciale', 'Facturation', 'Comptabilité'],
+    title: 'Conception & Déploiement d’ERP d’Entreprise (Sur-Mesure / Odoo / Dolibarr)',
+    sector: 'ERP, Digitalisation & Gestion Commerciale',
+    description: 'Conception d’ERP sur-mesure pour des flux métiers spécifiques, ainsi qu’installation et paramétrage d’ERP de référence (Odoo, Dolibarr) pour la gestion des stocks, facturation, devis et comptabilité de structures sénégalaises et sous-régionales.',
+    tags: ['ERP Sur-Mesure', 'Odoo & Dolibarr', 'Gestion Commerciale', 'Facturation', 'Comptabilité'],
   },
   {
     id: 'infra-firewall',

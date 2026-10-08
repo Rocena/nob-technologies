@@ -20,7 +20,7 @@ Identité & Coordonnées :
 Expertises & Services clés :
 1. Cybersécurité & Firewalls : Sophos (firewalls XGS, Intercept X), Fortinet (FortiGate NGFW), Acronis (sauvegarde anti-ransomware), Wallix (gestion des accès à privilèges PAM/IAM), Kaspersky, Allot (anti-DDoS), GateWatcher (NDR IA souveraine).
 2. Réseaux & Câblage : Câblage structuré cuivre et fibre optique, baies de brassage, commutation Cisco Catalyst, HPE Aruba, Wi-Fi d'entreprise.
-3. ERP & Digitalisation : Intégration et paramétrage d'ERP open-source Dolibarr et Odoo (comptabilité, facturation, stocks, CRM).
+3. ERP & Digitalisation : Conception d'ERP sur-mesure développés de bout en bout pour vos processus métiers uniques, ainsi qu'intégration et paramétrage d'ERP de référence (Dolibarr, Odoo) pour la facturation, stocks, CRM, RH et comptabilité.
 4. Développement Web & Mobile : Applications web sur-mesure (ex: plateforme officielle de l'Hôtel du Parc / Parc Exotique du Sénégal), applications mobiles Flutter (iOS/Android).
 5. Sauvegarde & Cloud Hybride : Solutions Acronis & Veritas, continuité d'activité (PCA/PRA).
 6. Téléphonie IP (VoIP) : Standards IP-PBX Yeastar, passerelles Sangoma et télécoms unifiées.
@@ -94,14 +94,13 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
       "Toutes nos installations font l'objet de tests de certification et de documentation technique complète.";
   }
 
-  // 7. ERP, Digitalisation, Odoo, Dolibarr
+  // 7. ERP, Digitalisation, Conception sur-mesure & Intégration
   if (/(erp|odoo|dolibarr|gestion|factur|stock|comptabilit[eé]|digitalis)/i.test(q)) {
-    return "Pour la gestion et la digitalisation de votre entreprise, nous intégrons les ERP open-source Dolibarr et Odoo 💼 :\n\n" +
-      "• Gestion commerciale complète : devis, commandes, facturation conforme et relances.\n" +
-      "• Suivi des stocks en temps réel et gestion des achats fournisseurs.\n" +
-      "• Module CRM, ressources humaines et paie.\n" +
-      "• Connecteurs sur-mesure pour synchroniser l'ERP avec votre boutique en ligne ou site web.\n\n" +
-      "Nous assurons l'hébergement sécurisé, la formation de vos équipes et l'accompagnement au changement.";
+    return "Pour la digitalisation et la gestion unifiée de votre entreprise, nous intervenons selon deux approches complémentaires 💼 :\n\n" +
+      "1. Conception d'ERP 100% sur-mesure : Nous développons votre progiciel de gestion intégré de bout en bout, taillé pour vos processus métiers spécifiques et vos flux complexes.\n" +
+      "2. Déploiement & Intégration d'ERP de référence (Dolibarr & Odoo) : Paramétrage modulaire complet (gestion commerciale, devis, stocks, facturation, CRM, RH et comptabilité).\n\n" +
+      "• Interconnexions & API : synchronisation bidirectionnelle avec votre site web, vos applications mobiles ou vos outils métiers existants.\n" +
+      "• Hébergement sécurisé, migration de données et formation approfondie de vos équipes.";
   }
 
   // 8. Développement Web & Mobile, Parc Exotique
@@ -131,7 +130,7 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
   }
 
   // 12. Réponse contextuelle par défaut mais intelligente
-  return "Je comprends votre demande concernant votre système d'information. Chez NOB TECHNOLOGIES, nous intervenons sur l'ensemble du spectre IT : cybersécurité (Sophos, Fortinet), réseaux & câblage, ERP (Odoo, Dolibarr), développement web/mobile, licences Office 365 et formations certifiantes sur 6 mois.\n\nPourriez-vous préciser votre besoin afin que je vous oriente au mieux, ou souhaitez-vous échanger directement avec un ingénieur au +221 77 310 83 18 ?";
+  return "Je comprends votre demande concernant votre système d'information. Chez NOB TECHNOLOGIES, nous intervenons sur l'ensemble du spectre IT : cybersécurité (Sophos, Fortinet), réseaux & câblage, conception et intégration d'ERP (sur-mesure, Odoo, Dolibarr), développement web/mobile, licences Office 365 et formations certifiantes sur 6 mois.\n\nPourriez-vous préciser votre besoin afin que je vous oriente au mieux, ou souhaitez-vous échanger directement avec un ingénieur au +221 77 310 83 18 ?";
 }
 
 // Handler for the /api/chat route

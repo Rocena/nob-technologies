@@ -29,9 +29,9 @@ const defaultServices = [
   },
   {
     id: "erp-digitalisation",
-    title: "ERP & Digitalisation (Odoo, Dolibarr)",
+    title: "Conception & Intégration d’ERP",
     slug: "erp-digitalisation",
-    description: "Déploiement et intégration d’ERP complets (Odoo, Dolibarr) pour unifier facturation, stocks, CRM, RH et comptabilité d’entreprise.",
+    description: "Conception d’ERP sur-mesure et intégration experte (Odoo, Dolibarr) pour unifier facturation, stocks, CRM, RH et comptabilité d’entreprise.",
     icon: Code,
     highlight: "POPULAIRE",
   },

@@ -37,7 +37,7 @@ const DEFAULT_NAV: NavItem[] = [
       { name: 'Tous nos Services', href: '/services', desc: 'Catalogue complet d’ingénierie et d’infogérance' },
       { name: 'Cybersécurité & Firewalls', href: '/services/cybersecurite', desc: 'Sophos, Fortinet, SOC & protection des données' },
       { name: 'Réseaux & Câblage', href: '/services/reseaux-cablage', desc: 'Cisco, HPE Aruba, fibre & baies de brassage' },
-      { name: 'ERP & Digitalisation', href: '/services/erp-digitalisation', desc: 'Déploiement Dolibarr, Odoo & automatisation' },
+      { name: 'ERP & Digitalisation', href: '/services/erp-digitalisation', desc: 'Conception sur-mesure, Dolibarr, Odoo & automatisation' },
       { name: 'Développement Web & Mobile', href: '/services/developpement-web-mobile', desc: 'Applications sur-mesure & portails d’entreprise' },
       { name: 'Sauvegarde & Cloud Hybride', href: '/services/sauvegarde-cloud', desc: 'Acronis, Veritas, PCA/PRA & continuité d’activité' },
       { name: 'Téléphonie IP & VoIP', href: '/services/telephonie-ip', desc: 'Yeastar, Sangoma & télécoms unifiées' },

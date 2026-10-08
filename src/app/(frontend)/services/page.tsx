@@ -27,7 +27,7 @@ export const dynamic = 'force-dynamic'
 
 export const metadata = {
   title: 'Catalogue des Services & Expertises | NOB TECHNOLOGIES',
-  description: 'Découvrez les services informatiques de NOB TECHNOLOGIES : cybersécurité (Sophos, Fortinet), câblage réseau, ERP (Odoo, Dolibarr), développement web/mobile, licences Office 365 et infogérance.',
+  description: 'Découvrez les services informatiques de NOB TECHNOLOGIES : cybersécurité (Sophos, Fortinet), câblage réseau, conception et intégration ERP (sur-mesure, Odoo, Dolibarr), développement web/mobile, licences Office 365 et infogérance.',
 }
 
 export interface ServiceDefinition {
@@ -109,12 +109,13 @@ export const OFFICIAL_SERVICES: ServiceDefinition[] = [
   },
   {
     slug: 'erp-gestion',
-    title: 'ERP & Digitalisation d’Entreprise (Odoo / Dolibarr)',
-    category: 'Systèmes de Gestion',
-    description: 'Intégration d’ERP complets adaptés aux PME et grandes entreprises : gestion commerciale, devis et facturation, suivi des stocks, approvisionnements, RH et tableaux de bord financiers.',
+    title: 'Conception & Intégration d’ERP (Sur-Mesure, Odoo, Dolibarr)',
+    category: 'Systèmes de Gestion & Digitalisation',
+    badge: 'SUR-MESURE',
+    description: 'Conception d’ERP sur-mesure développés selon vos processus métiers uniques, et intégration experte de progiciels open-source (Odoo, Dolibarr) : gestion commerciale, devis, stocks, facturation, RH et comptabilité.',
     icon: Database,
-    features: ['Déploiement Odoo & Dolibarr', 'Gestion commerciale, stocks et facturation', 'Paramétrage des droits utilisateurs et sécurité', 'Formation et accompagnement des équipes'],
-    partners: ['Odoo', 'Dolibarr'],
+    features: ['Conception et développement d’ERP sur-mesure', 'Intégration & paramétrage Odoo et Dolibarr', 'Gestion commerciale, stocks, facturation et CRM', 'Connecteurs API, synchronisation et formation'],
+    partners: ['Sur-Mesure', 'Odoo', 'Dolibarr'],
   },
   {
     slug: 'marketing-digital',

@@ -150,20 +150,22 @@ const SERVICES_DATA: Record<string, {
     tech: ["Next.js", "React", "TypeScript", "Node.js", "Flutter", "PostgreSQL"]
   },
   "erp-gestion": {
-    title: "ERP & Digitalisation d’Entreprise (Odoo / Dolibarr)",
+    title: "Conception & Intégration d’ERP (Sur-Mesure, Odoo, Dolibarr)",
     short: "ERP & Gestion",
     icon: Database,
     color: "from-indigo-500 to-purple-500",
-    description: "Intégration d’ERP complets pour unifier et automatiser la facturation, les devis, la gestion des stocks, la comptabilité et les RH.",
-    content: "La transformation digitale de votre entreprise passe par un système de gestion intégré. Nous déployons les solutions ERP Odoo et Dolibarr adaptées à votre secteur d’activité. Nous configurons les modules selon vos processus métiers, migrons vos données existantes et formons vos équipes pour une adoption immédiate.",
+    description: "Conception de logiciels ERP sur-mesure et intégration d'ERP de référence pour unifier et digitaliser la facturation, stocks, comptabilité, CRM et RH.",
+    content: "La transformation digitale de votre entreprise exige des outils qui collent parfaitement à votre réalité opérationnelle. Chez NOB TECHNOLOGIES, nous concevons des ERP sur-mesure développés selon vos logiques métiers spécifiques, tout en assurant l'intégration et le paramétrage avancé des solutions reconnues comme Odoo et Dolibarr. Nous modélisons vos flux, développons vos modules personnalisés, migrons vos données existantes et formons vos équipes pour une adoption fluide et immédiate.",
     features: [
-      "Paramétrage complet d’ERP Odoo et Dolibarr sur serveurs locaux ou cloud",
-      "Gestion commerciale : devis, commandes, facturation et relances",
-      "Gestion des stocks, inventaires, achats et fournisseurs",
-      "Comptabilité générale, trésorerie et tableaux de bord analytiques",
-      "Gestion des ressources humaines, congés et notes de frais"
+      "Conception et développement d'ERP sur-mesure adaptés à vos processus métiers",
+      "Paramétrage et intégration d’ERP open-source Dolibarr et Odoo (serveurs locaux ou cloud)",
+      "Gestion commerciale unifiée : devis, commandes, facturation conforme et relances",
+      "Gestion avancée des stocks, inventaires multi-dépôts, achats et fournisseurs",
+      "Comptabilité générale, trésorerie prévisionnelle et tableaux de bord décisionnels",
+      "Connecteurs API personnalisés avec votre site e-commerce, application mobile et outils tiers",
+      "Gestion des ressources humaines, congés, plannings et notes de frais"
     ],
-    tech: ["Odoo", "Dolibarr", "PostgreSQL", "Python", "Linux"]
+    tech: ["Développement Sur-Mesure", "Odoo", "Dolibarr", "PostgreSQL", "Python", "Node.js", "Linux"]
   },
   "marketing-digital": {
     title: "Marketing Digital & Visibilité de Marque",
@@ -199,14 +201,14 @@ const SERVICES_DATA: Record<string, {
   },
   // Backward compatibility aliases
   "developpement-erp": {
-    title: "Développement & ERP",
-    short: "ERP",
+    title: "Conception & Développement ERP",
+    short: "ERP Sur-Mesure",
     icon: Code,
     color: "from-emerald-400 to-teal-500",
-    description: "Applications métier et ERP sur-mesure pour centraliser la gestion d'entreprise.",
-    content: "Déploiement d'applications web/mobiles et intégration d'ERP Odoo/Dolibarr.",
-    features: ["Intégration Odoo", "Applications Web", "Applications Mobiles", "Gestion de stocks"],
-    tech: ["Odoo", "Dolibarr", "Next.js", "Flutter"]
+    description: "Applications métier et ERP sur-mesure pour centraliser et digitaliser la gestion d'entreprise.",
+    content: "Conception d'ERP sur-mesure, développement d'applications web/mobiles et intégration experte de progiciels Odoo et Dolibarr.",
+    features: ["Conception ERP Sur-Mesure", "Intégration Odoo & Dolibarr", "Applications Web & Mobiles", "Gestion commerciale & stocks"],
+    tech: ["Sur-Mesure", "Odoo", "Dolibarr", "Next.js", "Flutter", "PostgreSQL"]
   },
   "cloud-virtualisation": {
     title: "Cloud & Virtualisation",

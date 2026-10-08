@@ -17,7 +17,7 @@ interface EngineerModalProps {
 const SERVICE_OPTIONS = [
   "Cybersécurité & Firewalls (Sophos, Fortinet)",
   "Réseaux d'Entreprise, Câblage & Wi-Fi",
-  "ERP & Digitalisation (Odoo, Dolibarr)",
+  "ERP & Digitalisation (Conception sur-mesure, Odoo, Dolibarr)",
   "Développement d'Applications Web & Mobile",
   "Vente de Licences Microsoft 365 (ESD & CSP)",
   "Formations & Préparation aux Certifications (6 mois)",
