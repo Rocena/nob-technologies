@@ -4,113 +4,73 @@ import React from 'react';
 
 export default function Loading() {
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#070b14] overflow-hidden select-none">
-      {/* Background ambient lighting matching brand colors */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] bg-[radial-gradient(circle,rgba(0,180,216,0.18)_0%,rgba(10,37,64,0.1)_50%,transparent_70%)] blur-3xl pointer-events-none animate-pulse" />
+    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#020617] overflow-hidden select-none">
+      {/* Background ambient lighting matching brand colors (Cyan & Emerald) */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[580px] h-[580px] bg-[radial-gradient(circle,rgba(0,212,255,0.18)_0%,rgba(16,231,96,0.1)_45%,transparent_70%)] blur-3xl pointer-events-none animate-pulse" />
       
+      {/* Tech grid texture in background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+
       {/* Central Branding & Loader Stage */}
       <div className="relative z-10 flex flex-col items-center">
         
-        {/* Animated Brand Cube Isometric Loader */}
-        <div className="relative w-24 h-24 mb-6 flex items-center justify-center">
-          {/* Subtle spinning halo ring */}
-          <div className="absolute inset-0 rounded-full border border-[#00B4D8]/20 animate-spin-slow pointer-events-none" />
-          <div className="absolute -inset-2 rounded-full border border-dashed border-[#00B4D8]/15 animate-spin-reverse pointer-events-none" />
+        {/* Animated Brand Shield Loader */}
+        <div className="relative w-28 h-28 mb-6 flex items-center justify-center">
+          {/* Subtle spinning halo rings */}
+          <div className="absolute inset-0 rounded-full border border-[#00D4FF]/30 animate-spin-slow pointer-events-none" />
+          <div className="absolute -inset-2.5 rounded-full border border-dashed border-[#10E760]/25 animate-spin-reverse pointer-events-none" />
           
-          {/* Official NOB TECHNOLOGIES Isometric Cube with futuristic breathing pulse & energy trace */}
-          <svg
-            viewBox="0 0 64 64"
-            className="w-20 h-20 drop-shadow-[0_0_24px_rgba(0,180,216,0.55)] animate-float-cube"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <linearGradient id="topFaceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#38BDF8" />
-                <stop offset="100%" stopColor="#00B4D8" />
-              </linearGradient>
-              <linearGradient id="leftFaceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#0284C7" />
-                <stop offset="100%" stopColor="#0369A1" />
-              </linearGradient>
-              <linearGradient id="rightFaceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#0A2540" />
-                <stop offset="100%" stopColor="#1E3A8A" />
-              </linearGradient>
-            </defs>
+          {/* Outer glowing pulsing aura */}
+          <div className="absolute inset-2 rounded-full bg-gradient-to-tr from-[#00D4FF]/20 to-[#10E760]/20 blur-md animate-pulse" />
 
-            {/* Top Face */}
-            <polygon
-              points="32,8 12,20 32,32 52,20"
-              fill="url(#topFaceGrad)"
-              stroke="#FFFFFF"
-              strokeOpacity="0.6"
-              strokeWidth="0.8"
-              strokeLinejoin="round"
-              className="animate-facet-pulse"
+          {/* Official NOBTECH Shield Emblem with floating animation */}
+          <div className="relative w-20 h-20 animate-float-shield drop-shadow-[0_0_28px_rgba(0,212,255,0.6)] flex items-center justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img 
+              src="/images/nobtech-shield.png" 
+              alt="NOBTECH Shield" 
+              className="w-full h-full object-contain filter contrast-105"
             />
+          </div>
 
-            {/* Left Face */}
-            <polygon
-              points="12,20 32,32 32,56 12,44"
-              fill="url(#leftFaceGrad)"
-              stroke="#FFFFFF"
-              strokeOpacity="0.4"
-              strokeWidth="0.8"
-              strokeLinejoin="round"
-            />
-
-            {/* Right Face */}
-            <polygon
-              points="32,32 52,20 52,44 32,56"
-              fill="url(#rightFaceGrad)"
-              stroke="#FFFFFF"
-              strokeOpacity="0.4"
-              strokeWidth="0.8"
-              strokeLinejoin="round"
-            />
-
-            {/* Center Neon Energy Ridge Lines */}
-            <polyline
-              points="32,32 32,56"
-              stroke="#38BDF8"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              className="animate-glow-line"
-            />
-            <polyline
-              points="12,20 32,32 52,20"
-              stroke="#E0F2FE"
-              strokeWidth="1.2"
-              strokeOpacity="0.85"
-              strokeLinecap="round"
-            />
-
-            {/* Orbiting energetic photon dot */}
-            <circle cx="32" cy="32" r="2.2" fill="#FFFFFF" className="animate-ping" />
-          </svg>
+          {/* Orbiting glowing particles */}
+          <div className="absolute inset-0 animate-spin-slow pointer-events-none">
+            <span className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#00D4FF] shadow-[0_0_10px_#00D4FF]" />
+          </div>
+          <div className="absolute -inset-2 animate-spin-reverse pointer-events-none">
+            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#10E760] shadow-[0_0_10px_#10E760]" />
+          </div>
         </div>
 
-        {/* Official Brand Logotype (NOB TECHNOLOGIES typography) */}
-        <div className="flex items-center gap-2 mb-4 tracking-normal">
-          <span className="text-2xl sm:text-3xl font-black text-white tracking-[-0.03em] drop-shadow-[0_2px_10px_rgba(255,255,255,0.15)]">
+        {/* Official Brand Logotype (NOBTECH typography) */}
+        <div className="flex items-center gap-1.5 mb-2 tracking-normal select-none">
+          <span className="text-3xl sm:text-4xl font-[900] text-white tracking-[-0.03em] drop-shadow-[0_2px_12px_rgba(255,255,255,0.2)]">
             NOB
           </span>
-          <span className="text-xl sm:text-2xl font-semibold text-[#00B4D8] tracking-[0.16em] uppercase">
-            TECHNOLOGIES
+          <span className="text-3xl sm:text-4xl font-[900] bg-clip-text text-transparent bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] tracking-[-0.02em] drop-shadow-[0_2px_16px_rgba(0,212,255,0.4)]">
+            TECH
           </span>
         </div>
 
-        {/* High-tech Laser Loading Progress Bar */}
-        <div className="w-56 sm:w-64 h-1 rounded-full bg-slate-800/80 border border-white/5 overflow-hidden p-[1px] shadow-inner mb-3">
-          <div className="h-full rounded-full bg-gradient-to-r from-[#0A2540] via-[#00B4D8] to-[#38BDF8] animate-laser-progress shadow-[0_0_12px_#00B4D8]" />
+        {/* Official Slogan */}
+        <div className="flex items-center gap-2.5 mb-6 opacity-90 select-none">
+          <span className="h-[1.5px] w-5 bg-gradient-to-r from-transparent to-[#00D4FF]" />
+          <span className="text-[10px] sm:text-[11px] font-bold text-slate-300 tracking-[0.26em] uppercase">
+            LA TECHNOLOGIE À VOTRE PORTÉE
+          </span>
+          <span className="h-[1.5px] w-5 bg-gradient-to-r from-[#10E760] to-transparent" />
         </div>
 
-        {/* Dynamic Status Text matching Logo identity */}
+        {/* High-tech Cyan to Emerald Loading Progress Bar */}
+        <div className="w-56 sm:w-64 h-1 rounded-full bg-slate-900 border border-white/10 overflow-hidden p-[1px] shadow-inner mb-3">
+          <div className="h-full rounded-full bg-gradient-to-r from-[#00D4FF] via-[#06B6D4] to-[#10E760] animate-laser-progress shadow-[0_0_12px_#00D4FF]" />
+        </div>
+
+        {/* Dynamic Status Indicator */}
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00B4D8] animate-ping" />
-          <p className="text-[11px] sm:text-xs font-medium text-slate-400 tracking-[0.25em] uppercase font-mono">
-            Chargement en cours<span className="text-[#00B4D8] animate-pulse">...</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#10E760] animate-ping" />
+          <p className="text-[11px] font-medium text-slate-400 tracking-[0.2em] uppercase font-mono">
+            Initialisation sécurisée<span className="text-[#00D4FF] animate-pulse">...</span>
           </p>
         </div>
 
@@ -131,21 +91,12 @@ export default function Loading() {
           }
         }
 
-        @keyframes floatCube {
+        @keyframes floatShield {
           0%, 100% {
             transform: translateY(0px) scale(1);
           }
           50% {
-            transform: translateY(-5px) scale(1.03);
-          }
-        }
-
-        @keyframes facetPulse {
-          0%, 100% {
-            filter: brightness(1);
-          }
-          50% {
-            filter: brightness(1.25);
+            transform: translateY(-6px) scale(1.04);
           }
         }
 
@@ -171,20 +122,16 @@ export default function Loading() {
           animation: laserProgress 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
 
-        .animate-float-cube {
-          animation: floatCube 2.8s ease-in-out infinite;
-        }
-
-        .animate-facet-pulse {
-          animation: facetPulse 2.8s ease-in-out infinite;
+        .animate-float-shield {
+          animation: floatShield 3s ease-in-out infinite;
         }
 
         .animate-spin-slow {
-          animation: spinSlow 9s linear infinite;
+          animation: spinSlow 8s linear infinite;
         }
 
         .animate-spin-reverse {
-          animation: spinReverse 14s linear infinite;
+          animation: spinReverse 12s linear infinite;
         }
       `}</style>
     </div>

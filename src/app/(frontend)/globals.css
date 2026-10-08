@@ -1,11 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  /* Premium Tech Palette for NOB */
-  --primary: #0A2540; /* Deep professional navy */
-  --primary-dark: #001224;
+  /* Premium Tech Palette for NOBTECH (Aligned with new Shield Logo) */
+  --primary: #0A2540; /* Deep professional midnight navy */
+  --primary-dark: #031E3E;
   --primary-light: #1A3E63;
-  --accent: #00D4FF; /* Tech blue for CTA/Hover */
+  --accent: #00D4FF; /* Tech Electric Cyan */
+  --accent-cyan: #00D4FF;
+  --accent-green: #10E760; /* Tech Electric Emerald */
+  --accent-emerald: #10E760;
   
   --background: #FAFAFA;
   --surface: #FFFFFF;
@@ -15,7 +18,7 @@
   --muted: #6B7280;
   --border: #E5E7EB;
   
-  --success: #10B981;
+  --success: #10E760;
   --warning: #F59E0B;
   --error: #EF4444;
 }
@@ -25,6 +28,9 @@
   --color-primary-dark: var(--primary-dark);
   --color-primary-light: var(--primary-light);
   --color-accent: var(--accent);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-green: var(--accent-green);
+  --color-accent-emerald: var(--accent-emerald);
   
   --color-background: var(--background);
   --color-surface: var(--surface);

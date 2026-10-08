@@ -1293,3 +1293,24 @@ html[data-nob-theme="light"] .step-nav__home a svg text {
     max-width: 210px !important;
   }
 }
+
+/* =======================================================
+   LOGO DYNAMIQUE NOBTECH : ADAPTATION THÈME SOMBRE / CLAIR
+   ======================================================= */
+html[data-theme="dark"] .nob-word-text,
+html[data-nob-theme="dark"] .nob-word-text,
+.ntb.is-dark .nob-word-text,
+body.dark .nob-word-text {
+  fill: #FFFFFF !important;
+}
+
+html[data-theme="light"] .nob-word-text,
+html[data-nob-theme="light"] .nob-word-text,
+.ntb.is-light .nob-word-text,
+body.light .nob-word-text {
+  fill: #0B2545 !important;
+}
+
+.nob-tech-text {
+  fill: url(#nobTechGrad) !important;
+}

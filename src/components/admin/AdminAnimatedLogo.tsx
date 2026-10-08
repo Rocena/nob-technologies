@@ -16,7 +16,7 @@ export const AdminAnimatedLogo = ({ size = 'normal' }) => {
         transition: 'transform 0.2s ease',
       }}
     >
-      <NobLogo height={height} />
+      <NobLogo height={height} textColor="currentColor" />
     </div>
   );
 };

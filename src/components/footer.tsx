@@ -33,7 +33,7 @@ export async function Footer() {
           
           <div className="lg:col-span-4 flex flex-col items-start">
             <div className="mb-6">
-              <NobLogo height={32} showText={true} />
+              <NobLogo height={42} showText={true} textColor="#FFFFFF" showSlogan={true} />
             </div>
             <Text className="text-slate-400 mb-8 text-sm leading-relaxed max-w-sm">
               {desc}

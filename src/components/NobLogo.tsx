@@ -5,6 +5,7 @@ interface NobLogoProps {
   width?: number | string;
   height?: number | string;
   showText?: boolean;
+  showSlogan?: boolean;
   textColor?: string;
 }
 
@@ -13,12 +14,17 @@ export const NobLogo: React.FC<NobLogoProps> = ({
   width = "auto", 
   height = 40,
   showText = true,
+  showSlogan = false,
   textColor = "currentColor" 
 }) => {
+  const viewBox = !showText 
+    ? "0 0 76 76" 
+    : (showSlogan ? "0 0 340 92" : "0 0 320 76");
+
   return (
     <svg 
       xmlns="http://www.w3.org/2000/svg" 
-      viewBox={showText ? "0 0 540 80" : "0 0 80 80"}
+      viewBox={viewBox}
       width={width} 
       height={height}
       className={className}
@@ -26,69 +32,127 @@ export const NobLogo: React.FC<NobLogoProps> = ({
       style={{ overflow: 'visible' }}
     >
       <defs>
-        <linearGradient id="nobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        {/* TECH Cyan-to-Emerald Signature Gradient */}
+        <linearGradient id="nobTechGrad" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="#00D4FF" />
-          <stop offset="50%" stopColor="#0088CC" />
-          <stop offset="100%" stopColor="#004488" />
+          <stop offset="50%" stopColor="#00F0FF" />
+          <stop offset="100%" stopColor="#10E760" />
         </linearGradient>
-        
+
+        {/* Shield Outer Border Neon Gradient */}
+        <linearGradient id="nobBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#00E5FF" />
+          <stop offset="100%" stopColor="#10E760" />
+        </linearGradient>
+
+        {/* Shield Radial Glow */}
+        <radialGradient id="nobShieldGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#00E5FF" stopOpacity="0.4" />
+          <stop offset="65%" stopColor="#10E760" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#000000" stopOpacity="0" />
+        </radialGradient>
+
         <style>
           {`
-            @keyframes faceIn {
-              0% { opacity: 0; transform: translateY(4px); }
-              100% { opacity: 1; transform: translateY(0); }
+            @keyframes shieldPulse {
+              0%, 100% { transform: scale(1); filter: drop-shadow(0 0 6px rgba(0,212,255,0.3)); }
+              50% { transform: scale(1.02); filter: drop-shadow(0 0 12px rgba(16,231,96,0.4)); }
             }
-            @keyframes lineDraw {
-              0% { stroke-dashoffset: 50; opacity: 0; }
-              100% { stroke-dashoffset: 0; opacity: 1; }
+            .nob-shield-anim {
+              transform-origin: 38px 38px;
+              transition: transform 0.3s ease, filter 0.3s ease;
             }
-            .face-top { animation: faceIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s both; }
-            .face-left { animation: faceIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both; }
-            .face-right { animation: faceIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s both; }
-            .wire-glow { 
-              stroke-dasharray: 50; 
-              animation: lineDraw 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s both; 
+            .nob-logo-root:hover .nob-shield-anim {
+              transform: scale(1.04);
+              filter: drop-shadow(0 0 14px rgba(0,212,255,0.55));
             }
           `}
         </style>
       </defs>
 
-      {/* LE LOGOMARK */}
-      <g transform="translate(6, 6) scale(1.15)">
-        {/* Faces animées en cascade */}
-        <polygon points="32,6 12,18 32,30 52,18" fill="#33DDFF" stroke="#FFFFFF" strokeOpacity="0.35" strokeWidth="0.8" strokeLinejoin="round" className="face-top" />
-        <polygon points="12,18 32,30 32,54 12,42" fill="#0A9FE0" stroke="#FFFFFF" strokeOpacity="0.25" strokeWidth="0.8" strokeLinejoin="round" className="face-left" />
-        <polygon points="32,30 52,18 52,42 32,54" fill="#1565C0" stroke="#FFFFFF" strokeOpacity="0.25" strokeWidth="0.8" strokeLinejoin="round" className="face-right" />
-        
-        {/* Lignes lumineuses tracées dynamiquement */}
-        <polyline points="32,30 32,54" stroke="#00D4FF" strokeWidth="1.5" className="wire-glow" />
-        <polyline points="12,18 32,30 52,18" stroke="#FFFFFF" strokeWidth="1.5" opacity="0.5" className="wire-glow" />
+      {/* LE LOGOMARK : Authentic Shield Emblem */}
+      <g className="nob-shield-anim">
+        {/* Ambient Glow */}
+        <circle cx="38" cy="38" r="35" fill="url(#nobShieldGlow)" />
+
+        {/* Fallback Vector Heptagon Shield */}
+        <polygon 
+          points="38,2 66,13 74,44 54,72 22,72 2,44 10,13" 
+          fill="#031E3E" 
+          stroke="url(#nobBorderGrad)" 
+          strokeWidth="2.5" 
+          strokeLinejoin="round" 
+        />
+
+        {/* High-Resolution Emblem Image Overlay */}
+        <image 
+          href="/images/nobtech-shield-256.png" 
+          x="0" 
+          y="0" 
+          width="76" 
+          height="76" 
+          preserveAspectRatio="xMidYMid meet" 
+        />
       </g>
 
-      {/* LE LOGOTYPE */}
+      {/* LE LOGOTYPE : NOB + TECH */}
       {showText && (
-        <g transform="translate(90, 52)">
+        <g transform="translate(86, 0)">
+          {/* Mot "NOB" : S'adapte au fond/thème (blanc en sombre, marine en clair) */}
           <text 
+            x="0"
+            y="52"
             fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" 
-            fontSize="40" 
+            fontSize="46" 
             fontWeight="900" 
             fill={textColor} 
             letterSpacing="-0.5"
+            className="nob-word-text"
           >
             NOB
           </text>
+
+          {/* Mot "TECH" : Dégradé Cyan-Vert Signature Immuable */}
           <text 
-            x="96"
+            x="100"
+            y="52"
             fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" 
-            fontSize="38" 
-            fontWeight="600" 
-            fill={textColor} 
-            letterSpacing="2.5"
+            fontSize="46" 
+            fontWeight="900" 
+            fill="url(#nobTechGrad)" 
+            letterSpacing="-0.5"
+            className="nob-tech-text"
           >
-            TECHNOLOGIES
+            TECH
           </text>
+
+          {/* Slogan officiel optionnel */}
+          {showSlogan && (
+            <g transform="translate(0, 78)">
+              {/* Ligne accent cyan gauche */}
+              <line x1="2" y1="-4" x2="28" y2="-4" stroke="#00D4FF" strokeWidth="2.5" strokeLinecap="round" />
+
+              {/* Texte slogan */}
+              <text 
+                x="36"
+                y="0"
+                fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" 
+                fontSize="10" 
+                fontWeight="700" 
+                fill={textColor} 
+                letterSpacing="2.8"
+                opacity="0.85"
+              >
+                LA TECHNOLOGIE À VOTRE PORTÉE
+              </text>
+
+              {/* Ligne accent vert droite */}
+              <line x1="226" y1="-4" x2="252" y2="-4" stroke="#10E760" strokeWidth="2.5" strokeLinecap="round" />
+            </g>
+          )}
         </g>
       )}
     </svg>
   );
 };
+
