@@ -133,6 +133,7 @@ export default buildConfig({
         pool: {
           connectionString: postgresUri,
         },
+        push: true,
       });
     }
 
