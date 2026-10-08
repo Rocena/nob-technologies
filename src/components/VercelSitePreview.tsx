@@ -78,9 +78,9 @@ export function VercelSitePreview({
             <button
               onClick={handleRefresh}
               title="Recharger l'aperçu"
-              className="text-slate-400 hover:text-white transition-colors"
+              className="text-slate-400 hover:text-cyan-400 transition-colors cursor-pointer"
             >
-              <RotateCw className="w-3 h-3" />
+              <RotateCw className="w-3.5 h-3.5 hover:rotate-180 transition-transform duration-300" />
             </button>
           </div>
         </div>
@@ -91,20 +91,20 @@ export function VercelSitePreview({
           <div className="hidden md:flex items-center bg-[#020617] p-0.5 rounded-lg border border-slate-800 text-[11px]">
             <button
               onClick={() => handleViewModeChange("interactive")}
-              className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
+              className={`px-2.5 py-1 rounded-md font-medium transition-colors cursor-pointer ${
                 viewMode === "interactive"
-                  ? "bg-cyan-500 text-slate-950 font-bold"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-accent text-[#020617] font-bold shadow-xs"
+                  : "text-slate-400 hover:text-cyan-300 hover:bg-white/5"
               }`}
             >
               Live iFrame
             </button>
             <button
               onClick={() => handleViewModeChange("screenshot")}
-              className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
+              className={`px-2.5 py-1 rounded-md font-medium transition-colors cursor-pointer ${
                 viewMode === "screenshot"
-                  ? "bg-cyan-500 text-slate-950 font-bold"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-accent text-[#020617] font-bold shadow-xs"
+                  : "text-slate-400 hover:text-cyan-300 hover:bg-white/5"
               }`}
             >
               Capture HD
@@ -116,8 +116,10 @@ export function VercelSitePreview({
             <button
               onClick={() => handleDeviceChange("desktop")}
               title="Aperçu Ordinateur"
-              className={`p-1.5 rounded-md transition-colors ${
-                device === "desktop" ? "bg-slate-700 text-white" : "text-slate-400 hover:text-white"
+              className={`p-1.5 rounded-md transition-colors cursor-pointer ${
+                device === "desktop"
+                  ? "bg-accent text-[#020617] font-bold shadow-xs"
+                  : "text-slate-400 hover:text-cyan-300 hover:bg-white/5"
               }`}
             >
               <Monitor className="w-3.5 h-3.5" />
@@ -125,8 +127,10 @@ export function VercelSitePreview({
             <button
               onClick={() => handleDeviceChange("mobile")}
               title="Aperçu Mobile"
-              className={`p-1.5 rounded-md transition-colors ${
-                device === "mobile" ? "bg-slate-700 text-white" : "text-slate-400 hover:text-white"
+              className={`p-1.5 rounded-md transition-colors cursor-pointer ${
+                device === "mobile"
+                  ? "bg-accent text-[#020617] font-bold shadow-xs"
+                  : "text-slate-400 hover:text-cyan-300 hover:bg-white/5"
               }`}
             >
               <Smartphone className="w-3.5 h-3.5" />
@@ -138,7 +142,7 @@ export function VercelSitePreview({
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-colors shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent hover:bg-[#00B4D8] text-[#020617] font-bold text-xs transition-all shadow-sm hover:shadow-[0_2px_10px_rgba(0,212,255,0.3)] active:scale-95"
           >
             <span>Ouvrir</span>
             <ExternalLink className="w-3 h-3" />
@@ -253,7 +257,7 @@ export function VercelSitePreview({
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="ml-2 px-3 py-1 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition-transform hover:scale-105 inline-flex items-center gap-1"
+                    className="ml-2 px-3.5 py-1 rounded-full bg-accent hover:bg-[#00B4D8] text-[#020617] font-bold transition-transform hover:scale-105 active:scale-95 inline-flex items-center gap-1 shadow-sm"
                   >
                     Visiter <ExternalLink className="w-3 h-3" />
                   </a>

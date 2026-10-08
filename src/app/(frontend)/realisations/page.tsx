@@ -158,7 +158,7 @@ export default async function ProjectsPage() {
                   href="https://parcexotique.sn/fr/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-slate-900 text-white font-semibold text-xs hover:bg-cyan-600 transition-colors shadow-sm"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent hover:bg-[#00B4D8] text-[#020617] font-bold text-xs shadow-sm hover:shadow-[0_2px_10px_rgba(0,212,255,0.3)] transition-all active:scale-95"
                 >
                   <span>Visiter le site en direct</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -175,9 +175,6 @@ export default async function ProjectsPage() {
               <FadeUp>
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-6">
                   <div>
-                    <p className="font-mono text-cyan-600 text-xs tracking-[0.25em] uppercase font-bold mb-2">
-                      &gt;_ AUTRES PROJETS DÉPLOYÉS
-                    </p>
                     <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                       Infrastructures, ERP & Réseaux
                     </h2>
