@@ -150,11 +150,12 @@ export function VercelSitePreview({
                   sandbox="allow-scripts allow-same-origin allow-forms"
                 />
               ) : (
-                <div className="relative w-full h-[1200px]">
+                <div className="relative w-full h-full min-h-[500px]">
                   <Image
                     src={fallbackImage}
                     alt={title}
                     fill
+                    unoptimized
                     className="object-cover object-top"
                   />
                 </div>
@@ -192,14 +193,15 @@ export function VercelSitePreview({
                 </div>
               </div>
             ) : (
-              <div className="w-full h-full relative overflow-y-auto group">
-                <div className="relative w-full h-[1400px]">
+              <div className="w-full h-full relative overflow-y-auto group bg-slate-950">
+                <div className="relative w-full h-full min-h-[580px]">
                   <Image
                     src={fallbackImage}
                     alt={title}
                     fill
                     priority
-                    className="object-cover object-top"
+                    unoptimized
+                    className="object-contain sm:object-cover object-top"
                   />
                 </div>
 

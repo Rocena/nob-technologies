@@ -103,8 +103,8 @@ export default async function ProjectsPage() {
             <div className="mb-14">
               <VercelSitePreview
                 url="https://parcexotique.sn/fr/"
-                title="Parc Exotique du Sénégal"
-                fallbackImage="/images/parc-exotique-preview.jpg"
+                title="Hôtel du Parc Exotique du Sénégal"
+                fallbackImage="/images/parc-exotique-preview.png"
               />
             </div>
 

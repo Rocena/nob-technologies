@@ -139,7 +139,7 @@ const SERVICES_DATA: Record<string, {
     icon: Smartphone,
     color: "from-cyan-500 to-blue-500",
     description: "Conception sur-mesure de plateformes web institutionnelles, portails connectés et applications mobiles iOS & Android.",
-    content: "Donnez vie à vos projets digitaux avec des solutions logicielles performantes, élégantes et sécurisées. Notre équipe de développement conçoit des plateformes web sur-mesure (à l'image de la plateforme officielle du Parc Exotique du Sénégal), des portails clients, des extranets d'entreprise et des applications mobiles adaptées aux usages locaux et internationaux.",
+    content: "Donnez vie à vos projets digitaux avec des solutions logicielles performantes, élégantes et sécurisées. Notre équipe de développement conçoit des plateformes web modernes et sur-mesure, des portails clients, des extranets d'entreprise et des applications mobiles performantes adaptées aux usages locaux et internationaux.",
     features: [
       "Développement de plateformes web rapides et responsives (Next.js, React)",
       "Applications mobiles pour iOS et Android (Flutter)",

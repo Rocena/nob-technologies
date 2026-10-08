@@ -208,11 +208,12 @@ export function Clients({ clients = [] }: { clients: any[] }) {
                   
                   <div className="relative aspect-[16/10] w-full overflow-hidden">
                     <Image
-                      src="/images/parc-exotique-preview.jpg"
-                      alt="Aperçu du site Parc Exotique du Sénégal"
+                      src="/images/parc-exotique-preview.png"
+                      alt="Aperçu officiel du site Hôtel du Parc Exotique du Sénégal"
                       fill
                       sizes="(max-width: 768px) 100vw, 40vw"
                       className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      unoptimized
                     />
                   </div>
                 </div>
