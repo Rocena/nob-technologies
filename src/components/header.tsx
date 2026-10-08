@@ -172,9 +172,17 @@ export function Header() {
                     {/* Desktop Single Menu Summary Hover Card */}
                     <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50 w-[380px]">
                       <div className="bg-white/98 backdrop-blur-2xl border border-slate-200/90 shadow-[0_20px_50px_rgba(0,0,0,0.12)] rounded-2xl p-4 sm:p-5 relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-bl-full pointer-events-none" />
+                        {/* Discrete NOBTECH Shield Watermark in top-right */}
+                        <div className="absolute -top-2 -right-2 w-20 h-20 opacity-[0.08] pointer-events-none select-none overflow-hidden">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img 
+                            src="/images/nobtech-shield.png" 
+                            alt="" 
+                            className="w-full h-full object-contain" 
+                          />
+                        </div>
                         
-                        <div className="flex items-center justify-between gap-2 mb-2">
+                        <div className="flex items-center justify-between gap-2 mb-2 relative z-10">
                           {item.badge && (
                             <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-600 bg-cyan-50 border border-cyan-200/60 px-2 py-0.5 rounded-md">
                               {item.badge}
@@ -183,7 +191,7 @@ export function Header() {
                           <span className="text-[10px] font-mono text-slate-400">NOBTECH</span>
                         </div>
 
-                        <Link href={item.href} className="block group/link">
+                        <Link href={item.href} className="block group/link relative z-10">
                           <h5 className="text-slate-900 font-bold mb-1.5 group-hover/link:text-cyan-600 transition-colors flex items-center justify-between text-sm">
                             <span>{item.name}</span>
                             <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all text-cyan-600" />
