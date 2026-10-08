@@ -25,8 +25,9 @@ export function ValueProposition() {
         <div className="grid md:grid-cols-2 gap-8">
           <FadeUp delay={0.1}>
             <Link href="/expertises/cyber-resilience" className="group block bg-white p-6 md:p-8 lg:p-12 rounded-sm border border-slate-200 hover:border-accent/50 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all duration-500 h-full relative overflow-hidden flex flex-col">
-              <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-5 transition-opacity duration-500">
-                <ShieldCheck className="w-48 h-48" />
+              <div className="absolute -bottom-6 -right-6 w-48 h-48 opacity-[0.035] group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none select-none">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/nobtech-shield.png" alt="" className="w-full h-full object-contain filter drop-shadow-[0_0_20px_rgba(0,212,255,0.25)]" />
               </div>
               <MagneticElement className="inline-block mb-8">
                 <div className="w-16 h-16 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative overflow-hidden">
@@ -46,8 +47,9 @@ export function ValueProposition() {
           
           <FadeUp delay={0.2}>
             <Link href="/expertises/haute-disponibilite" className="group block bg-white p-6 md:p-8 lg:p-12 rounded-sm border border-slate-200 hover:border-accent/50 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all duration-500 h-full relative overflow-hidden flex flex-col">
-              <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-5 transition-opacity duration-500">
-                <Activity className="w-48 h-48" />
+              <div className="absolute -bottom-6 -right-6 w-48 h-48 opacity-[0.035] group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none select-none">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/nobtech-shield.png" alt="" className="w-full h-full object-contain filter drop-shadow-[0_0_20px_rgba(0,212,255,0.25)]" />
               </div>
               <MagneticElement className="inline-block mb-8">
                 <div className="w-16 h-16 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative overflow-hidden">
@@ -67,8 +69,9 @@ export function ValueProposition() {
 
           <FadeUp delay={0.3}>
             <Link href="/expertises/innovation-logicielle" className="group block bg-white p-6 md:p-8 lg:p-12 rounded-sm border border-slate-200 hover:border-accent/50 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all duration-500 h-full relative overflow-hidden flex flex-col">
-              <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-5 transition-opacity duration-500">
-                <Cpu className="w-48 h-48" />
+              <div className="absolute -bottom-6 -right-6 w-48 h-48 opacity-[0.035] group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none select-none">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/nobtech-shield.png" alt="" className="w-full h-full object-contain filter drop-shadow-[0_0_20px_rgba(0,212,255,0.25)]" />
               </div>
               <MagneticElement className="inline-block mb-8">
                 <div className="w-16 h-16 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative overflow-hidden">
@@ -88,8 +91,9 @@ export function ValueProposition() {
 
           <FadeUp delay={0.4}>
             <Link href="/expertises/vision-globale" className="group block bg-white p-6 md:p-8 lg:p-12 rounded-sm border border-slate-200 hover:border-accent/50 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all duration-500 h-full relative overflow-hidden flex flex-col">
-              <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-5 transition-opacity duration-500">
-                <Globe2 className="w-48 h-48" />
+              <div className="absolute -bottom-6 -right-6 w-48 h-48 opacity-[0.035] group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none select-none">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/nobtech-shield.png" alt="" className="w-full h-full object-contain filter drop-shadow-[0_0_20px_rgba(0,212,255,0.25)]" />
               </div>
               <MagneticElement className="inline-block mb-8">
                 <div className="w-16 h-16 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center relative overflow-hidden">

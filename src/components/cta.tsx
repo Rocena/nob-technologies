@@ -5,6 +5,7 @@ import { Container, Section } from "@/components/ui/layout";
 import { Heading, Text } from "@/components/ui/typography";
 import { GlowButton } from "@/components/GlowButton";
 import { FadeUp } from "@/components/animations";
+import { ShieldWatermark } from "./ShieldWatermark";
 
 function NetworkBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -90,6 +91,9 @@ export function CTA() {
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/80 via-transparent to-[#020617]/80 pointer-events-none"></div>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+      {/* Strategic Brand Shield Watermark */}
+      <ShieldWatermark size={500} opacity={0.055} glow={true} />
 
       <Container className="relative z-10">
         <div className="text-center max-w-3xl mx-auto">

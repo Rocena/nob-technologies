@@ -8,6 +8,7 @@ import { FadeUp, TextReveal } from "@/components/animations";
 import { ShieldCheck, Award, ExternalLink, ArrowRight, Cpu, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { ShieldWatermark } from "@/components/ShieldWatermark";
 
 export const metadata: Metadata = {
   title: "Partenaires Technologiques & Constructeurs | NOB TECHNOLOGIES",
@@ -230,6 +231,9 @@ export default function PartenairesPage() {
         <Section className="pt-32 pb-20 md:pt-44 md:pb-28 bg-[#020617] relative overflow-hidden">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:40px_40px]" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-cyan-500/10 rounded-full blur-[150px] pointer-events-none" />
+
+          {/* Strategic Brand Shield Watermark */}
+          <ShieldWatermark size={540} opacity={0.045} glow={true} />
 
           <Container className="relative z-10 text-center">
             <FadeUp>

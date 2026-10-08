@@ -3,6 +3,7 @@ import { Container, Section } from "@/components/ui/layout";
 import { Heading, Text } from "@/components/ui/typography";
 import { Quote, BadgeCheck } from "lucide-react";
 import { FadeUp } from "@/components/animations";
+import { ShieldWatermark } from "./ShieldWatermark";
 
 const fallbackTestimonials = [
   {
@@ -32,6 +33,9 @@ export function Testimonials({ testimonials = [] }: { testimonials: any[] }) {
     <Section className="bg-[#020617] py-16 md:py-24 lg:py-32 relative overflow-hidden">
       {/* Subtle ambient light */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
+      
+      {/* Strategic Brand Shield Watermark */}
+      <ShieldWatermark size={520} opacity={0.04} glow={true} />
       
       <Container className="relative z-10">
         <div className="text-center max-w-2xl mx-auto mb-20">
