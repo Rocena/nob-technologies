@@ -1,7 +1,6 @@
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Hero } from "@/components/hero";
-import { ValueProposition } from "@/components/ValueProposition";
 import { Expertises } from "@/components/expertises";
 import { Testimonials } from "@/components/testimonials";
 import { Clients } from "@/components/clients";
@@ -33,7 +32,6 @@ export default async function Home() {
       <main className="flex-1">
         <Hero />
         <Clients clients={clientsDocs} />
-        <ValueProposition />
         <Expertises services={servicesDocs} />
         <Testimonials testimonials={testimonialsDocs} />
         <CTA />

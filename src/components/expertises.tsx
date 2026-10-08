@@ -94,16 +94,16 @@ export function Expertises({ services = [] }: { services: any[] }) {
   return (
     <Section id="solutions" className="bg-white py-16 md:py-24 lg:py-32 border-b border-slate-100">
       <Container>
-        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+        <div className="text-center max-w-4xl mx-auto mb-16 md:mb-20">
           <FadeUp>
-            <p className="font-mono text-accent text-sm md:text-base tracking-[0.25em] uppercase mb-4 opacity-90 font-bold">
-              &gt;_ CATALOGUE COMPLET DE SERVICES
+            <p className="font-mono text-cyan-600 text-sm md:text-base tracking-[0.25em] uppercase mb-4 opacity-90 font-bold">
+              &gt;_ L&apos;Ingénierie à l&apos;état pur
             </p>
-            <Heading level={2} className="mb-6 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900">
-              Des solutions 360&deg; pour propulser votre entreprise
+            <Heading level={2} className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
+              Nous construisons les fondations numériques des leaders de demain.
             </Heading>
-            <Text className="text-base sm:text-lg text-slate-600 leading-relaxed">
-              Du développement de vos applications et ERP jusqu’à la sécurisation complète de vos réseaux et la formation de vos équipes.
+            <Text className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
+              Chez NOB TECHNOLOGIES, nous ne nous contentons pas de fournir des services IT. Nous architecturons des écosystèmes complets, résilients et évolutifs. Face à la complexité croissante des réseaux et à l&apos;évolution des cybermenaces, notre mission est de vous offrir un socle technologique infaillible.
             </Text>
           </FadeUp>
         </div>

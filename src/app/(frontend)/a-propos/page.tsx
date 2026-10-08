@@ -114,8 +114,18 @@ export default async function AboutPage() {
               
               <div className="space-y-12">
                 <FadeUp>
-                  <h3 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">Notre philosophie</h3>
-                  <p className="text-lg text-slate-600 leading-relaxed">Nous croyons fermement qu'une infrastructure technologique performante ne devrait pas être un luxe réservé aux multinationales. Notre but est de démocratiser l'accès à une informatique de pointe, robuste et sécurisée pour le marché sénégalais et ouest-africain.</p>
+                  <p className="font-mono text-cyan-600 text-xs tracking-[0.25em] uppercase mb-2 font-bold">
+                    &gt;_ L&apos;Ingénierie à l&apos;état pur
+                  </p>
+                  <h3 className="text-3xl font-extrabold tracking-tight text-slate-900 mb-4">
+                    Nous construisons les fondations numériques des leaders de demain.
+                  </h3>
+                  <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-4">
+                    Chez NOB TECHNOLOGIES, nous ne nous contentons pas de fournir des services IT. Nous architecturons des écosystèmes complets, résilients et évolutifs. Face à la complexité croissante des réseaux et à l&apos;évolution des cybermenaces, notre mission est de vous offrir un socle technologique infaillible.
+                  </p>
+                  <p className="text-sm text-slate-500 leading-relaxed">
+                    Nous croyons fermement qu&apos;une infrastructure technologique performante ne devrait pas être un luxe réservé aux multinationales. Notre but est de démocratiser l&apos;accès à une informatique de pointe, robuste et sécurisée pour l&apos;ensemble de nos clients.
+                  </p>
                 </FadeUp>
                 
                 <div className="space-y-8 p-5 sm:p-8 bg-[#020617] rounded-sm border border-white/10 shadow-2xl relative overflow-hidden">
