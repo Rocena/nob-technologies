@@ -27,9 +27,9 @@ export default async function ContactPage({
     // Fallback if db is empty during build
   }
   
-  const phone = settings?.contact?.phone || "+221 33 814 04 35 / +221 77 301 08 38";
+  const phone = settings?.contact?.phone || "+221 77 310 83 18 / +221 33 814 24 55";
   const email = settings?.contact?.email || "contact@nobtech.fr";
-  const address = settings?.contact?.address || "Routes de l'aéroport Léopold Sédar Senghor, Sénégal";
+  const address = settings?.contact?.address || "Azura de l’Aéroport, 1SS lot N° 79, Dakar Sénégal";
 
   let title = "Contactez-nous";
   let subtitle = "Une question ? Un projet ? Notre équipe d'experts est à votre disposition pour vous accompagner.";

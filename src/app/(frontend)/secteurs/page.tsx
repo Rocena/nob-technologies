@@ -127,7 +127,7 @@ export default function SectorsPage() {
                   </MagneticElement>
                   <h3 className="text-3xl font-bold text-slate-900 tracking-tight mb-6">Commerces & Institutions</h3>
                   <p className="text-lg text-slate-600 leading-relaxed mb-8 flex-1">
-                    Pour garantir l'accueil de votre public en toute sécurité, nous installons des systèmes de vidéosurveillance haute définition, configurons des bornes Wi-Fi publiques sécurisées et mettons en place des équipements de caisse interconnectés.
+                    Pour garantir l'accueil de votre public en toute sécurité, nous installons des systèmes de vidéosurveillance haute définition, configurons des réseaux Wi-Fi sécurisés pour les visiteurs et vos équipes, et déployons des solutions avancées de contrôle d'accès.
                   </p>
                   
                   <div className="mt-auto pt-8 border-t border-slate-100">

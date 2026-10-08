@@ -9,7 +9,7 @@ export const Projects: CollectionConfig = {
   admin: {
     group: 'Portfolio & Preuves',
     useAsTitle: 'title',
-    defaultColumns: ['title', 'sector', 'status', 'completionDate'],
+    defaultColumns: ['title', 'sector', 'websiteUrl', 'status', 'completionDate'],
   },
   fields: [
     {
@@ -26,7 +26,24 @@ export const Projects: CollectionConfig = {
               ]
             },
             { name: 'description', type: 'textarea', label: 'Résumé court (Méta & Carte)' },
-            { name: 'coverImage', type: 'upload', relationTo: 'media', label: 'Image de Couverture' },
+            {
+              type: 'row',
+              fields: [
+                { 
+                  name: 'websiteUrl', 
+                  type: 'text', 
+                  label: 'Lien du site en ligne (ex: https://parcexotique.sn/fr/)',
+                  admin: { width: '50%', description: 'Permet aux visiteurs d’ouvrir directement le site live.' }
+                },
+                { 
+                  name: 'previewScreenshotUrl', 
+                  type: 'text', 
+                  label: 'URL aperçu externe ou capture d’écran',
+                  admin: { width: '50%', description: 'Lien direct vers la capture d’écran ou l’image de démonstration.' }
+                },
+              ]
+            },
+            { name: 'coverImage', type: 'upload', relationTo: 'media', label: 'Image de Couverture / Capture d’écran' },
           ]
         },
         {
@@ -53,7 +70,7 @@ export const Projects: CollectionConfig = {
                 { label: 'Brouillon', value: 'draft' },
                 { label: 'Publié', value: 'published' },
               ],
-              defaultValue: 'draft',
+              defaultValue: 'published',
             },
           ]
         }

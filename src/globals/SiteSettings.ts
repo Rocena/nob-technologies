@@ -58,12 +58,14 @@ export const SiteSettings: GlobalConfig = {
                   name: 'email', 
                   type: 'text', 
                   label: 'Adresse E-mail',
+                  defaultValue: 'contact@nobtech.fr',
                   admin: { width: '50%' } 
                 },
                 { 
                   name: 'phone', 
                   type: 'text', 
-                  label: 'Téléphone Standard',
+                  label: 'Téléphone Standard (+221 77 prioritaires pour appels)',
+                  defaultValue: '+221 77 310 83 18 / +221 33 814 24 55',
                   admin: { width: '50%' } 
                 },
               ]
@@ -71,7 +73,8 @@ export const SiteSettings: GlobalConfig = {
             { 
               name: 'address', 
               type: 'textarea', 
-              label: 'Adresse Physique du Siège' 
+              label: 'Adresse Physique du Siège',
+              defaultValue: 'Azura de l’Aéroport, 1SS lot N° 79, Dakar Sénégal' 
             },
           ]
         },

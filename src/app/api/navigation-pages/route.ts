@@ -14,13 +14,16 @@ export async function GET() {
         },
       },
       sort: 'navOrder',
-      limit: 20,
+      limit: 50,
     });
 
     const pages = res.docs.map((p) => ({
       name: p.title,
       href: `/${p.slug}`,
       desc: p.shortDescription || p.metaDescription || `Découvrez notre page ${p.title}.`,
+      placement: (p as any).menuPlacement || 'main',
+      parent: (p as any).parentItem || 'solutions',
+      order: (p as any).navOrder ?? 10,
     }));
 
     return NextResponse.json({ pages });

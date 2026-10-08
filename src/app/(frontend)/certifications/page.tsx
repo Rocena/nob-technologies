@@ -5,69 +5,169 @@ import { Footer } from "@/components/footer";
 import { CTA } from "@/components/cta";
 import { Section, Container } from "@/components/ui/layout";
 import { FadeUp, TextReveal } from "@/components/animations";
-import { Award, ShieldCheck } from "lucide-react";
+import { Award, ShieldCheck, GraduationCap, CheckCircle2, ArrowRight, ShieldAlert, Cpu, Sparkles } from "lucide-react";
 import { StatsSection } from "./client-stats";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Certifications & Partenaires | NOB TECHNOLOGIES",
+  title: "Partenaires & Formations | NOB TECHNOLOGIES",
   description:
-    "Decouvrez les certifications et partenariats technologiques de NOB TECHNOLOGIES : Cisco, Microsoft, Fortinet, Ubiquiti, VMware, Dell Technologies.",
+    "Découvrez les partenaires technologiques et programmes de préparation aux certifications de NOB TECHNOLOGIES : Sophos, Fortinet, Microsoft 365, Acronis, Kaspersky, Wallix.",
 };
+
+const featuredPartners = [
+  {
+    name: "Sophos",
+    role: "Partenaire Pare-feu & Cyberdéfense Synchronisée",
+    desc: "Déploiement de firewalls de nouvelle génération (Sophos XGS), protection endpoint synchronisée avec Intercept X et détection anti-ransomware automatisée.",
+    badge: "FIREWALL & SÉCURITÉ",
+    color: "from-blue-600/25 to-cyan-500/15",
+    accent: "text-cyan-400",
+    border: "border-cyan-500/40",
+    isFlagship: true,
+  },
+  {
+    name: "Fortinet",
+    role: "Spécialiste Sécurité Réseau & Next-Gen Firewall",
+    desc: "Expertise avancée en cybersécurité périmétrique : passerelles FortiGate (NGFW), segmentation réseau, SD-WAN sécurisé, FortiSIEM et protection FortiEDR.",
+    badge: "NEXT-GEN FIREWALL",
+    color: "from-red-600/25 to-rose-500/15",
+    accent: "text-rose-400",
+    border: "border-rose-500/40",
+    isFlagship: true,
+  },
+  {
+    name: "Microsoft Office 365",
+    role: "Vente de Licences (ESD & CSP) & Modern Workplace",
+    desc: "Distribution officielle de licences Microsoft 365 pour entreprises (ESD & CSP), déploiement collaboratif Teams, Exchange Online, SharePoint et sécurisation Entra ID.",
+    badge: "LICENCES ESD & CSP",
+    color: "from-sky-600/25 to-blue-500/15",
+    accent: "text-sky-400",
+    border: "border-sky-500/40",
+    isFlagship: true,
+  },
+];
 
 const partners = [
   {
-    name: "Cisco",
-    role: "Partenaire Revendeur Agree",
-    desc: "Leader mondial des reseaux d'entreprise. Nous deploiements des solutions Cisco pour les LAN, WAN, routage et commutation dans les infrastructures critiques.",
-    badge: "RESEAU",
+    name: "Acronis",
+    role: "Protection Complète des Données & Cyber Protect",
+    desc: "Sauvegardes cloud hybrides, restauration instantanée après sinistre (Disaster Recovery) et bouclier anti-ransomware actif.",
+    badge: "BACKUP & RECOVERY",
     color: "from-blue-500/20 to-blue-600/10",
     accent: "text-blue-400",
     border: "border-blue-500/20",
   },
   {
-    name: "Microsoft",
-    role: "Partenaire Certifie",
-    desc: "Deploiement et gestion de l'ecosysteme Microsoft 365, Azure, Active Directory et solutions de collaboration pour entreprises.",
-    badge: "CLOUD",
-    color: "from-sky-500/20 to-sky-600/10",
-    accent: "text-sky-400",
-    border: "border-sky-500/20",
+    name: "Allot",
+    role: "Visibilité & Sécurité Réseau",
+    desc: "Détection et mitigation en temps réel des attaques DDoS, analyse granulaire du trafic et optimisation de bande passante.",
+    badge: "ANTI-DDOS & RÉSEAU",
+    color: "from-amber-500/20 to-orange-600/10",
+    accent: "text-amber-400",
+    border: "border-amber-500/20",
   },
   {
-    name: "Fortinet",
-    role: "Specialiste Securite Reseau",
-    desc: "Expertise avancee en cybersecurite avec les solutions FortiGate (NGFW), FortiSIEM et FortiEDR pour une protection totale de votre SI.",
-    badge: "SECURITE",
-    color: "from-red-500/20 to-red-600/10",
-    accent: "text-red-400",
-    border: "border-red-500/20",
+    name: "BeyondTrust",
+    role: "Protection Avancée des Terminaux & Comptes à Privilèges",
+    desc: "Gestion unifiée des privilèges (PAM), sécurisation des postes de travail et protection contre les cybermenaces internes et externes.",
+    badge: "PAM & POSTES",
+    color: "from-indigo-500/20 to-purple-600/10",
+    accent: "text-indigo-400",
+    border: "border-indigo-500/20",
   },
   {
-    name: "Ubiquiti",
-    role: "Integrateur Reseau Sans-fil",
-    desc: "Conception et deploiement de reseaux WiFi d'entreprise haute performance avec les solutions UniFi et EdgeMAX pour couvertures complexes.",
-    badge: "WIFI",
+    name: "Kaspersky",
+    role: "Sécurité des Applications Web & Périmètres",
+    desc: "Protection multicouche des serveurs, des conteneurs et des terminaux contre les attaques zero-day et les menaces persistantes (APT).",
+    badge: "CYBERDÉFENSE",
+    color: "from-emerald-500/20 to-teal-600/10",
+    accent: "text-emerald-400",
+    border: "border-emerald-500/20",
+  },
+  {
+    name: "UBIKA PAESSLER",
+    role: "Supervision Réseau & Protection Applicative",
+    desc: "Monitoring actif et proactif de vos infrastructures IT avec PRTG Network Monitor et pare-feu applicatif web (WAF) haute disponibilité.",
+    badge: "SUPERVISION & WAF",
     color: "from-cyan-500/20 to-cyan-600/10",
     accent: "text-cyan-400",
     border: "border-cyan-500/20",
   },
   {
-    name: "VMware",
-    role: "Partenaire Virtualisation",
-    desc: "Virtualisation de serveurs, postes de travail (VDI) et infrastructure hyperconvergee avec vSphere, vSAN et NSX pour une IT agile.",
-    badge: "VIRTUALISATION",
-    color: "from-purple-500/20 to-purple-600/10",
+    name: "GateWatcher",
+    role: "Détection des Menaces Avancées & NDR par IA",
+    desc: "Plateforme souveraine de Network Detection and Response (NDR) analysant le trafic réseau en temps réel avec contre-offensive assistée par IA.",
+    badge: "NDR & IA",
+    color: "from-purple-500/20 to-violet-600/10",
     accent: "text-purple-400",
     border: "border-purple-500/20",
   },
   {
-    name: "Dell Technologies",
-    role: "Revendeur Agree",
-    desc: "Fourniture et integration de serveurs PowerEdge, solutions de stockage PowerStore et infrastructure hyperconvergee VxRail.",
-    badge: "HARDWARE",
-    color: "from-emerald-500/20 to-emerald-600/10",
-    accent: "text-emerald-400",
-    border: "border-emerald-500/20",
+    name: "Symantec",
+    role: "Suites de Sécurité Avancées Endpoint & Network",
+    desc: "Protection éprouvée des postes de travail, prévention des fuites de données (DLP) et filtrage web d'entreprise sécurisé.",
+    badge: "ENDPOINT & DLP",
+    color: "from-yellow-500/20 to-amber-600/10",
+    accent: "text-yellow-400",
+    border: "border-yellow-500/20",
+  },
+  {
+    name: "Tufin",
+    role: "Automatisation des Politiques de Sécurité",
+    desc: "Gestion centralisée et audit automatisé des règles de pare-feu et des politiques de sécurité à travers les architectures multi-cloud et on-premise.",
+    badge: "AUTOMATISATION",
+    color: "from-teal-500/20 to-emerald-600/10",
+    accent: "text-teal-400",
+    border: "border-teal-500/20",
+  },
+  {
+    name: "Varonis",
+    role: "Sécurité des Données (DSPM) & Analyse Comportementale",
+    desc: "Analyse des comportements anormaux, cartographie des accès aux données sensibles et remédiation automatique des risques de conformité.",
+    badge: "DATA SECURITY",
+    color: "from-rose-500/20 to-pink-600/10",
+    accent: "text-rose-400",
+    border: "border-rose-500/20",
+  },
+  {
+    name: "Wallix",
+    role: "Gestion des Identités & Accès à Privilèges (IAM / PAM)",
+    desc: "Sécurisation stricte de l'accès aux ressources critiques de l'entreprise, enregistrement des sessions administrateurs et gouvernance d'accès.",
+    badge: "IAM & PAM",
+    color: "from-blue-500/20 to-indigo-600/10",
+    accent: "text-blue-400",
+    border: "border-blue-500/20",
+  },
+  {
+    name: "Veritas",
+    role: "Résilience des Données & Continuité d'Activité",
+    desc: "Solutions de sauvegarde d'entreprise unifiée, archivage légal et résilience maximale contre les sinistres et ransomwares.",
+    badge: "RÉSILIENCE DATA",
+    color: "from-red-500/20 to-orange-600/10",
+    accent: "text-red-400",
+    border: "border-red-500/20",
+  },
+];
+
+const trainingTracks = [
+  {
+    title: "Préparation aux Certifications Internationales",
+    desc: "NOB TECHNOLOGIES accompagne vos ingénieurs et techniciens avec des cycles intensifs de préparation aux examens de certification reconnus (Cisco CCNA/CCNP, Fortinet NSE, Sophos Certified Engineer, CompTIA Security+). Nous préparons efficacement vos équipes pour maximiser leur taux de réussite.",
+    topics: ["Labs pratiques en conditions réelles", "Examens blancs & corrections personnalisées", "Maîtrise des standards industriels", "Coaching par des formateurs certifiés"],
+    badge: "COACHING CERTIFICATIONS",
+  },
+  {
+    title: "Sensibilisation & Audit Cybersécurité d'Entreprise",
+    desc: "Parce que l'humain reste le premier rempart face aux menaces, nous formons l'ensemble de vos collaborateurs aux bonnes pratiques d'hygiène numérique, à la détection des attaques de phishing et aux réflexes en cas d'incident de sécurité.",
+    topics: ["Campagnes de simulation de phishing", "Protection des mots de passe & MFA", "Gestion sécurisée des données sensibles", "Audit de maturité cyber & plan d'action"],
+    badge: "CYBER-HYGIÈNE & AUDIT",
+  },
+  {
+    title: "Automatisation & Intelligence Artificielle en Entreprise",
+    desc: "Formations pratiques pour moderniser vos opérations internes : automatisation des tâches chronophages, intégration d'outils IA générative, scripting d'administration réseau et optimisation des flux de travail.",
+    topics: ["Introduction aux workflows automatisés", "IA appliquée aux processus métiers", "Automatisation de la gestion réseau", "Gains de productivité mesurables"],
+    badge: "IA & PRODUCTIVITÉ",
   },
 ];
 
@@ -79,31 +179,26 @@ export default function CertificationsPage() {
         {/* Hero */}
         <Section className="pt-32 pb-20 md:pt-44 md:pb-28 bg-[#020617] relative overflow-hidden">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:40px_40px]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-accent/8 rounded-full blur-[150px] pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-accent/10 rounded-full blur-[150px] pointer-events-none" />
 
           <Container className="relative z-10 text-center">
             <FadeUp>
               <p className="font-mono text-accent text-xs tracking-[0.3em] uppercase mb-6 font-bold">
-                &gt;_ CERTIFICATIONS & PARTENAIRES
+                &gt;_ PARTENAIRES & FORMATIONS PROFESSIONNELLES
               </p>
             </FadeUp>
             <TextReveal>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight mb-6">
-                Expertise{" "}
+                Alliances technologiques{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-400">
-                  certifiee
-                </span>
-                , partenaires{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-accent">
-                  de reference
-                </span>
+                  de référence
+                </span>{" "}
+                & transmission du savoir
               </h1>
             </TextReveal>
             <FadeUp delay={0.2}>
-              <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                NOB TECHNOLOGIES s'appuie sur les meilleures technologies du
-                marche et des certifications reconnues mondialement pour
-                garantir l'excellence de ses deployements.
+              <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                NOB TECHNOLOGIES s'associe aux éditeurs leaders mondiaux de la cybersécurité et des infrastructures pour garantir des solutions ultra-sécurisées, tout en proposant des programmes d'excellence de préparation aux certifications pour vos équipes.
               </p>
             </FadeUp>
 
@@ -111,56 +206,104 @@ export default function CertificationsPage() {
             <FadeUp delay={0.3}>
               <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
                 <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
-                  <Award className="w-4 h-4 text-accent" />
-                  Ingenieurs certifies
+                  <ShieldCheck className="w-4 h-4 text-accent" />
+                  Solutions officielles certifiées
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
-                  <ShieldCheck className="w-4 h-4 text-accent" />
-                  Technologies tier-1
+                  <GraduationCap className="w-4 h-4 text-cyan-400" />
+                  Préparation aux examens internationaux
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
+                  <Award className="w-4 h-4 text-emerald-400" />
+                  Vente de licences officielles (ESD & CSP)
                 </div>
               </div>
             </FadeUp>
           </Container>
         </Section>
 
-        {/* Partner Cards */}
+        {/* Flagship Partners (Sophos, Fortinet, Office 365) */}
+        <Section className="py-16 md:py-24 bg-slate-900 border-y border-white/10 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,212,255,0.06),transparent_70%)] pointer-events-none" />
+          <Container className="relative z-10">
+            <FadeUp>
+              <div className="text-center mb-12">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 uppercase mb-3">
+                  <Sparkles className="w-3.5 h-3.5" /> À LA UNE &bull; SOLUTIONS CLÉS
+                </span>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
+                  Partenaires Majeurs Mis en Évidence
+                </h2>
+              </div>
+            </FadeUp>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {featuredPartners.map((partner, i) => (
+                <FadeUp key={partner.name} delay={i * 0.1}>
+                  <div className={`h-full rounded-2xl bg-gradient-to-b from-white/10 to-white/5 border ${partner.border} p-7 md:p-8 flex flex-col justify-between shadow-xl backdrop-blur-sm relative overflow-hidden group hover:border-cyan-400/80 transition-all duration-300`}>
+                    <div className="relative z-10">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-[11px] font-mono font-bold tracking-wider px-2.5 py-1 rounded bg-black/40 border border-white/10 text-cyan-300">
+                          {partner.badge}
+                        </span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
+                      </div>
+                      <h3 className="text-2xl font-black text-white mb-2 group-hover:text-cyan-300 transition-colors">
+                        {partner.name}
+                      </h3>
+                      <p className={`text-xs font-semibold mb-4 ${partner.accent}`}>
+                        {partner.role}
+                      </p>
+                      <p className="text-sm text-slate-300 leading-relaxed">
+                        {partner.desc}
+                      </p>
+                    </div>
+
+                    <div className="mt-6 pt-5 border-t border-white/10 flex items-center justify-between text-xs font-semibold text-slate-300 group-hover:text-cyan-400 transition-colors">
+                      <span>Demander un devis / licence</span>
+                      <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </FadeUp>
+              ))}
+            </div>
+          </Container>
+        </Section>
+
+        {/* All Partners Grid */}
         <Section className="py-20 md:py-28 bg-slate-50">
           <Container>
             <FadeUp>
               <div className="text-center mb-16">
                 <p className="font-mono text-accent text-xs tracking-[0.3em] uppercase mb-4 font-bold">
-                  NOS PARTENAIRES
+                  CATALOGUE DE SOLUTIONS
                 </p>
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-4">
-                  Un ecosysteme technologique complet
+                  Un écosystème technologique complet
                 </h2>
-                <p className="text-slate-500 max-w-xl mx-auto">
-                  Des partenariats officiels avec les leaders mondiaux de
-                  l'industrie IT pour vous garantir les meilleures solutions.
+                <p className="text-slate-500 max-w-2xl mx-auto">
+                  Des solutions de pointe pour la sécurité des données, la protection de réseau, la gestion des accès et la supervision informatique.
                 </p>
               </div>
             </FadeUp>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {partners.map((partner, i) => (
-                <FadeUp key={partner.name} delay={i * 0.08}>
+                <FadeUp key={partner.name} delay={i * 0.05}>
                   <div
-                    className={`group relative rounded-2xl border bg-white p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden ${partner.border} hover:border-opacity-60`}
+                    className={`group relative rounded-2xl border bg-white p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden ${partner.border} hover:border-opacity-60 flex flex-col justify-between`}
                   >
-                    {/* Background gradient */}
                     <div
                       className={`absolute inset-0 bg-gradient-to-br ${partner.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
                     />
 
                     <div className="relative z-10">
-                      {/* Badge */}
                       <span
                         className={`inline-block px-2.5 py-1 rounded-full text-[10px] font-black tracking-widest border bg-slate-50 mb-4 ${partner.accent} ${partner.border}`}
                       >
                         {partner.badge}
                       </span>
 
-                      {/* Name */}
                       <h3 className="text-xl font-extrabold text-slate-900 mb-1">
                         {partner.name}
                       </h3>
@@ -168,7 +311,6 @@ export default function CertificationsPage() {
                         {partner.role}
                       </p>
 
-                      {/* Divider */}
                       <div
                         className={`h-px mb-4 bg-gradient-to-r from-transparent ${partner.accent.replace("text", "via")} to-transparent opacity-30`}
                       />
@@ -176,6 +318,63 @@ export default function CertificationsPage() {
                       <p className="text-sm text-slate-500 leading-relaxed">
                         {partner.desc}
                       </p>
+                    </div>
+                  </div>
+                </FadeUp>
+              ))}
+            </div>
+          </Container>
+        </Section>
+
+        {/* Section Formations & Préparation aux Certifications */}
+        <Section className="py-20 md:py-28 bg-white border-t border-slate-200">
+          <Container>
+            <FadeUp>
+              <div className="text-center max-w-3xl mx-auto mb-16">
+                <span className="font-mono text-cyan-600 text-xs tracking-[0.3em] uppercase mb-3 font-bold block">
+                  &gt;_ FORMATION & MONTEE EN COMPETENCES
+                </span>
+                <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-5">
+                  Formations Professionnelles & Préparation aux Certifications
+                </h2>
+                <p className="text-slate-600 text-base md:text-lg leading-relaxed">
+                  Nous ne délivrons pas directement les titres de certification, mais nous formons et accompagnons méthodiquement vos équipes pour réussir les certifications internationales et maîtriser les technologies d’avenir.
+                </p>
+              </div>
+            </FadeUp>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {trainingTracks.map((track, idx) => (
+                <FadeUp key={track.title} delay={idx * 0.1}>
+                  <div className="h-full bg-slate-50 rounded-2xl border border-slate-200 p-8 flex flex-col justify-between hover:border-cyan-500/50 hover:shadow-lg transition-all duration-300">
+                    <div>
+                      <span className="inline-block text-[10px] font-mono font-bold tracking-widest px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full mb-5">
+                        {track.badge}
+                      </span>
+                      <h3 className="text-xl font-bold text-slate-900 mb-4">
+                        {track.title}
+                      </h3>
+                      <p className="text-sm text-slate-600 leading-relaxed mb-6">
+                        {track.desc}
+                      </p>
+                      
+                      <div className="space-y-2.5 pt-4 border-t border-slate-200">
+                        {track.topics.map((topic, i) => (
+                          <div key={i} className="flex items-center gap-2.5 text-xs text-slate-700 font-medium">
+                            <CheckCircle2 className="w-4 h-4 text-cyan-600 shrink-0" />
+                            <span>{topic}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mt-8 pt-6 border-t border-slate-200">
+                      <Link 
+                        href="/contact" 
+                        className="inline-flex items-center justify-center w-full py-3 px-4 rounded-lg bg-slate-900 text-white font-semibold text-xs hover:bg-cyan-600 transition-colors"
+                      >
+                        Demander un programme de formation
+                      </Link>
                     </div>
                   </div>
                 </FadeUp>

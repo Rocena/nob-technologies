@@ -17,10 +17,10 @@ export async function Footer() {
   }
   
   const siteName = settings?.general?.siteName || "NOB TECHNOLOGIES";
-  const desc = settings?.general?.siteDescription || "Votre partenaire de confiance pour la transformation digitale et l'intégration de solutions technologiques avancées.";
-  const phone = settings?.contact?.phone || "+221 33 814 04 35 / +221 77 301 08 38";
+  const desc = settings?.general?.siteDescription || "Solutions & Services Informatiques. Votre sécurité, notre priorité. Solutions complètes de cybersécurité & services managés.";
+  const phone = settings?.contact?.phone || "+221 77 310 83 18 / +221 33 814 24 55";
   const email = settings?.contact?.email || "contact@nobtech.fr";
-  const address = settings?.contact?.address || "Routes de l'aéroport Léopold Sédar Senghor, Sénégal";
+  const address = settings?.contact?.address || "Azura de l’Aéroport, 1SS lot N° 79, Dakar Sénégal";
 
   return (
     <footer data-cursor-binary="true" className="relative bg-[#020617] text-white pt-12 pb-8 md:pt-16 md:pb-10 lg:pt-24 lg:pb-12 overflow-hidden border-t border-white/10">

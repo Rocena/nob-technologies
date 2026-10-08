@@ -161,18 +161,42 @@ export const Pages: CollectionConfig = {
                 {
                   name: 'addToNav',
                   type: 'checkbox',
-                  label: 'Ajouter cette page au menu principal du site',
+                  label: 'Afficher cette page dans la navigation du site',
                   defaultValue: true,
-                  admin: { width: '50%', description: 'Apparaîtra automatiquement dans la barre de navigation du site.' }
+                  admin: { width: '33%', description: 'Apparaît dans le menu ou sous-menu.' }
                 },
                 {
-                  name: 'navOrder',
-                  type: 'number',
-                  label: 'Ordre dans le menu',
-                  defaultValue: 10,
-                  admin: { width: '50%', description: 'Plus le nombre est bas, plus le lien est affiché à gauche.' }
-                }
+                  name: 'menuPlacement',
+                  type: 'select',
+                  label: 'Emplacement dans le menu',
+                  defaultValue: 'main',
+                  options: [
+                    { label: 'Lien direct du menu principal', value: 'main' },
+                    { label: 'Sous-menu déroulant (Enfant)', value: 'submenu' },
+                  ],
+                  admin: { width: '33%', description: 'Choisissez si la page est un lien principal ou un sous-menu.' }
+                },
+                {
+                  name: 'parentItem',
+                  type: 'select',
+                  label: 'Sous-menu parent (si sous-menu)',
+                  defaultValue: 'solutions',
+                  options: [
+                    { label: 'Sous Solutions / Services', value: 'solutions' },
+                    { label: 'Sous Secteurs', value: 'secteurs' },
+                    { label: 'Sous À propos', value: 'apropos' },
+                    { label: 'Général / Navigation', value: 'general' },
+                  ],
+                  admin: { width: '34%', description: 'Menu auquel cette sous-page sera rattachée.' }
+                },
               ]
+            },
+            {
+              name: 'navOrder',
+              type: 'number',
+              label: 'Ordre d’affichage dans le menu (Priorité)',
+              defaultValue: 10,
+              admin: { description: 'Plus le chiffre est petit (ex: 1, 2, 3), plus le lien s’affiche en premier / en haut.' }
             },
             {
               name: 'shortDescription',

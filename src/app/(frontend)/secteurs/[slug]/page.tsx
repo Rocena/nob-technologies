@@ -28,7 +28,7 @@ const sectorsData: Record<string, { title: string, subtitle: string, desc1: stri
   'commerces-institutions': {
     title: 'Solutions IT pour Commerces & Institutions',
     subtitle: 'Connecter les citoyens et sécuriser les transactions.',
-    desc1: "Les commerces de détail, les banques et les institutions publiques gèrent un flux massif de visiteurs et de données sensibles. NOB TECHNOLOGIES déploie des solutions d'infogérance 24/7 et des plateformes transactionnelles sécurisées pour garantir que vos services sont toujours disponibles.",
+    desc1: "Les commerces de détail, les banques et les institutions publiques gèrent un flux massif de visiteurs et de données sensibles. NOB TECHNOLOGIES déploie des solutions d'infogérance 24/7 et des plateformes transactionnelles sécurisées (portails e-commerce B2B/B2C, plateformes bancaires conformes PCI-DSS et passerelles de paiement sécurisées avec haute disponibilité 99.99%) pour garantir la continuité et la résilience totale de vos services critiques.",
     desc2: "Nous développons des applications web et mobiles sur-mesure pour moderniser l'expérience de vos utilisateurs. De plus, nos systèmes de vidéosurveillance périmétrique et nos réseaux Wi-Fi sécurisés pour les visiteurs transforment vos espaces physiques en environnements sûrs et connectés.",
     features: ["Développement de plateformes web sécurisées", "Réseaux Wi-Fi haute densité (Guest & Corporate)", "Infogérance et Monitoring proactif 24/7", "Sécurité périmétrique et protection des données (RGPD/CDP)"],
     benefits: ["Expérience utilisateur fluide et moderne", "Disponibilité continue de vos services publics/privés", "Confidentialité totale des données utilisateurs", "Réactivité immédiate en cas d'incident technique"]
