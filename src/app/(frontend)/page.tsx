@@ -2,6 +2,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Hero } from "@/components/hero";
 import { Expertises } from "@/components/expertises";
+import { ParcExotiqueShowcase } from "@/components/ParcExotiqueShowcase";
 import { Testimonials } from "@/components/testimonials";
 import { Clients } from "@/components/clients";
 import { CTA } from "@/components/cta";
@@ -33,6 +34,7 @@ export default async function Home() {
         <Hero />
         <Clients clients={clientsDocs} />
         <Expertises services={servicesDocs} />
+        <ParcExotiqueShowcase />
         <Testimonials testimonials={testimonialsDocs} />
         <CTA />
       </main>

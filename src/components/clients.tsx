@@ -3,8 +3,7 @@ import { Container, Section } from "@/components/ui/layout";
 import { FadeUp } from "@/components/animations";
 import { ClientLogoImg } from "./ClientLogoImg";
 import Image from "next/image";
-import Link from "next/link";
-import { ExternalLink, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 
 export const defaultTrustedBrands = [
   {
@@ -189,80 +188,6 @@ export function Clients({ clients = [] }: { clients: any[] }) {
           </div>
         )}
 
-        {/* Featured Project Showcase: Parc Exotique du Sénégal */}
-        <FadeUp delay={0.2}>
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden relative">
-            <div className="grid lg:grid-cols-12 gap-8 items-center">
-              {/* Screenshot Preview */}
-              <div className="lg:col-span-5 relative">
-                <div className="rounded-xl overflow-hidden border border-slate-200 shadow-md bg-slate-950 group">
-                  {/* Browser Chrome Header */}
-                  <div className="bg-slate-900 px-3 py-2 flex items-center gap-1.5 border-b border-slate-800">
-                    <span className="w-2 h-2 rounded-full bg-rose-500/80" />
-                    <span className="w-2 h-2 rounded-full bg-amber-500/80" />
-                    <span className="w-2 h-2 rounded-full bg-emerald-500/80" />
-                    <span className="text-[10px] font-mono text-slate-400 ml-2 truncate">
-                      parcexotique.sn/fr
-                    </span>
-                  </div>
-                  
-                  <div className="relative aspect-[16/10] w-full overflow-hidden">
-                    <Image
-                      src="/images/parc-exotique-preview.png"
-                      alt="Aperçu officiel du site Hôtel du Parc Exotique du Sénégal"
-                      fill
-                      sizes="(max-width: 768px) 100vw, 40vw"
-                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                      unoptimized
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Text Description & Actions */}
-              <div className="lg:col-span-7 flex flex-col justify-between">
-                <div>
-                  <div className="flex flex-wrap items-center gap-2 mb-3">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold text-cyan-800 bg-cyan-50 border border-cyan-200">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Conçu et déployé par Nob Technologies
-                    </span>
-                    <span className="text-xs text-slate-500 font-mono">
-                      Tourisme & Hôtellerie
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3">
-                    Parc Exotique du Sénégal &mdash; Hôtel, Parc Animalier & Restaurant
-                  </h3>
-
-                  <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                    Développement de la plateforme numérique officielle de l’Hôtel du Parc à Somone : architecture web responsive, présentation des chambres et du restaurant La Plume, catalogue animalier et module de réservation avec temps de chargement optimisé pour mobile.
-                  </p>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-100">
-                  <a
-                    href="https://parcexotique.sn/fr/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white font-semibold text-xs hover:bg-cyan-600 transition-colors shadow-sm"
-                  >
-                    <span>Visiter parcexotique.sn</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-
-                  <Link
-                    href="/realisations"
-                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:text-cyan-600 hover:border-cyan-300 font-semibold text-xs transition-colors"
-                  >
-                    <span>Explorer toutes nos réalisations</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </FadeUp>
       </Container>
     </Section>
   );
