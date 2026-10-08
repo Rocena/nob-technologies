@@ -67,11 +67,6 @@ export default function CarrieresPage() {
 
           <Container className="relative z-10">
             <div className="max-w-4xl mx-auto text-center">
-              <FadeUp>
-                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
-                  &gt;_ TALENTS &amp; RECRUTEMENT IT
-                </span>
-              </FadeUp>
               <TextReveal>
                 <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6 text-balance">
                   Carrières &amp; Opportunités :{" "}

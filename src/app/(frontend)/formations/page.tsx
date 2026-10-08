@@ -40,11 +40,6 @@ export default async function FormationsCatalogPage() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-cyan-500/10 rounded-full blur-[150px] pointer-events-none" />
 
           <Container className="relative z-10 text-center">
-            <FadeUp>
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
-                &gt;_ FORMATION &amp; MONTÉE EN COMPÉTENCES TECHNIQUES
-              </span>
-            </FadeUp>
             <TextReveal>
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6 text-balance">
                 Formations Professionnelles :{" "}

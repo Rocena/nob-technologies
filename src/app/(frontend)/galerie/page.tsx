@@ -6,7 +6,7 @@ import { CTA } from "@/components/cta";
 import { Section, Container } from "@/components/ui/layout";
 import { FadeUp, TextReveal } from "@/components/animations";
 import { GalleryGrid } from "@/components/GalleryGrid";
-import { Camera, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Galerie & Chantiers Réalisés | NOB TECHNOLOGIES",
@@ -25,11 +25,6 @@ export default function GaleriePage() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-cyan-500/10 rounded-full blur-[150px] pointer-events-none" />
 
           <Container className="relative z-10 text-center">
-            <FadeUp>
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
-                <Camera className="w-3.5 h-3.5 text-cyan-400" /> &gt;_ NOS CHANTIERS EN IMAGES &bull; DAKAR &amp; SÉNÉGAL
-              </span>
-            </FadeUp>
             <TextReveal>
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6 text-balance">
                 Galerie de nos Déploiements :{" "}

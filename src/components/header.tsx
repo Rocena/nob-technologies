@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Container } from "./ui/layout";
-import { Menu, X, ArrowRight, Phone, Mail, Layers, Globe, Star, BookOpen, Info, DollarSign, Search, Camera } from "lucide-react";
+import { Menu, X, ArrowRight, Phone, Mail, Layers, Globe, Star, BookOpen, Info, DollarSign, Camera, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AnimatedLogo } from "./AnimatedLogo";
 import { GlowButton } from "./GlowButton";
@@ -11,13 +11,19 @@ import { useQuoteModal } from "./EngineerModalContext";
 import { SearchButton } from "./SearchButton";
 import { usePalette } from "./CommandPaletteProvider";
 
+interface SubItem {
+  name: string;
+  href: string;
+  desc?: string;
+}
+
 interface NavItem {
   id?: string;
   name: string;
   href: string;
-  badge?: string;
   desc: string;
   order?: number;
+  children?: SubItem[];
 }
 
 const DEFAULT_NAV: NavItem[] = [
@@ -25,48 +31,71 @@ const DEFAULT_NAV: NavItem[] = [
     id: 'solutions',
     name: 'Services', 
     href: '/services', 
-    badge: 'Infrastructures & Infogérance',
-    desc: 'Infrastructures haute disponibilité, réseaux & fibre, cybersécurité d’entreprise (Sophos, Fortinet), Cloud hybride, conception d’ERP sur-mesure (Dolibarr, Odoo), téléphonie VoIP et infogérance 24/7.',
+    desc: 'Infrastructures haute disponibilité, Cloud, ERP, cybersécurité & infogérance',
     order: 1,
+    children: [
+      { name: 'Tous nos Services', href: '/services', desc: 'Catalogue complet d’ingénierie et d’infogérance' },
+      { name: 'Cybersécurité & Firewalls', href: '/services/cybersecurite', desc: 'Sophos, Fortinet, SOC & protection des données' },
+      { name: 'Réseaux & Câblage', href: '/services/reseaux-telecoms', desc: 'Cisco, HPE Aruba, fibre & baies de brassage' },
+      { name: 'ERP & Digitalisation', href: '/services/erp-digitalisation', desc: 'Conception sur-mesure, Dolibarr, Odoo & automatisation' },
+      { name: 'Développement Web & Mobile', href: '/services/developpement-web-mobile', desc: 'Applications sur-mesure & portails d’entreprise' },
+      { name: 'Téléphonie IP & VoIP', href: '/services/telephone-ip', desc: 'Yeastar, Sangoma & télécoms unifiées' },
+      { name: 'Matériel & Licences IT', href: '/services/materiel-licences', desc: 'Microsoft 365 (ESD/CSP) & serveurs Dell' },
+    ]
   },
   { 
     id: 'formations',
     name: 'Formations', 
     href: '/formations', 
-    badge: 'Cursus 6 Mois & Labs',
-    desc: 'Cursus intensifs d’excellence sur 6 mois, préparation aux certifications mondiales (Cisco CCNA/CCNP, Fortinet NSE, Sophos, ISO 27001), ateliers pratiques dirigés et automatisation IA.',
+    desc: 'Cursus d’immersion sur 6 mois et préparation aux certifications d’élite',
     order: 2,
+    children: [
+      { name: 'Catalogue Formations (6 Mois)', href: '/formations', desc: 'Cursus d’excellence et immersion technique' },
+      { name: 'Préparation Certifications IT', href: '/formations/preparation-certifications-it', desc: 'Cisco CCNA/CCNP, Fortinet NSE, Sophos, CompTIA' },
+      { name: 'Cybersécurité & Audit SOC', href: '/formations/cybersecurite-audit-soc', desc: 'Gouvernance ISO 27001, surveillance SOC & pentest' },
+      { name: 'Automatisation & IA', href: '/formations/automatisation-ia', desc: 'Workflows n8n, Python, agents LLM & ERP' },
+    ]
   },
   { 
     id: 'partenaires',
     name: 'Partenaires', 
     href: '/partenaires', 
-    badge: 'Écosystème Certifié',
-    desc: 'Alliances technologiques et agréments constructeurs officiels avec les leaders mondiaux de l’IT : Sophos, Fortinet, Cisco, Dell Technologies, Microsoft 365, Acronis et Veritas.',
+    desc: 'Alliances technologiques stratégiques avec les constructeurs mondiaux',
     order: 3,
+    children: [
+      { name: 'Partenaires Constructeurs', href: '/partenaires', desc: 'Sophos, Fortinet, Cisco, Dell, Microsoft 365, Acronis...' },
+      { name: 'Secteurs d’Activité', href: '/secteurs', desc: 'PME, ETI, PMI, Commerces & Banques' },
+    ]
   },
   { 
     id: 'realisations',
     name: 'Réalisations', 
     href: '/realisations', 
-    badge: 'Projets Déployés',
-    desc: 'Déploiements d’infrastructures informatiques critiques, success stories d’entreprises (Parc Exotique du Sénégal), intégrations ERP et modernisation de parcs informatiques.',
+    desc: 'Déploiements d’infrastructures critiques et plateformes web en production',
     order: 4,
+    children: [
+      { name: 'Projets & Déploiements', href: '/realisations', desc: 'Parc Exotique du Sénégal & projets d’ingénierie' },
+      { name: 'Galerie d’Installations', href: '/galerie', desc: 'Photos réelles de baies, salles serveurs & câblage' },
+    ]
   },
   { 
     id: 'a-propos',
     name: 'Entreprise', 
     href: '/a-propos', 
-    badge: 'Cabinet d’Ingénierie',
-    desc: 'Découvrez NOB TECHNOLOGIES : notre culture d’ingénierie pure, notre équipe d’experts certifiés, nos engagements de cyber-résilience, nos actualités technologiques et nos carrières.',
+    desc: 'Présentation de Nob Technologies, notre équipe d’ingénieurs et actualités',
     order: 5,
+    children: [
+      { name: 'À Propos de Nobtech', href: '/a-propos', desc: 'Notre histoire, nos valeurs & présence internationale' },
+      { name: 'Actualités & Blog', href: '/actualites', desc: 'Veille technologique, cyberdéfense & annonces' },
+      { name: 'Foire Aux Questions (FAQ)', href: '/faq', desc: 'Réponses à vos questions sur nos prestations' },
+      { name: 'Carrières & Recrutement', href: '/carrieres', desc: 'Rejoindre nos talents en ingénierie' },
+    ]
   },
   { 
     id: 'contact',
     name: 'Contact', 
     href: '/contact', 
-    badge: 'Étude & Devis 24h',
-    desc: 'Échangez directement avec un ingénieur d’affaires, auditez vos systèmes et recevez une proposition technique personnalisée sous 24h ouvrées.',
+    desc: 'Échangez directement avec un ingénieur et obtenez un devis sous 24h',
     order: 6,
   },
 ];
@@ -78,13 +107,14 @@ const getNavIcon = (name: string) => {
   if (n.includes('réalisation')) return Star;
   if (n.includes('galerie')) return Camera;
   if (n.includes('partenaire') || n.includes('certif') || n.includes('format')) return BookOpen;
-  if (n.includes('propos')) return Info;
+  if (n.includes('propos') || n.includes('entreprise')) return Info;
   if (n.includes('tarif') || n.includes('devis')) return DollarSign;
   return ArrowRight;
 };
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [openMobileSubmenu, setOpenMobileSubmenu] = useState<string | null>(null);
   const [navItems, setNavItems] = useState<NavItem[]>(DEFAULT_NAV);
   const { setOpen: openSearch } = usePalette();
   const { openQuoteModal } = useQuoteModal();
@@ -104,7 +134,6 @@ export function Header() {
                 name: p.name,
                 href: p.href,
                 desc: p.desc,
-                badge: 'Page Dédiée',
                 order: p.order ?? 20,
               });
             }
@@ -144,6 +173,7 @@ export function Header() {
 
   const closeMenu = () => {
     setIsOpen(false);
+    setOpenMobileSubmenu(null);
   };
 
   return (
@@ -160,53 +190,72 @@ export function Header() {
               
               {/* Desktop Navigation (large screens) */}
               <nav className="hidden lg:flex items-center gap-2 xl:gap-5">
-                {navItems.map((item) => (
-                  <div key={item.name} className="relative group">
-                    <Link 
-                      href={item.href} 
-                      className="text-sm font-semibold text-slate-700 hover:text-cyan-600 transition-colors py-6 px-1.5 flex items-center gap-1"
-                    >
-                      {item.name}
-                    </Link>
+                {navItems.map((item) => {
+                  const hasChildren = Boolean(item.children && item.children.length > 0);
 
-                    {/* Desktop Single Menu Summary Hover Card */}
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50 w-[380px]">
-                      <div className="bg-white/98 backdrop-blur-2xl border border-slate-200/90 shadow-[0_20px_50px_rgba(0,0,0,0.12)] rounded-2xl p-4 sm:p-5 relative overflow-hidden">
-                        {/* Discrete NOBTECH Shield Watermark in top-right */}
-                        <div className="absolute -top-2 -right-2 w-20 h-20 opacity-[0.08] pointer-events-none select-none overflow-hidden">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img 
-                            src="/images/nobtech-shield.png" 
-                            alt="" 
-                            className="w-full h-full object-contain" 
-                          />
-                        </div>
-                        
-                        <div className="flex items-center justify-between gap-2 mb-2 relative z-10">
-                          {item.badge && (
-                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-600 bg-cyan-50 border border-cyan-200/60 px-2 py-0.5 rounded-md">
-                              {item.badge}
-                            </span>
-                          )}
-                          <span className="text-[10px] font-mono text-slate-400">NOBTECH</span>
-                        </div>
+                  return (
+                    <div key={item.name} className="relative group">
+                      <Link 
+                        href={item.href} 
+                        className="text-sm font-semibold text-slate-700 hover:text-cyan-600 transition-colors py-6 px-1.5 flex items-center gap-1"
+                      >
+                        <span>{item.name}</span>
+                        {hasChildren && (
+                          <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-cyan-600 group-hover:rotate-180 transition-transform duration-200" />
+                        )}
+                      </Link>
 
-                        <Link href={item.href} className="block group/link relative z-10">
-                          <h5 className="text-slate-900 font-bold mb-1.5 group-hover/link:text-cyan-600 transition-colors flex items-center justify-between text-sm">
-                            <span>{item.name}</span>
-                            <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all text-cyan-600" />
-                          </h5>
-                          <p className="text-xs text-slate-500 leading-relaxed mb-3">{item.desc}</p>
-                          
-                          <div className="pt-2.5 border-t border-slate-100 flex items-center text-xs font-semibold text-cyan-600 group-hover/link:underline">
-                            <span>Découvrir la page {item.name}</span>
-                            <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                      {/* Desktop Hover Card with Child Pages */}
+                      <div className={cn(
+                        "absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50",
+                        hasChildren ? "w-[480px]" : "w-[340px]"
+                      )}>
+                        <div className="bg-white/98 backdrop-blur-2xl border border-slate-200/90 shadow-[0_20px_50px_rgba(0,0,0,0.12)] rounded-2xl p-4 sm:p-5 relative overflow-hidden">
+                          {/* Discrete NOBTECH Shield Watermark in top-right */}
+                          <div className="absolute -top-2 -right-2 w-20 h-20 opacity-[0.08] pointer-events-none select-none overflow-hidden">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img 
+                              src="/images/nobtech-shield.png" 
+                              alt="" 
+                              className="w-full h-full object-contain" 
+                            />
                           </div>
-                        </Link>
+                          
+                          <div className="relative z-10">
+                            <Link href={item.href} className="group/title block mb-2">
+                              <h5 className="text-slate-900 font-bold group-hover/title:text-cyan-600 transition-colors flex items-center justify-between text-sm">
+                                <span>{item.name}</span>
+                                <ArrowRight className="w-3.5 h-3.5 text-cyan-600 opacity-70 group-hover/title:opacity-100 group-hover/title:translate-x-0.5 transition-all" />
+                              </h5>
+                              <p className="text-xs text-slate-500 leading-relaxed mt-1">{item.desc}</p>
+                            </Link>
+
+                            {hasChildren && (
+                              <div className="grid grid-cols-2 gap-1.5 pt-3 border-t border-slate-100 mt-2">
+                                {item.children!.map((child) => (
+                                  <Link
+                                    key={child.href}
+                                    href={child.href}
+                                    className="group/child p-2 rounded-lg hover:bg-slate-50 transition-all flex flex-col"
+                                  >
+                                    <span className="text-xs font-bold text-slate-800 group-hover/child:text-cyan-600 transition-colors truncate">
+                                      {child.name}
+                                    </span>
+                                    {child.desc && (
+                                      <span className="text-[10px] text-slate-400 line-clamp-1 leading-snug mt-0.5">
+                                        {child.desc}
+                                      </span>
+                                    )}
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </nav>
 
               {/* Desktop Quick Actions */}
@@ -269,39 +318,80 @@ export function Header() {
             <nav className="flex flex-col gap-2.5">
               {navItems.map((item) => {
                 const IconComponent = getNavIcon(item.name);
+                const hasChildren = Boolean(item.children && item.children.length > 0);
+                const isExpanded = openMobileSubmenu === item.name;
 
                 return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={closeMenu}
-                    className="flex items-start justify-between p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200/80 hover:bg-cyan-50/70 hover:border-cyan-300 transition-all group"
-                  >
-                    <div className="flex items-start gap-3.5 min-w-0 flex-1">
-                      <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-700 shadow-sm shrink-0 group-hover:text-cyan-600 group-hover:border-cyan-200 transition-colors mt-0.5">
-                        <IconComponent className="w-5 h-5" />
-                      </div>
-                      <div className="min-w-0 pr-2">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-cyan-600 transition-colors">
-                            {item.name}
-                          </span>
-                          {item.badge && (
-                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-700 bg-cyan-100/70 px-1.5 py-0.5 rounded">
-                              {item.badge}
-                            </span>
-                          )}
+                  <div key={item.name} className="flex flex-col rounded-xl bg-slate-50 border border-slate-200/80 overflow-hidden">
+                    <div className="flex items-center justify-between p-3 sm:p-3.5 hover:bg-cyan-50/60 transition-colors">
+                      <Link
+                        href={item.href}
+                        onClick={closeMenu}
+                        className="flex items-center gap-3 min-w-0 flex-1"
+                      >
+                        <div className="w-9 h-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-700 shadow-sm shrink-0">
+                          <IconComponent className="w-4 h-4" />
                         </div>
-                        <p className="text-xs text-slate-500 leading-relaxed group-hover:text-slate-600">
-                          {item.desc}
-                        </p>
-                      </div>
+                        <div className="min-w-0">
+                          <div className="text-sm font-bold text-slate-900 truncate">
+                            {item.name}
+                          </div>
+                          <div className="text-[11px] text-slate-500 line-clamp-1">
+                            {item.desc}
+                          </div>
+                        </div>
+                      </Link>
+
+                      {hasChildren ? (
+                        <button
+                          type="button"
+                          onClick={() => setOpenMobileSubmenu(isExpanded ? null : item.name)}
+                          className="p-2 rounded-lg text-slate-400 hover:text-cyan-600 hover:bg-white transition-colors ml-2"
+                          aria-label={`Ouvrir le sous-menu de ${item.name}`}
+                        >
+                          <ChevronDown className={cn("w-4 h-4 transition-transform duration-200", isExpanded && "rotate-180 text-cyan-600")} />
+                        </button>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          onClick={closeMenu}
+                          className="p-2 text-slate-400 hover:text-cyan-600 transition-colors ml-2"
+                        >
+                          <ArrowRight className="w-4 h-4" />
+                        </Link>
+                      )}
                     </div>
 
-                    <div className="p-2 text-slate-400 group-hover:text-cyan-600 group-hover:translate-x-0.5 transition-all shrink-0 mt-1">
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
-                  </Link>
+                    {/* Submenu Accordion on Mobile */}
+                    {hasChildren && isExpanded && (
+                      <div className="px-3 pb-3 pt-1 border-t border-slate-200/60 bg-white/70 space-y-1">
+                        <Link
+                          href={item.href}
+                          onClick={closeMenu}
+                          className="block p-2 rounded-lg text-xs font-bold text-cyan-700 bg-cyan-50/50 hover:bg-cyan-100/60 transition-colors"
+                        >
+                          &rarr; Voir la vue d’ensemble ({item.name})
+                        </Link>
+                        {item.children!.map((c) => (
+                          <Link
+                            key={c.href}
+                            href={c.href}
+                            onClick={closeMenu}
+                            className="block p-2 rounded-lg hover:bg-slate-100 transition-colors"
+                          >
+                            <div className="text-xs font-semibold text-slate-800">
+                              {c.name}
+                            </div>
+                            {c.desc && (
+                              <div className="text-[10px] text-slate-400 line-clamp-1">
+                                {c.desc}
+                              </div>
+                            )}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 );
               })}
             </nav>

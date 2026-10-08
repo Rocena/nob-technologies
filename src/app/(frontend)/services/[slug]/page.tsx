@@ -12,6 +12,7 @@ import { QuoteRequestButton } from "@/components/QuoteRequestButton";
 import { 
   CheckCircle2, 
   ArrowRight, 
+  ArrowLeft, 
   Shield, 
   Network, 
   Server, 
@@ -287,12 +288,20 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
           <div className={`absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br ${service.color} opacity-10 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3`} />
           
           <Container className="relative z-10">
+            {/* Quick Navigation: Return to all services */}
+            <div className="mb-6">
+              <Link
+                href="/services"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/10 text-xs font-semibold text-cyan-300 hover:text-white transition-all group backdrop-blur-sm shadow-sm"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
+                <span>Revenir à tous les services</span>
+              </Link>
+            </div>
+
             <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
               <div className="max-w-3xl">
                 <FadeUp>
-                  <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
-                    <Icon className="w-3.5 h-3.5 text-cyan-400" /> &gt;_ SOLUTION D&apos;INGÉNIERIE &bull; {service.short.toUpperCase()}
-                  </span>
                   <TextReveal>
                     <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6 text-balance">
                       {service.title}
