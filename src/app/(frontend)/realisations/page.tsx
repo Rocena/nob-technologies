@@ -87,8 +87,8 @@ export default async function ProjectsPage() {
           <Container>
             <FadeUp>
               <div className="mb-10 text-center max-w-3xl mx-auto">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold mb-3">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Conçu et déployé par Nob Technologies
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-50 text-cyan-800 border border-cyan-200 text-xs font-semibold mb-3">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Conçu et déployé par Nob Technologies
                 </div>
                 <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
                   Parc Exotique du Sénégal &mdash; Plateforme Web Officielle

@@ -13,8 +13,7 @@ import {
   Cpu, 
   Key, 
   GraduationCap, 
-  Smartphone,
-  Sparkles
+  Smartphone
 } from "lucide-react";
 import { FadeUp } from "@/components/animations";
 import Link from "next/link";
@@ -97,9 +96,9 @@ export function Expertises({ services = [] }: { services: any[] }) {
       <Container>
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <FadeUp>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-700 bg-cyan-100/70 border border-cyan-200 uppercase mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-cyan-600" /> CATALOGUE COMPLET DE SERVICES
-            </span>
+            <p className="font-mono text-accent text-sm md:text-base tracking-[0.25em] uppercase mb-4 opacity-90 font-bold">
+              &gt;_ CATALOGUE COMPLET DE SERVICES
+            </p>
             <Heading level={2} className="mb-6 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900">
               Des solutions 360&deg; pour propulser votre entreprise
             </Heading>

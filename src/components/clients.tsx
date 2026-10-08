@@ -4,7 +4,7 @@ import { FadeUp } from "@/components/animations";
 import { ClientLogoImg } from "./ClientLogoImg";
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, ArrowRight, ShieldCheck } from "lucide-react";
+import { ExternalLink, ArrowRight, CheckCircle2 } from "lucide-react";
 
 export const defaultTrustedBrands = [
   {
@@ -102,9 +102,9 @@ export function Clients({ clients = [] }: { clients: any[] }) {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
           <FadeUp>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-700 bg-cyan-100/70 border border-cyan-200 uppercase mb-3">
-              <ShieldCheck className="w-3.5 h-3.5 text-cyan-600" /> CONFIANCE & ÉCOSYSTÈME
-            </span>
+            <p className="font-mono text-accent text-sm md:text-base tracking-[0.25em] uppercase mb-4 opacity-90 font-bold">
+              &gt;_ CONFIANCE & ÉCOSYSTÈME
+            </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
               Ils nous ont fait confiance
             </h2>
@@ -222,8 +222,8 @@ export function Clients({ clients = [] }: { clients: any[] }) {
               <div className="lg:col-span-7 flex flex-col justify-between">
                 <div>
                   <div className="flex flex-wrap items-center gap-2 mb-3">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200">
-                      Conçu et déployé par Nob Technologies
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold text-cyan-800 bg-cyan-50 border border-cyan-200">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Conçu et déployé par Nob Technologies
                     </span>
                     <span className="text-xs text-slate-500 font-mono">
                       Tourisme & Hôtellerie
