@@ -7,6 +7,7 @@ interface NobLogoProps {
   showText?: boolean;
   showSlogan?: boolean;
   textColor?: string;
+  layout?: 'horizontal' | 'stacked';
 }
 
 export const NobLogo: React.FC<NobLogoProps> = ({ 
@@ -15,11 +16,17 @@ export const NobLogo: React.FC<NobLogoProps> = ({
   height = 40,
   showText = true,
   showSlogan = false,
-  textColor = "currentColor" 
+  textColor = "currentColor",
+  layout = 'horizontal'
 }) => {
-  const viewBox = !showText 
-    ? "0 0 76 76" 
-    : (showSlogan ? "0 0 340 92" : "0 0 320 76");
+  const isStacked = layout === 'stacked';
+
+  // Calculations for SVG viewports
+  const viewBox = isStacked
+    ? "0 0 150 120"
+    : (!showText 
+        ? "0 0 76 76" 
+        : (showSlogan ? "0 0 340 92" : "0 0 320 76"));
 
   return (
     <svg 
@@ -29,7 +36,7 @@ export const NobLogo: React.FC<NobLogoProps> = ({
       height={height}
       className={className}
       fill="none"
-      style={{ overflow: 'visible' }}
+      style={{ overflow: 'visible', display: 'inline-block', verticalAlign: 'middle' }}
     >
       <defs>
         {/* TECH Cyan-to-Emerald Signature Gradient */}
@@ -47,8 +54,8 @@ export const NobLogo: React.FC<NobLogoProps> = ({
 
         {/* Shield Radial Glow */}
         <radialGradient id="nobShieldGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#00E5FF" stopOpacity="0.4" />
-          <stop offset="65%" stopColor="#10E760" stopOpacity="0.15" />
+          <stop offset="0%" stopColor="#00E5FF" stopOpacity="0.35" />
+          <stop offset="65%" stopColor="#10E760" stopOpacity="0.12" />
           <stop offset="100%" stopColor="#000000" stopOpacity="0" />
         </radialGradient>
 
@@ -59,7 +66,6 @@ export const NobLogo: React.FC<NobLogoProps> = ({
               50% { transform: scale(1.02); filter: drop-shadow(0 0 12px rgba(16,231,96,0.4)); }
             }
             .nob-shield-anim {
-              transform-origin: 38px 38px;
               transition: transform 0.3s ease, filter 0.3s ease;
             }
             .nob-logo-root:hover .nob-shield-anim {
@@ -70,84 +76,93 @@ export const NobLogo: React.FC<NobLogoProps> = ({
         </style>
       </defs>
 
-      {/* LE LOGOMARK : Authentic Shield Emblem */}
-      <g className="nob-shield-anim">
-        {/* Ambient Glow */}
-        <circle cx="38" cy="38" r="35" fill="url(#nobShieldGlow)" />
+      {/* --- STACKED LAYOUT (Footer Brand Column) --- */}
+      {isStacked ? (
+        <g>
+          {/* Shield Centered at Top */}
+          <g className="nob-shield-anim" style={{ transformOrigin: '75px 38px' }}>
+            <circle cx="75" cy="38" r="35" fill="url(#nobShieldGlow)" />
+            <image 
+              href="/images/nobtech-shield.png" 
+              x="37" 
+              y="0" 
+              width="76" 
+              height="76" 
+              preserveAspectRatio="xMidYMid meet" 
+            />
+          </g>
 
-        {/* Fallback Vector Heptagon Shield */}
-        <polygon 
-          points="38,2 66,13 74,44 54,72 22,72 2,44 10,13" 
-          fill="#031E3E" 
-          stroke="url(#nobBorderGrad)" 
-          strokeWidth="2.5" 
-          strokeLinejoin="round" 
-        />
+          {/* NOBTECH Centered Directly Below Shield */}
+          {showText && (
+            <text 
+              x="75" 
+              y="102" 
+              textAnchor="middle" 
+              dominantBaseline="central"
+              fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" 
+              fontSize="28" 
+              fontWeight="900" 
+              letterSpacing="-0.3"
+              className="nob-logo-text"
+            >
+              <tspan fill={textColor} className="nob-word-text">NOB</tspan>
+              <tspan fill="url(#nobTechGrad)" className="nob-tech-text">TECH</tspan>
+            </text>
+          )}
+        </g>
+      ) : (
+        /* --- HORIZONTAL LAYOUT (Header, Admin, Navigation) --- */
+        <g>
+          {/* Authentic Shield Emblem */}
+          <g className="nob-shield-anim" style={{ transformOrigin: '38px 38px' }}>
+            <circle cx="38" cy="38" r="35" fill="url(#nobShieldGlow)" />
+            <image 
+              href="/images/nobtech-shield.png" 
+              x="0" 
+              y="0" 
+              width="76" 
+              height="76" 
+              preserveAspectRatio="xMidYMid meet" 
+            />
+          </g>
 
-        {/* High-Resolution Emblem Image Overlay */}
-        <image 
-          href="/images/nobtech-shield-256.png" 
-          x="0" 
-          y="0" 
-          width="76" 
-          height="76" 
-          preserveAspectRatio="xMidYMid meet" 
-        />
-      </g>
-
-      {/* LE LOGOTYPE : NOB + TECH */}
-      {showText && (
-        <g transform="translate(86, 0)">
-          {/* Mot "NOB" : S'adapte au fond/thème (blanc en sombre, marine en clair) */}
-          <text 
-            x="0"
-            y="52"
-            fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" 
-            fontSize="46" 
-            fontWeight="900" 
-            fill={textColor} 
-            letterSpacing="-0.5"
-            className="nob-word-text"
-          >
-            NOB
-          </text>
-
-          {/* Mot "TECH" : Dégradé Cyan-Vert Signature Immuable */}
-          <text 
-            x="100"
-            y="52"
-            fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" 
-            fontSize="46" 
-            fontWeight="900" 
-            fill="url(#nobTechGrad)" 
-            letterSpacing="-0.5"
-            className="nob-tech-text"
-          >
-            TECH
-          </text>
-
-          {/* Slogan officiel optionnel */}
-          {showSlogan && (
-            <g transform="translate(0, 78)">
-              {/* Ligne accent cyan gauche */}
-              <line x1="2" y1="-4" x2="28" y2="-4" stroke="#00D4FF" strokeWidth="2.5" strokeLinecap="round" />
-
-              {/* Texte slogan */}
+          {/* Dynamic Centered Brand Name: NOB + TECH */}
+          {showText && (
+            <g>
               <text 
-                x="36"
-                y="0"
+                x="88"
+                y={showSlogan ? "34" : "39"}
+                dominantBaseline="central"
                 fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" 
-                fontSize="10" 
-                fontWeight="700" 
-                fill={textColor} 
-                letterSpacing="2.8"
-                opacity="0.85"
+                fontSize="46" 
+                fontWeight="900" 
+                letterSpacing="-0.5"
+                className="nob-logo-text"
               >
-                LA TECHNOLOGIE À VOTRE PORTÉE
+                <tspan fill={textColor} className="nob-word-text">NOB</tspan>
+                <tspan fill="url(#nobTechGrad)" className="nob-tech-text">TECH</tspan>
               </text>
 
-              {/* Ligne accent vert droite */}
-              <line x1="226" y1="-4" x2="252" y2="-4" stroke="#10E760" strokeWidth="2.5" strokeLinecap="round" />
+              {/* Slogan officiel optionnel */}
+              {showSlogan && (
+                <g transform="translate(88, 68)">
+                  <line x1="0" y1="0" x2="24" y2="0" stroke="#00D4FF" strokeWidth="2.5" strokeLinecap="round" />
+                  <text 
+                    x="32"
+                    y="1"
+                    dominantBaseline="central"
+                    fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" 
+                    fontSize="10" 
+                    fontWeight="700" 
+                    fill={textColor} 
+                    letterSpacing="2.6"
+                    opacity="0.85"
+                  >
+                    LA TECHNOLOGIE À VOTRE PORTÉE
+                  </text>
+                  <line x1="216" y1="0" x2="240" y2="0" stroke="#10E760" strokeWidth="2.5" strokeLinecap="round" />
+                </g>
+              )}
             </g>
           )}
         </g>
@@ -155,4 +170,3 @@ export const NobLogo: React.FC<NobLogoProps> = ({
     </svg>
   );
 };
-
