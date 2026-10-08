@@ -8,7 +8,6 @@ import { TypewriterText } from "./TypewriterText";
 import { FadeUp } from "./animations";
 import Link from "next/link";
 import { TalkToEngineerButton } from "./TalkToEngineerButton";
-import { ShieldWatermark } from "./ShieldWatermark";
 
 export function Hero() {
   return (
@@ -17,14 +16,8 @@ export function Hero() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:32px_32px]"></div>
       
-      {/* Strategic Brand Shield Watermark */}
-      <ShieldWatermark size={580} opacity={0.045} glow={true} />
-      
       <Container className="relative z-10 w-full">
         <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
-          <p className="font-mono text-accent text-sm md:text-base tracking-[0.25em] uppercase mb-12 opacity-80">
-            &gt;_ La technologie à votre portée
-          </p>
 
           <FadeUp delay={0.1}>
             <AnimatedHeroText />

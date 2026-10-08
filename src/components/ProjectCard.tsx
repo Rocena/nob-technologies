@@ -25,7 +25,7 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
     (typeof project.coverImage === "string"
       ? project.coverImage
       : project.coverImage?.url) ||
-    "/images/parc-exotique-preview.jpg";
+    "/images/gallery/galerie-1-baie-brassage.jpg";
 
   return (
     <div className="group flex flex-col bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-cyan-500/50 transition-all duration-500 overflow-hidden">

@@ -8,7 +8,6 @@ import { Shield, Network, Zap, Target, Cpu, Globe, CheckCircle2, Award } from 'l
 import { Clients } from '@/components/clients'
 import { FadeUp, TextReveal, MagneticElement } from '@/components/animations'
 import { AnimatedCounter } from '@/components/AnimatedCounter'
-import { ShieldWatermark } from '@/components/ShieldWatermark'
 
 export const dynamic = 'force-dynamic'
 
@@ -36,8 +35,6 @@ export default async function AboutPage() {
         <Section data-cursor-binary="true" className="bg-[#020617] text-white pt-28 pb-14 sm:pt-36 sm:pb-16 md:pt-40 md:pb-24 lg:pt-48 lg:pb-32 relative overflow-hidden">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:32px_32px]"></div>
           <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
-
-          <ShieldWatermark size={520} opacity={0.045} glow={true} />
 
           <Container className="relative z-10">
             <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
@@ -133,7 +130,6 @@ export default async function AboutPage() {
                 
                 <div className="space-y-8 p-5 sm:p-8 bg-[#020617] rounded-sm border border-white/10 shadow-2xl relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-full blur-[50px] -translate-y-1/2 translate-x-1/2"></div>
-                  <ShieldWatermark size={260} opacity={0.06} position="bottom-right" glow={false} />
                   
                   <FadeUp delay={0.1}>
                     <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 group">

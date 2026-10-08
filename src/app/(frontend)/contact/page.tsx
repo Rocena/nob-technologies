@@ -7,7 +7,6 @@ import { ContactForm } from "./form";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { getPayloadClient } from "@/lib/payload";
 import { FadeUp, TextReveal, MagneticElement } from "@/components/animations";
-import { ShieldWatermark } from "@/components/ShieldWatermark";
 
 export const metadata = {
   title: 'Contact | NOB TECHNOLOGIES',
@@ -50,9 +49,6 @@ export default async function ContactPage({
         <Section data-cursor-binary="true" className="bg-[#020617] text-white pt-28 pb-14 sm:pt-36 sm:pb-16 md:pt-40 md:pb-20 relative overflow-hidden">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px]"></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[100px] pointer-events-none"></div>
-          
-          {/* Strategic Brand Shield Watermark */}
-          <ShieldWatermark size={500} opacity={0.045} glow={true} />
           
           <Container className="relative z-10">
             <TextReveal>

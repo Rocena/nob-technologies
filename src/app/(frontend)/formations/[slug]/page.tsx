@@ -9,7 +9,6 @@ import { Section, Container } from "@/components/ui/layout";
 import { FadeUp } from "@/components/animations";
 import { getAllFormations, getFormationBySlug } from "@/lib/formations";
 import { FormationInquiryForm } from "./FormationInquiryForm";
-import { ShieldWatermark } from "@/components/ShieldWatermark";
 import {
   Calendar,
   Clock,
@@ -64,7 +63,6 @@ export default async function FormationDetailPage({ params }: Props) {
         <Section className="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden bg-gradient-to-b from-[#020617] via-[#030d24] to-[#020617]">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]" />
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
-          <ShieldWatermark size={520} opacity={0.045} position="center" glow />
 
           <Container className="relative z-10">
             {/* Breadcrumb */}
@@ -198,7 +196,6 @@ export default async function FormationDetailPage({ params }: Props) {
 
         {/* 6-Month Detailed Curriculum */}
         <Section className="py-20 bg-slate-950 relative overflow-hidden">
-          <ShieldWatermark size={600} opacity={0.035} position="center" />
           <Container>
             <FadeUp>
               <div className="text-center max-w-3xl mx-auto mb-16">

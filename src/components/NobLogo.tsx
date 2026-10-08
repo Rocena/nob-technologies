@@ -27,17 +27,16 @@ export const NobLogo: React.FC<NobLogoProps> = ({
 
     return (
       <div className={`inline-flex flex-col items-center justify-center select-none ${className}`}>
-        {/* Shield with Glow */}
+        {/* Shield */}
         <div 
           style={{ width: shieldSize, height: shieldSize }} 
           className="relative shrink-0 flex items-center justify-center nob-shield-anim"
         >
-          <div className="absolute inset-0 rounded-full bg-cyan-400/25 blur-md pointer-events-none" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
             src="/images/nobtech-shield.png" 
             alt="NOBTECH" 
-            className="w-full h-full object-contain filter drop-shadow-[0_0_10px_rgba(0,212,255,0.4)] relative z-10" 
+            className="w-full h-full object-contain relative z-10" 
           />
         </div>
 
@@ -61,17 +60,16 @@ export const NobLogo: React.FC<NobLogoProps> = ({
 
   return (
     <div className={`inline-flex items-center justify-center select-none ${className}`}>
-      {/* Shield with Glow */}
+      {/* Shield */}
       <div 
         style={{ width: shieldSize, height: shieldSize }} 
         className="relative shrink-0 flex items-center justify-center nob-shield-anim"
       >
-        <div className="absolute inset-0 rounded-full bg-cyan-400/20 blur-sm pointer-events-none" />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img 
           src="/images/nobtech-shield.png" 
           alt="NOBTECH" 
-          className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,212,255,0.35)] relative z-10" 
+          className="w-full h-full object-contain relative z-10" 
         />
       </div>
 

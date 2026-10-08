@@ -25,9 +25,6 @@ export function AnimatedLogo() {
         whileTap={{ scale: 0.98 }}
         className="flex items-center justify-center relative py-1"
       >
-        {/* Ambient Backlight Glow around Shield that activates on entrance and hover */}
-        <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-gradient-to-r from-[#00D4FF]/30 to-[#10E760]/20 blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
         {/* Mobile View: Height 34px strictly centered */}
         <div className="flex items-center justify-center sm:hidden text-[#0B2545]">
           <NobLogo height={34} showText={true} textColor="#0B2545" />

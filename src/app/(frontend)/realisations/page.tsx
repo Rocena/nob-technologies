@@ -24,6 +24,7 @@ const secondaryProjects: ProjectItem[] = [
     sector: 'ERP, Digitalisation & Gestion Commerciale',
     description: 'Conception d’ERP sur-mesure pour des flux métiers spécifiques, ainsi qu’installation et paramétrage d’ERP de référence (Odoo, Dolibarr) pour la gestion des stocks, facturation, devis et comptabilité de structures sénégalaises et sous-régionales.',
     tags: ['ERP Sur-Mesure', 'Odoo & Dolibarr', 'Gestion Commerciale', 'Facturation', 'Comptabilité'],
+    coverImage: '/images/gallery/galerie-7-salle-serveurs.jpg',
   },
   {
     id: 'infra-firewall',
@@ -31,6 +32,7 @@ const secondaryProjects: ProjectItem[] = [
     sector: 'Cybersécurité Périmétrique',
     description: 'Mise en place de passerelles de sécurité Sophos et Fortinet (NGFW) avec filtrage applicatif, VPN IPsec multi-sites pour le travail à distance et politiques de segmentation réseau LAN/VLAN.',
     tags: ['Sophos XGS', 'Fortinet FortiGate', 'VPN IPsec', 'Segmentation VLAN'],
+    coverImage: '/images/gallery/galerie-6-routeur-firewall.jpg',
   },
   {
     id: 'cablage-telecom',
@@ -38,6 +40,7 @@ const secondaryProjects: ProjectItem[] = [
     sector: 'Infrastructures Câblage & Télécoms',
     description: 'Pose de câblage informatique catégorie 6A/7, installation et peignage de baies de brassage 42U, raccordement de liaisons fibre optique et déploiement de standard téléphonique IP (VoIP).',
     tags: ['Câblage Cat 6A', 'Baies 42U', 'Fibre Optique', 'Téléphonie IP'],
+    coverImage: '/images/gallery/galerie-1-baie-brassage.jpg',
   },
 ];
 
