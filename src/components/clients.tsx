@@ -4,21 +4,93 @@ import { FadeUp } from "@/components/animations";
 import { ClientLogoImg } from "./ClientLogoImg";
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, Sparkles, ArrowRight, ShieldCheck } from "lucide-react";
+import { ExternalLink, ArrowRight, ShieldCheck } from "lucide-react";
 
-const defaultTrustedBrands = [
-  { name: "Sophos", category: "Firewalls XGS & Sécurité", badge: "Pare-feu" },
-  { name: "Fortinet", category: "Next-Gen Firewall FortiGate", badge: "NGFW" },
-  { name: "Microsoft 365", category: "Licences ESD & CSP", badge: "Cloud & Office" },
-  { name: "Cisco", category: "Réseaux & Commutation", badge: "Réseaux" },
-  { name: "Dell Technologies", category: "Serveurs & Stockage", badge: "Hardware" },
-  { name: "VMware", category: "Virtualisation d'Entreprise", badge: "Virtualisation" },
-  { name: "Acronis", category: "Sauvegarde & Anti-Ransomware", badge: "Backup" },
-  { name: "Kaspersky", category: "Cyberdéfense Applicative", badge: "Sécurité" },
-  { name: "Wallix", category: "Gestion des Accès à Privilèges", badge: "IAM / PAM" },
-  { name: "Yeastar", category: "Téléphonie IP d'Entreprise", badge: "VoIP" },
-  { name: "Sangoma", category: "Télécoms Unifiées", badge: "VoIP" },
-  { name: "HP Enterprise", category: "Infrastructures IT", badge: "Hardware" },
+export const defaultTrustedBrands = [
+  {
+    name: "Sophos",
+    category: "Firewalls XGS & Sécurité",
+    badge: "Pare-feu",
+    url: "https://www.sophos.com/",
+    logo: "/images/partners/sophos.svg",
+  },
+  {
+    name: "Fortinet",
+    category: "Next-Gen Firewall FortiGate",
+    badge: "NGFW",
+    url: "https://www.fortinet.com/",
+    logo: "/images/partners/fortinet.svg",
+  },
+  {
+    name: "Microsoft 365",
+    category: "Licences ESD & CSP",
+    badge: "Cloud & Office",
+    url: "https://www.microsoft.com/microsoft-365",
+    logo: "/images/partners/microsoft.svg",
+  },
+  {
+    name: "Cisco",
+    category: "Réseaux & Commutation",
+    badge: "Réseaux",
+    url: "https://www.cisco.com/",
+    logo: "/images/partners/cisco-color.svg",
+  },
+  {
+    name: "Dell Technologies",
+    category: "Serveurs & Stockage",
+    badge: "Hardware",
+    url: "https://www.dell.com/",
+    logo: "/images/partners/dell-color.svg",
+  },
+  {
+    name: "VMware",
+    category: "Virtualisation d'Entreprise",
+    badge: "Virtualisation",
+    url: "https://www.vmware.com/",
+    logo: "/images/partners/vmware.png",
+  },
+  {
+    name: "Acronis",
+    category: "Sauvegarde & Anti-Ransomware",
+    badge: "Backup",
+    url: "https://www.acronis.com/",
+    logo: "/images/partners/acronis.svg",
+  },
+  {
+    name: "Kaspersky",
+    category: "Cyberdéfense Applicative",
+    badge: "Sécurité",
+    url: "https://www.kaspersky.com/",
+    logo: "/images/partners/kaspersky.svg",
+  },
+  {
+    name: "Wallix",
+    category: "Gestion des Accès à Privilèges",
+    badge: "IAM / PAM",
+    url: "https://www.wallix.com/",
+    logo: "/images/partners/wallix.svg",
+  },
+  {
+    name: "Yeastar",
+    category: "Téléphonie IP d'Entreprise",
+    badge: "VoIP",
+    url: "https://www.yeastar.com/",
+    logo: "/images/partners/yeastar.png",
+  },
+  {
+    name: "Sangoma",
+    category: "Télécoms Unifiées",
+    badge: "VoIP",
+    url: "https://www.sangoma.com/",
+    logo: "/images/partners/sangoma.png",
+  },
+  {
+    name: "HP Enterprise",
+    category: "Infrastructures IT",
+    badge: "Hardware",
+    url: "https://www.hpe.com/",
+    logo: "/images/partners/hpe.svg",
+  },
 ];
 
 export function Clients({ clients = [] }: { clients: any[] }) {
@@ -37,53 +109,87 @@ export function Clients({ clients = [] }: { clients: any[] }) {
               Ils nous ont fait confiance
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
-              Des partenariats technologiques de premier plan et des références d’envergure au service de votre transformation numérique.
+              Des partenariats technologiques mondiaux et des solutions certifiées pour garantir la fiabilité, la sécurité et la performance de votre système d’information.
             </p>
           </FadeUp>
         </div>
 
-        {/* Dynamic CMS Logos if uploaded, otherwise fallback to uniform curated partner tiles */}
-        {dynamicClients.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-5 mb-14">
-            {dynamicClients.map((client: any, idx: number) => {
-              const logoUrl = client.logo?.url || "";
-              return (
-                <FadeUp key={client.id || idx} delay={0.05 * (idx % 6)}>
-                  <div className="group h-20 bg-white rounded-xl border border-slate-200 hover:border-cyan-400 p-4 flex items-center justify-center transition-all duration-300 hover:shadow-md">
-                    {logoUrl ? (
-                      <ClientLogoImg
-                        src={logoUrl}
-                        alt={client.name || "Client"}
-                        className="max-h-12 max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100"
-                      />
-                    ) : (
-                      <span className="text-xs font-bold text-slate-700 group-hover:text-cyan-600 text-center">
-                        {client.name}
-                      </span>
-                    )}
-                  </div>
-                </FadeUp>
-              );
-            })}
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5 md:gap-4 mb-14">
-            {defaultTrustedBrands.map((brand, idx) => (
-              <FadeUp key={brand.name} delay={0.03 * idx}>
-                <div className="group h-20 bg-white rounded-xl border border-slate-200 hover:border-cyan-400/80 p-3.5 flex flex-col justify-center items-center text-center transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
-                  <span className="text-xs font-bold text-slate-900 group-hover:text-cyan-600 transition-colors">
-                    {brand.name}
-                  </span>
-                  <span className="text-[10px] font-mono text-slate-500 line-clamp-1 mt-0.5">
+        {/* 12 Partner Brands with Authentic Logos & Outbound Links */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5 md:gap-4 mb-14">
+          {defaultTrustedBrands.map((brand, idx) => (
+            <FadeUp key={brand.name} delay={0.03 * idx}>
+              <a
+                href={brand.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={`Visiter le site officiel de ${brand.name}`}
+                className="group relative bg-white hover:bg-slate-50/90 rounded-2xl border border-slate-200/90 hover:border-cyan-500/80 p-3.5 sm:p-4 flex flex-col justify-between items-center text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1 h-full min-h-[140px]"
+              >
+                {/* Top Badge & External Link Icon */}
+                <div className="w-full flex items-center justify-between gap-1 mb-2.5">
+                  <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200/60 group-hover:bg-cyan-50 group-hover:text-cyan-700 group-hover:border-cyan-200 transition-colors truncate max-w-[85px]">
                     {brand.badge}
                   </span>
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-cyan-600 transition-colors opacity-70 group-hover:opacity-100 shrink-0" />
                 </div>
-              </FadeUp>
-            ))}
+
+                {/* Real Authentic Logo */}
+                <div className="relative h-12 w-full flex items-center justify-center py-1">
+                  <Image
+                    src={brand.logo}
+                    alt={`Logo officiel ${brand.name}`}
+                    width={110}
+                    height={38}
+                    unoptimized
+                    className="max-h-8 sm:max-h-9 max-w-[110px] w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+
+                {/* Brand Name Footer */}
+                <div className="mt-2.5 pt-2 w-full border-t border-slate-100 flex flex-col items-center">
+                  <span className="text-xs font-bold text-slate-900 group-hover:text-cyan-600 transition-colors truncate max-w-full">
+                    {brand.name}
+                  </span>
+                </div>
+              </a>
+            </FadeUp>
+          ))}
+        </div>
+
+        {/* Dynamic CMS Client References if any are published */}
+        {dynamicClients.length > 0 && (
+          <div className="mb-14 pt-8 border-t border-slate-200/80">
+            <div className="text-center mb-6">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">
+                Références Clients & Déploiements
+              </span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5 md:gap-4">
+              {dynamicClients.map((client: any, idx: number) => {
+                const logoUrl = client.logo?.url || "";
+                return (
+                  <FadeUp key={client.id || idx} delay={0.03 * (idx % 6)}>
+                    <div className="group h-20 bg-white rounded-xl border border-slate-200 hover:border-cyan-400 p-4 flex items-center justify-center transition-all duration-300 hover:shadow-md">
+                      {logoUrl ? (
+                        <ClientLogoImg
+                          src={logoUrl}
+                          alt={client.name || "Client"}
+                          className="max-h-12 max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100"
+                        />
+                      ) : (
+                        <span className="text-xs font-bold text-slate-700 group-hover:text-cyan-600 text-center">
+                          {client.name}
+                        </span>
+                      )}
+                    </div>
+                  </FadeUp>
+                );
+              })}
+            </div>
           </div>
         )}
 
-        {/* Featured Project Showcase Teaser: Parc Exotique du Sénégal */}
+        {/* Featured Project Showcase: Parc Exotique du Sénégal */}
         <FadeUp delay={0.2}>
           <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden relative">
             <div className="grid lg:grid-cols-12 gap-8 items-center">

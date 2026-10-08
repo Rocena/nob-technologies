@@ -5,9 +5,10 @@ import { Footer } from "@/components/footer";
 import { CTA } from "@/components/cta";
 import { Section, Container } from "@/components/ui/layout";
 import { FadeUp, TextReveal } from "@/components/animations";
-import { Award, ShieldCheck, GraduationCap, CheckCircle2, ArrowRight, ShieldAlert, Cpu, Sparkles } from "lucide-react";
+import { Award, ShieldCheck, GraduationCap, CheckCircle2, ArrowRight, ShieldAlert, Cpu, Sparkles, ExternalLink } from "lucide-react";
 import { StatsSection } from "./client-stats";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Partenaires & Formations | NOB TECHNOLOGIES",
@@ -25,6 +26,8 @@ const featuredPartners = [
     accent: "text-cyan-400",
     border: "border-cyan-500/40",
     isFlagship: true,
+    logo: "/images/partners/sophos.svg",
+    url: "https://www.sophos.com/",
   },
   {
     name: "Fortinet",
@@ -35,9 +38,11 @@ const featuredPartners = [
     accent: "text-rose-400",
     border: "border-rose-500/40",
     isFlagship: true,
+    logo: "/images/partners/fortinet.svg",
+    url: "https://www.fortinet.com/",
   },
   {
-    name: "Microsoft Office 365",
+    name: "Microsoft 365",
     role: "Vente de Licences (ESD & CSP) & Modern Workplace",
     desc: "Distribution officielle de licences Microsoft 365 pour entreprises (ESD & CSP), déploiement collaboratif Teams, Exchange Online, SharePoint et sécurisation Entra ID.",
     badge: "LICENCES ESD & CSP",
@@ -45,108 +50,137 @@ const featuredPartners = [
     accent: "text-sky-400",
     border: "border-sky-500/40",
     isFlagship: true,
+    logo: "/images/partners/microsoft.svg",
+    url: "https://www.microsoft.com/microsoft-365",
   },
 ];
 
 const partners = [
   {
+    name: "Cisco",
+    role: "Réseaux d'Entreprise, Commutation & Routage",
+    desc: "Solutions d'infrastructure réseau haute disponibilité, commutateurs Catalyst, routeurs d'entreprise et architectures Wi-Fi professionnelles.",
+    badge: "RÉSEAUX",
+    color: "from-cyan-500/20 to-blue-600/10",
+    accent: "text-cyan-400",
+    border: "border-cyan-500/20",
+    logo: "/images/partners/cisco-color.svg",
+    url: "https://www.cisco.com/",
+  },
+  {
+    name: "Dell Technologies",
+    role: "Serveurs PowerEdge, Stockage & Matériel",
+    desc: "Infrastructures matérielles sur-mesure : serveurs d'entreprise Dell PowerEdge, baies de stockage SAN/NAS et stations de travail haute performance.",
+    badge: "HARDWARE",
+    color: "from-blue-500/20 to-sky-600/10",
+    accent: "text-sky-400",
+    border: "border-blue-500/20",
+    logo: "/images/partners/dell-color.svg",
+    url: "https://www.dell.com/",
+  },
+  {
+    name: "VMware",
+    role: "Virtualisation d'Entreprise & Cloud Hybride",
+    desc: "Optimisation et consolidation de serveurs avec VMware vSphere, gestion unifiée du multi-cloud et continuité opérationnelle.",
+    badge: "VIRTUALISATION",
+    color: "from-slate-500/20 to-slate-600/10",
+    accent: "text-slate-400",
+    border: "border-slate-500/20",
+    logo: "/images/partners/vmware.png",
+    url: "https://www.vmware.com/",
+  },
+  {
     name: "Acronis",
     role: "Protection Complète des Données & Cyber Protect",
     desc: "Sauvegardes cloud hybrides, restauration instantanée après sinistre (Disaster Recovery) et bouclier anti-ransomware actif.",
-    badge: "BACKUP & RECOVERY",
+    badge: "BACKUP",
     color: "from-blue-500/20 to-blue-600/10",
     accent: "text-blue-400",
     border: "border-blue-500/20",
+    logo: "/images/partners/acronis.svg",
+    url: "https://www.acronis.com/",
+  },
+  {
+    name: "Kaspersky",
+    role: "Sécurité des Applications Web & Périmètres",
+    desc: "Protection multicouche des serveurs, des conteneurs et des terminaux contre les attaques zero-day et les menaces persistantes (APT).",
+    badge: "SÉCURITÉ",
+    color: "from-emerald-500/20 to-teal-600/10",
+    accent: "text-emerald-400",
+    border: "border-emerald-500/20",
+    logo: "/images/partners/kaspersky.svg",
+    url: "https://www.kaspersky.com/",
+  },
+  {
+    name: "Wallix",
+    role: "Gestion des Identités & Accès à Privilèges (IAM / PAM)",
+    desc: "Sécurisation stricte de l'accès aux ressources critiques de l'entreprise, enregistrement des sessions administrateurs et gouvernance d'accès.",
+    badge: "IAM / PAM",
+    color: "from-orange-500/20 to-amber-600/10",
+    accent: "text-orange-400",
+    border: "border-orange-500/20",
+    logo: "/images/partners/wallix.svg",
+    url: "https://www.wallix.com/",
+  },
+  {
+    name: "Yeastar",
+    role: "Centrales Téléphoniques IP & VoIP d'Entreprise",
+    desc: "Systèmes IP-PBX nouvelle génération Série P, communications unifiées, intégration softphones et collaboration d'entreprise fluide.",
+    badge: "VOIP",
+    color: "from-rose-500/20 to-red-600/10",
+    accent: "text-rose-400",
+    border: "border-rose-500/20",
+    logo: "/images/partners/yeastar.png",
+    url: "https://www.yeastar.com/",
+  },
+  {
+    name: "Sangoma",
+    role: "Passerelles VoIP & Téléphonie Ouverte",
+    desc: "Équipements et solutions de communications unifiées, cartes VoIP, passerelles voix et standards téléphoniques résilients.",
+    badge: "VOIP",
+    color: "from-red-500/20 to-rose-600/10",
+    accent: "text-red-400",
+    border: "border-red-500/20",
+    logo: "/images/partners/sangoma.png",
+    url: "https://www.sangoma.com/",
+  },
+  {
+    name: "HP Enterprise",
+    role: "Infrastructures Serveurs & Réseaux HPE Aruba",
+    desc: "Serveurs ProLiant de référence, solutions réseau d'entreprise intelligentes et stockage sécurisé pour environnements critiques.",
+    badge: "HARDWARE",
+    color: "from-teal-500/20 to-emerald-600/10",
+    accent: "text-teal-400",
+    border: "border-teal-500/20",
+    logo: "/images/partners/hpe.svg",
+    url: "https://www.hpe.com/",
   },
   {
     name: "Allot",
     role: "Visibilité & Sécurité Réseau",
     desc: "Détection et mitigation en temps réel des attaques DDoS, analyse granulaire du trafic et optimisation de bande passante.",
-    badge: "ANTI-DDOS & RÉSEAU",
+    badge: "ANTI-DDOS",
     color: "from-amber-500/20 to-orange-600/10",
     accent: "text-amber-400",
     border: "border-amber-500/20",
   },
   {
     name: "BeyondTrust",
-    role: "Protection Avancée des Terminaux & Comptes à Privilèges",
+    role: "Protection Avancée des Terminaux & PAM",
     desc: "Gestion unifiée des privilèges (PAM), sécurisation des postes de travail et protection contre les cybermenaces internes et externes.",
-    badge: "PAM & POSTES",
+    badge: "PAM",
     color: "from-indigo-500/20 to-purple-600/10",
     accent: "text-indigo-400",
     border: "border-indigo-500/20",
   },
   {
-    name: "Kaspersky",
-    role: "Sécurité des Applications Web & Périmètres",
-    desc: "Protection multicouche des serveurs, des conteneurs et des terminaux contre les attaques zero-day et les menaces persistantes (APT).",
-    badge: "CYBERDÉFENSE",
-    color: "from-emerald-500/20 to-teal-600/10",
-    accent: "text-emerald-400",
-    border: "border-emerald-500/20",
-  },
-  {
-    name: "UBIKA PAESSLER",
-    role: "Supervision Réseau & Protection Applicative",
-    desc: "Monitoring actif et proactif de vos infrastructures IT avec PRTG Network Monitor et pare-feu applicatif web (WAF) haute disponibilité.",
-    badge: "SUPERVISION & WAF",
-    color: "from-cyan-500/20 to-cyan-600/10",
-    accent: "text-cyan-400",
-    border: "border-cyan-500/20",
-  },
-  {
     name: "GateWatcher",
     role: "Détection des Menaces Avancées & NDR par IA",
-    desc: "Plateforme souveraine de Network Detection and Response (NDR) analysant le trafic réseau en temps réel avec contre-offensive assistée par IA.",
+    desc: "Plateforme souveraine de Network Detection and Response (NDR) analysant le trafic réseau en temps réel avec contre-offensive IA.",
     badge: "NDR & IA",
     color: "from-purple-500/20 to-violet-600/10",
     accent: "text-purple-400",
     border: "border-purple-500/20",
-  },
-  {
-    name: "Symantec",
-    role: "Suites de Sécurité Avancées Endpoint & Network",
-    desc: "Protection éprouvée des postes de travail, prévention des fuites de données (DLP) et filtrage web d'entreprise sécurisé.",
-    badge: "ENDPOINT & DLP",
-    color: "from-yellow-500/20 to-amber-600/10",
-    accent: "text-yellow-400",
-    border: "border-yellow-500/20",
-  },
-  {
-    name: "Tufin",
-    role: "Automatisation des Politiques de Sécurité",
-    desc: "Gestion centralisée et audit automatisé des règles de pare-feu et des politiques de sécurité à travers les architectures multi-cloud et on-premise.",
-    badge: "AUTOMATISATION",
-    color: "from-teal-500/20 to-emerald-600/10",
-    accent: "text-teal-400",
-    border: "border-teal-500/20",
-  },
-  {
-    name: "Varonis",
-    role: "Sécurité des Données (DSPM) & Analyse Comportementale",
-    desc: "Analyse des comportements anormaux, cartographie des accès aux données sensibles et remédiation automatique des risques de conformité.",
-    badge: "DATA SECURITY",
-    color: "from-rose-500/20 to-pink-600/10",
-    accent: "text-rose-400",
-    border: "border-rose-500/20",
-  },
-  {
-    name: "Wallix",
-    role: "Gestion des Identités & Accès à Privilèges (IAM / PAM)",
-    desc: "Sécurisation stricte de l'accès aux ressources critiques de l'entreprise, enregistrement des sessions administrateurs et gouvernance d'accès.",
-    badge: "IAM & PAM",
-    color: "from-blue-500/20 to-indigo-600/10",
-    accent: "text-blue-400",
-    border: "border-blue-500/20",
-  },
-  {
-    name: "Veritas",
-    role: "Résilience des Données & Continuité d'Activité",
-    desc: "Solutions de sauvegarde d'entreprise unifiée, archivage légal et résilience maximale contre les sinistres et ransomwares.",
-    badge: "RÉSILIENCE DATA",
-    color: "from-red-500/20 to-orange-600/10",
-    accent: "text-red-400",
-    border: "border-red-500/20",
   },
 ];
 
@@ -246,8 +280,30 @@ export default function CertificationsPage() {
                         <span className="text-[11px] font-mono font-bold tracking-wider px-2.5 py-1 rounded bg-black/40 border border-white/10 text-cyan-300">
                           {partner.badge}
                         </span>
-                        <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
+                        <a
+                          href={partner.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title={`Site officiel de ${partner.name}`}
+                          className="p-1.5 rounded-lg bg-white/10 hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 transition-colors"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
                       </div>
+
+                      {partner.logo && (
+                        <div className="h-12 w-fit max-w-[140px] mb-4 bg-white/95 rounded-xl px-3 py-1 flex items-center justify-center">
+                          <Image
+                            src={partner.logo}
+                            alt={`Logo ${partner.name}`}
+                            width={120}
+                            height={36}
+                            unoptimized
+                            className="max-h-8 w-auto object-contain"
+                          />
+                        </div>
+                      )}
+
                       <h3 className="text-2xl font-black text-white mb-2 group-hover:text-cyan-300 transition-colors">
                         {partner.name}
                       </h3>
@@ -260,8 +316,22 @@ export default function CertificationsPage() {
                     </div>
 
                     <div className="mt-6 pt-5 border-t border-white/10 flex items-center justify-between text-xs font-semibold text-slate-300 group-hover:text-cyan-400 transition-colors">
-                      <span>Demander un devis / licence</span>
-                      <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                      <a
+                        href={partner.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 hover:underline text-cyan-300"
+                      >
+                        <span>Visiter le site officiel</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                      <Link
+                        href="/contact"
+                        className="inline-flex items-center gap-1 text-slate-400 hover:text-white"
+                      >
+                        <span>Devis</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
                     </div>
                   </div>
                 </FadeUp>
@@ -298,16 +368,42 @@ export default function CertificationsPage() {
                     />
 
                     <div className="relative z-10">
-                      <span
-                        className={`inline-block px-2.5 py-1 rounded-full text-[10px] font-black tracking-widest border bg-slate-50 mb-4 ${partner.accent} ${partner.border}`}
-                      >
-                        {partner.badge}
-                      </span>
+                      <div className="flex items-center justify-between mb-3">
+                        <span
+                          className={`inline-block px-2.5 py-1 rounded-full text-[10px] font-black tracking-widest border bg-slate-50 ${partner.accent} ${partner.border}`}
+                        >
+                          {partner.badge}
+                        </span>
+                        {partner.url && (
+                          <a
+                            href={partner.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={`Visiter le site officiel de ${partner.name}`}
+                            className="p-1 rounded-lg text-slate-400 hover:text-cyan-600 hover:bg-slate-100 transition-colors"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                          </a>
+                        )}
+                      </div>
+
+                      {partner.logo && (
+                        <div className="h-10 w-fit max-w-[130px] mb-3 flex items-center">
+                          <Image
+                            src={partner.logo}
+                            alt={`Logo ${partner.name}`}
+                            width={110}
+                            height={32}
+                            unoptimized
+                            className="max-h-7 w-auto object-contain"
+                          />
+                        </div>
+                      )}
 
                       <h3 className="text-xl font-extrabold text-slate-900 mb-1">
                         {partner.name}
                       </h3>
-                      <p className={`text-xs font-bold mb-4 ${partner.accent}`}>
+                      <p className={`text-xs font-bold mb-3 ${partner.accent}`}>
                         {partner.role}
                       </p>
 
@@ -319,6 +415,20 @@ export default function CertificationsPage() {
                         {partner.desc}
                       </p>
                     </div>
+
+                    {partner.url && (
+                      <div className="relative z-10 pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
+                        <a
+                          href={partner.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-cyan-600 transition-colors"
+                        >
+                          <span>Site officiel ({partner.name})</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </FadeUp>
               ))}

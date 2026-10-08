@@ -48,6 +48,11 @@ export const Partners: CollectionConfig = {
       relationTo: 'media',
     },
     {
+      name: 'websiteUrl',
+      label: 'Site Web Officiel (URL)',
+      type: 'text',
+    },
+    {
       name: 'themeColor',
       label: 'Couleur de thème (Tailwind class, ex: blue-500)',
       type: 'text',
