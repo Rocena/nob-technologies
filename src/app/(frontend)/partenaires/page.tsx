@@ -8,6 +8,7 @@ import { FadeUp, TextReveal } from "@/components/animations";
 import { ShieldCheck, Award, ExternalLink, ArrowRight, Cpu, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { QuoteRequestButton } from "@/components/QuoteRequestButton";
 
 export const metadata: Metadata = {
   title: "Partenaires Technologiques & Constructeurs | NOB TECHNOLOGIES",
@@ -330,13 +331,13 @@ export default function PartenairesPage() {
                     </div>
 
                     <div className="mt-6 pt-5 border-t border-white/10 flex items-center justify-end text-xs font-semibold text-slate-300 group-hover:text-cyan-400 transition-colors">
-                      <Link
-                        href="/contact"
-                        className="inline-flex items-center gap-1.5 text-cyan-300 hover:text-white"
+                      <QuoteRequestButton
+                        service={`Partenaire & Solution : ${partner.name} (${partner.role})`}
+                        className="inline-flex items-center gap-1.5 text-cyan-300 hover:text-white cursor-pointer"
                       >
                         <span>Demander une étude &amp; devis</span>
                         <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
+                      </QuoteRequestButton>
                     </div>
                   </div>
                 </FadeUp>

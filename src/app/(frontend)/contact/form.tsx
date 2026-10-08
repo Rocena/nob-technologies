@@ -6,7 +6,13 @@ import { Button } from "@/components/ui/button";
 import { ShieldCheck } from "lucide-react";
 import { FormSuccessMessage } from "@/components/FormSuccessMessage";
 
-export function ContactForm({ formType = 'contact' }: { formType?: string }) {
+export function ContactForm({ 
+  formType = 'contact',
+  initialService,
+}: { 
+  formType?: string;
+  initialService?: string;
+}) {
   const [state, formAction, isPending] = useActionState(submitContactForm, null);
   const [success, setSuccess] = React.useState(false);
 
@@ -58,14 +64,18 @@ export function ContactForm({ formType = 'contact' }: { formType?: string }) {
   let buttonText = "Envoyer le message";
 
   if (formType === 'quote') {
-    defaultSubject = "Demande de devis";
+    defaultSubject = initialService ? `[Devis] ${initialService}` : "Demande de devis";
     messageLabel = "Détails du projet *";
-    messagePlaceholder = "Décrivez vos besoins, vos contraintes et vos objectifs...";
+    messagePlaceholder = initialService 
+      ? `Précisez vos besoins pour ${initialService} : volume, contraintes, délais...`
+      : "Décrivez vos besoins, vos contraintes et vos objectifs...";
     buttonText = "Demander mon devis";
   } else if (formType === 'engineer') {
-    defaultSubject = "Demande d'expertise technique";
+    defaultSubject = initialService ? `[Expertise] ${initialService}` : "Demande d'expertise technique";
     messageLabel = "Votre problématique *";
-    messagePlaceholder = "Décrivez la problématique technique que vous rencontrez...";
+    messagePlaceholder = initialService
+      ? `Décrivez la problématique technique concernant ${initialService}...`
+      : "Décrivez la problématique technique que vous rencontrez...";
     buttonText = "Contacter un ingénieur";
   }
 

@@ -22,6 +22,7 @@ import {
   Layers
 } from 'lucide-react'
 import { FadeUp, TextReveal } from '@/components/animations'
+import { QuoteRequestButton } from '@/components/QuoteRequestButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -236,13 +237,13 @@ export default async function ServicesPage() {
                         )}
 
                         <div className="flex items-center justify-between pt-2">
-                          <Link
-                            href="/contact"
-                            className="inline-flex items-center gap-1 text-xs font-bold text-slate-900 group-hover:text-cyan-600 transition-colors"
+                          <QuoteRequestButton
+                            service={service.title}
+                            className="inline-flex items-center gap-1 text-xs font-bold text-slate-900 group-hover:text-cyan-600 transition-colors cursor-pointer"
                           >
                             <span>Demander un devis</span>
                             <ArrowRight className="w-3.5 h-3.5" />
-                          </Link>
+                          </QuoteRequestButton>
 
                           <Link
                             href={`/services/${service.slug}`}

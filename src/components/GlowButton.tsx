@@ -8,11 +8,13 @@ export function GlowButton({
   href,
   children = "Demander un devis",
   onClick,
+  service,
   className,
 }: {
   href?: string;
   children?: React.ReactNode;
   onClick?: () => void;
+  service?: string;
   className?: string;
 }) {
   const { openQuoteModal } = useQuoteModal();
@@ -22,13 +24,13 @@ export function GlowButton({
       onClick();
       return;
     }
-    if (!href || href === "#devis" || href === "/devis" || href === "/tarifs") {
+    if (!href || href === "#devis" || href === "/devis" || href === "/tarifs" || href === "/contact") {
       e.preventDefault();
-      openQuoteModal();
+      openQuoteModal(service);
     }
   };
 
-  if (!href || href === "#devis" || href === "/devis" || href === "/tarifs") {
+  if (!href || href === "#devis" || href === "/devis" || href === "/tarifs" || href === "/contact") {
     return (
       <button
         type="button"

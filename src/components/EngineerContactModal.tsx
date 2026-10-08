@@ -38,6 +38,13 @@ export function EngineerContactModal({
   const [captchaB, setCaptchaB] = useState(4);
   const [selectedService, setSelectedService] = useState<string>("");
 
+  const serviceOptions = React.useMemo(() => {
+    if (initialService && !SERVICE_OPTIONS.includes(initialService)) {
+      return [initialService, ...SERVICE_OPTIONS];
+    }
+    return SERVICE_OPTIONS;
+  }, [initialService]);
+
   const generateCaptcha = () => {
     setCaptchaA(Math.floor(Math.random() * 8) + 1);
     setCaptchaB(Math.floor(Math.random() * 8) + 1);
@@ -109,24 +116,32 @@ export function EngineerContactModal({
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-wider uppercase bg-cyan-100 text-cyan-800 border border-cyan-200">
                     {isQuoteMode ? (
                       <>
-                        <FileText className="w-3 h-3 text-cyan-700" />
-                        DEVIS RAPIDE SOUS 24H
+                        <FileText className="w-3 h-3 text-cyan-700 shrink-0" />
+                        <span className="truncate max-w-[280px] sm:max-w-[380px]">
+                          {selectedService ? `DEVIS : ${selectedService}` : "DEVIS RAPIDE SOUS 24H"}
+                        </span>
                       </>
                     ) : (
                       <>
-                        <UserCheck className="w-3 h-3 text-cyan-700" />
-                        INGÉNIERIE & CONSEIL
+                        <UserCheck className="w-3 h-3 text-cyan-700 shrink-0" />
+                        <span className="truncate max-w-[280px] sm:max-w-[380px]">
+                          {selectedService ? `CONSEIL : ${selectedService}` : "INGÉNIERIE & CONSEIL"}
+                        </span>
                       </>
                     )}
                   </span>
                 </div>
                 <h3 id="modal-engineer-title" className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
-                  {isQuoteMode ? "Demander un devis & Parler à un ingénieur" : "Parler à un ingénieur expert"}
+                  {isQuoteMode ? "Demander un devis personnalisé" : "Parler à un ingénieur expert"}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-500 mt-1 leading-relaxed">
                   {isQuoteMode
-                    ? "Recevez une proposition sur-mesure sous 24h ouvrées et échangez directement avec nos ingénieurs."
-                    : "Échangez directement avec notre équipe technique sur votre architecture, réseau ou cybersécurité."}
+                    ? selectedService
+                      ? `Recevez une proposition chiffrée sur-mesure pour « ${selectedService} » sous 24h ouvrées.`
+                      : "Recevez une proposition sur-mesure sous 24h ouvrées et échangez directement avec nos ingénieurs."
+                    : selectedService
+                      ? `Échangez directement avec un ingénieur certifié sur votre projet de « ${selectedService} ».`
+                      : "Échangez directement avec notre équipe technique sur votre architecture, réseau ou cybersécurité."}
                 </p>
               </div>
 
@@ -191,7 +206,7 @@ export function EngineerContactModal({
                       disabled={isPending}
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white focus:bg-white focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none text-xs sm:text-sm font-medium text-slate-900 transition-all cursor-pointer"
                     >
-                      {SERVICE_OPTIONS.map((svc) => (
+                      {serviceOptions.map((svc) => (
                         <option key={svc} value={svc}>
                           {svc}
                         </option>

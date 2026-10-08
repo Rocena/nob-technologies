@@ -8,6 +8,7 @@ import { CTA } from "@/components/cta";
 import { Section, Container } from "@/components/ui/layout";
 import { FadeUp, TextReveal } from "@/components/animations";
 import { GlowButton } from "@/components/GlowButton";
+import { QuoteRequestButton } from "@/components/QuoteRequestButton";
 import { 
   CheckCircle2, 
   ArrowRight, 
@@ -373,12 +374,12 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                       Nos ingénieurs analysent votre infrastructure et vous transmettent une proposition chiffrée sous 24 à 48 heures.
                     </p>
 
-                    <Link
-                      href="/contact"
-                      className="flex items-center justify-center w-full py-3.5 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-colors shadow-lg mb-4 text-center"
+                    <QuoteRequestButton
+                      service={service.title}
+                      className="flex items-center justify-center w-full py-3.5 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-colors shadow-lg mb-4 text-center cursor-pointer"
                     >
                       Demander un devis personnalisé
-                    </Link>
+                    </QuoteRequestButton>
 
                     <div className="pt-4 border-t border-slate-800 text-center">
                       <p className="text-[11px] text-slate-400 mb-1">Assistance directe :</p>

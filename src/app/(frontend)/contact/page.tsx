@@ -16,9 +16,9 @@ export const metadata = {
 export default async function ContactPage({
   searchParams,
 }: {
-  searchParams: Promise<{ type?: string }>;
+  searchParams: Promise<{ type?: string; service?: string }>;
 }) {
-  const { type = 'contact' } = await searchParams;
+  const { type = 'contact', service: initialService } = await searchParams;
   let settings: any = null;
   try {
     const payload = await getPayloadClient();
@@ -123,7 +123,7 @@ export default async function ContactPage({
               <FadeUp delay={0.2} className="lg:col-span-2">
                 <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-bl-full pointer-events-none" />
-                  <ContactForm formType={type} />
+                  <ContactForm formType={type} initialService={initialService} />
                 </div>
               </FadeUp>
             </div>

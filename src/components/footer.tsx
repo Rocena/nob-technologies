@@ -6,6 +6,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { getPayloadClient } from "@/lib/payload";
 import { FooterEmergeText } from "./FooterEmergeText";
 import { NobLogo } from "./NobLogo";
+import { QuoteRequestButton } from "./QuoteRequestButton";
 
 export async function Footer() {
   let settings: any = null;
@@ -75,7 +76,11 @@ export async function Footer() {
               <li><Link href="/services" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Nos Services</Link></li>
               <li><Link href="/secteurs" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Secteurs d'activité</Link></li>
               <li><Link href="/realisations" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Réalisations</Link></li>
-              <li><Link href="/contact" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Demander un devis</Link></li>
+              <li>
+                <QuoteRequestButton className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block cursor-pointer text-left">
+                  Demander un devis
+                </QuoteRequestButton>
+              </li>
             </ul>
           </div>
           

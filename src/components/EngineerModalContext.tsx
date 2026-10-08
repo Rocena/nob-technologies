@@ -7,7 +7,7 @@ interface EngineerModalContextType {
   isOpen: boolean;
   mode: "quote" | "engineer";
   initialService?: string;
-  openEngineerModal: () => void;
+  openEngineerModal: (service?: string) => void;
   openQuoteModal: (service?: string) => void;
   closeEngineerModal: () => void;
   closeQuoteModal: () => void;
@@ -36,9 +36,9 @@ export function EngineerModalProvider({ children }: { children: React.ReactNode 
   const [mode, setMode] = useState<"quote" | "engineer">("quote");
   const [initialService, setInitialService] = useState<string | undefined>();
 
-  const openEngineerModal = () => {
+  const openEngineerModal = (service?: string) => {
     setMode("engineer");
-    setInitialService(undefined);
+    setInitialService(service);
     setIsOpen(true);
   };
 

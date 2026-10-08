@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { FadeUp } from "@/components/animations";
 import Link from "next/link";
+import { QuoteRequestButton } from "@/components/QuoteRequestButton";
 
 const defaultServices = [
   {
@@ -130,9 +131,12 @@ export function Expertises({ services = [] }: { services: any[] }) {
                     {service.description || service.excerpt}
                   </p>
                   <div className="flex items-center justify-between gap-2 mt-6 pt-4 border-t border-slate-200/60">
-                    <Link href="/contact" className="text-xs font-bold text-slate-700 hover:text-cyan-600 transition-colors">
+                    <QuoteRequestButton
+                      service={service.title}
+                      className="text-xs font-bold text-slate-700 hover:text-cyan-600 transition-colors cursor-pointer text-left"
+                    >
                       Demander un devis &rarr;
-                    </Link>
+                    </QuoteRequestButton>
                     <Link href="/services" className="flex items-center gap-1 text-cyan-600 text-xs font-semibold hover:underline">
                       En savoir plus <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
