@@ -333,21 +333,12 @@ export default function PartenairesPage() {
                       </p>
                     </div>
 
-                    <div className="mt-6 pt-5 border-t border-white/10 flex items-center justify-between text-xs font-semibold text-slate-300 group-hover:text-cyan-400 transition-colors">
-                      <a
-                        href={partner.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 hover:underline text-cyan-300"
-                      >
-                        <span>Visiter le site officiel</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
+                    <div className="mt-6 pt-5 border-t border-white/10 flex items-center justify-end text-xs font-semibold text-slate-300 group-hover:text-cyan-400 transition-colors">
                       <Link
                         href="/contact"
-                        className="inline-flex items-center gap-1 text-slate-400 hover:text-white"
+                        className="inline-flex items-center gap-1.5 text-cyan-300 hover:text-white"
                       >
-                        <span>Demander un devis</span>
+                        <span>Demander une étude &amp; devis</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>
@@ -423,20 +414,6 @@ export default function PartenairesPage() {
                         {partner.desc}
                       </p>
                     </div>
-
-                    {partner.url && (
-                      <div className="pt-4 mt-4 border-t border-slate-200 flex items-center justify-between">
-                        <a
-                          href={partner.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 hover:text-cyan-600 transition-colors"
-                        >
-                          <span>Site officiel ({partner.name})</span>
-                          <ExternalLink className="w-3.5 h-3.5" />
-                        </a>
-                      </div>
-                    )}
                   </div>
                 </FadeUp>
               ))}

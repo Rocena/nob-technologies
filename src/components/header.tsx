@@ -23,10 +23,10 @@ interface NavItem {
 const DEFAULT_NAV: NavItem[] = [
   { 
     id: 'solutions',
-    name: 'Solutions & Services', 
+    name: 'Services', 
     href: '/services', 
     badge: 'Infrastructures & Infogérance',
-    desc: 'Cybersécurité d’entreprise (Sophos, Fortinet), réseaux & câblage fibre, sauvegarde & Cloud hybride, conception d’ERP sur-mesure (Dolibarr, Odoo), téléphonie VoIP et infogérance 24/7.',
+    desc: 'Infrastructures haute disponibilité, réseaux & fibre, cybersécurité d’entreprise (Sophos, Fortinet), Cloud hybride, conception d’ERP sur-mesure (Dolibarr, Odoo), téléphonie VoIP et infogérance 24/7.',
     order: 1,
   },
   { 
@@ -55,7 +55,7 @@ const DEFAULT_NAV: NavItem[] = [
   },
   { 
     id: 'a-propos',
-    name: 'À Propos', 
+    name: 'Entreprise', 
     href: '/a-propos', 
     badge: 'Cabinet d’Ingénierie',
     desc: 'Découvrez NOB TECHNOLOGIES : notre culture d’ingénierie pure, notre équipe d’experts certifiés, nos engagements de cyber-résilience, nos actualités technologiques et nos carrières.',
