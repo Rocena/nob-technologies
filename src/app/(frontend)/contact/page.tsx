@@ -7,6 +7,7 @@ import { ContactForm } from "./form";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { getPayloadClient } from "@/lib/payload";
 import { FadeUp, TextReveal, MagneticElement } from "@/components/animations";
+import { ShieldWatermark } from "@/components/ShieldWatermark";
 
 export const metadata = {
   title: 'Contact | NOB TECHNOLOGIES',
@@ -129,6 +130,7 @@ export default async function ContactPage({
 
               <FadeUp delay={0.2} className="lg:col-span-2">
                 <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative overflow-hidden">
+                  <ShieldWatermark position="top-right" size={240} opacity={0.07} />
                   <ContactForm formType={type} initialService={initialService} />
                 </div>
               </FadeUp>
