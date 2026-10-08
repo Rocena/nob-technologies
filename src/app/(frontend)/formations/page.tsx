@@ -14,7 +14,6 @@ import {
   Terminal,
   Clock,
   Calendar,
-  Sparkles,
   Users,
   Award,
 } from "lucide-react";
@@ -79,9 +78,6 @@ export default async function FormationsCatalogPage() {
           <Container>
             <FadeUp>
               <div className="text-center max-w-3xl mx-auto mb-16">
-                <span className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-3 font-bold block">
-                  &gt;_ CATALOGUE DES FORMATIONS
-                </span>
                 <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
                   Nos Parcours Certifiants sur 6 Mois
                 </h2>
@@ -97,10 +93,10 @@ export default async function FormationsCatalogPage() {
                   <div className="h-full bg-slate-950/80 rounded-2xl border border-white/10 p-7 md:p-8 flex flex-col justify-between hover:border-cyan-500/50 hover:shadow-2xl transition-all duration-300 relative group">
                     <div>
                       <div className="flex items-center justify-between gap-3 mb-5">
-                        <span className="inline-block text-[10px] font-mono font-bold tracking-widest px-3 py-1 bg-cyan-950/80 text-cyan-400 border border-cyan-800/60 rounded-full">
-                          {track.badge}
+                        <span className="text-xs font-semibold text-cyan-400">
+                          Programme Certifiant
                         </span>
-                        <span className="text-xs font-mono text-slate-400 flex items-center gap-1">
+                        <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5">
                           <Calendar className="w-3.5 h-3.5 text-cyan-400" />
                           {track.duration.split(" ")[0]} Mois
                         </span>
@@ -182,9 +178,6 @@ export default async function FormationsCatalogPage() {
           <Container>
             <FadeUp>
               <div className="text-center max-w-3xl mx-auto mb-16">
-                <p className="font-mono text-cyan-600 text-xs tracking-[0.3em] uppercase mb-4 font-bold">
-                  &gt;_ PÉDAGOGIE APPLIQUÉE
-                </p>
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-4">
                   Une méthode d&apos;apprentissage axée sur le terrain
                 </h2>
@@ -239,9 +232,6 @@ export default async function FormationsCatalogPage() {
           <Container>
             <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-slate-900 via-blue-950/40 to-slate-900 border border-blue-500/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
               <div>
-                <span className="text-xs font-mono font-bold tracking-widest text-blue-400 uppercase mb-2 block">
-                  &gt;_ ÉCOSYSTÈME CONSTRUCTEURS
-                </span>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
                   Découvrez l&apos;ensemble de nos Partenaires Technologiques
                 </h3>

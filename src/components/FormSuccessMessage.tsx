@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { CheckCircle2, Clock, ShieldCheck, ArrowRight, Sparkles } from "lucide-react";
+import { CheckCircle2, Clock, ShieldCheck, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface FormSuccessMessageProps {
@@ -73,14 +73,13 @@ export function FormSuccessMessage({
           </motion.div>
         </div>
 
-        {/* Status Pill Badge */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.4 }}
           className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-4 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
         >
-          <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
           <span>{badge}</span>
         </motion.div>
 

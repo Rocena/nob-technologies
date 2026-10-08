@@ -9,6 +9,7 @@ import { Section, Container } from "@/components/ui/layout";
 import { FadeUp } from "@/components/animations";
 import { getAllFormations, getFormationBySlug } from "@/lib/formations";
 import { FormationInquiryForm } from "./FormationInquiryForm";
+import { CurriculumSyllabus } from "@/components/formations/CurriculumSyllabus";
 import {
   Calendar,
   Clock,
@@ -18,10 +19,6 @@ import {
   ArrowRight,
   ShieldCheck,
   GraduationCap,
-  Sparkles,
-  BookOpen,
-  Terminal,
-  FileCheck,
 } from "lucide-react";
 
 interface Props {
@@ -81,10 +78,6 @@ export default async function FormationDetailPage({ params }: Props) {
             </div>
 
             <div className="max-w-4xl">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-4">
-                <Sparkles className="w-3.5 h-3.5" /> {formation.badge}
-              </span>
-
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6">
                 {formation.title}
               </h1>
@@ -136,9 +129,6 @@ export default async function FormationDetailPage({ params }: Props) {
           <Container>
             <FadeUp>
               <div className="mb-10 text-center max-w-2xl mx-auto">
-                <p className="font-mono text-cyan-400 text-xs tracking-[0.25em] uppercase mb-2 font-bold">
-                  &gt;_ ÉCOSYSTÈME &amp; OBJECTIFS D&apos;EXAMEN
-                </p>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
                   Certifications ciblées par ce programme
                 </h2>
@@ -197,85 +187,10 @@ export default async function FormationDetailPage({ params }: Props) {
         {/* 6-Month Detailed Curriculum */}
         <Section className="py-20 bg-slate-950 relative overflow-hidden">
           <Container>
-            <FadeUp>
-              <div className="text-center max-w-3xl mx-auto mb-16">
-                <span className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-3 font-bold block">
-                  &gt;_ PROGRAMME PÉDAGOGIQUE COMPLET
-                </span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
-                  Le Cursus Détaillé sur 6 Mois
-                </h2>
-                <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-                  24 semaines intensives alternant théorie approfondie, ateliers pratiques dirigées (labs) et simulations d&apos;examens pour une maîtrise opérationnelle totale.
-                </p>
-              </div>
-            </FadeUp>
-
-            <div className="space-y-6 max-w-5xl mx-auto">
-              {formation.months.map((m, idx) => (
-                <FadeUp key={m.month} delay={idx * 0.08}>
-                  <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-6 sm:p-8 hover:border-cyan-500/40 transition-all duration-300 relative overflow-hidden group">
-                    <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-cyan-500 to-blue-600" />
-
-                    <div className="pl-2">
-                      <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-                        <div className="flex items-center gap-3">
-                          <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 font-mono font-black text-sm border border-cyan-500/30">
-                            M{m.month}
-                          </span>
-                          <span className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold">
-                            {m.duration}
-                          </span>
-                        </div>
-                        <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300">
-                          Mois {m.month} / 6
-                        </span>
-                      </div>
-
-                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
-                        {m.title}
-                      </h3>
-
-                      <p className="text-sm text-slate-300 mb-5 leading-relaxed italic">
-                        &quot;{m.objectives}&quot;
-                      </p>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-white/10 mb-5">
-                        <div>
-                          <p className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
-                            <BookOpen className="w-3.5 h-3.5 text-cyan-400" /> Modules &amp; Compétences
-                          </p>
-                          <ul className="space-y-2">
-                            {m.topics.map((t, i) => (
-                              <li key={i} className="flex items-start gap-2 text-xs text-slate-300">
-                                <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
-                                <span>{t}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        <div className="space-y-4">
-                          <div className="p-3.5 rounded-xl bg-slate-950/80 border border-white/10">
-                            <p className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                              <Terminal className="w-3.5 h-3.5" /> Lab Pratique en Conditions Réelles
-                            </p>
-                            <p className="text-xs text-slate-300 leading-relaxed">{m.practicalLab}</p>
-                          </div>
-
-                          <div className="p-3.5 rounded-xl bg-slate-950/80 border border-white/10">
-                            <p className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                              <FileCheck className="w-3.5 h-3.5" /> Livrable &amp; Validation
-                            </p>
-                            <p className="text-xs text-slate-300 leading-relaxed">{m.deliverable}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </FadeUp>
-              ))}
-            </div>
+            <CurriculumSyllabus
+              months={formation.months}
+              formationTitle={formation.title}
+            />
           </Container>
         </Section>
 

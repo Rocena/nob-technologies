@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useActionState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ShieldCheck, Loader2, Sparkles, FileText, UserCheck } from "lucide-react";
+import { X, ShieldCheck, Loader2, FileText, UserCheck } from "lucide-react";
 import { submitContactForm } from "@/app/(frontend)/contact/actions";
 import { Button } from "@/components/ui/button";
 import { FormSuccessMessage } from "@/components/FormSuccessMessage";

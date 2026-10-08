@@ -3,7 +3,7 @@
 import React, { useState, useActionState, useEffect } from "react";
 import { submitContactForm } from "@/app/(frontend)/contact/actions";
 import { FormSuccessMessage } from "@/components/FormSuccessMessage";
-import { Send, Loader2, Sparkles, User, Mail, Phone, Building, Calendar, HelpCircle } from "lucide-react";
+import { Send, Loader2, User, Mail, Phone, Building, Calendar, HelpCircle } from "lucide-react";
 import { useEngineerModal } from "@/components/EngineerModalContext";
 
 interface FormationInquiryFormProps {
@@ -39,23 +39,20 @@ export function FormationInquiryForm({ formationTitle, formationSlug }: Formatio
       <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 uppercase">
-            <Sparkles className="w-3 h-3" /> CANDIDATURE &bull; PROMOTION 2026
-          </span>
+        <div className="flex items-center justify-between gap-4 mb-2">
+          <h3 className="text-2xl font-extrabold text-white">
+            Demande d&apos;inscription ou syllabus
+          </h3>
           <button
             type="button"
             onClick={() => openQuoteModal(`Formation: ${formationTitle}`)}
-            className="text-xs text-cyan-400 hover:text-cyan-300 underline font-medium"
+            className="text-xs text-cyan-400 hover:text-cyan-300 underline font-medium shrink-0"
           >
             Formulaire rapide
           </button>
         </div>
-        <h3 className="text-2xl font-extrabold text-white">
-          Postuler ou demander le syllabus complet
-        </h3>
-        <p className="text-slate-400 text-xs sm:text-sm mt-1">
-          Remplissez ce formulaire pour recevoir la brochure détaillée, le calendrier des sessions et échanger avec un conseiller pédagogique.
+        <p className="text-slate-400 text-xs sm:text-sm mt-1 leading-relaxed">
+          Renseignez vos coordonnées pour recevoir le programme complet au format PDF, les dates des prochaines sessions à Dakar et échanger avec un coordinateur de formation.
         </p>
       </div>
 
