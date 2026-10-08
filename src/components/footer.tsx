@@ -19,7 +19,7 @@ export async function Footer() {
   
   const siteName = settings?.general?.siteName || "NOB TECHNOLOGIES";
   const desc = settings?.general?.siteDescription || "Solutions & Services Informatiques. Votre sécurité, notre priorité. Solutions complètes de cybersécurité & services managés.";
-  const phone = settings?.contact?.phone || "+221 77 310 83 18 / +221 33 814 24 55";
+  const phone = settings?.contact?.phone || "+221 77 301 08 38 / +221 33 814 04 35";
   const email = settings?.contact?.email || "contact@nobtech.fr";
   const address = settings?.contact?.address || "Azura de l’Aéroport, 1SS lot N° 79, Dakar Sénégal";
 

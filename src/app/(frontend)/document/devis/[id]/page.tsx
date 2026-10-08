@@ -36,7 +36,7 @@ export default async function DevisPDFPage({ params }: { params: { id: string } 
         <div>
           <h1 style={{ margin: 0, color: '#0077b6', fontSize: '28px' }}>NOB TECHNOLOGIES</h1>
           <p style={{ margin: '5px 0 0 0', color: '#64748b' }}>Solutions Informatiques & Télécoms</p>
-          <p style={{ margin: '5px 0 0 0', fontSize: '14px' }}>Dakar, Sénégal<br/>contact@nobtech.fr<br/>+221 77 123 45 67</p>
+          <p style={{ margin: '5px 0 0 0', fontSize: '14px' }}>Dakar, Sénégal<br/>contact@nobtech.fr<br/>+221 77 301 08 38</p>
         </div>
         <div style={{ textAlign: 'right' }}>
           <h2 style={{ margin: 0, fontSize: '32px', color: '#0f172a', textTransform: 'uppercase' }}>Devis</h2>

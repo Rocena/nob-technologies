@@ -383,10 +383,10 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                     <div className="pt-4 border-t border-slate-800 text-center">
                       <p className="text-[11px] text-slate-400 mb-1">Assistance directe :</p>
                       <a
-                        href="tel:+221773108318"
+                        href="tel:+221773010838"
                         className="text-xs font-mono font-bold text-cyan-400 hover:underline"
                       >
-                        +221 77 310 83 18
+                        +221 77 301 08 38
                       </a>
                     </div>
                   </div>

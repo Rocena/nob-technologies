@@ -12,7 +12,7 @@ const SYSTEM_PROMPT = `Tu es l'assistant virtuel officiel de NOB TECHNOLOGIES (n
 Identité & Coordonnées :
 - Entreprise : NOB TECHNOLOGIES
 - Site web officiel : nobtech.fr
-- Téléphones : +221 77 310 83 18 / +221 33 814 24 55
+- Téléphones : +221 77 301 08 38 / +221 33 814 04 35
 - Email : contact@nobtech.fr
 - Adresse physique : Azura de l’Aéroport, 1SS lot N° 79, Dakar, Sénégal
 - Devise : « Votre sécurité, notre priorité »
@@ -57,7 +57,7 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
 
   // 2. Remerciements / Clôture
   if (/^(merci|super|parfait|nickel|top|remercie|d'accord|ok merci)[.!?\s]*$/i.test(q)) {
-    return "C'est un réel plaisir de vous renseigner ! N'hésitez surtout pas si vous avez la moindre autre question. Vous pouvez aussi demander un devis gratuit en 1 clic ou contacter nos ingénieurs au +221 77 310 83 18. Belle journée à vous ! ✨";
+    return "C'est un réel plaisir de vous renseigner ! N'hésitez surtout pas si vous avez la moindre autre question. Vous pouvez aussi demander un devis gratuit en 1 clic ou contacter nos ingénieurs au +221 77 301 08 38. Belle journée à vous ! ✨";
   }
 
   // 3. Demande de devis / Tarifs / Prix
@@ -124,13 +124,13 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
   if (/(contact|adresse|t[eé]l[eé]phone|num[eé]ro|mail|email|o[uù] [eê]tes|dakar|azura|si[eè]ge)/i.test(q)) {
     return "Voici comment nous joindre directement 📍 :\n\n" +
       "• Siège : Azura de l’Aéroport, 1SS lot N° 79, Dakar, Sénégal.\n" +
-      "• Téléphone direct : +221 77 310 83 18 ou +221 33 814 24 55.\n" +
+      "• Téléphone direct : +221 77 301 08 38 ou +221 33 814 04 35.\n" +
       "• Email officiel : contact@nobtech.fr\n" +
       "• Horaires : du lundi au vendredi de 8h30 à 18h00 (support d'astreinte 24/7 pour les contrats d'infogérance).";
   }
 
   // 12. Réponse contextuelle par défaut mais intelligente
-  return "Je comprends votre demande concernant votre système d'information. Chez NOB TECHNOLOGIES, nous intervenons sur l'ensemble du spectre IT : cybersécurité (Sophos, Fortinet), réseaux & câblage, conception et intégration d'ERP (sur-mesure, Odoo, Dolibarr), développement web/mobile, licences Office 365 et formations certifiantes sur 6 mois.\n\nPourriez-vous préciser votre besoin afin que je vous oriente au mieux, ou souhaitez-vous échanger directement avec un ingénieur au +221 77 310 83 18 ?";
+  return "Je comprends votre demande concernant votre système d'information. Chez NOB TECHNOLOGIES, nous intervenons sur l'ensemble du spectre IT : cybersécurité (Sophos, Fortinet), réseaux & câblage, conception et intégration d'ERP (sur-mesure, Odoo, Dolibarr), développement web/mobile, licences Office 365 et formations certifiantes sur 6 mois.\n\nPourriez-vous préciser votre besoin afin que je vous oriente au mieux, ou souhaitez-vous échanger directement avec un ingénieur au +221 77 301 08 38 ?";
 }
 
 // Handler for the /api/chat route
@@ -233,7 +233,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ reply: naturalReply, model: "natural-intelligence" });
   } catch (error: any) {
     return NextResponse.json(
-      { error: "Une erreur est survenue", reply: "Je suis temporairement indisponible. Vous pouvez nous contacter directement au +221 77 310 83 18 ou par email à contact@nobtech.fr." },
+      { error: "Une erreur est survenue", reply: "Je suis temporairement indisponible. Vous pouvez nous contacter directement au +221 77 301 08 38 ou par email à contact@nobtech.fr." },
       { status: 500 }
     );
   }

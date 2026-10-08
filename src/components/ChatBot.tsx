@@ -31,7 +31,7 @@ const DEFAULT_KNOWLEDGE_BASE: KnowledgeItem[] = [
   },
   {
     keywords: ["contact", "appel", "téléphone", "telephone", "email", "joindre", "rappel", "adresse", "dakar", "sénégal", "senegal", "localiser", "localisation"],
-    response: "NOB TECHNOLOGIES est situé à Dakar (Azura de l’Aéroport, 1SS lot N° 79). Vous pouvez nous appeler au +221 77 310 83 18 / +221 33 814 24 55 ou nous écrire à contact@nobtech.fr. 📍📞"
+    response: "NOB TECHNOLOGIES est situé à Dakar (Azura de l’Aéroport, 1SS lot N° 79). Vous pouvez nous appeler au +221 77 301 08 38 / +221 33 814 04 35 ou nous écrire à contact@nobtech.fr. 📍📞"
   },
   {
     keywords: ["réseau", "reseau", "wifi", "câblage", "cablage", "voip", "téléphonie", "cloud", "infogérance", "serveur", "informatique", "infrastructure"],
@@ -51,7 +51,7 @@ const DEFAULT_KNOWLEDGE_BASE: KnowledgeItem[] = [
   },
   {
     keywords: ["merci", "thanks", "parfait", "super", "excellent", "top"],
-    response: "Avec grand plaisir ! N'hésitez pas si vous avez d'autres questions. L'équipe NOB TECHNOLOGIES reste à votre entière disposition au +221 77 310 83 18. 🙌"
+    response: "Avec grand plaisir ! N'hésitez pas si vous avez d'autres questions. L'équipe NOB TECHNOLOGIES reste à votre entière disposition au +221 77 301 08 38. 🙌"
   }
 ];
 

@@ -65,7 +65,7 @@ export const SiteSettings: GlobalConfig = {
                   name: 'phone', 
                   type: 'text', 
                   label: 'Téléphone Standard (+221 77 prioritaires pour appels)',
-                  defaultValue: '+221 77 310 83 18 / +221 33 814 24 55',
+                  defaultValue: '+221 77 301 08 38 / +221 33 814 04 35',
                   admin: { width: '50%' } 
                 },
               ]

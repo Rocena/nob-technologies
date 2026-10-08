@@ -322,11 +322,11 @@ export function Header() {
 
               <div className="grid grid-cols-2 gap-2.5 pt-1">
                 <a
-                  href="tel:+221773108318"
+                  href="tel:+221773010838"
                   className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-cyan-600 hover:border-cyan-200 transition-colors shadow-sm"
                 >
                   <Phone className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
-                  <span className="truncate">+221 77 310 83 18</span>
+                  <span className="truncate">+221 77 301 08 38</span>
                 </a>
 
                 <a

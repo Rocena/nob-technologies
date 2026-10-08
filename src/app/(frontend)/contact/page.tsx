@@ -27,7 +27,7 @@ export default async function ContactPage({
     // Fallback if db is empty during build
   }
   
-  const phone = settings?.contact?.phone || "+221 77 310 83 18 / +221 33 814 24 55";
+  const phone = settings?.contact?.phone || "+221 77 301 08 38 / +221 33 814 04 35";
   const email = settings?.contact?.email || "contact@nobtech.fr";
   const address = settings?.contact?.address || "Azura de l’Aéroport, 1SS lot N° 79, Dakar Sénégal";
 
