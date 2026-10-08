@@ -68,23 +68,21 @@ export default function CarrieresPage() {
           <Container className="relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <FadeUp>
-                <p className="font-mono text-accent text-xs tracking-[0.3em] uppercase mb-6 font-bold">
-                  &gt;_ CARRIERES
-                </p>
+                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
+                  &gt;_ TALENTS &amp; RECRUTEMENT IT
+                </span>
               </FadeUp>
               <TextReveal>
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight mb-8">
-                  Construisez l'avenir{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-400">
-                    numerique de l'Afrique
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6 text-balance">
+                  Carrières &amp; Opportunités :{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                    Construisez l&apos;Avenir Numérique
                   </span>
                 </h1>
               </TextReveal>
               <FadeUp delay={0.2}>
-                <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-10">
-                  Rejoignez une equipe passionnee d'ingenieurs et d'experts IT
-                  qui deployent les infrastructures critiques de demain a Dakar
-                  et en Afrique de l'Ouest.
+                <p className="text-slate-300 text-base sm:text-lg md:text-xl font-normal max-w-2xl mx-auto leading-relaxed mb-8">
+                  Rejoignez une équipe d&apos;ingénieurs et de techniciens passionnés, certifiés par les plus grands constructeurs mondiaux, qui déploient les infrastructures critiques de demain.
                 </p>
                 <GlowButton href="/contact?type=candidature">
                   Postuler maintenant

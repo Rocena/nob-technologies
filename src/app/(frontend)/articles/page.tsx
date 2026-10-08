@@ -40,16 +40,21 @@ export default async function ArticlesPage() {
 
           <Container className="relative z-10">
             <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
-
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
+                &gt;_ PUBLICATIONS TECHNIQUES &amp; RETOURS TERRAIN
+              </span>
 
               {/* Main Headline */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 leading-[1.15] text-balance">
-                Chroniques, Retours d'Expérience &amp; Décryptages Tech.
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 leading-[1.15] text-balance">
+                Chroniques d&apos;Ingénierie :{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                  Retours d&apos;Expérience &amp; Décryptages
+                </span>
               </h1>
 
               {/* Lead Paragraph */}
               <p className="text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed font-normal max-w-2xl text-balance">
-                Autopsies d'infrastructures réelles, cyber-résilience pragmatique, cloud hybride et réflexions sans langue de bois par les ingénieurs de terrain de NOB TECHNOLOGIES.
+                Autopsies d&apos;infrastructures réelles, cyber-résilience pragmatique, cloud hybride et analyses sans filtre par les ingénieurs de terrain de NOB TECHNOLOGIES.
               </p>
 
               {/* Key Stats Bar */}

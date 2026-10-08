@@ -161,18 +161,21 @@ export default async function ServicesPage() {
           
           <Container className="relative z-10">
             <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 uppercase mb-4">
-                <Layers className="w-3.5 h-3.5" /> EXPERTISES TECHNIQUES & SOLUTIONS
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
+                <Layers className="w-3.5 h-3.5 text-cyan-400" /> &gt;_ CATALOGUE DES SERVICES &amp; EXPERTISES
               </span>
               <TextReveal>
-                <Heading level={1} className="text-white mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tighter leading-[1.1]">
-                  Nos Services
-                </Heading>
+                <h1 className="text-white mb-6 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-balance">
+                  Nos Expertises :{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                    L&apos;Ingénierie IT de Haute Précision
+                  </span>
+                </h1>
               </TextReveal>
               <FadeUp delay={0.2}>
-                <Text className="text-slate-400 text-base sm:text-xl font-light max-w-2xl leading-relaxed">
-                  De la sécurité des données et du câblage réseau jusqu’au développement d’applications métier, ERP et formation professionnelle.
-                </Text>
+                <p className="text-slate-300 text-base sm:text-lg md:text-xl font-normal max-w-2xl leading-relaxed">
+                  Cybersécurité de périmètre, câblage structuré, ERP sur-mesure et infogérance 24/7 : des solutions robustes conçues pour sécuriser et accélérer votre activité.
+                </p>
               </FadeUp>
             </div>
           </Container>

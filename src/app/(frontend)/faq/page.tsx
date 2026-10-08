@@ -110,41 +110,67 @@ export default async function FAQPage() {
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[100px] pointer-events-none translate-x-1/2 -translate-y-1/2"></div>
           
           <Container className="relative z-10">
-            <div className="max-w-3xl">
+            <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
+              <FadeUp>
+                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
+                  &gt;_ CENTRE D&apos;AIDE &amp; RÉPONSES TECHNIQUES
+                </span>
+              </FadeUp>
               <TextReveal>
-                <Heading level={1} className="text-white mb-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
-                  Questions Fréquentes
-                </Heading>
+                <h1 className="text-white mb-6 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-balance">
+                  Questions Fréquentes :{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                    Toutes Vos Réponses en Toute Clarté
+                  </span>
+                </h1>
               </TextReveal>
               <FadeUp delay={0.2}>
-                <Text className="text-slate-400 text-lg md:text-xl font-light leading-relaxed">
-                  Tout ce que vous devez savoir sur nos services, notre façon de travailler et la manière dont nous accompagnons la croissance de votre activité.
-                </Text>
+                <p className="text-slate-300 text-base sm:text-lg md:text-xl font-normal max-w-2xl leading-relaxed">
+                  Tout ce que vous devez savoir sur nos prestations, nos déploiements matériels, nos contrats de maintenance et nos garanties.
+                </p>
               </FadeUp>
             </div>
           </Container>
         </Section>
         
-        <Section className="py-12 md:py-16 lg:py-24 bg-slate-50">
+        <Section className="py-16 md:py-24 bg-slate-50">
           <Container>
             <div className="max-w-3xl mx-auto">
               <div className="space-y-4">
                 {(hasFaqsFromDb ? fetchedFaqs : fallbackFaqs).map((faq, idx) => (
-                  <FadeUp key={faq.id || idx} delay={idx * 0.1}>
-                    <details className="group bg-white border border-slate-200 hover:border-accent/30 rounded-sm overflow-hidden transition-all duration-300 shadow-sm hover:shadow-[0_8px_30px_rgba(0,212,255,0.06)]">
-                      <summary className="flex items-center justify-between p-6 font-bold text-slate-900 cursor-pointer list-none text-lg">
+                  <FadeUp key={faq.id || idx} delay={idx * 0.05}>
+                    <details className="group bg-white border border-slate-200/90 hover:border-cyan-400/80 rounded-xl overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md">
+                      <summary className="flex items-center justify-between p-6 font-bold text-slate-900 group-hover:text-cyan-700 cursor-pointer list-none text-base sm:text-lg transition-colors">
                         <span className="pr-6">{faq.question}</span>
-                        <div className="w-10 h-10 rounded-sm bg-slate-50 flex items-center justify-center shrink-0 group-hover:bg-accent/10 transition-colors">
-                          <Plus className="w-5 h-5 text-slate-400 group-hover:text-accent transition-transform duration-300 group-open:rotate-45 group-open:text-accent" />
+                        <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center shrink-0 group-hover:bg-cyan-50 transition-colors">
+                          <Plus className="w-5 h-5 text-slate-500 group-hover:text-cyan-600 transition-transform duration-300 group-open:rotate-45" />
                         </div>
                       </summary>
-                      <div className="p-6 pt-0 text-slate-600 leading-relaxed bg-white">
+                      <div className="p-6 pt-0 text-slate-600 text-sm sm:text-base leading-relaxed bg-white border-t border-slate-50">
                         {typeof faq.answer === 'string' ? <p>{faq.answer}</p> : faq.answer}
                       </div>
                     </details>
                   </FadeUp>
                 ))}
               </div>
+
+              {/* Bottom Support Callout */}
+              <FadeUp delay={0.2}>
+                <div className="mt-12 p-8 rounded-2xl bg-white border border-slate-200 text-center shadow-sm">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">
+                    Vous avez une question spécifique sur votre infrastructure ?
+                  </h3>
+                  <p className="text-sm text-slate-600 max-w-xl mx-auto mb-6 leading-relaxed">
+                    Nos ingénieurs et consultants IT analysent vos contraintes techniques et vous répondent sous 24h ouvrées.
+                  </p>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-900 hover:bg-cyan-600 text-white font-semibold text-xs sm:text-sm transition-colors shadow-sm"
+                  >
+                    <span>Poser votre question à nos experts</span>
+                  </Link>
+                </div>
+              </FadeUp>
             </div>
           </Container>
         </Section>

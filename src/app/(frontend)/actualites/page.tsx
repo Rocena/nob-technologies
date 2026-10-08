@@ -33,12 +33,25 @@ export default async function NewsPage() {
     <>
       <Header />
       <main className="flex-1 bg-background">
-        <Section data-cursor-binary="true" className="bg-[#020617] text-white py-24 relative overflow-hidden">
-          <Container>
-            <Heading level={1} className="text-white mb-4">Actualités</Heading>
-            <Text className="text-slate-400 text-lg max-w-2xl relative z-10 leading-relaxed">
-              Les dernières annonces, événements et nouveautés de l'entreprise.
-            </Text>
+        <Section data-cursor-binary="true" className="bg-[#020617] text-white pt-28 pb-16 sm:pt-36 sm:pb-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+          <Container className="relative z-10">
+            <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
+                &gt;_ VIE DE L&apos;ENTREPRISE &bull; ANNONCES OFFICIELLES
+              </span>
+              <h1 className="text-white mb-6 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-balance">
+                Actualités &amp; Annonces :{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                  L&apos;Information Nob Technologies
+                </span>
+              </h1>
+              <p className="text-slate-300 text-base sm:text-lg md:text-xl font-normal max-w-2xl leading-relaxed">
+                Suivez les temps forts, déploiements d&apos;envergure, nouvelles certifications d&apos;ingénieurs et partenariats constructeurs.
+              </p>
+            </div>
           </Container>
         </Section>
         

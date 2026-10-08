@@ -26,21 +26,21 @@ export default function GaleriePage() {
 
           <Container className="relative z-10 text-center">
             <FadeUp>
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 uppercase mb-6">
-                <Camera className="w-3.5 h-3.5" /> NOS CHANTIERS EN IMAGES &bull; DAKAR & SÉNÉGAL
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
+                <Camera className="w-3.5 h-3.5 text-cyan-400" /> &gt;_ NOS CHANTIERS EN IMAGES &bull; DAKAR &amp; SÉNÉGAL
               </span>
             </FadeUp>
             <TextReveal>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight mb-6">
-                Galerie de nos{" "}
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6 text-balance">
+                Galerie de nos Déploiements :{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
-                  installations terrain
+                  L&apos;Ingénierie en Images
                 </span>
               </h1>
             </TextReveal>
             <FadeUp delay={0.2}>
-              <p className="text-base sm:text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
-                Retrouvez les photos authentiques de nos déploiements chez nos clients : câblage structuré soigné, baies de brassage normalisées, salles serveurs et raccordements fibre optique réalisés selon les normes industrielles internationales.
+              <p className="text-slate-300 text-base sm:text-lg md:text-xl font-normal max-w-3xl mx-auto leading-relaxed">
+                Photos authentiques de nos installations en production au Sénégal : câblage structuré, baies de brassage 42U, salles serveurs climatisées et liaisons fibre optique aux normes internationales.
               </p>
             </FadeUp>
 

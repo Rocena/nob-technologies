@@ -234,21 +234,21 @@ export default function PartenairesPage() {
 
           <Container className="relative z-10 text-center">
             <FadeUp>
-              <p className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-6 font-bold">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
                 &gt;_ ÉCOSYSTÈME &amp; ALLIANCES CONSTRUCTEURS
-              </p>
+              </span>
             </FadeUp>
             <TextReveal>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight mb-6">
-                Alliances technologiques{" "}
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6 text-balance">
+                Partenaires Technologiques :{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
-                  de référence mondiale
+                  Les Leaders Mondiaux à Vos Côtés
                 </span>
               </h1>
             </TextReveal>
             <FadeUp delay={0.2}>
-              <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
-                NOB TECHNOLOGIES collabore avec les leaders mondiaux de la cybersécurité, des réseaux et des infrastructures pour garantir des solutions certifiées, pérennes et hautement résilientes à vos entreprises.
+              <p className="text-slate-300 text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-normal">
+                NOB TECHNOLOGIES s&apos;associe aux géants mondiaux de la cybersécurité, des réseaux et des infrastructures pour garantir des solutions certifiées, pérennes et hautement résilientes à vos entreprises.
               </p>
             </FadeUp>
 

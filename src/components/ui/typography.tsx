@@ -14,12 +14,12 @@ export const Heading = React.forwardRef<
   const Tag = (as || `h${resolvedLevel}`) as React.ElementType;
   
   const sizes = {
-    1: "font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tighter text-primary",
-    2: "font-display text-4xl sm:text-5xl font-bold tracking-tight text-primary",
-    3: "font-display text-2xl sm:text-3xl font-semibold text-primary",
-    4: "font-display text-xl sm:text-2xl font-semibold text-text",
-    5: "font-display text-lg sm:text-xl font-semibold text-text",
-    6: "font-display text-base font-semibold text-text",
+    1: "font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.12]",
+    2: "font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.2]",
+    3: "font-display text-xl sm:text-2xl font-bold tracking-tight leading-snug",
+    4: "font-display text-lg sm:text-xl font-bold leading-snug",
+    5: "font-display text-base sm:text-lg font-semibold leading-normal",
+    6: "font-display text-sm font-semibold leading-normal",
   };
 
   return (
@@ -33,10 +33,10 @@ export const Text = React.forwardRef<
   React.HTMLAttributes<HTMLParagraphElement> & { variant?: "default" | "lead" | "muted" | "small" }
 >(({ className, variant = "default", ...props }, ref) => {
   const variants = {
-    default: "text-base text-text leading-relaxed",
-    lead: "text-lg sm:text-xl text-muted leading-relaxed",
-    muted: "text-base text-muted",
-    small: "text-sm text-muted",
+    default: "text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal",
+    lead: "text-lg sm:text-xl text-slate-500 dark:text-slate-400 leading-relaxed font-normal",
+    muted: "text-sm text-slate-500 dark:text-slate-400 leading-normal",
+    small: "text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-normal",
   };
 
   return (
@@ -44,3 +44,27 @@ export const Text = React.forwardRef<
   );
 });
 Text.displayName = "Text";
+
+export const Eyebrow = React.forwardRef<
+  HTMLSpanElement,
+  React.HTMLAttributes<HTMLSpanElement> & { variant?: "cyan" | "accent" | "slate" }
+>(({ className, variant = "cyan", ...props }, ref) => {
+  const variants = {
+    cyan: "text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/60 border-cyan-200 dark:border-cyan-800/60",
+    accent: "text-accent bg-accent/10 border-accent/30",
+    slate: "text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700",
+  };
+
+  return (
+    <span
+      ref={ref}
+      className={cn(
+        "inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-[0.2em] uppercase border mb-4",
+        variants[variant],
+        className
+      )}
+      {...props}
+    />
+  );
+});
+Eyebrow.displayName = "Eyebrow";

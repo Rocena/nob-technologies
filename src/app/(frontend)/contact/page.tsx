@@ -46,59 +46,74 @@ export default async function ContactPage({
     <>
       <Header />
       <main className="flex-1 bg-background">
-        <Section data-cursor-binary="true" className="bg-[#020617] text-white pt-28 pb-14 sm:pt-36 sm:pb-16 md:pt-40 md:pb-20 relative overflow-hidden">
+        <Section data-cursor-binary="true" className="bg-[#020617] text-white pt-28 pb-14 sm:pt-36 sm:pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[100px] pointer-events-none"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none"></div>
           
           <Container className="relative z-10">
-            <TextReveal>
-              <Heading level={1} className="text-white mb-6 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
-                {title}
-              </Heading>
-            </TextReveal>
-            <FadeUp delay={0.2}>
-              <Text className="text-slate-400 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed">
-                {subtitle}
-              </Text>
-            </FadeUp>
+            <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
+              <FadeUp>
+                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
+                  &gt;_ ÉCHANGE DIRECT &amp; ÉTUDE DE PROJET
+                </span>
+              </FadeUp>
+              <TextReveal>
+                <h1 className="text-white mb-6 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-balance">
+                  {title} :{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                    Concevons Votre Projet IT
+                  </span>
+                </h1>
+              </TextReveal>
+              <FadeUp delay={0.2}>
+                <p className="text-slate-300 text-base sm:text-lg md:text-xl font-normal max-w-2xl mx-auto leading-relaxed">
+                  {subtitle}
+                </p>
+              </FadeUp>
+            </div>
           </Container>
         </Section>
 
-        <Section className="py-12 md:py-16 lg:py-20 bg-slate-50">
+        <Section className="py-16 md:py-24 bg-slate-50">
           <Container>
             <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
-              <FadeUp className="lg:col-span-1 space-y-10">
+              <FadeUp className="lg:col-span-1 space-y-8">
                 <div>
-                  <Heading level={3} className="mb-4 text-2xl">Nos coordonnées</Heading>
-                  <Text className="text-slate-600 mb-8 leading-relaxed">
-                    N'hésitez pas à nous contacter directement ou à utiliser le formulaire. Nous vous répondrons dans les plus brefs délais.
-                  </Text>
+                  <span className="text-xs font-mono font-bold text-cyan-600 uppercase tracking-widest block mb-2">
+                    &gt;_ CONTACT DIRECT
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3 tracking-tight">
+                    Nos coordonnées
+                  </h2>
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    N&apos;hésitez pas à nous contacter directement ou à renseigner le formulaire ci-contre. Nos ingénieurs vous répondent avec réactivité.
+                  </p>
                 </div>
 
-                <div className="space-y-8">
-                  <div className="flex items-start gap-5">
-                    <MagneticElement>
-                      <div className="w-12 h-12 bg-white rounded-sm shadow-sm border border-slate-200 flex items-center justify-center shrink-0">
-                        <MapPin className="w-6 h-6 text-accent" />
-                      </div>
-                    </MagneticElement>
+                <div className="space-y-6 pt-2">
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200/80 shadow-sm">
+                    <div className="w-11 h-11 bg-cyan-50 rounded-lg flex items-center justify-center shrink-0 border border-cyan-100">
+                      <MapPin className="w-5 h-5 text-cyan-600" />
+                    </div>
                     <div>
-                      <h4 className="font-semibold text-slate-900 mb-1">Adresse</h4>
-                      <p className="text-slate-600 leading-relaxed">{address}</p>
+                      <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-600 block mb-1">
+                        Siège &amp; Bureaux
+                      </span>
+                      <p className="text-sm text-slate-800 font-medium leading-relaxed">{address}</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start gap-5">
-                    <MagneticElement>
-                      <div className="w-12 h-12 bg-white rounded-sm shadow-sm border border-slate-200 flex items-center justify-center shrink-0">
-                        <Phone className="w-6 h-6 text-accent" />
-                      </div>
-                    </MagneticElement>
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200/80 shadow-sm">
+                    <div className="w-11 h-11 bg-cyan-50 rounded-lg flex items-center justify-center shrink-0 border border-cyan-100">
+                      <Phone className="w-5 h-5 text-cyan-600" />
+                    </div>
                     <div>
-                      <h4 className="font-semibold text-slate-900 mb-1">Téléphone</h4>
+                      <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-600 block mb-1">
+                        Ligne Téléphonique
+                      </span>
                       <div className="flex flex-col space-y-1">
                         {phone.split('/').map((p: string, i: number) => (
-                          <a key={i} href={`tel:${p.trim().replace(/\s+/g, '')}`} className="text-slate-600 hover:text-accent transition-colors">
+                          <a key={i} href={`tel:${p.trim().replace(/\s+/g, '')}`} className="text-sm font-semibold text-slate-800 hover:text-cyan-600 transition-colors">
                             {p.trim()}
                           </a>
                         ))}

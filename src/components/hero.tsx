@@ -19,14 +19,20 @@ export function Hero() {
       <Container className="relative z-10 w-full">
         <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
 
+          <FadeUp delay={0.05}>
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-6 backdrop-blur-sm shadow-sm">
+              &gt;_ ARCHITECTURE SYSTÈMES &amp; CYBERDÉFENSE D&apos;ENTREPRISE
+            </span>
+          </FadeUp>
+
           <FadeUp delay={0.1}>
             <AnimatedHeroText />
           </FadeUp>
 
           <FadeUp delay={0.2}>
-            <Text className="mt-6 mb-12 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-4 mb-10 text-base sm:text-lg md:text-xl text-slate-300 font-normal max-w-2xl mx-auto leading-relaxed">
               Nous concevons, déployons et sécurisons des infrastructures informatiques et télécoms de niveau entreprise pour accélérer votre transformation digitale.
-            </Text>
+            </p>
           </FadeUp>
 
           <FadeUp delay={0.3}>

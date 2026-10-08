@@ -41,21 +41,21 @@ export default async function FormationsCatalogPage() {
 
           <Container className="relative z-10 text-center">
             <FadeUp>
-              <p className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-6 font-bold">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
                 &gt;_ FORMATION &amp; MONTÉE EN COMPÉTENCES TECHNIQUES
-              </p>
+              </span>
             </FadeUp>
             <TextReveal>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight mb-6">
-                Formations d&apos;excellence &amp;{" "}
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6 text-balance">
+                Formations Professionnelles :{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
-                  préparation aux certifications
+                  Préparation aux Certifications Mondiales
                 </span>
               </h1>
             </TextReveal>
             <FadeUp delay={0.2}>
-              <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
-                Nous ne délivrons pas directement les titres de certification, mais nous préparons méthodiquement vos ingénieurs et techniciens à réussir les examens internationaux les plus exigeants grâce à des cursus intensifs de 6 mois axés sur la pratique réelle.
+              <p className="text-slate-300 text-base sm:text-lg md:text-xl font-normal max-w-3xl mx-auto leading-relaxed">
+                Cursus intensifs de 6 mois axés sur la pratique réelle à Dakar pour préparer méthodiquement vos ingénieurs et techniciens à réussir les examens de référence (Cisco, Fortinet, Sophos).
               </p>
             </FadeUp>
 

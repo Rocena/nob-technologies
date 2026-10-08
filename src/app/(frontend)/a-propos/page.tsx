@@ -38,21 +38,24 @@ export default async function AboutPage() {
 
           <Container className="relative z-10">
             <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
+              <FadeUp>
+                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
+                  &gt;_ 15 ANS D&apos;EXCELLENCE &amp; D&apos;INGÉNIERIE RÉSEAU
+                </span>
+              </FadeUp>
               <TextReveal>
-                <div className="inline-flex items-center rounded-sm border border-accent/30 bg-accent/10 px-4 py-1.5 text-sm font-bold text-accent mb-6 tracking-wide backdrop-blur-sm">
-                  PLUS DE 15 ANS D'EXPÉRIENCE
-                </div>
-              </TextReveal>
-              <TextReveal>
-                <Heading level={1} className="text-white mb-8 text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[1.1]">
-                  L'informatique robuste, <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">pour tous.</span>
-                </Heading>
+                <h1 className="text-white mb-6 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-balance">
+                  L&apos;Ingénierie Robuste :{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                    Des Fondations Digitales Pérennes
+                  </span>
+                </h1>
               </TextReveal>
               
               <FadeUp delay={0.2}>
-                <Text className="text-slate-400 text-xl md:text-2xl font-light max-w-3xl leading-relaxed">
-                  NOB TECHNOLOGIES est une société informatique basée à Dakar. Forts de plus de 15 ans d'expertise, nous aidons les entreprises, les institutions et les particuliers à mettre en place, sécuriser et maintenir leurs outils numériques — réseau, logiciels, vidéosurveillance et bien plus encore.
-                </Text>
+                <p className="text-slate-300 text-base sm:text-lg md:text-xl font-normal max-w-3xl leading-relaxed">
+                  NOB TECHNOLOGIES est une société d&apos;ingénierie informatique basée à Dakar. Forts de plus de 15 ans d&apos;expertise terrain, nous concevons, sécurisons et infogérons les écosystèmes informatiques des entreprises, institutions et organisations en Afrique de l&apos;Ouest.
+                </p>
               </FadeUp>
             </div>
           </Container>

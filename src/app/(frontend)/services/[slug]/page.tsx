@@ -290,16 +290,15 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
             <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
               <div className="max-w-3xl">
                 <FadeUp>
-                  <div className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-3 py-1 text-xs font-mono font-bold text-cyan-400 mb-6 backdrop-blur-sm">
-                    <Icon className="w-4 h-4 text-cyan-400" />
-                    <span>EXPERTISES NOB TECHNOLOGIES</span>
-                  </div>
+                  <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
+                    <Icon className="w-3.5 h-3.5 text-cyan-400" /> &gt;_ SOLUTION D&apos;INGÉNIERIE &bull; {service.short.toUpperCase()}
+                  </span>
                   <TextReveal>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight mb-6">
+                    <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6 text-balance">
                       {service.title}
                     </h1>
                   </TextReveal>
-                  <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
+                  <p className="text-base sm:text-lg md:text-xl text-slate-300 font-normal leading-relaxed max-w-2xl">
                     {service.description}
                   </p>
                 </FadeUp>

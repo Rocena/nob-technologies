@@ -68,18 +68,21 @@ export default async function ProjectsPage() {
           
           <Container className="relative z-10">
             <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 uppercase mb-4">
-                PROJETS & RÉALISATIONS TECHNIQUES
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 uppercase mb-5 backdrop-blur-sm shadow-sm">
+                &gt;_ PROJETS &amp; DÉPLOIEMENTS EN PRODUCTION
               </span>
               <TextReveal>
-                <Heading level={1} className="text-white mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tighter leading-[1.1]">
-                  Nos Réalisations
-                </Heading>
+                <h1 className="text-white mb-6 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-balance">
+                  Nos Réalisations :{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                    L&apos;Ingénierie Réelle à l&apos;Épreuve du Terrain
+                  </span>
+                </h1>
               </TextReveal>
               <FadeUp delay={0.2}>
-                <Text className="text-slate-400 text-base sm:text-xl font-light max-w-2xl leading-relaxed">
-                  Découvrez les solutions concrètes déployées par NOB TECHNOLOGIES : plateformes web en production, interconnexions d'infrastructures et intégrations ERP.
-                </Text>
+                <p className="text-slate-300 text-base sm:text-lg md:text-xl font-normal max-w-2xl leading-relaxed">
+                  Découvrez nos déploiements majeurs en Afrique de l&apos;Ouest : plateformes web haute performance, réseaux d&apos;entreprise certifiés et systèmes de gestion unifiés.
+                </p>
               </FadeUp>
             </div>
           </Container>
