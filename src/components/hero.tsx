@@ -18,8 +18,6 @@ export function Hero() {
       
       <Container className="relative z-10 w-full">
         <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
-
-
           <FadeUp delay={0.1}>
             <AnimatedHeroText />
           </FadeUp>

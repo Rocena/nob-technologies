@@ -7,6 +7,7 @@ import { Container, Section } from "@/components/ui/layout";
 import { Heading, Text } from "@/components/ui/typography";
 import { FadeUp } from "@/components/animations";
 import { QuoteRequestButton } from "@/components/QuoteRequestButton";
+import { ProjectCard } from "@/components/ProjectCard";
 import {
   ExternalLink,
   ArrowRight,
@@ -19,7 +20,9 @@ import {
   Layers,
 } from "lucide-react";
 
-export function ParcExotiqueShowcase() {
+export function ParcExotiqueShowcase({ projects = [] }: { projects?: any[] }) {
+  const otherProjects = projects.filter((p: any) => p.slug !== "parc-exotique");
+
   const highlights = [
     {
       icon: CalendarCheck,
@@ -57,7 +60,7 @@ export function ParcExotiqueShowcase() {
 
   return (
     <Section
-      id="succes-client"
+      id="realisations"
       className="py-16 md:py-24 lg:py-32 bg-gradient-to-b from-white via-slate-50 to-slate-100/70 border-b border-slate-200/90 relative overflow-hidden"
     >
       {/* Decorative ambient background glows */}
@@ -72,17 +75,17 @@ export function ParcExotiqueShowcase() {
 
       <Container className="relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 md:mb-18">
+        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
           <FadeUp>
             <Heading
               level={2}
-              className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.18] mb-5"
+              className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.18] mb-4"
             >
-              Parc Exotique du Sénégal : L&apos;Excellence Digitale en Production
+              Nos Réalisations
             </Heading>
 
             <Text className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-              Quand le complexe hôtelier et animalier d&apos;envergure de Somone a souhaité numériser son expérience visiteur et doper ses réservations directes, ils ont confié l&apos;intégralité de leur plateforme à Nob Technologies.
+              Ils nous ont fait confiance : découvrez nos projets déployés en production et les résultats concrets apportés à nos clients.
             </Text>
           </FadeUp>
         </div>
@@ -159,11 +162,11 @@ export function ParcExotiqueShowcase() {
                 <div>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-bold text-cyan-800 bg-cyan-50 border border-cyan-200 mb-4">
                     <CheckCircle2 className="w-4 h-4 text-cyan-600" />
-                    <span>Conçu, développé et maintenu par Nob Technologies</span>
+                    <span>Projet Déployé en Production</span>
                   </div>
 
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-3">
-                    Une transformation digitale concrète et mesurable
+                    Parc Exotique du Sénégal &mdash; Plateforme Web Officielle &amp; Réservations
                   </h3>
 
                   <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
@@ -230,6 +233,35 @@ export function ParcExotiqueShowcase() {
             </div>
           </div>
         </FadeUp>
+
+        {/* Dynamic Additional Projects if published in Back Office */}
+        {otherProjects.length > 0 && (
+          <div className="mt-12 sm:mt-16">
+            <div className="text-center mb-8">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">
+                Autres Projets Déployés
+              </span>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {otherProjects.map((p, idx) => (
+                <FadeUp key={p.id || p.slug || idx} delay={0.1 * idx}>
+                  <ProjectCard project={p} />
+                </FadeUp>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Action Link to Realisations */}
+        <div className="mt-12 text-center">
+          <Link
+            href="/realisations"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-cyan-600 text-white font-bold text-xs sm:text-sm transition-all duration-200 shadow-md hover:shadow-cyan-500/25"
+          >
+            <span>Voir toutes nos réalisations</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </Container>
     </Section>
   );

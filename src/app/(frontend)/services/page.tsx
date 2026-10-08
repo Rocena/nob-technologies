@@ -46,7 +46,6 @@ export const OFFICIAL_SERVICES: ServiceDefinition[] = [
     slug: 'cybersecurite',
     title: 'Cybersécurité, Protection des Données & Firewalls',
     category: 'Sécurité & Sauvegardes',
-    badge: 'PRIORITÉ',
     description: 'Protection intégrale de votre système d’information : pare-feu de nouvelle génération (Sophos, Fortinet), plans de sauvegarde cloud hybride (Acronis), gestion des accès à privilèges (Wallix) et audit des vulnérabilités.',
     icon: Shield,
     features: ['Pare-feux Sophos XGS & Fortinet NGFW', 'Sauvegardes anti-ransomware Acronis', 'Protection des accès à privilèges (PAM/IAM)', 'VPN d’entreprise sécurisé multi-sites'],
@@ -91,7 +90,6 @@ export const OFFICIAL_SERVICES: ServiceDefinition[] = [
     slug: 'vente-materiels-licences',
     title: 'Vente de Licences Office 365 (ESD & CSP) & Matériels IT',
     category: 'Licences & Équipements',
-    badge: 'OFFICIEL',
     description: 'Fourniture de licences logicielles d’origine Microsoft 365 (versions ESD et CSP) et vente de matériels informatiques certifiés : ordinateurs professionnels, serveurs Dell, onduleurs et périphériques.',
     icon: Key,
     features: ['Licences Microsoft 365 Business & Enterprise', 'Abonnements CSP mensuels / annuels', 'Serveurs rackables Dell Technologies', 'Postes de travail PC et accessoires réseau'],
@@ -101,7 +99,6 @@ export const OFFICIAL_SERVICES: ServiceDefinition[] = [
     slug: 'developpement-web-mobile',
     title: 'Développement d’Applications Web & Mobiles',
     category: 'Génie Logiciel',
-    badge: 'SUR-MESURE',
     description: 'Conception et développement sur-mesure de portails web d’entreprise, de plateformes de services connectées et d’applications mobiles iOS & Android intuitives, sécurisées et scalables.',
     icon: Smartphone,
     features: ['Portails web et extranets d’entreprise', 'Applications mobiles natives et hybrides', 'Architecture API sécurisée et bases de données', 'Design ergonomique centré utilisateur (UI/UX)'],
@@ -111,7 +108,6 @@ export const OFFICIAL_SERVICES: ServiceDefinition[] = [
     slug: 'erp-gestion',
     title: 'Conception & Intégration d’ERP (Sur-Mesure, Odoo, Dolibarr)',
     category: 'Systèmes de Gestion & Digitalisation',
-    badge: 'SUR-MESURE',
     description: 'Conception d’ERP sur-mesure développés selon vos processus métiers uniques, et intégration experte de progiciels open-source (Odoo, Dolibarr) : gestion commerciale, devis, stocks, facturation, RH et comptabilité.',
     icon: Database,
     features: ['Conception et développement d’ERP sur-mesure', 'Intégration & paramétrage Odoo et Dolibarr', 'Gestion commerciale, stocks, facturation et CRM', 'Connecteurs API, synchronisation et formation'],
@@ -129,7 +125,6 @@ export const OFFICIAL_SERVICES: ServiceDefinition[] = [
     slug: 'formations-ia',
     title: 'Formations, IA & Préparation aux Certifications',
     category: 'Transmission du Savoir',
-    badge: 'FORMATION',
     description: 'Programmes de montée en compétences : préparation intensive aux certifications internationales (Cisco, Fortinet, Sophos), sensibilisation à la cybersécurité et intégration de l’automatisation et de l’IA.',
     icon: GraduationCap,
     features: ['Préparation aux examens de certification IT', 'Sensibilisation anti-phishing des collaborateurs', 'Formations à l’automatisation des tâches', 'Initiation à l’Intelligence Artificielle en entreprise'],
@@ -193,9 +188,9 @@ export default async function ServicesPage() {
                           </div>
 
                           <div className="flex items-center gap-1.5">
-                            {service.badge && (
+                            {(service as any).createdAt && (Date.now() - new Date((service as any).createdAt).getTime() <= 7 * 24 * 60 * 60 * 1000) && (
                               <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-cyan-100 text-cyan-800 border border-cyan-200">
-                                {service.badge}
+                                NOUVEAU
                               </span>
                             )}
                             <span className="text-[11px] font-mono text-slate-400">

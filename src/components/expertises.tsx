@@ -19,6 +19,15 @@ import { FadeUp } from "@/components/animations";
 import Link from "next/link";
 import { QuoteRequestButton } from "@/components/QuoteRequestButton";
 
+function isRecentlyCreated(createdAt?: string | Date) {
+  if (!createdAt) return false;
+  const created = new Date(createdAt).getTime();
+  if (isNaN(created)) return false;
+  const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+  const now = Date.now();
+  return now - created >= 0 && now - created <= ONE_WEEK_MS;
+}
+
 const defaultServices = [
   {
     id: "developpement-web-mobile",
@@ -26,7 +35,6 @@ const defaultServices = [
     slug: "developpement-web-mobile",
     description: "Conception de sites internet institutionnels, portails d'entreprise sur-mesure et applications mobiles iOS & Android fluides et sécurisées.",
     icon: Smartphone,
-    highlight: "NOUVEAU",
   },
   {
     id: "erp-digitalisation",
@@ -34,7 +42,6 @@ const defaultServices = [
     slug: "erp-digitalisation",
     description: "Conception d’ERP sur-mesure et intégration experte (Odoo, Dolibarr) pour unifier facturation, stocks, CRM, RH et comptabilité d’entreprise.",
     icon: Code,
-    highlight: "POPULAIRE",
   },
   {
     id: "marketing-digital",
@@ -42,7 +49,6 @@ const defaultServices = [
     slug: "marketing-digital",
     description: "SEO/SEA, gestion de campagnes publicitaires, acquisition de leads et renforcement de l’autorité de votre marque sur les canaux digitaux.",
     icon: BarChart3,
-    highlight: "ESSENTIEL",
   },
   {
     id: "cybersecurite-firewall",
@@ -50,7 +56,6 @@ const defaultServices = [
     slug: "cybersecurite",
     description: "Solutions leaders Sophos et Fortinet (NGFW), protection des données Acronis, surveillance des menaces et audit de vulnérabilités.",
     icon: Shield,
-    highlight: "PRIORITÉ 1",
   },
   {
     id: "licences-materiel",
@@ -97,9 +102,6 @@ export function Expertises({ services = [] }: { services: any[] }) {
       <Container>
         <div className="text-center max-w-4xl mx-auto mb-16 md:mb-20">
           <FadeUp>
-            <p className="font-mono text-cyan-600 text-sm md:text-base tracking-[0.25em] uppercase mb-4 opacity-90 font-bold">
-              &gt;_ L&apos;Ingénierie à l&apos;état pur
-            </p>
             <Heading level={2} className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
               Nous construisons les fondations numériques des leaders de demain.
             </Heading>
@@ -113,12 +115,13 @@ export function Expertises({ services = [] }: { services: any[] }) {
           {displayServices.map((service: any, idx: number) => {
             const Icon = service.icon || Shield;
             const href = service.slug ? `/services/${service.slug}` : "/services";
+            const showNewBadge = isRecentlyCreated(service.createdAt);
             return (
               <FadeUp key={service.id || idx} delay={0.04 * idx}>
                 <div className="group flex flex-col h-full bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-cyan-400 rounded-2xl p-7 md:p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden">
-                  {service.highlight && (
+                  {showNewBadge && (
                     <span className="absolute top-4 right-4 text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded bg-cyan-100 text-cyan-800 border border-cyan-200">
-                      {service.highlight}
+                      NOUVEAU
                     </span>
                   )}
                   <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-500/20 group-hover:scale-110 transition-all duration-300">
