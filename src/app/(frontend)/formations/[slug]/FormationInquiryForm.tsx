@@ -36,8 +36,6 @@ export function FormationInquiryForm({ formationTitle, formationSlug }: Formatio
 
   return (
     <div id="candidature" className="bg-slate-900/90 border border-cyan-500/20 rounded-2xl p-6 sm:p-8 backdrop-blur-md relative overflow-hidden shadow-2xl">
-      <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-
       <div className="relative z-10 mb-6">
         <div className="flex items-center justify-between gap-4 mb-2">
           <h3 className="text-2xl font-extrabold text-white">

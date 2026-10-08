@@ -74,9 +74,6 @@ export default async function ContactPage({
             <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
               <FadeUp className="lg:col-span-1 space-y-8">
                 <div>
-                  <span className="text-xs font-mono font-bold text-cyan-600 uppercase tracking-widest block mb-2">
-                    &gt;_ CONTACT DIRECT
-                  </span>
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3 tracking-tight">
                     Nos coordonnées
                   </h2>
@@ -132,7 +129,6 @@ export default async function ContactPage({
 
               <FadeUp delay={0.2} className="lg:col-span-2">
                 <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-bl-full pointer-events-none" />
                   <ContactForm formType={type} initialService={initialService} />
                 </div>
               </FadeUp>

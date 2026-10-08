@@ -35,25 +35,9 @@ export function FormSuccessMessage({
           : "bg-emerald-50/70 border border-emerald-200 text-slate-900 shadow-xl shadow-emerald-950/5"
       }`}
     >
-      {/* Decorative ambient aura */}
-      <div
-        className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full blur-3xl pointer-events-none ${
-          isDark ? "bg-emerald-500/15" : "bg-emerald-400/20"
-        }`}
-        aria-hidden="true"
-      />
-
       <div className="relative z-10 flex flex-col items-center">
-        {/* Animated Check Icon with Radar Ripple */}
+        {/* Animated Check Icon */}
         <div className="relative mb-6">
-          <motion.div
-            initial={{ scale: 0.6, opacity: 0 }}
-            animate={{ scale: [1, 1.4, 1.8], opacity: [0.6, 0.3, 0] }}
-            transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut" }}
-            className={`absolute inset-0 rounded-full ${
-              isDark ? "bg-emerald-400/30" : "bg-emerald-500/25"
-            }`}
-          />
           <motion.div
             initial={{ scale: 0, rotate: -20 }}
             animate={{ scale: 1, rotate: 0 }}
@@ -72,16 +56,6 @@ export function FormSuccessMessage({
             <CheckCircle2 className="w-10 h-10 stroke-[2.2]" />
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.4 }}
-          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-4 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
-        >
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-          <span>{badge}</span>
-        </motion.div>
 
         {/* Main Title */}
         <motion.h3

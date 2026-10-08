@@ -41,8 +41,7 @@ export function DevisForm({ plan }: { plan: string }) {
 
   return (
     <FadeUp delay={0.2}>
-      <form action={formAction} className="space-y-6 bg-[#020617] p-8 md:p-10 rounded-2xl border border-white/10 shadow-2xl relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent pointer-events-none" />
+      <form action={formAction} className="space-y-6 bg-[#020617] p-8 md:p-10 rounded-2xl border border-white/10 shadow-2xl relative">
         
         {state?.error && (
           <div className="bg-red-500/10 text-red-400 p-4 rounded-xl border border-red-500/20 text-sm flex items-start gap-3 relative z-10">

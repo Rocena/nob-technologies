@@ -4,7 +4,6 @@ interface ShieldWatermarkProps {
   className?: string;
   size?: number | string;
   opacity?: number;
-  glow?: boolean;
   position?: 'center' | 'top-right' | 'bottom-right' | 'bottom-left' | 'top-left';
 }
 
@@ -12,7 +11,6 @@ export function ShieldWatermark({
   className = "",
   size = 480,
   opacity = 0.05,
-  glow = true,
   position = 'center',
 }: ShieldWatermarkProps) {
   const positionClasses = {
@@ -33,14 +31,11 @@ export function ShieldWatermark({
         opacity,
       }}
     >
-      {glow && (
-        <div className="absolute inset-0 rounded-full bg-cyan-400/20 blur-3xl pointer-events-none" />
-      )}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img 
         src="/images/nobtech-shield.png" 
         alt="" 
-        className="w-full h-full object-contain filter drop-shadow-[0_0_50px_rgba(0,212,255,0.35)]" 
+        className="w-full h-full object-contain" 
       />
     </div>
   );

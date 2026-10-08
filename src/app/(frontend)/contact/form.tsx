@@ -98,8 +98,7 @@ export function ContactForm({
 
       {/* Section 1: Informations Personnelles */}
       <div className="space-y-4">
-        <p className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
+        <p className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">
           Coordonnées
         </p>
 
@@ -174,8 +173,7 @@ export function ContactForm({
 
       {/* Section 2: Objet de la prise de contact */}
       <div className="space-y-4 pt-2 border-t border-slate-100">
-        <p className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
+        <p className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">
           Projet &amp; Objectifs
         </p>
 
@@ -197,8 +195,7 @@ export function ContactForm({
 
         {formType === 'quote' && (
           <div className="p-4 sm:p-6 bg-slate-50/80 border border-slate-200/80 rounded-2xl space-y-5">
-            <h4 className="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-cyan-500" />
+            <h4 className="font-bold text-slate-900 text-sm sm:text-base">
               Spécifications du devis
             </h4>
 
@@ -263,8 +260,7 @@ export function ContactForm({
 
         {formType === 'engineer' && (
           <div className="p-4 sm:p-6 bg-slate-50/80 border border-slate-200/80 rounded-2xl space-y-5">
-            <h4 className="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-cyan-500" />
+            <h4 className="font-bold text-slate-900 text-sm sm:text-base">
               Spécifications techniques
             </h4>
 

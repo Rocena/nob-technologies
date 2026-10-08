@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useActionState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ShieldCheck, Loader2, FileText, UserCheck } from "lucide-react";
+import { X, ShieldCheck, Loader2 } from "lucide-react";
 import { submitContactForm } from "@/app/(frontend)/contact/actions";
 import { Button } from "@/components/ui/button";
 import { FormSuccessMessage } from "@/components/FormSuccessMessage";
@@ -112,25 +112,6 @@ export function EngineerContactModal({
             {/* Header: Clean title, subtitle and close button */}
             <div className="flex items-start justify-between p-6 sm:p-8 border-b border-slate-100 bg-slate-50/70">
               <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-wider uppercase bg-cyan-100 text-cyan-800 border border-cyan-200">
-                    {isQuoteMode ? (
-                      <>
-                        <FileText className="w-3 h-3 text-cyan-700 shrink-0" />
-                        <span className="truncate max-w-[280px] sm:max-w-[380px]">
-                          {selectedService ? `DEVIS : ${selectedService}` : "DEVIS RAPIDE SOUS 24H"}
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        <UserCheck className="w-3 h-3 text-cyan-700 shrink-0" />
-                        <span className="truncate max-w-[280px] sm:max-w-[380px]">
-                          {selectedService ? `CONSEIL : ${selectedService}` : "INGÉNIERIE & CONSEIL"}
-                        </span>
-                      </>
-                    )}
-                  </span>
-                </div>
                 <h3 id="modal-engineer-title" className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
                   {isQuoteMode ? "Demander un devis personnalisé" : "Parler à un ingénieur expert"}
                 </h3>
@@ -356,7 +337,6 @@ export function EngineerContactModal({
                   {/* Submit Button */}
                   <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
                     <p className="text-[11px] text-slate-500 flex items-center gap-1.5 order-2 sm:order-1">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
                       Prise en charge directe sous 24h ouvrées
                     </p>
 
