@@ -136,18 +136,22 @@ export default async function FormationsCatalogPage() {
                       </div>
 
                       {/* Partner Logos */}
-                      <div className="flex items-center gap-2.5 mb-6">
-                        <span className="text-[10px] font-mono uppercase text-slate-500">Constructeurs :</span>
-                        <div className="flex items-center gap-2">
-                          {track.partnerLogos.slice(0, 4).map((p, i) => (
-                            <div key={i} className="h-7 px-2 py-0.5 bg-white rounded-md flex items-center justify-center">
+                      <div className="mb-6">
+                        <span className="block text-[10px] font-mono uppercase text-slate-500 mb-2">Technologies &amp; Constructeurs :</span>
+                        <div className="flex flex-wrap items-center gap-2">
+                          {track.partnerLogos.map((p, i) => (
+                            <div 
+                              key={i} 
+                              title={p.name}
+                              className="h-7 px-2.5 py-0.5 bg-white rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform"
+                            >
                               <Image
                                 src={p.logo}
                                 alt={p.name}
-                                width={50}
-                                height={18}
+                                width={65}
+                                height={20}
                                 unoptimized
-                                className="max-h-4 w-auto object-contain"
+                                className="h-4 max-h-4 w-auto object-contain"
                               />
                             </div>
                           ))}

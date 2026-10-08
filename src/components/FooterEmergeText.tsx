@@ -29,16 +29,16 @@ export function FooterEmergeText() {
         </span>
       </motion.h2>
 
-      {/* Official Slogan flanked by cyan and green gradient lines */}
+      {/* Official Slogan flanked by cyan and green gradient lines - STRICT SINGLE LINE */}
       <motion.div
         style={{ opacity }}
-        className="mt-3 sm:mt-5 flex items-center justify-center gap-3 sm:gap-6 text-[2.8vw] sm:text-[1.5vw] md:text-[1.05vw] tracking-[0.32em] text-slate-300/80 font-bold uppercase select-none relative z-10"
+        className="mt-3 sm:mt-5 flex items-center justify-center gap-2 sm:gap-5 md:gap-6 max-w-full px-2 select-none relative z-10 overflow-hidden whitespace-nowrap"
       >
-        <span className="h-[2px] w-8 sm:w-16 md:w-24 bg-gradient-to-r from-transparent to-[#00D4FF]" />
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-200 via-slate-300 to-slate-200">
+        <span className="hidden xs:inline-block h-[1.5px] w-6 sm:w-16 md:w-24 bg-gradient-to-r from-transparent to-[#00D4FF] shrink-0" />
+        <span className="whitespace-nowrap shrink-0 text-[10px] xs:text-xs sm:text-sm md:text-base font-bold uppercase tracking-[0.16em] sm:tracking-[0.26em] md:tracking-[0.34em] bg-clip-text text-transparent bg-gradient-to-r from-slate-200 via-white to-slate-200 drop-shadow-[0_2px_10px_rgba(255,255,255,0.08)]">
           LA TECHNOLOGIE À VOTRE PORTÉE
         </span>
-        <span className="h-[2px] w-8 sm:w-16 md:w-24 bg-gradient-to-r from-[#10E760] to-transparent" />
+        <span className="hidden xs:inline-block h-[1.5px] w-6 sm:w-16 md:w-24 bg-gradient-to-r from-[#10E760] to-transparent shrink-0" />
       </motion.div>
     </div>
   );

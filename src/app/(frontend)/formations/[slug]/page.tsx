@@ -168,25 +168,28 @@ export default async function FormationDetailPage({ params }: Props) {
             </div>
 
             {/* Partner Logos */}
-            <div className="pt-8 border-t border-white/10 flex flex-wrap items-center justify-center gap-8 md:gap-12">
-              <p className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">
+            <div className="pt-8 border-t border-white/10 flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8">
+              <p className="w-full text-center sm:w-auto text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-2 sm:mb-0">
                 Technologies &amp; Constructeurs abordés :
               </p>
-              {formation.partnerLogos.map((p, i) => (
-                <div
-                  key={i}
-                  className="h-10 px-3 py-1 bg-white/95 rounded-xl flex items-center justify-center shadow-md hover:scale-105 transition-transform"
-                >
-                  <Image
-                    src={p.logo}
-                    alt={p.name}
-                    width={100}
-                    height={30}
-                    unoptimized
-                    className="max-h-6 w-auto object-contain"
-                  />
-                </div>
-              ))}
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+                {formation.partnerLogos.map((p, i) => (
+                  <div
+                    key={i}
+                    title={p.name}
+                    className="h-10 px-3.5 py-1.5 bg-white rounded-xl flex items-center justify-center shadow-md hover:scale-105 transition-transform"
+                  >
+                    <Image
+                      src={p.logo}
+                      alt={p.name}
+                      width={100}
+                      height={28}
+                      unoptimized
+                      className="h-5 max-h-5 w-auto object-contain"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </Container>
         </Section>
