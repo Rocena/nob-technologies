@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { FormationOfferingsSection } from "@/components/formations/FormationOfferingsSection";
 
 export const metadata: Metadata = {
   title: "Formations Professionnelles & Préparation aux Certifications | NOB TECHNOLOGIES",
@@ -60,13 +61,17 @@ export default async function FormationsCatalogPage() {
                   <GraduationCap className="w-4 h-4 text-cyan-400" />
                   Programmes structurés sur 6 mois (24 semaines)
                 </div>
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-950/40 border border-cyan-500/30 text-xs text-cyan-300">
+                  <Clock className="w-4 h-4 text-cyan-400" />
+                  Rythme allégé : max 6h / semaine (soirs ou samedis)
+                </div>
                 <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
                   <Terminal className="w-4 h-4 text-emerald-400" />
                   Labs pratiques sur matériel réel à Dakar
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
                   <ShieldCheck className="w-4 h-4 text-blue-400" />
-                  Formateurs ingénieurs seniors certifiés
+                  Entreprises &bull; Bootcamps &bull; Particuliers
                 </div>
               </div>
             </FadeUp>
@@ -96,10 +101,16 @@ export default async function FormationsCatalogPage() {
                         <span className="text-xs font-semibold text-cyan-400">
                           Programme Certifiant
                         </span>
-                        <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5">
-                          <Calendar className="w-3.5 h-3.5 text-cyan-400" />
-                          {track.duration.split(" ")[0]} Mois
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-800/40 px-2 py-0.5 rounded flex items-center gap-1">
+                            <Clock className="w-3 h-3 text-cyan-400" />
+                            Max 6h / sem
+                          </span>
+                          <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+                            <Calendar className="w-3.5 h-3.5 text-cyan-400" />
+                            {track.duration.split(" ")[0]} Mois
+                          </span>
+                        </div>
                       </div>
 
                       <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
@@ -170,6 +181,14 @@ export default async function FormationsCatalogPage() {
                 </FadeUp>
               ))}
             </div>
+          </Container>
+        </Section>
+ 
+        {/* Formats d'Accompagnement : Entreprises, Bootcamps, Particuliers */}
+        <Section className="py-20 md:py-28 bg-[#020617] border-b border-white/10 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+          <Container className="relative z-10">
+            <FormationOfferingsSection />
           </Container>
         </Section>
 

@@ -3,7 +3,7 @@
 import React, { useState, useActionState, useEffect } from "react";
 import { submitContactForm } from "@/app/(frontend)/contact/actions";
 import { FormSuccessMessage } from "@/components/FormSuccessMessage";
-import { Send, Loader2, User, Mail, Phone, Building, Calendar, HelpCircle } from "lucide-react";
+import { Send, Loader2, User, Mail, Phone, Building, Calendar, HelpCircle, GraduationCap } from "lucide-react";
 import { useEngineerModal } from "@/components/EngineerModalContext";
 
 interface FormationInquiryFormProps {
@@ -141,21 +141,49 @@ export function FormationInquiryForm({ formationTitle, formationSlug }: Formatio
           </div>
         </div>
 
-        <div>
-          <label className="block text-xs font-mono font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-            Date de démarrage souhaitée
-          </label>
-          <div className="relative">
-            <Calendar className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-            <select
-              name="deadline"
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950/70 border border-white/10 text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors appearance-none"
-            >
-              <option value="Prochaine session (dans 3 semaines)">Prochaine session (dans 3 semaines)</option>
-              <option value="Dans 1 mois">Dans 1 mois</option>
-              <option value="Dans 2 à 3 mois">Dans 2 à 3 mois</option>
-              <option value="Session sur mesure pour entreprise">Session sur mesure pour mon entreprise</option>
-            </select>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-xs font-mono font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              Format de formation souhaité *
+            </label>
+            <div className="relative">
+              <GraduationCap className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <select
+                name="technologies"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950/70 border border-white/10 text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors appearance-none"
+              >
+                <option value="Formation Particulier & Salarié (max 6h / sem - soirs ou samedis)">
+                  Particulier &amp; Salarié (max 6h/sem)
+                </option>
+                <option value="Formation Entreprise & DSI (intra/inter-entreprise sur-mesure)">
+                  Entreprise &amp; DSI (sur-mesure)
+                </option>
+                <option value="Bootcamp Accélérateur (axé lab intensif & examen)">
+                  Bootcamp Accélérateur
+                </option>
+              </select>
+            </div>
+            <p className="text-[11px] text-slate-400 mt-1">
+              Rythme allégé : max 6h/semaine (soirs ou samedis)
+            </p>
+          </div>
+
+          <div>
+            <label className="block text-xs font-mono font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              Date de démarrage souhaitée
+            </label>
+            <div className="relative">
+              <Calendar className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <select
+                name="deadline"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950/70 border border-white/10 text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors appearance-none"
+              >
+                <option value="Prochaine session (dans 3 semaines)">Prochaine session (dans 3 semaines)</option>
+                <option value="Dans 1 mois">Dans 1 mois</option>
+                <option value="Dans 2 à 3 mois">Dans 2 à 3 mois</option>
+                <option value="Session sur mesure pour entreprise">Session sur mesure pour mon entreprise</option>
+              </select>
+            </div>
           </div>
         </div>
 

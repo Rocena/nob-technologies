@@ -19,6 +19,16 @@ export interface FormationCareer {
   };
 }
 
+export interface FormationOffering {
+  id: "entreprise" | "bootcamp" | "particulier";
+  title: string;
+  badge: string;
+  subtitle: string;
+  description: string;
+  features: string[];
+  rhythm: string;
+}
+
 export interface Formation {
   slug: string;
   title: string;
@@ -30,6 +40,7 @@ export interface Formation {
   prerequisites: string[];
   duration: string;
   hours: string;
+  pace: string;
   format: string;
   partnerLogos: { name: string; logo: string }[];
   targetCertifications: {
@@ -41,7 +52,56 @@ export interface Formation {
   months: FormationMonth[];
   keyOutcomes: string[];
   career?: FormationCareer;
+  offerings: FormationOffering[];
 }
+
+export const DEFAULT_FORMATION_OFFERINGS: FormationOffering[] = [
+  {
+    id: "entreprise",
+    title: "Formation Entreprise",
+    badge: "DSI & Équipes IT",
+    subtitle: "Montée en compétences sur-mesure pour vos collaborateurs",
+    description:
+      "Programme intra ou inter-entreprises adapté à vos impératifs de production. Déploiement sur vos infrastructures ou dans nos laboratoires à Dakar.",
+    features: [
+      "Calendrier et horaires flexibles selon vos contraintes d'activité",
+      "Exercices et labs ciblés sur l'architecture réseau de votre entreprise",
+      "Rapports d'assiduité et bilan d'évaluation individuel remis à la DSI / RH",
+      "Éligible au financement par le 3FPT et les budgets formation continue",
+    ],
+    rhythm: "Sur-mesure (intra-entreprise ou max 6h/semaine)",
+  },
+  {
+    id: "bootcamp",
+    title: "Bootcamp Intensif",
+    badge: "Accélérateur Pratique",
+    subtitle: "Immersion rapide axée 100% sur la pratique et l'examen",
+    description:
+      "Format condensé et dynamique pour les techniciens et ingénieurs souhaitant valider rapidement leurs certifications officielles constructeurs.",
+    features: [
+      "Travaux pratiques intensifs sur baies réelles et simulateurs",
+      "Batterie d'examens blancs chronométrés sous conditions Pearson VUE",
+      "Mentorat individuel par des consultants et ingénieurs certifiés seniors",
+      "Vouchers d'examen et préparation directe aux épreuves",
+    ],
+    rhythm: "Sessions intensives ciblées (max 6h / semaine)",
+  },
+  {
+    id: "particulier",
+    title: "Formation Particulier",
+    badge: "Salariés & Étudiants",
+    subtitle: "Rythme allégé compatible avec votre emploi du temps",
+    description:
+      "Idéal pour les salariés en poste, étudiants ou personnes en reconversion. Cours en soirée ou le samedi matin (max 6h par semaine) avec accès aux labs 24/7.",
+    features: [
+      "Rythme allégé de max 6h / semaine (cours du soir 18h-20h ou samedi matin)",
+      "100% conciliable avec un emploi à temps plein ou des études",
+      "Accès 24/7 aux machines virtuelles, plateformes cloud et enregistrements",
+      "Facilités de paiement mensuel échelonné sans frais",
+    ],
+    rhythm: "Max 6h / semaine (soirées ou samedi matin)",
+  },
+];
 
 export const FORMATIONS_DATA: Record<string, Formation> = {
   "preparation-certifications-it": {
@@ -65,7 +125,9 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       "Motivation pour un investissement régulier (cours du soir ou sessions intensives)",
     ],
     duration: "6 Mois (24 semaines)",
-    hours: "180 heures de formation et travaux pratiques dirigés",
+    hours: "Max 6h / semaine (cours du soir ou samedi matin)",
+    pace: "Max 6h / semaine",
+    offerings: DEFAULT_FORMATION_OFFERINGS,
     format: "Présentiel dans nos Labs à Dakar + Accès plateformes virtuelles 24/7",
     partnerLogos: [
       { name: "Cisco", logo: "/images/partners/cisco-color.svg" },
@@ -104,7 +166,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 1,
         title: "Fondamentaux Réseau Avancés & Architecture Cisco",
-        duration: "Semaines 1 à 4 (30 heures)",
+        duration: "Semaines 1 à 4 (max 6h / semaine)",
         objectives: "Maîtriser l'adressage IPv4/IPv6, le découpage en sous-réseaux (VLSM), la commutation de niveau 2 et le modèle hiérarchique.",
         topics: [
           "Modèle OSI et pile TCP/UDP en profondeur",
@@ -118,7 +180,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 2,
         title: "Routage Dynamique, Services IP & Sécurité de Niveau 2",
-        duration: "Semaines 5 à 8 (30 heures)",
+        duration: "Semaines 5 à 8 (max 6h / semaine)",
         objectives: "Configurer les protocoles de routage dynamique et blinder l'accès réseau contre les attaques courantes.",
         topics: [
           "Routage statique, routage dynamique OSPFv2 et OSPFv3 multi-zones",
@@ -132,7 +194,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 3,
         title: "Firewalls Nouvelle Génération & Administration Fortinet FortiGate",
-        duration: "Semaines 9 à 12 (30 heures)",
+        duration: "Semaines 9 à 12 (max 6h / semaine)",
         objectives: "Prendre en main les boîtiers FortiGate et déployer une politique périmétrique zéro-trust robuste.",
         topics: [
           "Architecture FortiOS et modes de déploiement (NAT/Route vs Transparent)",
@@ -146,7 +208,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 4,
         title: "VPNs Sécurisés, SD-WAN & Pare-feu Sophos XGS",
-        duration: "Semaines 13 à 16 (30 heures)",
+        duration: "Semaines 13 à 16 (max 6h / semaine)",
         objectives: "Interconnecter les succursales de manière chiffrée et déployer la solution pare-feu Sophos.",
         topics: [
           "Tunnels IPsec site-à-site avec chiffrement IKEv2 et clés pré-partagées",
@@ -160,7 +222,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 5,
         title: "Supervision, Durcissement & Principes CompTIA Security+",
-        duration: "Semaines 17 à 20 (30 heures)",
+        duration: "Semaines 17 à 20 (max 6h / semaine)",
         objectives: "Surveiller proactivement l'infrastructure et intégrer les standards internationaux de sécurité.",
         topics: [
           "Surveillance proactive des flux réseau avec PRTG Network Monitor (Paessler)",
@@ -174,7 +236,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 6,
         title: "Examens Blancs Intensifs, Coaching & Passage de Certifications",
-        duration: "Semaines 21 à 24 (30 heures)",
+        duration: "Semaines 21 à 24 (max 6h / semaine)",
         objectives: "Réussir l'examen officiel de certification grâce à un entraînement intensif en conditions réelles.",
         topics: [
           "Séries d'examens blancs chronométrés sur plateformes officielles de préparation",
@@ -249,7 +311,9 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       "Sens aigu de l'éthique professionnelle et de la confidentialité",
     ],
     duration: "6 Mois (24 semaines)",
-    hours: "180 heures de cours théoriques, simulations cyber et études de cas réels",
+    hours: "Max 6h / semaine (cours du soir ou samedi matin)",
+    pace: "Max 6h / semaine",
+    offerings: DEFAULT_FORMATION_OFFERINGS,
     format: "Présentiel à Dakar ou classe virtuelle interactive pour professionnels",
     partnerLogos: [
       { name: "GateWatcher", logo: "/images/partners/gatewatcher.svg" },
@@ -288,7 +352,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 1,
         title: "Gouvernance Cyber, Analyse des Risques & Norme ISO 27001",
-        duration: "Semaines 1 à 4 (30 heures)",
+        duration: "Semaines 1 à 4 (max 6h / semaine)",
         objectives: "Comprendre l'écosystème réglementaire, cartographier les actifs critiques et structurer une PSSI.",
         topics: [
           "Paysage des cybermenaces contemporaines et typologie des attaquants",
@@ -302,7 +366,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 2,
         title: "Cyber-Hygiène, Sensibilisation & Sécurité des Identités (IAM / PAM)",
-        duration: "Semaines 5 à 8 (30 heures)",
+        duration: "Semaines 5 à 8 (max 6h / semaine)",
         objectives: "Réduire la vulnérabilité humaine et blinder l'accès aux comptes à privilèges.",
         topics: [
           "Vecteurs d'ingénierie sociale, techniques d'hameçonnage (phishing, spear-phishing, vishing)",
@@ -316,7 +380,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 3,
         title: "Audit Technique de Vulnérabilités & Pentest Fondamental",
-        duration: "Semaines 9 à 12 (30 heures)",
+        duration: "Semaines 9 à 12 (max 6h / semaine)",
         objectives: "Identifier les failles de sécurité avant que les cybercriminels ne les exploitent.",
         topics: [
           "Phases d'un test d'intrusion : Reconnaissance, Scanning, Énumération, Exploitation",
@@ -330,7 +394,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 4,
         title: "Surveillance SOC, SIEM & Détection NDR Assistée par IA",
-        duration: "Semaines 13 à 16 (30 heures)",
+        duration: "Semaines 13 à 16 (max 6h / semaine)",
         objectives: "Mettre en œuvre les briques de détection et surveiller le réseau contre les attaques avancées.",
         topics: [
           "Architecture d'un Security Operations Center (SOC) : rôles N1, N2, N3",
@@ -344,7 +408,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 5,
         title: "Réponse à Incident, Forensics & Continuité d'Activité (PCA/PRA)",
-        duration: "Semaines 17 à 20 (30 heures)",
+        duration: "Semaines 17 à 20 (max 6h / semaine)",
         objectives: "Réagir avec méthode lors d'une crise cyber pour limiter l'impact et préserver la preuve.",
         topics: [
           "Cycle de vie de la gestion d'incidents (NIST SP 800-61 / ISO 27035)",
@@ -358,7 +422,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 6,
         title: "Audit Blanc Organisationnel, Soutenance & Rapport Exécutif",
-        duration: "Semaines 21 à 24 (30 heures)",
+        duration: "Semaines 21 à 24 (max 6h / semaine)",
         objectives: "Valider les acquis par un audit blanc en situation réelle et présenter les conclusions à un jury.",
         topics: [
           "Conduite d'un audit blanc selon les 93 mesures de l'ISO 27001:2022",
@@ -433,7 +497,9 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       "Intérêt prononcé pour la productivité opérationnelle et l'intelligence artificielle",
     ],
     duration: "6 Mois (24 semaines)",
-    hours: "180 heures d'ateliers pratiques, code dirigé et projets d'automatisation en production",
+    hours: "Max 6h / semaine (cours du soir ou samedi matin)",
+    pace: "Max 6h / semaine",
+    offerings: DEFAULT_FORMATION_OFFERINGS,
     format: "Présentiel ou distanciel interactif avec serveurs dédiés mis à disposition",
     partnerLogos: [
       { name: "Microsoft 365", logo: "/images/partners/microsoft.svg" },
@@ -470,7 +536,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 1,
         title: "Architecture des Systèmes Modernes, HTTP & APIs REST",
-        duration: "Semaines 1 à 4 (30 heures)",
+        duration: "Semaines 1 à 4 (max 6h / semaine)",
         objectives: "Comprendre les protocoles d'échange de données entre applications d'entreprise.",
         topics: [
           "Architecture client-serveur et protocoles HTTP/HTTPS (méthodes GET, POST, PUT, DELETE)",
@@ -484,7 +550,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 2,
         title: "Orchestration de Processus Métiers avec n8n Auto-Hébergé",
-        duration: "Semaines 5 à 8 (30 heures)",
+        duration: "Semaines 5 à 8 (max 6h / semaine)",
         objectives: "Déployer la plateforme open source n8n et automatiser des processus complexes sans friction.",
         topics: [
           "Déploiement et sécurisation de n8n sur serveur Linux avec Docker et SSL",
@@ -498,7 +564,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 3,
         title: "Scripting Python Avancé pour l'Automatisation de Données",
-        duration: "Semaines 9 à 12 (30 heures)",
+        duration: "Semaines 9 à 12 (max 6h / semaine)",
         objectives: "Développer des scripts Python autonomes pour le traitement et la consolidation de données massives.",
         topics: [
           "Bibliothèques incontournables : requests, pandas, openpyxl, pydantic",
@@ -512,7 +578,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 4,
         title: "Intégration d'ERP d'Entreprise : Dolibarr & Odoo",
-        duration: "Semaines 13 à 16 (30 heures)",
+        duration: "Semaines 13 à 16 (max 6h / semaine)",
         objectives: "Relier les systèmes de gestion d'entreprise (ERP) au reste de l'écosystème numérique.",
         topics: [
           "Architecture et modèle de données des ERP open source majeurs (Dolibarr et Odoo)",
@@ -526,7 +592,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 5,
         title: "Intelligence Artificielle Générative & Agents Métiers d'Entreprise",
-        duration: "Semaines 17 à 20 (30 heures)",
+        duration: "Semaines 17 à 20 (max 6h / semaine)",
         objectives: "Intégrer les grands modèles de langage (LLMs) pour créer des assistants intelligents sur mesure.",
         topics: [
           "Fondamentaux des LLMs et ingénierie de prompt avancée pour les cas d'usage métiers",
@@ -540,7 +606,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       {
         month: 6,
         title: "Déploiement en Production, DevOps, Sécurité & Soutenance",
-        duration: "Semaines 21 à 24 (30 heures)",
+        duration: "Semaines 21 à 24 (max 6h / semaine)",
         objectives: "Industrialiser les pipelines d'automatisation et soutenir son projet de fin de cursus.",
         topics: [
           "Conteneurisation avec Docker et Docker Compose pour la reproductibilité",

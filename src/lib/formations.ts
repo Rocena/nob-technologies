@@ -28,7 +28,9 @@ export async function getAllFormations(): Promise<Formation[]> {
           heroHeadline: doc.heroHeadline || defaultData?.heroHeadline || doc.title,
           heroDescription: doc.heroDescription || defaultData?.heroDescription || doc.shortDesc || "",
           duration: doc.duration || defaultData?.duration || "6 Mois (24 semaines)",
-          hours: doc.hours || defaultData?.hours || "180 heures",
+          hours: doc.hours || defaultData?.hours || "Max 6h / semaine",
+          pace: defaultData?.pace || "Max 6h / semaine",
+          offerings: defaultData?.offerings || [],
           format: doc.format || defaultData?.format || "Présentiel & Hybride",
           targetAudience: Array.isArray(doc.targetAudience) && doc.targetAudience.length > 0
             ? doc.targetAudience.map((a: any) => typeof a === 'string' ? a : (a.item || a.text || ''))
@@ -100,7 +102,9 @@ export async function getFormationBySlug(slug: string): Promise<Formation | null
         heroHeadline: doc.heroHeadline || defaultData?.heroHeadline || doc.title,
         heroDescription: doc.heroDescription || defaultData?.heroDescription || doc.shortDesc || "",
         duration: doc.duration || defaultData?.duration || "6 Mois (24 semaines)",
-        hours: doc.hours || defaultData?.hours || "180 heures",
+        hours: doc.hours || defaultData?.hours || "Max 6h / semaine",
+        pace: defaultData?.pace || "Max 6h / semaine",
+        offerings: defaultData?.offerings || [],
         format: doc.format || defaultData?.format || "Présentiel & Hybride",
         targetAudience: Array.isArray(doc.targetAudience) && doc.targetAudience.length > 0
           ? doc.targetAudience.map((a: any) => typeof a === 'string' ? a : (a.item || a.text || ''))

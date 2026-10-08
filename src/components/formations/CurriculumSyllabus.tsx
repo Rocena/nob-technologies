@@ -65,7 +65,7 @@ export function CurriculumSyllabus({ months, formationTitle }: CurriculumSyllabu
               Programme d&apos;études &amp; Syllabus détaillé
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              24 semaines intensives d&apos;apprentissage structurées en 6 modules progressifs. Chaque mois articule fondements théoriques, travaux pratiques sur banc d&apos;essai et évaluation continue par projet.
+              24 semaines d&apos;apprentissage structurées en 6 modules progressifs avec un rythme allégé de max 6h par semaine pour concilier activité professionnelle et montée en compétences. Chaque mois combine théorie ciblée, ateliers pratiques et évaluation continue.
             </p>
           </div>
 
@@ -99,16 +99,16 @@ export function CurriculumSyllabus({ months, formationTitle }: CurriculumSyllabu
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Durée du cycle</span>
             </div>
             <p className="text-lg font-bold text-white">6 Mois (24 semaines)</p>
-            <p className="text-xs text-slate-400 mt-0.5">Rythme progressif et continu</p>
+            <p className="text-xs text-slate-400 mt-0.5">Progression étape par étape</p>
           </div>
 
           <div className="p-4 rounded-xl bg-slate-900/80 border border-white/10">
             <div className="flex items-center gap-2.5 text-cyan-400 mb-1">
               <Clock className="w-4 h-4 shrink-0" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Volume encadré</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Rythme allégé</span>
             </div>
-            <p className="text-lg font-bold text-white">180 Heures</p>
-            <p className="text-xs text-slate-400 mt-0.5">30h / mois (cours &amp; labs dirigés)</p>
+            <p className="text-lg font-bold text-white">Max 6h / semaine</p>
+            <p className="text-xs text-slate-400 mt-0.5">Soirs ou samedis (compatible emploi)</p>
           </div>
 
           <div className="p-4 rounded-xl bg-slate-900/80 border border-white/10">

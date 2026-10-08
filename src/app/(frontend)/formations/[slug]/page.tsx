@@ -10,6 +10,7 @@ import { FadeUp } from "@/components/animations";
 import { getAllFormations, getFormationBySlug } from "@/lib/formations";
 import { FormationInquiryForm } from "./FormationInquiryForm";
 import { CurriculumSyllabus } from "@/components/formations/CurriculumSyllabus";
+import { FormationOfferingsSection } from "@/components/formations/FormationOfferingsSection";
 import {
   Calendar,
   Clock,
@@ -22,6 +23,7 @@ import {
   Briefcase,
   Building2,
   Banknote,
+  Users,
 } from "lucide-react";
 
 interface Props {
@@ -102,16 +104,16 @@ export default async function FormationDetailPage({ params }: Props) {
                 <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5 text-blue-400 shrink-0" />
                   <div>
-                    <p className="text-[10px] font-mono uppercase text-slate-400">Volume</p>
-                    <p className="text-xs sm:text-sm font-bold text-white">{formation.hours.split(" ")[0]} Heures</p>
+                    <p className="text-[10px] font-mono uppercase text-slate-400">Rythme</p>
+                    <p className="text-xs sm:text-sm font-bold text-white">Max 6h / semaine</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <MapPin className="w-5 h-5 text-emerald-400 shrink-0" />
+                  <Users className="w-5 h-5 text-emerald-400 shrink-0" />
                   <div>
-                    <p className="text-[10px] font-mono uppercase text-slate-400">Format</p>
-                    <p className="text-xs sm:text-sm font-bold text-white">Présentiel &amp; Hybride</p>
+                    <p className="text-[10px] font-mono uppercase text-slate-400">Publics</p>
+                    <p className="text-xs sm:text-sm font-bold text-white">Entreprises &bull; Particuliers</p>
                   </div>
                 </div>
 
@@ -187,8 +189,15 @@ export default async function FormationDetailPage({ params }: Props) {
           </Container>
         </Section>
 
+        {/* 3 Formats adaptés : Entreprises, Bootcamps, Particuliers */}
+        <Section className="py-20 bg-slate-900 border-t border-white/10">
+          <Container>
+            <FormationOfferingsSection formationTitle={formation.title} />
+          </Container>
+        </Section>
+
         {/* 6-Month Detailed Curriculum */}
-        <Section className="py-20 bg-slate-950 relative overflow-hidden">
+        <Section className="py-20 bg-slate-950 border-t border-white/10 relative overflow-hidden">
           <Container>
             <CurriculumSyllabus
               months={formation.months}
