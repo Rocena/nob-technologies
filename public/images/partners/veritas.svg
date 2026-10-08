@@ -1,1 +1,8 @@
-<svg role="img" viewBox="0 0 24 24" fill="#C8102E" xmlns="http://www.w3.org/2000/svg"><title>Veritas</title><path d="M12.923 11.232H4.498l2.67-4.143h8.423l-2.668 4.143zm-4.321 6.69H.179l2.67-4.143h8.423l-2.67 4.143zm11.22-11.834L11.144 24h-4.32l8.678-17.912h4.32zm4.001 0L15.146 24h-4.322l8.679-17.912h4.32z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 50" width="220" height="50" fill="none">
+  <!-- Veritas Signature V-Slant Mark -->
+  <g transform="translate(6, 10)">
+    <path d="M12.923 11.232H4.498l2.67-4.143h8.423l-2.668 4.143zm-4.321 6.69H.179l2.67-4.143h8.423l-2.67 4.143zm11.22-11.834L11.144 24h-4.32l8.678-17.912h4.32zm4.001 0L15.146 24h-4.322l8.679-17.912h4.32z" fill="#C8102E" transform="scale(1.2)"/>
+  </g>
+  <!-- Veritas Wordmark -->
+  <text x="46" y="32" fill="#1C1C1C" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif" font-size="22" font-weight="900" letter-spacing="2">VERITAS</text>
+</svg>

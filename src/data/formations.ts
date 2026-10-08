@@ -60,7 +60,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       { name: "Fortinet", logo: "/images/partners/fortinet.svg" },
       { name: "Sophos", logo: "/images/partners/sophos.svg" },
       { name: "Dell Technologies", logo: "/images/partners/dell-color.svg" },
-      { name: "UBIKA / Paessler", logo: "/images/partners/paessler.svg" },
+      { name: "UBIKA / Paessler", logo: "/images/partners/ubika-paessler.svg" },
     ],
     targetCertifications: [
       {

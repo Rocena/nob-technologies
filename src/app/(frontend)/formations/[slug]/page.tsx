@@ -179,15 +179,15 @@ export default async function FormationDetailPage({ params }: Props) {
                   <div
                     key={i}
                     title={p.name}
-                    className="h-10 px-3.5 py-1.5 bg-white rounded-xl flex items-center justify-center shadow-md hover:scale-105 transition-transform"
+                    className="h-12 px-4 py-2 bg-white rounded-xl flex items-center justify-center shadow-md hover:scale-105 transition-transform"
                   >
                     <Image
                       src={p.logo}
                       alt={p.name}
-                      width={100}
-                      height={28}
+                      width={120}
+                      height={34}
                       unoptimized
-                      className="h-5 max-h-5 w-auto object-contain"
+                      className="h-7 max-h-7 w-auto object-contain"
                     />
                   </div>
                 ))}

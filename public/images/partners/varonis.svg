@@ -1,6 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" fill="none">
-  <!-- Varonis V icon + wordmark -->
-  <path d="M10 12 L25 48 L40 12" stroke="#E32636" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-  <circle cx="25" cy="20" r="4" fill="#0A1128" />
-  <text x="52" y="38" fill="#0A1128" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="800" letter-spacing="1">VARONIS</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" width="200" height="50" fill="none">
+  <!-- Varonis V icon -->
+  <g transform="translate(6, 6)">
+    <path d="M6 8 L18 34 L30 8" stroke="#E32636" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    <circle cx="18" cy="14" r="3.2" fill="#0A1128" />
+  </g>
+  <!-- Varonis Wordmark -->
+  <text x="46" y="32" fill="#0A1128" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif" font-size="22" font-weight="900" letter-spacing="1">VARONIS</text>
 </svg>

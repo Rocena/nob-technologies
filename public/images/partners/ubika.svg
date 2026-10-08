@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" width="200" height="50" fill="none">
+  <!-- UBIKA Cybersecurity Hexagon Mark -->
+  <g transform="translate(6, 8)">
+    <polygon points="17,1 32,9 32,25 17,33 2,25 2,9" fill="#5E2CED"/>
+    <polygon points="17,7 26,12 26,22 17,27 8,22 8,12" fill="#00D2FF"/>
+    <circle cx="17" cy="17" r="3.5" fill="#FFFFFF"/>
+  </g>
+  <!-- UBIKA Wordmark -->
+  <text x="46" y="32" fill="#1B1738" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif" font-size="24" font-weight="900" letter-spacing="1">UBIKA</text>
+</svg>

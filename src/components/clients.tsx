@@ -47,7 +47,7 @@ export const defaultTrustedBrands = [
     category: "Virtualisation d'Entreprise",
     badge: "Virtualisation",
     url: "https://www.vmware.com/",
-    logo: "/images/partners/vmware.png",
+    logo: "/images/partners/vmware.svg",
   },
   {
     name: "Acronis",
@@ -75,14 +75,14 @@ export const defaultTrustedBrands = [
     category: "Téléphonie IP d'Entreprise",
     badge: "VoIP",
     url: "https://www.yeastar.com/",
-    logo: "/images/partners/yeastar.png",
+    logo: "/images/partners/yeastar.svg",
   },
   {
     name: "Sangoma",
     category: "Télécoms Unifiées",
     badge: "VoIP",
     url: "https://www.sangoma.com/",
-    logo: "/images/partners/sangoma.png",
+    logo: "/images/partners/sangoma.svg",
   },
   {
     name: "HP Enterprise",
@@ -134,14 +134,14 @@ export function Clients({ clients = [] }: { clients: any[] }) {
                 </div>
 
                 {/* Real Authentic Logo */}
-                <div className="relative h-12 w-full flex items-center justify-center py-1">
+                <div className="relative h-14 w-full flex items-center justify-center py-1">
                   <Image
                     src={brand.logo}
                     alt={`Logo officiel ${brand.name}`}
-                    width={110}
-                    height={38}
+                    width={130}
+                    height={42}
                     unoptimized
-                    className="max-h-8 sm:max-h-9 max-w-[110px] w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                    className="max-h-9 sm:max-h-10 max-w-[125px] w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
 

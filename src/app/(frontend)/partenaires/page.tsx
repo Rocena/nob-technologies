@@ -117,7 +117,7 @@ const allPartners = [
     badge: "VOIP & TÉLÉCOMS",
     accent: "text-rose-400",
     border: "border-rose-500/20",
-    logo: "/images/partners/yeastar.png",
+    logo: "/images/partners/yeastar.svg",
     url: "https://www.yeastar.com/",
   },
   {
@@ -127,7 +127,7 @@ const allPartners = [
     badge: "VOIP",
     accent: "text-red-400",
     border: "border-red-500/20",
-    logo: "/images/partners/sangoma.png",
+    logo: "/images/partners/sangoma.svg",
     url: "https://www.sangoma.com/",
   },
   {
@@ -217,7 +217,7 @@ const allPartners = [
     badge: "SUPERVISION PRTG",
     accent: "text-cyan-400",
     border: "border-blue-500/20",
-    logo: "/images/partners/paessler.svg",
+    logo: "/images/partners/ubika-paessler.svg",
     url: "https://www.paessler.com/",
   },
 ];
@@ -400,14 +400,14 @@ export default function PartenairesPage() {
                       </div>
 
                       {partner.logo && (
-                        <div className="h-10 w-fit max-w-[130px] mb-3 flex items-center">
+                        <div className="h-12 w-fit min-w-[130px] max-w-[160px] mb-4 bg-white rounded-xl px-3.5 py-1.5 flex items-center justify-center shadow-sm border border-slate-200/80">
                           <Image
                             src={partner.logo}
                             alt={`Logo ${partner.name}`}
-                            width={110}
-                            height={32}
+                            width={120}
+                            height={36}
                             unoptimized
-                            className="max-h-7 w-auto object-contain"
+                            className="max-h-8 sm:max-h-9 w-auto object-contain"
                           />
                         </div>
                       )}
