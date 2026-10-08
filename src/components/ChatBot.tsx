@@ -22,36 +22,36 @@ function getTime() {
 
 const DEFAULT_KNOWLEDGE_BASE: KnowledgeItem[] = [
   {
-    keywords: ["prix", "tarif", "devis", "coût", "cout", "forfait", "essentiel", "business", "enterprise", "abonnement"],
-    response: "Nos tarifs sont adaptés à chaque besoin avec 3 offres principales : Essentiel, Business, et Enterprise. Pour obtenir un devis personnalisé, visitez notre page [Tarifs](/tarifs) ou contactez-nous. 📊"
+    keywords: ["prix", "tarif", "devis", "coût", "cout", "forfait", "abonnement", "chiffrer", "commander"],
+    response: "Nos devis sont 100% personnalisés et gratuits ! Cliquez sur « Demander un devis » sur le site pour nous faire part de vos besoins, ou contactez directement nos ingénieurs. Nous vous répondons sous 24h ouvrées. 📋"
   },
   {
-    keywords: ["sécurité", "securite", "cyber", "cybersécurité", "firewall", "vpn", "protection", "hack", "virus"],
-    response: "La cybersécurité est au cœur de notre expertise ! Nous offrons : audit de sécurité, mise en place de firewall & VPN, protection des données, et infogérance. 🔐"
+    keywords: ["sécurité", "securite", "cyber", "cybersécurité", "firewall", "vpn", "protection", "hack", "virus", "sophos", "fortinet"],
+    response: "La cybersécurité est le cœur de métier de NOB TECHNOLOGIES ! Nous déployons des pare-feux nouvelle génération Sophos & Fortinet, des sauvegardes anti-ransomware Acronis, et assurons la gouvernance IAM avec Wallix. 🔐"
   },
   {
     keywords: ["contact", "appel", "téléphone", "telephone", "email", "joindre", "rappel", "adresse", "dakar", "sénégal", "senegal", "localiser", "localisation"],
-    response: "NOB TECHNOLOGIES est basé à Dakar, Sénégal. Vous pouvez nous joindre via la page [Contact](/contact) ou par email à contact@nobtechnologies.com. Nous répondons sous 24h. 📍📞"
+    response: "NOB TECHNOLOGIES est situé à Dakar (Azura de l’Aéroport, 1SS lot N° 79). Vous pouvez nous appeler au +221 77 310 83 18 / +221 33 814 24 55 ou nous écrire à contact@nobtech.fr. 📍📞"
   },
   {
     keywords: ["réseau", "reseau", "wifi", "câblage", "cablage", "voip", "téléphonie", "cloud", "infogérance", "serveur", "informatique", "infrastructure"],
-    response: "Nos services incluent : câblage structuré, déploiement Cloud, cybersécurité, infogérance, Wi-Fi enterprise et téléphonie IP (VoIP). Des solutions robustes et durables. ☁️🌐"
+    response: "Nous réalisons le câblage structuré cuivre & fibre, l'aménagement de baies de brassage, la téléphonie IP Yeastar/Sangoma, et le déploiement de serveurs Dell et réseaux Cisco. 🌐"
   },
   {
-    keywords: ["histoire", "historique", "années", "annees", "expérience", "experience", "depuis", "création", "ancienneté"],
-    response: "NOB TECHNOLOGIES possède plus de 15 ans d'expérience dans l'accompagnement des entreprises pour leurs besoins en infrastructure IT et sécurité. 🏢"
+    keywords: ["formation", "formations", "certifications", "certification", "ccna", "ccnp", "nse", "comptia", "programme", "6 mois"],
+    response: "Nous proposons des programmes d'immersion de 6 mois pour préparer vos équipes aux certifications d'élite : Cisco (CCNA/CCNP), Fortinet (NSE), CompTIA Security+, ainsi que des cursus en Audit Cybersécurité et Automatisation/IA. Découvrez notre page [Formations](/formations) ! 🎓"
   },
   {
-    keywords: ["certifications", "certification", "partenaire", "cisco", "microsoft", "fortinet", "diplôme", "agrément"],
-    response: "Nos équipes sont hautement qualifiées et détiennent des certifications de leaders mondiaux tels que Cisco, Microsoft et Fortinet. 🏆"
+    keywords: ["erp", "odoo", "dolibarr", "gestion", "logiciel", "web", "mobile", "parc", "exotique"],
+    response: "Nous intégrons des ERP pour digitaliser vos flux (Dolibarr, Odoo) et développons des applications web et mobiles sur-mesure, comme le site officiel du Parc Exotique du Sénégal. 🚀"
   },
   {
     keywords: ["bonjour", "salut", "hello", "bonsoir", "bjr", "coucou", "yo"],
-    response: "Bonjour ! Ravi de vous retrouver. 😊 Comment puis-je vous aider aujourd'hui ? Je peux vous renseigner sur nos services (cloud, réseau, sécurité), nos tarifs, nos certifications, notre histoire ou vous donner nos coordonnées."
+    response: "Bonjour et bienvenue chez NOB TECHNOLOGIES ! 👋 Comment puis-je vous aider aujourd'hui ? Je peux vous renseigner sur nos services de cybersécurité, réseaux, ERP, formations de 6 mois ou vous orienter pour un devis gratuit."
   },
   {
     keywords: ["merci", "thanks", "parfait", "super", "excellent", "top"],
-    response: "Avec plaisir ! N'hésitez pas si vous avez d'autres questions. L'équipe NOB TECHNOLOGIES est là pour vous. 🙌"
+    response: "Avec grand plaisir ! N'hésitez pas si vous avez d'autres questions. L'équipe NOB TECHNOLOGIES reste à votre entière disposition au +221 77 310 83 18. 🙌"
   }
 ];
 
@@ -151,7 +151,7 @@ export function ChatBot() {
     if (open) setTimeout(() => inputRef.current?.focus(), 300);
   }, [open]);
 
-  const send = () => {
+  const send = async () => {
     const trimmed = input.trim();
     if (!trimmed || isTyping) return;
 
@@ -162,12 +162,44 @@ export function ChatBot() {
       time: getTime(),
     };
 
-    setMessages((prev) => [...prev, userMsg]);
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
     setInput('');
     setIsTyping(true);
 
-    const delay = 600 + Math.random() * 500;
-    setTimeout(() => {
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: trimmed,
+          history: newMessages.slice(-6).map((m) => ({
+            role: m.role,
+            text: m.text,
+          })),
+        }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        const replyText = data.reply || getBotResponse(trimmed, knowledge);
+        const botMsg: Message = {
+          id: `bot-${Date.now()}`,
+          role: 'bot',
+          text: replyText,
+          time: getTime(),
+        };
+        setMessages((prev) => [...prev, botMsg]);
+      } else {
+        const botMsg: Message = {
+          id: `bot-${Date.now()}`,
+          role: 'bot',
+          text: getBotResponse(trimmed, knowledge),
+          time: getTime(),
+        };
+        setMessages((prev) => [...prev, botMsg]);
+      }
+    } catch {
       const botMsg: Message = {
         id: `bot-${Date.now()}`,
         role: 'bot',
@@ -175,8 +207,9 @@ export function ChatBot() {
         time: getTime(),
       };
       setMessages((prev) => [...prev, botMsg]);
+    } finally {
       setIsTyping(false);
-    }, delay);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -230,7 +263,10 @@ export function ChatBot() {
           </div>
           <div className="flex-1 min-w-0">
             <div className="text-sm font-semibold text-white leading-tight">Assistant NOB TECH</div>
-            <div className="text-[10px] text-[#00D4FF]/70 font-mono">Propulsé par IA · Connecté au CMS</div>
+            <div className="text-[10px] text-[#00D4FF]/80 font-mono flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Assistant Virtuel · En ligne
+            </div>
           </div>
           <button
             onClick={() => setOpen(false)}
