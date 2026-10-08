@@ -24,7 +24,7 @@ const defaultServices = [
     id: "developpement-web-mobile",
     title: "Développement Web & Mobile",
     slug: "developpement-web-mobile",
-    description: "Conception de sites web haut de gamme (ex: Parc Exotique du Sénégal), portails sur-mesure et applications mobiles iOS & Android performantes.",
+    description: "Conception de sites internet institutionnels, portails d'entreprise sur-mesure et applications mobiles iOS & Android fluides et sécurisées.",
     icon: Smartphone,
     highlight: "NOUVEAU",
   },

@@ -40,10 +40,10 @@ export function Testimonials({ testimonials = [] }: { testimonials: any[] }) {
               &gt;_ RETOURS CLIENTS
             </p>
             <Heading level={2} className="mb-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white">
-              Ils nous font confiance.
+              Ce que disent nos clients.
             </Heading>
             <Text className="text-lg sm:text-xl text-slate-400 leading-relaxed font-light">
-              Découvrez comment NOB TECHNOLOGIES accompagne ses clients institutionnels et B2B dans la réussite de leurs projets stratégiques.
+              Retours d'expérience et témoignages de nos partenaires et clients institutionnels sur la qualité de nos interventions.
             </Text>
           </FadeUp>
         </div>

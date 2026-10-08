@@ -83,7 +83,8 @@ export async function Footer() {
             <h4 className="font-semibold text-xs tracking-[0.2em] uppercase text-slate-100 mb-6">Entreprise</h4>
             <ul className="space-y-4">
               <li><Link href="/a-propos" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">À propos</Link></li>
-              <li><Link href="/certifications" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Certifications</Link></li>
+              <li><Link href="/galerie" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Galerie Chantiers</Link></li>
+              <li><Link href="/certifications" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Partenaires & Formations</Link></li>
               <li><Link href="/carrieres" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Carrières</Link></li>
               <li><Link href="/actualites" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Actualités</Link></li>
               <li><Link href="/articles" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Blog</Link></li>

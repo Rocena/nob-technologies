@@ -116,8 +116,8 @@ export function Clients({ clients = [] }: { clients: any[] }) {
               <div className="lg:col-span-7 flex flex-col justify-between">
                 <div>
                   <div className="flex flex-wrap items-center gap-2 mb-3">
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-200">
-                      <Sparkles className="w-3 h-3" /> Réalisation Conçue par NOB TECHNOLOGIES
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200">
+                      Conçu et déployé par Nob Technologies
                     </span>
                     <span className="text-xs text-slate-500 font-mono">
                       Tourisme & Hôtellerie
@@ -129,7 +129,7 @@ export function Clients({ clients = [] }: { clients: any[] }) {
                   </h3>
 
                   <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                    NOB TECHNOLOGIES a conçu et déployé l’ensemble de la plateforme web du Parc Exotique (Somone) : présentation immersive des 12 chambres et du restaurant La Plume, catalogue interactif des espèces, système de réservation fluide et référencement naturel optimisé.
+                    Développement de la plateforme numérique officielle de l’Hôtel du Parc à Somone : architecture web responsive, présentation des chambres et du restaurant La Plume, catalogue animalier et module de réservation avec temps de chargement optimisé pour mobile.
                   </p>
                 </div>
 

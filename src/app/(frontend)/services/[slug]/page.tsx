@@ -8,127 +8,265 @@ import { CTA } from "@/components/cta";
 import { Section, Container } from "@/components/ui/layout";
 import { FadeUp, TextReveal } from "@/components/animations";
 import { GlowButton } from "@/components/GlowButton";
-import { CheckCircle2, ArrowRight, Shield, Server, Cloud, Code, Video, Headphones } from "lucide-react";
+import { 
+  CheckCircle2, 
+  ArrowRight, 
+  Shield, 
+  Network, 
+  Server, 
+  Cloud, 
+  Code, 
+  Video, 
+  Headphones, 
+  Phone, 
+  Key, 
+  Smartphone, 
+  Database, 
+  BarChart3, 
+  GraduationCap 
+} from "lucide-react";
 
-// --- Données des services ---
-const SERVICES_DATA = {
+// --- Données complètes des services NOB TECHNOLOGIES ---
+const SERVICES_DATA: Record<string, {
+  title: string;
+  short: string;
+  icon: any;
+  color: string;
+  description: string;
+  content: string;
+  features: string[];
+  tech: string[];
+}> = {
   "cybersecurite": {
-    title: "Cybersécurité & Protection",
+    title: "Cybersécurité, Protection des Données & Firewalls",
     short: "Cybersécurité",
     icon: Shield,
     color: "from-red-500 to-orange-500",
-    description: "Pare-feux de nouvelle génération, audit de vulnérabilité et protection proactive contre les intrusions pour sécuriser vos données critiques.",
-    content: "Dans un monde où les menaces numériques évoluent chaque jour, la sécurité de votre système d'information ne peut être laissée au hasard. NOB TECHNOLOGIES déploie des architectures de sécurité Zero Trust, des pare-feux de nouvelle génération (NGFW) et assure un monitoring 24/7 de vos infrastructures.",
+    description: "Pare-feux de nouvelle génération (Sophos, Fortinet), audit de vulnérabilité et sauvegardes cloud hybrides pour sécuriser votre capital informationnel.",
+    content: "Dans un contexte de menaces numériques croissantes, la protection du système d’information des entreprises requiert une approche multicouche. NOB TECHNOLOGIES déploie des pare-feux de nouvelle génération (NGFW) Sophos et Fortinet, met en place des politiques Zero Trust, sécurise les accès à privilèges avec Wallix et protège vos données contre les ransomwares grâce aux solutions Acronis.",
     features: [
-      "Audit de sécurité et tests d'intrusion (Pentest)",
-      "Déploiement de Pare-feux (Fortinet, Cisco, Sophos)",
-      "Protection des Endpoints (EDR/XDR)",
-      "Mise en place de VPN sécurisés pour le télétravail",
-      "Gouvernance et conformité des données"
+      "Déploiement et paramétrage de Firewalls Sophos XGS & Fortinet FortiGate",
+      "Protection contre les ransomwares et sauvegardes immuables Acronis",
+      "Gestion des identités et accès à privilèges (PAM/IAM Wallix)",
+      "Audit de vulnérabilités, tests d'intrusion et durcissement des systèmes",
+      "Mise en place de VPN IPsec/SSL hautement chiffrés pour le télétravail"
     ],
-    tech: ["Fortinet", "Cisco", "Palo Alto", "Bitdefender", "Sophos"]
+    tech: ["Sophos", "Fortinet", "Acronis", "Wallix", "Kaspersky", "BeyondTrust", "GateWatcher"]
   },
   "reseaux-telecoms": {
-    title: "Réseaux & Télécoms",
-    short: "Réseaux",
-    icon: Server,
+    title: "Câblage Structuré, Fibre Optique & Réseaux",
+    short: "Câblage & Réseaux",
+    icon: Network,
     color: "from-blue-500 to-cyan-500",
-    description: "Architectures réseau redondantes, câblage structuré et téléphonie IP pour une connectivité fiable, rapide et performante.",
-    content: "Le réseau est la colonne vertébrale de votre entreprise. Nous concevons et déployons des infrastructures filaires et sans-fil hautes performances, garantissant une haute disponibilité et une tolérance aux pannes maximale pour soutenir votre croissance.",
+    description: "Infrastructures filaires cuivre et fibre optique, baies de brassage normalisées et réseaux d’entreprise haute disponibilité.",
+    content: "Le réseau informatique constitue les fondations de toutes vos opérations. Nos équipes d'ingénieurs et techniciens conçoivent et réalisent le câblage structuré de vos locaux (Cat 6A, 7), raccordent vos bâtiments par liaisons en fibre optique et installent des baies de brassage peignées selon les règles de l'art.",
     features: [
-      "Câblage structuré (Cuivre & Fibre Optique)",
-      "Réseaux sans-fil Wi-Fi Enterprise Haute Densité",
-      "Architecture LAN/WAN et SD-WAN",
-      "Téléphonie IP (VoIP) et Communications unifiées",
-      "Supervision réseau proactive 24/7"
+      "Câblage informatique structuré certifié Catégorie 6A et 7",
+      "Pose, épissurage et réflectométrie de fibre optique monomode/multimode",
+      "Fourniture et organisation de baies de brassage 42U et coffrets muraux",
+      "Déploiement de switchs managés et routeurs d'agrégation d’entreprise",
+      "Réseaux Wi-Fi professionnels haute densité avec contrôleur centralisé"
     ],
-    tech: ["Cisco", "Ubiquiti", "Aruba", "MikroTik", "3CX"]
+    tech: ["Cisco", "HP Enterprise", "Ubiquiti", "Legrand", "Schneider"]
+  },
+  "telephone-ip": {
+    title: "Téléphonie IP d’Entreprise (VoIP) & PABX",
+    short: "Téléphonie IP",
+    icon: Phone,
+    color: "from-sky-500 to-blue-600",
+    description: "Migration vers la voix sur IP, installation d’IPBX d’entreprise, postes téléphoniques Cisco et visioconférence unifiée.",
+    content: "Réduisez vos coûts de communication tout en augmentant la productivité de vos collaborateurs. Nous mettons en place des standards téléphoniques IPBX modernes (Sangoma, Yeastar), configurons vos files d’attente, messageries vocales et serveurs vocaux interactifs (SVI), avec intégration fluide sur smartphones et ordinateurs.",
+    features: [
+      "Installation et configuration d’IPBX IP (Yeastar, Sangoma, Asterisk)",
+      "Fourniture et raccordement de postes téléphoniques IP et sans-fil",
+      "Configuration de standards d’accueil, SVI et transferts d’appels",
+      "Interconnexion multi-sites et réduction des coûts de communication",
+      "Messagerie unifiée et intégration de softphones sur mobile/PC"
+    ],
+    tech: ["Yeastar", "Sangoma", "Cisco", "Fanvil", "Grandstream"]
+  },
+  "videosurveillance": {
+    title: "Vidéosurveillance IP & Contrôle d’Accès",
+    short: "Vidéosurveillance",
+    icon: Video,
+    color: "from-amber-400 to-orange-500",
+    description: "Caméras réseau haute définition, analyse vidéo intelligente, enregistreurs NVR sécurisés et contrôle d’accès biométrique.",
+    content: "La sécurité physique de vos locaux d'entreprise, entrepôts et points de vente est essentielle. Nous concevons des systèmes de vidéosurveillance IP complets, avec caméras jour/nuit à analyse intelligente (détection de franchissement de ligne, reconnaissance), enregistreurs NVR redondants et contrôle d’accès par badges ou biométrie.",
+    features: [
+      "Caméras IP haute résolution (PTZ, dôme, infrarouge et thermique)",
+      "Enregistreurs NVR en réseau avec stockage RAID sécurisé",
+      "Contrôle d’accès par badges RFID, reconnaissance faciale ou empreinte",
+      "Gestion centralisée et visionnage en temps réel sur smartphone et PC",
+      "Audit des zones à risques et maintenance préventive du parc de caméras"
+    ],
+    tech: ["Hikvision", "Dahua", "Axis", "ZKTeco"]
+  },
+  "infogerance": {
+    title: "Infogérance, Maintenance & Support Informatique 24/7",
+    short: "Infogérance",
+    icon: Headphones,
+    color: "from-fuchsia-500 to-purple-600",
+    description: "Maintenance préventive et curative, assistance utilisateurs réactive et supervision continue de vos serveurs et équipements.",
+    content: "Externalisez la gestion de votre informatique pour vous concentrer pleinement sur votre cœur de métier. NOB TECHNOLOGIES assure la supervision proactive de vos serveurs avec des outils de monitoring avancés (PRTG), réalise les mises à jour de sécurité et intervient rapidement sur site ou à distance en cas d’incident technique.",
+    features: [
+      "Supervision proactive 24/7 des serveurs, réseaux et services critiques",
+      "Support utilisateurs et helpdesk technique avec prise en main rapide",
+      "Maintenance préventive régulière et vérification des sauvegardes",
+      "Gestion des licences, renouvellements et inventaire du parc matériel",
+      "Conseil stratégique et rôle de DSI externalisé pour votre entreprise"
+    ],
+    tech: ["UBIKA PAESSLER", "PRTG", "GLPI", "AnyDesk", "Microsoft 365"]
+  },
+  "vente-materiels-licences": {
+    title: "Vente de Licences Office 365 (ESD & CSP) & Matériels IT",
+    short: "Licences & Matériels",
+    icon: Key,
+    color: "from-emerald-500 to-teal-600",
+    description: "Distribution officielle de licences Microsoft 365 (ESD & CSP) et fourniture d’équipements informatiques professionnels d’origine.",
+    content: "Équipez votre entreprise avec des logiciels légaux et du matériel performant sous garantie constructeur. En tant que partenaire revendeur officiel, NOB TECHNOLOGIES distribue les licences Microsoft Office 365 (licences perpétuelles ESD et abonnements d'entreprise CSP), des serveurs Dell, des ordinateurs portables professionnels et des switchs/routeurs d’origine.",
+    features: [
+      "Vente officielle de licences Microsoft 365 Business, Standard & Enterprise",
+      "Fourniture de licences ESD (Electronic Software Delivery) et CSP",
+      "Serveurs d'entreprise Dell PowerEdge et baies de stockage",
+      "Postes de travail PC portables et de bureau pour collaborateurs",
+      "Onduleurs de protection électrique et périphériques réseau"
+    ],
+    tech: ["Microsoft", "Dell Technologies", "Lenovo", "APC", "Eaton"]
+  },
+  "developpement-web-mobile": {
+    title: "Développement d’Applications Web & Mobiles",
+    short: "Web & Mobile",
+    icon: Smartphone,
+    color: "from-cyan-500 to-blue-500",
+    description: "Conception sur-mesure de plateformes web institutionnelles, portails connectés et applications mobiles iOS & Android.",
+    content: "Donnez vie à vos projets digitaux avec des solutions logicielles performantes, élégantes et sécurisées. Notre équipe de développement conçoit des plateformes web sur-mesure (à l'image de la plateforme officielle du Parc Exotique du Sénégal), des portails clients, des extranets d'entreprise et des applications mobiles adaptées aux usages locaux et internationaux.",
+    features: [
+      "Développement de plateformes web rapides et responsives (Next.js, React)",
+      "Applications mobiles pour iOS et Android (Flutter)",
+      "Création de portails de réservation, espaces clients et extranets",
+      "Intégration d’API, passerelles de paiement sécurisées et services tiers",
+      "Hébergement cloud haute disponibilité avec certificat SSL et sauvegarde"
+    ],
+    tech: ["Next.js", "React", "TypeScript", "Node.js", "Flutter", "PostgreSQL"]
+  },
+  "erp-gestion": {
+    title: "ERP & Digitalisation d’Entreprise (Odoo / Dolibarr)",
+    short: "ERP & Gestion",
+    icon: Database,
+    color: "from-indigo-500 to-purple-500",
+    description: "Intégration d’ERP complets pour unifier et automatiser la facturation, les devis, la gestion des stocks, la comptabilité et les RH.",
+    content: "La transformation digitale de votre entreprise passe par un système de gestion intégré. Nous déployons les solutions ERP Odoo et Dolibarr adaptées à votre secteur d’activité. Nous configurons les modules selon vos processus métiers, migrons vos données existantes et formons vos équipes pour une adoption immédiate.",
+    features: [
+      "Paramétrage complet d’ERP Odoo et Dolibarr sur serveurs locaux ou cloud",
+      "Gestion commerciale : devis, commandes, facturation et relances",
+      "Gestion des stocks, inventaires, achats et fournisseurs",
+      "Comptabilité générale, trésorerie et tableaux de bord analytiques",
+      "Gestion des ressources humaines, congés et notes de frais"
+    ],
+    tech: ["Odoo", "Dolibarr", "PostgreSQL", "Python", "Linux"]
+  },
+  "marketing-digital": {
+    title: "Marketing Digital & Visibilité de Marque",
+    short: "Marketing Digital",
+    icon: BarChart3,
+    color: "from-pink-500 to-rose-500",
+    description: "Stratégie de présence numérique, référencement naturel SEO, campagnes publicitaires ciblées et communication d’entreprise.",
+    content: "Attirez de nouveaux clients et valorisez l’image de votre entreprise sur internet. NOB TECHNOLOGIES élabore votre stratégie de visibilité digitale : optimisation du référencement naturel sur les moteurs de recherche (SEO), gestion de campagnes publicitaires sponsorisées et création de contenus d'entreprise pour renforcer votre autorité.",
+    features: [
+      "Audit et optimisation du référencement naturel (SEO local et international)",
+      "Gestion de campagnes publicitaires Google Ads et réseaux sociaux",
+      "Création de pages professionnelles et stratégie de notoriété de marque",
+      "Production de contenus visuels et éditoriaux d’entreprise",
+      "Analyse d'audience, suivi des conversions et rapports de performance"
+    ],
+    tech: ["Google Ads", "Google Analytics", "Meta Ads", "SEO"]
+  },
+  "formations-ia": {
+    title: "Formations Professionnelles, IA & Préparation aux Certifications",
+    short: "Formations & IA",
+    icon: GraduationCap,
+    color: "from-teal-500 to-emerald-600",
+    description: "Cycles intensifs de préparation aux certifications internationales, sensibilisation à la cybersécurité et intégration de l’IA en entreprise.",
+    content: "Le capital humain est votre premier facteur de réussite. NOB TECHNOLOGIES propose des programmes de formation sur-mesure pour les entreprises : cycles intensifs de préparation et de révision aux examens de certification (Cisco, Fortinet, Sophos), sessions de sensibilisation des collaborateurs aux cyberattaques (phishing) et ateliers pratiques d’automatisation et d’Intelligence Artificielle.",
+    features: [
+      "Préparation ciblée aux examens de certification réseaux et cybersécurité",
+      "Ateliers pratiques avec labs techniques simulant des cas réels d’entreprise",
+      "Sensibilisation de l'ensemble du personnel à l'hygiène informatique et au phishing",
+      "Formation à l’automatisation des processus répétitifs et à l'IA générative",
+      "Accompagnement personnalisé et validation des acquis techniques"
+    ],
+    tech: ["Cisco Labs", "Fortinet Training", "Sophos Academy", "IA & Automatisation"]
+  },
+  // Backward compatibility aliases
+  "developpement-erp": {
+    title: "Développement & ERP",
+    short: "ERP",
+    icon: Code,
+    color: "from-emerald-400 to-teal-500",
+    description: "Applications métier et ERP sur-mesure pour centraliser la gestion d'entreprise.",
+    content: "Déploiement d'applications web/mobiles et intégration d'ERP Odoo/Dolibarr.",
+    features: ["Intégration Odoo", "Applications Web", "Applications Mobiles", "Gestion de stocks"],
+    tech: ["Odoo", "Dolibarr", "Next.js", "Flutter"]
   },
   "cloud-virtualisation": {
     title: "Cloud & Virtualisation",
     short: "Cloud",
     icon: Cloud,
     color: "from-sky-400 to-indigo-500",
-    description: "Migration cloud, virtualisation de serveurs et PRA pour optimiser vos infrastructures, gagner en flexibilité et réduire vos coûts.",
-    content: "Accélérez votre transformation digitale en migrant vers le Cloud ou en consolidant vos serveurs locaux via la virtualisation. Nous vous accompagnons dans la création d'environnements hybrides agiles, résilients et scalables, tout en mettant en place des Plans de Reprise d'Activité (PRA) robustes.",
-    features: [
-      "Virtualisation de serveurs (VMware, Hyper-V, Proxmox)",
-      "Déploiement Cloud (Public, Privé, Hybride)",
-      "Stockage centralisé (SAN, NAS) et Sauvegardes",
-      "Plan de Continuité (PCA) et Reprise d'Activité (PRA)",
-      "Conteneurisation (Docker, Kubernetes)"
-    ],
-    tech: ["VMware", "Microsoft Hyper-V", "Proxmox", "AWS", "Microsoft Azure", "Veeam"]
+    description: "Virtualisation de serveurs et solutions cloud hybrides.",
+    content: "Consolidation de serveurs physiques, virtualisation VMware et sauvegardes sécurisées.",
+    features: ["VMware vSphere", "Sauvegardes cloud", "PCA/PRA", "Hyper-V"],
+    tech: ["VMware", "Microsoft Hyper-V", "Acronis"]
   },
-  "developpement-erp": {
-    title: "Développement & ERP",
-    short: "Développement",
-    icon: Code,
-    color: "from-emerald-400 to-teal-500",
-    description: "Applications métier web/mobiles et ERP sur-mesure pour automatiser vos processus et centraliser la gestion de votre entreprise.",
-    content: "L'innovation passe par des outils conçus spécifiquement pour votre métier. Nos développeurs créent des applications web et mobiles modernes, et intègrent des solutions ERP open-source puissantes pour digitaliser l'ensemble de votre chaîne de valeur.",
-    features: [
-      "Intégration et paramétrage d'ERP (Odoo)",
-      "Développement d'applications Web (Next.js, React)",
-      "Développement d'applications Mobiles (Flutter)",
-      "Création d'API et interconnexion de systèmes",
-      "Digitalisation des processus métiers"
-    ],
-    tech: ["Odoo", "Next.js", "React", "Node.js", "Flutter", "PostgreSQL"]
+  "cablage": {
+    title: "Câblage Structuré & Baies",
+    short: "Câblage",
+    icon: Network,
+    color: "from-blue-500 to-cyan-500",
+    description: "Câblage cuivre et fibre optique pour entreprises.",
+    content: "Raccordement réseau, pose de baies de brassage et certification de liens.",
+    features: ["Catégorie 6A", "Fibre optique", "Baies 42U", "Certification"],
+    tech: ["Cisco", "HP Enterprise"]
   },
-  "videosurveillance": {
-    title: "Vidéosurveillance IP",
-    short: "Sécurité Physique",
-    icon: Video,
-    color: "from-amber-400 to-orange-500",
-    description: "Installation et supervision de systèmes de vidéosurveillance IP haute définition et contrôle d'accès pour sécuriser vos locaux.",
-    content: "La sécurité physique est indissociable de la sécurité logique. NOB TECHNOLOGIES déploie des systèmes de vidéosurveillance intelligents et de contrôle d'accès pour protéger vos bureaux, entrepôts et datacenters, avec une visualisation accessible partout dans le monde.",
-    features: [
-      "Caméras IP Haute Définition (PTZ, Thermique, Infrarouge)",
-      "Enregistreurs NVR avec intelligence artificielle",
-      "Contrôle d'accès (Badges, Biométrie, Reconnaissance faciale)",
-      "Systèmes anti-intrusion et alarmes",
-      "Salle de contrôle (Mur d'images) et supervision"
-    ],
-    tech: ["Dahua", "Hikvision", "Axis", "ZKTeco"]
+  "securite-des-donnees": {
+    title: "Sécurité des Données",
+    short: "Sécurité Données",
+    icon: Shield,
+    color: "from-red-500 to-orange-500",
+    description: "Sauvegarde cloud et protection contre les pertes de données.",
+    content: "Mise en place de solutions de sauvegarde Acronis et Veritas.",
+    features: ["Sauvegarde hybride", "Restauration rapide", "Anti-ransomware"],
+    tech: ["Acronis", "Veritas"]
   },
-  "infogerance": {
-    title: "Support & Infogérance",
-    short: "Infogérance",
-    icon: Headphones,
-    color: "from-fuchsia-500 to-purple-600",
-    description: "Maintenance préventive, support utilisateurs et infogérance totale pour que vous puissiez vous concentrer sur votre cœur de métier.",
-    content: "Ne perdez plus de temps avec les pannes informatiques. Notre service d'infogérance prend en charge l'ensemble de votre parc IT. De l'assistance aux utilisateurs finaux jusqu'à la gestion des serveurs critiques, nous agissons comme votre département informatique externalisé.",
-    features: [
-      "Support technique aux utilisateurs (Helpdesk N1/N2/N3)",
-      "Maintenance préventive et curative",
-      "Supervision globale de l'infrastructure",
-      "Gestion de parc informatique (inventaire, cycle de vie)",
-      "Directeur Systèmes d'Information (DSI) externalisé"
-    ],
-    tech: ["GLPI", "Zabbix", "AnyDesk", "Microsoft 365", "Google Workspace"]
+  "protection-de-reseau": {
+    title: "Protection de Réseau",
+    short: "Protection Réseau",
+    icon: Shield,
+    color: "from-red-500 to-rose-600",
+    description: "Pare-feux de nouvelle génération et filtrage réseau.",
+    content: "Déploiement de firewalls Sophos et Fortinet.",
+    features: ["Pare-feu NGFW", "VPN d'entreprise", "Filtrage web"],
+    tech: ["Sophos", "Fortinet"]
   }
 };
-
-const ALL_SLUGS = Object.keys(SERVICES_DATA);
 
 type Params = { slug: string };
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params;
-  const service = SERVICES_DATA[slug as keyof typeof SERVICES_DATA];
+  const service = SERVICES_DATA[slug];
   
-  if (!service) return { title: 'Service non trouvé' };
+  if (!service) return { title: 'Service non trouvé | NOB TECHNOLOGIES' };
 
   return {
-    title: `${service.title} | Services | NOB TECHNOLOGIES`,
+    title: `${service.title} | NOB TECHNOLOGIES`,
     description: service.description,
   };
 }
 
-export default async function ServicePage({ params }: { params: Promise<Params> }) {
+export default async function ServiceDetailPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
-  const service = SERVICES_DATA[slug as keyof typeof SERVICES_DATA];
+  const service = SERVICES_DATA[slug];
 
   if (!service) {
     notFound();
@@ -140,25 +278,25 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
     <>
       <Header />
       <main className="min-h-screen bg-slate-50">
-        {/* Service Hero */}
+        {/* Silicon Valley Hero */}
         <Section className="relative overflow-hidden bg-[#020617] pt-32 pb-20 md:pt-40 md:pb-24">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:40px_40px]" />
           <div className={`absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br ${service.color} opacity-10 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3`} />
           
           <Container className="relative z-10">
             <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
-              <div className="max-w-2xl">
+              <div className="max-w-3xl">
                 <FadeUp>
-                  <div className="inline-flex items-center gap-2 rounded-sm border border-white/10 bg-white/5 px-3 py-1 text-xs font-bold text-slate-300 mb-6 backdrop-blur-sm">
-                    <Icon className="w-4 h-4 text-accent" />
-                    <span>NOS EXPERTISES</span>
+                  <div className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-3 py-1 text-xs font-mono font-bold text-cyan-400 mb-6 backdrop-blur-sm">
+                    <Icon className="w-4 h-4 text-cyan-400" />
+                    <span>EXPERTISES NOB TECHNOLOGIES</span>
                   </div>
                   <TextReveal>
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight mb-6">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight mb-6">
                       {service.title}
                     </h1>
                   </TextReveal>
-                  <p className="text-lg md:text-xl text-slate-400 leading-relaxed">
+                  <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
                     {service.description}
                   </p>
                 </FadeUp>
@@ -167,85 +305,88 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
           </Container>
         </Section>
 
-        <Section className="py-20 md:py-28">
+        {/* Detailed Specs & Features */}
+        <Section className="py-16 md:py-24">
           <Container>
-            <div className="flex flex-col lg:flex-row gap-16">
+            <div className="grid lg:grid-cols-12 gap-12 items-start">
               
-              {/* Main Content */}
-              <div className="flex-1 space-y-16">
+              {/* Main Content Details */}
+              <div className="lg:col-span-8 space-y-12">
                 <FadeUp delay={0.1}>
-                  <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6">L'approche NOB TECHNOLOGIES</h2>
-                  <p className="text-slate-600 text-lg leading-relaxed">
-                    {service.content}
-                  </p>
-                </FadeUp>
+                  <div className="bg-white rounded-2xl border border-slate-200 p-8 md:p-10 shadow-sm">
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-6">
+                      Approche & Spécifications Techniques
+                    </h2>
+                    <p className="text-slate-600 text-base leading-relaxed mb-8">
+                      {service.content}
+                    </p>
 
-                <FadeUp delay={0.2}>
-                  <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-                    <CheckCircle2 className="w-6 h-6 text-accent" />
-                    Ce que nous proposons
-                  </h3>
-                  <ul className="grid sm:grid-cols-2 gap-4">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="bg-white p-5 rounded-xl border border-slate-100 shadow-sm flex items-start gap-3">
-                        <div className="w-2 h-2 rounded-full bg-accent mt-2 shrink-0" />
-                        <span className="text-slate-700 font-medium">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </FadeUp>
-
-                <FadeUp delay={0.3}>
-                  <h3 className="text-xl font-bold text-slate-900 mb-6">Technologies & Partenaires</h3>
-                  <div className="flex flex-wrap gap-3">
-                    {service.tech.map((tech, idx) => (
-                      <span key={idx} className="px-4 py-2 bg-slate-900 text-white text-sm font-semibold rounded-lg shadow-sm">
-                        {tech}
-                      </span>
-                    ))}
+                    <h3 className="text-lg font-bold text-slate-900 mb-4 pt-6 border-t border-slate-100">
+                      Prestations & Livrables Inclus
+                    </h3>
+                    <div className="grid sm:grid-cols-1 gap-3.5">
+                      {service.features.map((feat, i) => (
+                        <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+                          <CheckCircle2 className="w-5 h-5 text-cyan-600 shrink-0 mt-0.5" />
+                          <span className="text-sm text-slate-800 font-medium leading-relaxed">{feat}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </FadeUp>
+
+                {/* Technologies and Brands */}
+                {service.tech && service.tech.length > 0 && (
+                  <FadeUp delay={0.2}>
+                    <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
+                      <h3 className="text-base font-bold text-slate-900 mb-4">
+                        Technologies & Marques Partenaires
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {service.tech.map((t, i) => (
+                          <span
+                            key={i}
+                            className="px-3.5 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-mono font-semibold"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </FadeUp>
+                )}
               </div>
 
-              {/* Sidebar */}
-              <div className="w-full lg:w-80 shrink-0 space-y-8">
-                {/* Need Help Card */}
-                <FadeUp delay={0.4}>
-                  <div className="bg-[#020617] rounded-2xl p-8 relative overflow-hidden border border-white/10 shadow-2xl text-center">
-                    <div className="absolute inset-0 bg-gradient-to-b from-accent/10 to-transparent pointer-events-none" />
-                    <h4 className="text-xl font-bold text-white mb-4 relative z-10">Un projet en tête ?</h4>
-                    <p className="text-slate-400 text-sm mb-8 relative z-10">
-                      Nos ingénieurs sont prêts à étudier votre infrastructure et vous proposer une solution adaptée.
+              {/* Sidebar Action Card */}
+              <div className="lg:col-span-4 sticky top-28">
+                <FadeUp delay={0.2}>
+                  <div className="bg-slate-900 text-white rounded-2xl p-7 md:p-8 border border-slate-800 shadow-xl">
+                    <span className="text-[10px] font-mono text-cyan-400 font-bold tracking-widest uppercase block mb-2">
+                      &gt;_ DEVIS RAPIDE & ACCOMPAGNEMENT
+                    </span>
+                    <h3 className="text-xl font-bold mb-3">
+                      Besoin d’un devis pour ce service ?
+                    </h3>
+                    <p className="text-xs text-slate-400 leading-relaxed mb-6">
+                      Nos ingénieurs analysent votre infrastructure et vous transmettent une proposition chiffrée sous 24 à 48 heures.
                     </p>
-                    <GlowButton href="/devis/business" className="w-full justify-center">
-                      Demander un devis
-                    </GlowButton>
-                  </div>
-                </FadeUp>
 
-                {/* Other Services Navigation */}
-                <FadeUp delay={0.5}>
-                  <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
-                    <h4 className="text-lg font-bold text-slate-900 mb-6">Découvrez aussi</h4>
-                    <ul className="space-y-2">
-                      {ALL_SLUGS.map((otherSlug) => {
-                        if (otherSlug === slug) return null;
-                        const otherService = SERVICES_DATA[otherSlug as keyof typeof SERVICES_DATA];
-                        return (
-                          <li key={otherSlug}>
-                            <Link 
-                              href={`/services/${otherSlug}`}
-                              className="group flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100"
-                            >
-                              <span className="text-sm font-semibold text-slate-600 group-hover:text-primary transition-colors">
-                                {otherService.short}
-                              </span>
-                              <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-accent transition-all group-hover:translate-x-1" />
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
+                    <Link
+                      href="/contact"
+                      className="flex items-center justify-center w-full py-3.5 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-colors shadow-lg mb-4 text-center"
+                    >
+                      Demander un devis personnalisé
+                    </Link>
+
+                    <div className="pt-4 border-t border-slate-800 text-center">
+                      <p className="text-[11px] text-slate-400 mb-1">Assistance directe :</p>
+                      <a
+                        href="tel:+221773108318"
+                        className="text-xs font-mono font-bold text-cyan-400 hover:underline"
+                      >
+                        +221 77 310 83 18
+                      </a>
+                    </div>
                   </div>
                 </FadeUp>
               </div>

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Container } from "./ui/layout";
-import { Menu, X, ArrowRight, Phone, Mail, Layers, Globe, Star, BookOpen, Info, DollarSign, Search, ChevronDown } from "lucide-react";
+import { Menu, X, ArrowRight, Phone, Mail, Layers, Globe, Star, BookOpen, Info, DollarSign, Search, ChevronDown, Camera } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AnimatedLogo } from "./AnimatedLogo";
 import { GlowButton } from "./GlowButton";
@@ -61,25 +61,32 @@ const DEFAULT_NAV: NavItem[] = [
     order: 3,
   },
   { 
+    id: 'galerie',
+    name: 'Galerie', 
+    href: '/galerie', 
+    desc: 'Photos de nos installations, câblages et baies de brassage',
+    order: 4,
+  },
+  { 
     id: 'certifications',
     name: 'Partenaires & Formations', 
     href: '/certifications', 
     desc: 'Sophos, Fortinet, Acronis & préparation aux certifications',
-    order: 4,
+    order: 5,
   },
   { 
     id: 'apropos',
     name: 'À propos', 
     href: '/a-propos', 
     desc: 'Culture d’ingénierie sénégalaise et présence internationale',
-    order: 5,
+    order: 6,
   },
   { 
     id: 'tarifs',
     name: 'Tarifs & Devis', 
     href: '/tarifs', 
     desc: 'Grille tarifaire et estimation rapide pour vos projets',
-    order: 6,
+    order: 7,
   },
 ];
 
@@ -88,6 +95,7 @@ const getNavIcon = (name: string) => {
   if (n.includes('solution') || n.includes('service')) return Layers;
   if (n.includes('secteur')) return Globe;
   if (n.includes('réalisation')) return Star;
+  if (n.includes('galerie')) return Camera;
   if (n.includes('partenaire') || n.includes('certif') || n.includes('format')) return BookOpen;
   if (n.includes('propos')) return Info;
   if (n.includes('tarif') || n.includes('devis')) return DollarSign;
