@@ -7,7 +7,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Section, Container } from "@/components/ui/layout";
 import { FadeUp } from "@/components/animations";
-import { FORMATIONS_DATA } from "@/data/formations";
+import { getAllFormations, getFormationBySlug } from "@/lib/formations";
 import { FormationInquiryForm } from "./FormationInquiryForm";
 import {
   Calendar,
@@ -29,12 +29,13 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return Object.keys(FORMATIONS_DATA).map((slug) => ({ slug }));
+  const formations = await getAllFormations();
+  return formations.map((f) => ({ slug: f.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const formation = FORMATIONS_DATA[slug];
+  const formation = await getFormationBySlug(slug);
   if (!formation) return { title: "Formation non trouvée | NOB TECHNOLOGIES" };
 
   return {
@@ -45,13 +46,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function FormationDetailPage({ params }: Props) {
   const { slug } = await params;
-  const formation = FORMATIONS_DATA[slug];
+  const formation = await getFormationBySlug(slug);
 
   if (!formation) {
     notFound();
   }
 
-  const otherFormations = Object.values(FORMATIONS_DATA).filter((f) => f.slug !== slug);
+  const allFormations = await getAllFormations();
+  const otherFormations = allFormations.filter((f) => f.slug !== slug);
 
   return (
     <>

@@ -24,6 +24,7 @@ import { ActivityLogs } from './collections/ActivityLogs';
 import { Customers } from './collections/Customers';
 import { Quotes } from './collections/Quotes';
 import { Invoices } from './collections/Invoices';
+import { Formations } from './collections/Formations';
 import { SiteSettings } from './globals/SiteSettings';
 
 const filename = fileURLToPath(import.meta.url);
@@ -89,6 +90,7 @@ export default buildConfig({
     Clients,
     ContactMessages,
     Projects,
+    Formations,
   ],
   editor: lexicalEditor({}),
   secret: process.env.PAYLOAD_SECRET || 'nobtech-super-secret-key-12345',
