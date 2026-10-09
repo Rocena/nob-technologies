@@ -1,7 +1,7 @@
 import { Access } from 'payload';
 
 export const isAdmin: Access = ({ req: { user } }) => {
-  return Boolean(user?.role === 'super_admin' || user?.role === 'admin');
+  return Boolean(user?.role === 'super_admin' || (user?.role as string) === 'admin');
 };
 
 export const isEditorOrAdmin: Access = ({ req: { user } }) => {

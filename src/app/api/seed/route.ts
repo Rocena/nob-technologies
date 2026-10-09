@@ -29,9 +29,28 @@ export async function GET() {
       layout: [
         {
           blockType: 'richText',
-          content: [
-            { children: [{ text: 'Notre histoire commence en 2010...' }] }
-          ]
+          content: {
+            root: {
+              type: 'root',
+              format: '',
+              indent: 0,
+              version: 1,
+              direction: 'ltr',
+              children: [
+                {
+                  type: 'paragraph',
+                  version: 1,
+                  children: [
+                    {
+                      text: 'Notre histoire commence en 2010...',
+                      type: 'text',
+                      version: 1,
+                    },
+                  ],
+                },
+              ],
+            },
+          } as any,
         }
       ]
     }

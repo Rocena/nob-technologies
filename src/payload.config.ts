@@ -26,6 +26,7 @@ import { Quotes } from './collections/Quotes';
 import { Invoices } from './collections/Invoices';
 import { Formations } from './collections/Formations';
 import { SiteSettings } from './globals/SiteSettings';
+import { migrations } from './migrations';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -143,6 +144,8 @@ export default buildConfig({
       client: {
         url: process.env.DATABASE_URI || 'file:./payload.db',
       },
+      push: true,
+      prodMigrations: migrations,
     });
   })(),
   typescript: {
