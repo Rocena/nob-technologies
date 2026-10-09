@@ -26,6 +26,7 @@ const secondaryProjects: ProjectItem[] = [
     description: 'Déploiement complet du câblage réseau structuré Cat 6A/7, pose de baies de brassage 42U, peignage méthodique des liaisons et certification de conformité pour le bureau de l’Union Européenne à Dakar.',
     tags: ['Union Européenne', 'Dakar', 'Câblage Cat 6A/7', 'Baies 42U', 'Certification Fluke'],
     coverImage: '/images/gallery/galerie-1-baie-brassage.jpg',
+    clientLogo: '/images/partners/union-europeenne-logo.svg',
   },
   {
     id: 'polyclinique-p2a',
@@ -34,6 +35,7 @@ const secondaryProjects: ProjectItem[] = [
     description: 'Installation complète de l’infrastructure réseau physique et baies, virtualisation des serveurs d’établissement sous VMware, téléphonie d’entreprise VoIP Yeastar et pare-feu périmétrique Fortinet FortiGate (NGFW).',
     tags: ['Polyclinique P2A', 'Réseau Physique', 'VMware', 'VoIP Yeastar', 'Fortinet FortiGate'],
     coverImage: '/images/gallery/galerie-6-routeur-firewall.jpg',
+    clientLogo: '/images/partners/polyclinique-p2a.svg',
   },
   {
     id: 'dolima-senegal',
@@ -42,6 +44,7 @@ const secondaryProjects: ProjectItem[] = [
     description: 'Ingénierie et déploiement de l’infrastructure réseau locale, interconnexion sécurisée des postes opérationnels, segmentation LAN/VLAN et fiabilisation de la connectivité pour les flux industriels de Dolima.',
     tags: ['Dolima', 'Infrastructure Réseau', 'Switching LAN', 'Connectivité', 'Haute Disponibilité'],
     coverImage: '/images/gallery/galerie-4-installation-reseau.jpg',
+    clientLogo: '/images/partners/dolima.png',
   },
   {
     id: 'simplon-senegal',
@@ -50,6 +53,7 @@ const secondaryProjects: ProjectItem[] = [
     description: 'Animation de modules intensifs et ateliers pratiques pour les apprenants de Simplon : architectures réseaux d’entreprise, administration système Linux/Windows, cybersécurité et préparation aux certifications.',
     tags: ['Simplon', 'Dakar', 'Formation Apprenants', 'Réseaux & Systèmes', 'Cybersécurité'],
     coverImage: '/images/gallery/galerie-5-equipement-telecom.jpg',
+    clientLogo: '/images/partners/simplon.svg',
   },
   {
     id: 'erp-gestion',

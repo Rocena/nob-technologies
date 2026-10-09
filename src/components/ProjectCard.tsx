@@ -13,6 +13,7 @@ export interface ProjectItem {
   websiteUrl?: string;
   previewScreenshotUrl?: string;
   coverImage?: any;
+  clientLogo?: string;
   tags?: string[];
   isFlagship?: boolean;
 }
@@ -94,7 +95,18 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
             <span className="text-[11px] font-mono font-bold tracking-wider uppercase text-cyan-600 bg-cyan-50 px-2.5 py-1 rounded-md border border-cyan-100">
               {project.sector || "Projet Web & Digital"}
             </span>
-            {project.websiteUrl && (
+            {project.clientLogo ? (
+              <div className="h-7 px-2.5 py-0.5 rounded-lg bg-slate-50 border border-slate-200/70 flex items-center justify-center shrink-0">
+                <Image
+                  src={project.clientLogo}
+                  alt=""
+                  width={90}
+                  height={24}
+                  unoptimized
+                  className="max-h-5 max-w-[90px] w-auto h-auto object-contain"
+                />
+              </div>
+            ) : project.websiteUrl ? (
               <a
                 href={project.websiteUrl}
                 target="_blank"
@@ -104,7 +116,7 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
                 <span>Accéder</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
-            )}
+            ) : null}
           </div>
 
           <h3 className="text-xl font-bold text-slate-900 group-hover:text-cyan-600 transition-colors mb-3 leading-snug">

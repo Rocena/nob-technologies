@@ -1,17 +1,21 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import { Container, Section } from "@/components/ui/layout";
 import { FadeUp } from "@/components/animations";
 import { ClientLogoImg } from "./ClientLogoImg";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { useQuoteModal } from "./EngineerModalContext";
 import {
   ExternalLink,
   ArrowRight,
   CheckCircle2,
   MapPin,
-  Server,
-  Activity,
-  GraduationCap,
+  Eye,
+  X,
+  Sparkles,
 } from "lucide-react";
 
 export const defaultTrustedBrands = [
@@ -212,6 +216,24 @@ export const featuredClientReferences = [
 
 export function Clients({ clients = [] }: { clients: any[] }) {
   const dynamicClients = clients.filter((c: any) => c.displayStatus !== false);
+  const [selectedClient, setSelectedClient] = useState<(typeof featuredClientReferences)[0] | null>(null);
+  const { openQuoteModal } = useQuoteModal();
+
+  useEffect(() => {
+    if (selectedClient) {
+      document.body.style.overflow = "hidden";
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") setSelectedClient(null);
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        document.body.style.overflow = "";
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [selectedClient]);
 
   return (
     <Section className="py-14 md:py-20 bg-slate-50/80 border-b border-slate-200/80 overflow-hidden">
@@ -284,174 +306,215 @@ export function Clients({ clients = [] }: { clients: any[] }) {
                 Ils Nous Font Confiance
               </h3>
               <p className="text-sm sm:text-base text-slate-600">
-                De l&apos;institution diplomatique aux fleurons industriels et structures de santé, découvrez les organisations qui confient leurs infrastructures critiques, plateformes web et systèmes de gestion à NOB TECHNOLOGIES.
+                Institutions diplomatiques, fleurons industriels, complexes hôteliers et établissements médicaux : cliquez sur un logo pour consulter le détail des architectures et réalisations techniques déployées par NOB TECHNOLOGIES.
               </p>
             </FadeUp>
           </div>
 
-          {/* Row 1: 2 Flagship Institutional Clients (Union Européenne & Hôtel du Parc Exotique) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6 mb-5 lg:mb-6">
-            {featuredClientReferences.slice(0, 2).map((client, idx) => (
-              <FadeUp key={client.id} delay={0.1 * idx}>
-                <Link
-                  href={client.href}
-                  className={`group bg-white hover:bg-slate-50/70 rounded-2xl border border-slate-200/90 ${client.hoverBorder} p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full relative overflow-hidden`}
+          {/* 5 Flagship Client Cards - Ultra Corporate Logo Showcase */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5 mb-8">
+            {featuredClientReferences.map((client, idx) => (
+              <FadeUp key={client.id} delay={0.06 * idx}>
+                <button
+                  type="button"
+                  onClick={() => setSelectedClient(client)}
+                  className={`w-full text-left group bg-white hover:bg-slate-50/90 rounded-2xl border border-slate-200/90 ${client.hoverBorder} p-4 sm:p-5 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 min-h-[250px] relative overflow-hidden`}
                 >
-                  <div className="w-full">
-                    {/* Header: Logo Frame + Badges */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-5 border-b border-slate-100">
-                      <div className="h-14 sm:h-16 px-4 py-2 rounded-xl bg-slate-50 border border-slate-100/80 flex items-center justify-center shrink-0 max-w-[240px]">
-                        <Image
-                          src={client.logo}
-                          alt={client.name}
-                          width={client.logoWidth}
-                          height={client.logoHeight}
-                          unoptimized
-                          className="max-h-11 sm:max-h-12 w-auto object-contain"
-                        />
-                      </div>
-                      <div className="flex flex-col items-end gap-1.5">
-                        <span className={`text-[11px] font-semibold font-mono px-2.5 py-0.5 rounded-full border ${client.badgeColor}`}>
-                          {client.sector}
-                        </span>
-                        <span className="inline-flex items-center gap-1 text-[11px] text-slate-500 font-medium">
-                          <MapPin className="w-3 h-3 text-slate-400" />
-                          {client.location}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Titles */}
-                    <div className="mb-3">
-                      <h4 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
-                        {client.name}
-                      </h4>
-                      <p className="text-xs text-slate-500 font-medium">
-                        {client.subName}
-                      </p>
-                    </div>
-
-                    {/* Core Scope Summary */}
-                    <div className="mb-4">
-                      <p className="text-xs sm:text-sm font-semibold text-blue-700 bg-blue-50/60 rounded-lg p-2.5 border border-blue-100/60">
-                        {client.scope}
-                      </p>
-                    </div>
-
-                    {/* Key Realized Deliverables */}
-                    <ul className="space-y-2 mb-5">
-                      {client.missions.map((m, mIdx) => (
-                        <li key={mIdx} className="flex items-start gap-2 text-xs text-slate-600 leading-relaxed">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>{m}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Footer: Tech Tags & CTA Link */}
-                  <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 mt-auto">
-                    <div className="flex flex-wrap gap-1.5">
-                      {client.techTags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200/60"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <span className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 group-hover:text-blue-700 transition-colors shrink-0">
-                      <span>Voir la réalisation</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-700 group-hover:translate-x-1 transition-all" />
+                  {/* Top sector & quick view indicator */}
+                  <div className="w-full flex items-center justify-between gap-2 mb-3">
+                    <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border truncate max-w-[130px] ${client.badgeColor}`}>
+                      {client.sector}
+                    </span>
+                    <span className="w-6 h-6 rounded-full bg-slate-100 group-hover:bg-cyan-50 text-slate-400 group-hover:text-cyan-600 border border-slate-200/70 group-hover:border-cyan-200 flex items-center justify-center shrink-0 transition-colors">
+                      <Eye className="w-3 h-3" />
                     </span>
                   </div>
-                </Link>
+
+                  {/* Logo Center Frame */}
+                  <div className="relative h-20 sm:h-24 w-full px-3 py-2 rounded-xl bg-slate-50/80 group-hover:bg-white border border-slate-100 flex items-center justify-center transition-colors">
+                    <Image
+                      src={client.logo}
+                      alt={client.name}
+                      width={client.logoWidth}
+                      height={client.logoHeight}
+                      unoptimized
+                      className="max-h-12 max-w-[150px] w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+
+                  {/* Client Name & Location */}
+                  <div className="mt-3.5 mb-2">
+                    <h4 className="text-sm font-bold text-slate-900 group-hover:text-cyan-600 transition-colors line-clamp-1">
+                      {client.name}
+                    </h4>
+                    <p className="text-[11px] text-slate-500 font-medium flex items-center gap-1 mt-0.5">
+                      <MapPin className="w-2.5 h-2.5 text-slate-400 shrink-0" />
+                      <span className="truncate">{client.location}</span>
+                    </p>
+                  </div>
+
+                  {/* Scope Preview (Smooth subtle hover cue) */}
+                  <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-700 group-hover:text-cyan-600 transition-colors">
+                    <span className="text-[11px] font-mono">Détails de la mission</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </button>
               </FadeUp>
             ))}
           </div>
 
-          {/* Row 2: 3 Corporate & Tech Clients (Polyclinique P2A, Dolima, Simplon) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
-            {featuredClientReferences.slice(2).map((client, idx) => (
-              <FadeUp key={client.id} delay={0.15 + 0.08 * idx}>
-                <Link
-                  href={client.href}
-                  className={`group bg-white hover:bg-slate-50/70 rounded-2xl border border-slate-200/90 ${client.hoverBorder} p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full relative overflow-hidden`}
+          {/* Modal Popup with Full Mission Details */}
+          <AnimatePresence>
+            {selectedClient && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+                {/* Backdrop */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  onClick={() => setSelectedClient(null)}
+                  className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm"
+                />
+
+                {/* Modal Container */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: 15 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: 15 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-slate-200/90 overflow-hidden z-10 my-auto"
                 >
-                  <div className="w-full">
-                    {/* Header: Logo Frame + Badges */}
-                    <div className="flex items-center justify-between gap-2.5 pb-4 mb-4 border-b border-slate-100">
-                      <div className="h-12 sm:h-14 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-100/80 flex items-center justify-center shrink-0 max-w-[180px]">
+                  {/* Modal Top Header with Corporate Accent */}
+                  <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-6 sm:p-7 text-white relative">
+                    <div className="flex items-start justify-between gap-4">
+                      {/* Logo in White Frame */}
+                      <div className="bg-white rounded-2xl p-3 sm:p-4 shadow-lg border border-white/20 shrink-0 max-w-[200px]">
                         <Image
-                          src={client.logo}
-                          alt={client.name}
-                          width={client.logoWidth}
-                          height={client.logoHeight}
+                          src={selectedClient.logo}
+                          alt={selectedClient.name}
+                          width={selectedClient.logoWidth}
+                          height={selectedClient.logoHeight}
                           unoptimized
-                          className="max-h-9 sm:max-h-10 w-auto object-contain"
+                          className="max-h-12 sm:max-h-14 w-auto object-contain"
                         />
                       </div>
-                      <div className="flex flex-col items-end gap-1">
-                        <span className={`text-[10px] font-semibold font-mono px-2 py-0.5 rounded-full border ${client.badgeColor}`}>
-                          {client.sector}
+
+                      {/* Close Button */}
+                      <button
+                        type="button"
+                        onClick={() => setSelectedClient(null)}
+                        className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition-colors shrink-0"
+                        title="Fermer la fenêtre (Échap)"
+                      >
+                        <X className="w-5 h-5" />
+                      </button>
+                    </div>
+
+                    <div className="mt-4">
+                      <div className="flex flex-wrap items-center gap-2 mb-2">
+                        <span className="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border bg-white/10 text-cyan-300 border-cyan-400/30">
+                          {selectedClient.sector}
                         </span>
-                        <span className="inline-flex items-center gap-1 text-[10px] text-slate-500 font-medium">
-                          <MapPin className="w-2.5 h-2.5 text-slate-400" />
-                          {client.location}
+                        <span className="inline-flex items-center gap-1 text-[11px] text-slate-300 font-medium">
+                          <MapPin className="w-3 h-3 text-cyan-400" />
+                          {selectedClient.location}
                         </span>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white">
+                        {selectedClient.name}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-300 font-medium mt-0.5">
+                        {selectedClient.subName}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Modal Content */}
+                  <div className="p-6 sm:p-7 space-y-5 max-h-[60vh] overflow-y-auto">
+                    {/* Mission Scope Highlight Box */}
+                    <div>
+                      <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-bold mb-2 flex items-center gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
+                        Périmètre Technique Déployé
+                      </div>
+                      <div className="p-3.5 sm:p-4 rounded-xl bg-cyan-50/70 border border-cyan-200/80 text-xs sm:text-sm font-semibold text-slate-800 leading-relaxed">
+                        {selectedClient.scope}
                       </div>
                     </div>
 
-                    {/* Titles */}
-                    <div className="mb-2.5">
-                      <h4 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-cyan-700 transition-colors">
-                        {client.name}
-                      </h4>
-                      <p className="text-[11px] text-slate-500 font-medium truncate">
-                        {client.subName}
-                      </p>
+                    {/* Missions & Deliverables List */}
+                    <div>
+                      <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-bold mb-3">
+                        Livrables &amp; Réalisations Clés
+                      </div>
+                      <ul className="space-y-2.5">
+                        {selectedClient.missions.map((mission: string, mIdx: number) => (
+                          <li
+                            key={mIdx}
+                            className="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-xs sm:text-sm text-slate-700 leading-relaxed"
+                          >
+                            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                            <span>{mission}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
 
-                    {/* Core Scope Summary */}
-                    <div className="mb-3.5">
-                      <p className="text-xs font-semibold text-slate-800 bg-slate-100/70 rounded-lg p-2 border border-slate-200/60 leading-snug">
-                        {client.scope}
-                      </p>
+                    {/* Technologies & Expertise Tags */}
+                    <div>
+                      <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-bold mb-2">
+                        Technologies &amp; Domaines d&apos;Intervention
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {selectedClient.techTags.map((tag: string) => (
+                          <span
+                            key={tag}
+                            className="text-[11px] font-mono font-medium px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 border border-slate-200/80"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-
-                    {/* Key Realized Deliverables */}
-                    <ul className="space-y-1.5 mb-4">
-                      {client.missions.map((m, mIdx) => (
-                        <li key={mIdx} className="flex items-start gap-1.5 text-xs text-slate-600 leading-snug">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>{m}</span>
-                        </li>
-                      ))}
-                    </ul>
                   </div>
 
-                  {/* Footer: Tech Tags & CTA Link */}
-                  <div className="pt-3.5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 mt-auto">
-                    <div className="flex flex-wrap gap-1">
-                      {client.techTags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-[9px] font-mono font-medium px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200/50"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                  {/* Modal Footer Actions */}
+                  <div className="p-5 sm:p-6 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <Link
+                      href={selectedClient.href}
+                      onClick={() => setSelectedClient(null)}
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs shadow-sm hover:shadow-cyan-500/20 transition-all active:scale-95"
+                    >
+                      <span>Voir la fiche réalisation complète</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+
+                    <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const clientName = selectedClient.name;
+                          setSelectedClient(null);
+                          openQuoteModal(clientName);
+                        }}
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs transition-colors"
+                      >
+                        Demander un projet similaire
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedClient(null)}
+                        className="hidden sm:inline-flex px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 font-semibold text-xs transition-colors"
+                      >
+                        Fermer
+                      </button>
                     </div>
-                    <span className="inline-flex items-center gap-1 text-xs font-bold text-slate-900 group-hover:text-cyan-700 transition-colors shrink-0">
-                      <span>Détails</span>
-                      <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-cyan-700 group-hover:translate-x-0.5 transition-all" />
-                    </span>
                   </div>
-                </Link>
-              </FadeUp>
-            ))}
-          </div>
+                </motion.div>
+              </div>
+            )}
+          </AnimatePresence>
 
           {/* Dynamic CMS References if any additional clients are published */}
           {dynamicClients.length > 0 && (
