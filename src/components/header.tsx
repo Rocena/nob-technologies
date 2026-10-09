@@ -5,7 +5,7 @@ import Link from "next/link";
 import { 
   Menu, X, ArrowRight, Phone, Mail, Layers, Globe, Star, Info, ChevronDown, Camera,
   ShieldCheck, Network, Cpu, Code2, PhoneCall, Server, GraduationCap, Award, ShieldAlert, Sparkles,
-  Building2, Newspaper, HelpCircle, Users, Smartphone
+  Building2, Newspaper, HelpCircle, Users, Smartphone, MapPin
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AnimatedLogo } from "./AnimatedLogo";
@@ -322,12 +322,20 @@ export function Header() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
                 </span>
-                <span className="hidden sm:inline font-medium text-slate-300 tracking-tight">
-                  Dakar, Sénégal <span className="text-slate-600">•</span> Route de l&apos;Aéroport LSS <span className="text-slate-600">•</span> <span className="text-emerald-400 font-semibold">Support &amp; Astreinte 24/7</span>
-                </span>
-                <span className="sm:hidden font-medium text-slate-300 tracking-tight text-[10.5px]">
-                  Dakar <span className="text-slate-600">•</span> <span className="text-emerald-400 font-semibold">Support 24/7</span>
-                </span>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=QG3J%2BHP+Dakar"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-cyan-400 transition-colors group flex items-center gap-1.5"
+                  title="Localisation Google Maps : QG3J+HP Dakar (Route de l'Aéroport)"
+                >
+                  <span className="hidden sm:inline font-medium text-slate-300 group-hover:text-cyan-300 tracking-tight">
+                    Dakar, Sénégal <span className="text-slate-600">•</span> Route de l&apos;Aéroport LSS <span className="text-slate-600">•</span> <span className="text-emerald-400 font-semibold">Support &amp; Astreinte 24/7</span>
+                  </span>
+                  <span className="sm:hidden font-medium text-slate-300 group-hover:text-cyan-300 tracking-tight text-[10.5px]">
+                    Dakar <span className="text-slate-600">•</span> <span className="text-emerald-400 font-semibold">Support 24/7</span>
+                  </span>
+                </a>
               </div>
 
               {/* Right: Direct Contacts (Fixe, Portable, Mail) */}
@@ -841,9 +849,16 @@ export function Header() {
                 <span className="truncate font-medium">contact@nobtech.fr</span>
               </a>
 
-              <p className="text-center text-[11px] text-slate-400 font-mono">
-                Route de l&apos;Aéroport LSS lot N° 79, Dakar Sénégal
-              </p>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=QG3J%2BHP+Dakar"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-center text-[11px] text-slate-400 hover:text-cyan-600 font-mono flex items-center justify-center gap-1.5 transition-colors group"
+                title="Localisation Google Maps : QG3J+HP Dakar"
+              >
+                <MapPin className="w-3 h-3 text-cyan-500 shrink-0 group-hover:scale-110 transition-transform" />
+                <span className="group-hover:underline">Route de l&apos;Aéroport LSS lot N° 79, Dakar Sénégal</span>
+              </a>
             </div>
           </div>
         </div>

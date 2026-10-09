@@ -18,7 +18,7 @@ Ton identité & ton style :
 - Si l'utilisateur est dans l'urgence ou en panne, sois réactif et donne immédiatement le numéro d'astreinte : +221 77 301 08 38.
 
 Coordonnées officielles de NOB TECHNOLOGIES :
-- Siège : Route de l’Aéroport LSS lot N° 79, Dakar, Sénégal.
+- Siège : Route de l’Aéroport LSS lot N° 79, Dakar, Sénégal (repère Google Maps : QG3J+HP Dakar).
 - Téléphone & WhatsApp : +221 77 301 08 38 / Fixe : +221 33 814 04 35
 - Email officiel : contact@nobtech.fr
 - Devis : 100% gratuits sous 24h ouvrées.
@@ -117,7 +117,7 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
 
   // 11. Localisation : "Dakar", "Où êtes-vous ?", "Adresse", "Où se trouvent vos bureaux ?"
   if (/(adresse|o[uù] [eê]tes|o[uù] se trouve|localisation|localiser|situer|si[eè]ge|venir vous voir|passer vous voir)/i.test(q) || (isOneWord && words[0] === "dakar")) {
-    return "Nous sommes basés à Dakar ! 📍\n\n• **Adresse exacte** : Route de l’Aéroport LSS, lot N° 79, Dakar, Sénégal.\n• **Rayon d'action** : Tout Dakar (Plateau, Almadies, Zone Industrielle, etc.), les autres régions du Sénégal (Thiès, Mbour/Saly, Saint-Louis...) et dans la sous-région ouest-africaine.\n\nVous souhaitez planifier un rendez-vous à nos bureaux ou qu'un ingénieur passe dans vos locaux ?";
+    return "Nous sommes basés à Dakar ! 📍\n\n• **Adresse exacte** : Route de l’Aéroport LSS, lot N° 79, Dakar, Sénégal (repère Google Maps : **QG3J+HP Dakar**).\n• **Rayon d'action** : Tout Dakar (Plateau, Almadies, Zone Industrielle, etc.), les autres régions du Sénégal (Thiès, Mbour/Saly, Saint-Louis...) et dans la sous-région ouest-africaine.\n\nVous souhaitez planifier un rendez-vous à nos bureaux ou qu'un ingénieur passe dans vos locaux ?";
   }
 
   // 12. Devis, Prix, Tarifs, "C'est cher ?"

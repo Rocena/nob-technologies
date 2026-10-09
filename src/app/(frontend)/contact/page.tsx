@@ -84,17 +84,28 @@ export default async function ContactPage({
                 </div>
 
                 <div className="space-y-6 pt-2">
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200/80 shadow-sm">
-                    <div className="w-11 h-11 bg-cyan-50 rounded-lg flex items-center justify-center shrink-0 border border-cyan-100">
-                      <MapPin className="w-5 h-5 text-cyan-600" />
+                  <a 
+                    href="https://www.google.com/maps/search/?api=1&query=QG3J%2BHP+Dakar"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-4 p-4 rounded-xl bg-white hover:bg-slate-50/90 border border-slate-200/80 hover:border-cyan-300 transition-all shadow-sm group cursor-pointer"
+                    title="Ouvrir la localisation sur Google Maps (QG3J+HP Dakar)"
+                  >
+                    <div className="w-11 h-11 bg-cyan-50 group-hover:bg-cyan-100/70 rounded-lg flex items-center justify-center shrink-0 border border-cyan-100 group-hover:border-cyan-200 transition-colors">
+                      <MapPin className="w-5 h-5 text-cyan-600 group-hover:scale-110 transition-transform" />
                     </div>
                     <div>
-                      <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-600 block mb-1">
-                        Siège &amp; Bureaux
-                      </span>
-                      <p className="text-sm text-slate-800 font-medium leading-relaxed">{address}</p>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-600 block mb-1">
+                          Siège &amp; Bureaux
+                        </span>
+                        <span className="text-[11px] font-semibold text-cyan-600 group-hover:underline inline-flex items-center gap-0.5">
+                          Google Maps &rarr;
+                        </span>
+                      </div>
+                      <p className="text-sm text-slate-800 font-medium leading-relaxed group-hover:text-cyan-950 transition-colors">{address}</p>
                     </div>
-                  </div>
+                  </a>
                   
                   <div className="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200/80 shadow-sm">
                     <div className="w-11 h-11 bg-cyan-50 rounded-lg flex items-center justify-center shrink-0 border border-cyan-100">
