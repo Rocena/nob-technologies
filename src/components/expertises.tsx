@@ -82,7 +82,7 @@ const defaultServices = [
     id: "telephonie-videosurveillance",
     title: "Téléphonie IP & Vidéosurveillance IP",
     slug: "telephonie-videosurveillance",
-    description: "PABX/IPBX (Sangoma, Yeastar), postes VoIP Cisco et caméras de vidéosurveillance intelligentes haute résolution.",
+    description: "IPBX Yeastar Série P, postes VoIP Cisco, visioconférence et caméras de vidéosurveillance intelligentes haute résolution.",
     icon: MonitorCheck,
   },
   {

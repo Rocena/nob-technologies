@@ -21,7 +21,7 @@ const SERVICE_OPTIONS = [
   "Développement d'Applications Web & Mobile",
   "Vente de Licences Microsoft 365 (ESD & CSP)",
   "Formations & Préparation aux Certifications (6 mois)",
-  "Téléphonie IP (VoIP Yeastar & Sangoma) & Vidéosurveillance",
+  "Téléphonie IP (VoIP Yeastar, Cisco) & Vidéosurveillance",
   "Infogérance, Supervision & Support Proactif 24/7",
   "Autre projet ou étude sur-mesure",
 ];

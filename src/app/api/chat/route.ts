@@ -23,7 +23,7 @@ Expertises & Services clés :
 3. ERP & Digitalisation : Conception d'ERP sur-mesure développés de bout en bout pour vos processus métiers uniques, ainsi qu'intégration et paramétrage d'ERP de référence (Dolibarr, Odoo) pour la facturation, stocks, CRM, RH et comptabilité.
 4. Développement Web & Mobile : Applications web sur-mesure (ex: plateforme officielle de l'Hôtel du Parc / Parc Exotique du Sénégal), applications mobiles Flutter (iOS/Android).
 5. Sauvegarde & Cloud Hybride : Solutions Acronis & Veritas, continuité d'activité (PCA/PRA).
-6. Téléphonie IP (VoIP) : Standards IP-PBX Yeastar, passerelles Sangoma et télécoms unifiées.
+6. Téléphonie IP (VoIP) : Standards IP-PBX Yeastar Série P, postes Cisco et télécoms unifiées.
 7. Vente de Licences IT & Matériels : Licences officielles Microsoft 365 (ESD & CSP), serveurs d'entreprise Dell PowerEdge.
 8. Formations professionnelles & Préparation aux Certifications (Cursus intensifs sur 6 mois) :
    - Préparation Certifications IT : Cisco CCNA/CCNP, Fortinet NSE 4, Sophos Certified Engineer, CompTIA Security+.
@@ -116,8 +116,8 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
   }
 
   // 10. Téléphonie IP & Vidéosurveillance
-  if (/(t[eé]l[eé]phon|voip|ipbx|pabx|yeastar|sangoma|cam[eé]ra|vid[eé]os surveillance|surveillance)/i.test(q)) {
-    return "Nous installons des solutions de téléphonie IP (VoIP) de dernière génération avec Yeastar et Sangoma, ainsi que des systèmes de vidéosurveillance IP haute définition pour sécuriser vos locaux et entrepôts.";
+  if (/(t[eé]l[eé]phon|voip|ipbx|pabx|yeastar|cam[eé]ra|vid[eé]os surveillance|surveillance)/i.test(q)) {
+    return "Nous installons des solutions de téléphonie IP (VoIP) de dernière génération avec Yeastar et Cisco, ainsi que des systèmes de vidéosurveillance IP haute définition pour sécuriser vos locaux et entrepôts.";
   }
 
   // 11. Coordonnées & Contact

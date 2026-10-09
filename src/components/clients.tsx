@@ -77,11 +77,11 @@ export const defaultTrustedBrands = [
     logo: "/images/partners/yeastar.svg",
   },
   {
-    name: "Sangoma",
-    category: "Télécoms Unifiées",
-    badge: "VoIP",
-    url: "https://www.sangoma.com/",
-    logo: "/images/partners/sangoma.svg",
+    name: "Paessler",
+    category: "Supervision Réseau & Monitoring",
+    badge: "PRTG",
+    url: "https://www.paessler.com/",
+    logo: "/images/partners/paessler.svg",
   },
   {
     name: "HP Enterprise",

@@ -64,10 +64,10 @@ export const OFFICIAL_SERVICES: ServiceDefinition[] = [
     slug: 'telephone-ip',
     title: 'Téléphonie IP d’Entreprise (VoIP) & PABX',
     category: 'Télécommunications',
-    description: 'Modernisation de votre téléphonie fixe vers la VoIP : serveurs de communication IPBX (Sangoma, Yeastar), postes téléphoniques Cisco et visioconférence collaborative d’entreprise.',
+    description: 'Modernisation de votre téléphonie fixe vers la VoIP : serveurs de communication IPBX Yeastar Série P, postes téléphoniques Cisco et visioconférence collaborative d’entreprise.',
     icon: Phone,
     features: ['Standards téléphoniques IPBX / VoIP', 'Postes IP filaires et sans-fil DECT', 'Serveur vocal interactif (SVI)', 'Communications unifiées voix / vidéo'],
-    partners: ['Sangoma', 'Yeastar', 'Cisco'],
+    partners: ['Yeastar', 'Cisco'],
   },
   {
     slug: 'videosurveillance',

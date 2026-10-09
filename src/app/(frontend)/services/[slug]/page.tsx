@@ -77,15 +77,15 @@ const SERVICES_DATA: Record<string, {
     icon: Phone,
     color: "from-sky-500 to-blue-600",
     description: "Migration vers la voix sur IP, installation d’IPBX d’entreprise, postes téléphoniques Cisco et visioconférence unifiée.",
-    content: "Réduisez vos coûts de communication tout en augmentant la productivité de vos collaborateurs. Nous mettons en place des standards téléphoniques IPBX modernes (Sangoma, Yeastar), configurons vos files d’attente, messageries vocales et serveurs vocaux interactifs (SVI), avec intégration fluide sur smartphones et ordinateurs.",
+    content: "Réduisez vos coûts de communication tout en augmentant la productivité de vos collaborateurs. Nous mettons en place des standards téléphoniques IPBX modernes (Yeastar Série P), configurons vos files d’attente, messageries vocales et serveurs vocaux interactifs (SVI), avec intégration fluide sur smartphones et ordinateurs.",
     features: [
-      "Installation et configuration d’IPBX IP (Yeastar, Sangoma, Asterisk)",
+      "Installation et configuration d’IPBX IP (Yeastar, Asterisk)",
       "Fourniture et raccordement de postes téléphoniques IP et sans-fil",
       "Configuration de standards d’accueil, SVI et transferts d’appels",
       "Interconnexion multi-sites et réduction des coûts de communication",
       "Messagerie unifiée et intégration de softphones sur mobile/PC"
     ],
-    tech: ["Yeastar", "Sangoma", "Cisco", "Fanvil", "Grandstream"]
+    tech: ["Yeastar", "Cisco", "Grandstream", "Fanvil"]
   },
   "videosurveillance": {
     title: "Vidéosurveillance IP & Contrôle d’Accès",

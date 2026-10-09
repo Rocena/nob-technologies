@@ -35,7 +35,7 @@ const DEFAULT_KNOWLEDGE_BASE: KnowledgeItem[] = [
   },
   {
     keywords: ["réseau", "reseau", "wifi", "câblage", "cablage", "voip", "téléphonie", "cloud", "infogérance", "serveur", "informatique", "infrastructure"],
-    response: "Nous réalisons le câblage structuré cuivre & fibre, l'aménagement de baies de brassage, la téléphonie IP Yeastar/Sangoma, et le déploiement de serveurs Dell et réseaux Cisco. 🌐"
+    response: "Nous réalisons le câblage structuré cuivre & fibre, l'aménagement de baies de brassage, la téléphonie IP Yeastar & Cisco, et le déploiement de serveurs Dell et réseaux haute disponibilité. 🌐"
   },
   {
     keywords: ["formation", "formations", "certifications", "certification", "ccna", "ccnp", "nse", "comptia", "programme", "6 mois"],
