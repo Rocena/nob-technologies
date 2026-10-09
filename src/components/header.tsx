@@ -17,6 +17,7 @@ interface SubItem {
   name: string;
   href: string;
   desc?: string;
+  tag?: string;
 }
 
 interface NavItem {
@@ -88,12 +89,12 @@ const DEFAULT_NAV: NavItem[] = [
     desc: 'Infrastructures haute disponibilité, Cloud, ERP, cybersécurité & infogérance',
     order: 1,
     children: [
-      { name: 'Cybersécurité & Firewalls', href: '/services/cybersecurite', desc: 'Protection périmétrique Sophos & Fortinet, audits et SOC managé' },
-      { name: 'Réseaux & Câblage', href: '/services/reseaux-telecoms', desc: 'Câblage structuré cat 6A/7, fibre optique, Cisco & HPE Aruba' },
-      { name: 'ERP & Digitalisation', href: '/services/erp-digitalisation', desc: 'Intégration Dolibarr & Odoo, automatisation et workflows métiers' },
-      { name: 'Développement Web & Mobile', href: '/services/developpement-web-mobile', desc: 'Portails d’entreprise, applications sur-mesure & plateformes SaaS' },
-      { name: 'Téléphonie IP & VoIP', href: '/services/telephone-ip', desc: 'Autocommutateurs IPBX Yeastar, communications unifiées & SIP' },
-      { name: 'Matériel & Licences IT', href: '/services/materiel-licences', desc: 'Serveurs Dell EMC, baies de serveurs et licences Microsoft 365' },
+      { name: 'Cybersécurité & Firewalls', href: '/services/cybersecurite', desc: 'Protection périmétrique Sophos & Fortinet, audits et SOC managé', tag: 'Sophos • Fortinet' },
+      { name: 'Réseaux & Câblage', href: '/services/reseaux-telecoms', desc: 'Câblage structuré cat 6A/7, fibre optique, Cisco & HPE Aruba', tag: 'Cat 6A • Fibre • Cisco' },
+      { name: 'ERP & Digitalisation', href: '/services/erp-digitalisation', desc: 'Intégration Dolibarr & Odoo, automatisation et workflows métiers', tag: 'Dolibarr • Odoo' },
+      { name: 'Développement Web & Mobile', href: '/services/developpement-web-mobile', desc: 'Portails d’entreprise, applications sur-mesure & plateformes SaaS', tag: 'SaaS • Web & Mobile' },
+      { name: 'Téléphonie IP & VoIP', href: '/services/telephone-ip', desc: 'Autocommutateurs IPBX Yeastar, communications unifiées & SIP', tag: 'Yeastar • IPBX & SIP' },
+      { name: 'Matériel & Licences IT', href: '/services/materiel-licences', desc: 'Serveurs Dell EMC, baies de serveurs et licences Microsoft 365', tag: 'Dell EMC • Microsoft 365' },
     ]
   },
   { 
@@ -103,10 +104,10 @@ const DEFAULT_NAV: NavItem[] = [
     desc: 'Cursus d’immersion sur 6 mois et préparation aux certifications d’élite',
     order: 2,
     children: [
-      { name: 'Catalogue Formations (6 Mois)', href: '/formations', desc: 'Cursus d’excellence et ateliers pratiques à Dakar (max 6h/sem)' },
-      { name: 'Préparation Certifications IT', href: '/formations/preparation-certifications-it', desc: 'Préparation officielle Cisco CCNA, Fortinet NSE, Sophos & CompTIA' },
-      { name: 'Cybersécurité & Audit SOC', href: '/formations/cybersecurite-audit-soc', desc: 'Gouvernance ISO 27001, surveillance SOC et techniques de pentest' },
-      { name: 'Automatisation & IA', href: '/formations/automatisation-ia', desc: 'Workflows n8n, scripting Python, agents IA et productivité' },
+      { name: 'Catalogue Formations (6 Mois)', href: '/formations', desc: 'Cursus d’excellence et ateliers pratiques à Dakar (max 6h/sem)', tag: 'Immersion • 6 Mois' },
+      { name: 'Préparation Certifications IT', href: '/formations/preparation-certifications-it', desc: 'Préparation officielle Cisco CCNA, Fortinet NSE, Sophos & CompTIA', tag: 'CCNA • NSE 4 • Sophos' },
+      { name: 'Cybersécurité & Audit SOC', href: '/formations/cybersecurite-audit-soc', desc: 'Gouvernance ISO 27001, surveillance SOC et techniques de pentest', tag: 'ISO 27001 • Pentest' },
+      { name: 'Automatisation & IA', href: '/formations/automatisation-ia', desc: 'Workflows n8n, scripting Python, agents IA et productivité', tag: 'n8n • Python • IA' },
     ]
   },
   { 
@@ -116,8 +117,8 @@ const DEFAULT_NAV: NavItem[] = [
     desc: 'Alliances technologiques stratégiques avec les constructeurs mondiaux',
     order: 3,
     children: [
-      { name: 'Partenaires Constructeurs', href: '/partenaires', desc: 'Alliances avec Sophos, Fortinet, Cisco, Dell, Microsoft 365, Acronis' },
-      { name: 'Secteurs d’Activité', href: '/secteurs', desc: 'Solutions spécialisées pour PME, Banques, Écoles, Hôpitaux & Commerces' },
+      { name: 'Partenaires Constructeurs', href: '/partenaires', desc: 'Alliances avec Sophos, Fortinet, Cisco, Dell, Microsoft 365, Acronis', tag: 'Constructeurs Mondiaux' },
+      { name: 'Secteurs d’Activité', href: '/secteurs', desc: 'Solutions spécialisées pour PME, Banques, Écoles, Hôpitaux & Commerces', tag: 'PME • Banques • Santé' },
     ]
   },
   { 
@@ -127,8 +128,8 @@ const DEFAULT_NAV: NavItem[] = [
     desc: 'Déploiements d’infrastructures critiques et plateformes web en production',
     order: 4,
     children: [
-      { name: 'Projets & Déploiements', href: '/realisations', desc: 'Études de cas concrètes : Union Européenne, SETER, P2A, Parc Exotique' },
-      { name: 'Galerie d’Installations', href: '/galerie', desc: 'Photos réelles de baies de brassage, salles serveurs et câblage' },
+      { name: 'Projets & Déploiements', href: '/realisations', desc: 'Études de cas concrètes : Union Européenne, SETER, P2A, Parc Exotique', tag: 'Projets & Déploiements' },
+      { name: 'Galerie d’Installations', href: '/galerie', desc: 'Photos réelles de baies de brassage, salles serveurs et câblage', tag: '100% Photos Terrain' },
     ]
   },
   { 
@@ -138,10 +139,10 @@ const DEFAULT_NAV: NavItem[] = [
     desc: 'Présentation de Nob Technologies, notre équipe d’ingénieurs et actualités',
     order: 5,
     children: [
-      { name: 'À Propos de Nobtech', href: '/a-propos', desc: 'Notre histoire, nos valeurs et nos standards d’excellence à Dakar' },
-      { name: 'Actualités & Blog', href: '/actualites', desc: 'Veille technologique, cyberdéfense, bonnes pratiques et annonces' },
-      { name: 'Foire Aux Questions (FAQ)', href: '/faq', desc: 'Réponses à vos questions sur les délais, contrats et garanties SLA' },
-      { name: 'Carrières & Recrutement', href: '/carrieres', desc: 'Rejoindre notre équipe d’ingénieurs réseaux et consultants IT' },
+      { name: 'À Propos de Nobtech', href: '/a-propos', desc: 'Notre histoire, nos valeurs et nos standards d’excellence à Dakar', tag: 'Cabinet Dakar' },
+      { name: 'Actualités & Blog', href: '/actualites', desc: 'Veille technologique, cyberdéfense, bonnes pratiques et annonces', tag: 'Veille & Sécurité' },
+      { name: 'Foire Aux Questions (FAQ)', href: '/faq', desc: 'Réponses à vos questions sur les délais, contrats et garanties SLA', tag: 'SLA & Garanties' },
+      { name: 'Carrières & Recrutement', href: '/carrieres', desc: 'Rejoindre notre équipe d’ingénieurs réseaux et consultants IT', tag: 'Rejoindre l’Équipe' },
     ]
   },
   { 
@@ -198,11 +199,11 @@ const getSubItemIcon = (name: string, href: string = "") => {
 };
 
 const getDropdownWidth = (item: NavItem) => {
-  if (item.id === 'solutions') return "w-[780px] xl:w-[820px]";
-  if (item.id === 'formations' || item.id === 'a-propos') return "w-[740px] xl:w-[780px]";
-  if (item.id === 'partenaires' || item.id === 'realisations') return "w-[700px] xl:w-[740px]";
+  if (item.id === 'solutions') return "w-[800px] xl:w-[860px]";
+  if (item.id === 'formations' || item.id === 'a-propos') return "w-[760px] xl:w-[820px]";
+  if (item.id === 'partenaires' || item.id === 'realisations') return "w-[720px] xl:w-[760px]";
   if (item.id === 'contact') return "w-[380px]";
-  return item.children && item.children.length > 2 ? "w-[740px]" : "w-[520px]";
+  return item.children && item.children.length > 2 ? "w-[760px]" : "w-[540px]";
 };
 
 const getDropdownAlign = (index: number, total: number) => {
@@ -470,12 +471,14 @@ export function Header() {
                               </Link>
                             </div>
 
-                            {/* Split Grid: Offerings (Left) + Silicon Valley Spotlight Card (Right) */}
-                            <div className="grid grid-cols-12 gap-4 items-stretch">
-                              {/* Left: Interactive list of services */}
+                            {/* Bento Box Grid: Modular Cells (Left) + Silicon Valley Spotlight Card (Right) */}
+                            <div className="grid grid-cols-12 gap-3.5 items-stretch">
+                              {/* Left: Interactive Bento Cells */}
                               <div className={cn(
                                 spotlight ? "col-span-8" : "col-span-12",
-                                "grid grid-cols-2 gap-2"
+                                item.children!.length === 2 
+                                  ? "grid grid-cols-1 sm:grid-cols-2 gap-3" 
+                                  : "grid grid-cols-2 gap-2.5"
                               )}>
                                 {item.children!.map((child) => {
                                   const ChildIcon = getSubItemIcon(child.name, child.href);
@@ -485,20 +488,35 @@ export function Header() {
                                       key={child.href}
                                       href={child.href}
                                       onClick={() => setActiveHover(null)}
-                                      className="group/child p-2.5 rounded-xl hover:bg-slate-50/90 border border-transparent hover:border-slate-200/80 transition-all flex items-start gap-3 relative"
+                                      className="group/bento relative rounded-xl p-3 sm:p-3.5 bg-slate-50/70 hover:bg-white border border-slate-200/70 hover:border-cyan-300 hover:shadow-[0_8px_20px_-6px_rgba(0,212,255,0.16),0_2px_6px_-1px_rgba(15,23,42,0.04)] transition-all duration-200 flex flex-col justify-between overflow-hidden"
                                     >
-                                      <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200/60 flex items-center justify-center text-slate-700 group-hover/child:bg-cyan-50 group-hover/child:text-cyan-600 group-hover/child:border-cyan-200 transition-colors shrink-0 shadow-2xs">
-                                        <ChildIcon className="w-4 h-4 stroke-[2]" />
-                                      </div>
-                                      <div className="min-w-0 flex-1">
-                                        <div className="flex items-center justify-between gap-1">
-                                          <span className="text-[13px] font-semibold text-slate-900 group-hover/child:text-cyan-600 transition-colors">
+                                      {/* Micro top shine edge on hover */}
+                                      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover/bento:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                                      <div>
+                                        {/* Header of Bento Card: Icon + Micro Tag */}
+                                        <div className="flex items-center justify-between gap-2">
+                                          <div className="w-8 h-8 rounded-lg bg-white border border-slate-200/80 shadow-2xs flex items-center justify-center text-slate-700 group-hover/bento:text-cyan-600 group-hover/bento:border-cyan-200 transition-colors shrink-0">
+                                            <ChildIcon className="w-4 h-4 stroke-[2]" />
+                                          </div>
+                                          {child.tag && (
+                                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 group-hover/bento:text-cyan-700 bg-white/90 group-hover/bento:bg-cyan-50/80 border border-slate-200/60 group-hover/bento:border-cyan-200/60 px-2 py-0.5 rounded-md transition-colors truncate max-w-[150px]">
+                                              {child.tag}
+                                            </span>
+                                          )}
+                                        </div>
+
+                                        {/* Title & Arrow */}
+                                        <div className="flex items-center justify-between gap-1 mt-2.5">
+                                          <span className="text-[13px] font-bold text-slate-900 group-hover/bento:text-cyan-600 transition-colors leading-snug">
                                             {child.name}
                                           </span>
-                                          <ArrowRight className="w-3 h-3 text-slate-300 opacity-0 group-hover/child:opacity-100 group-hover/child:translate-x-0.5 group-hover/child:text-cyan-600 transition-all shrink-0" />
+                                          <ArrowRight className="w-3 h-3 text-slate-300 opacity-0 group-hover/bento:opacity-100 group-hover/bento:translate-x-0.5 group-hover/bento:text-cyan-600 transition-all shrink-0" />
                                         </div>
+
+                                        {/* Description */}
                                         {child.desc && (
-                                          <p className="text-[11.5px] text-slate-500 leading-snug mt-0.5 font-normal line-clamp-1">
+                                          <p className="text-[11px] text-slate-500 group-hover/bento:text-slate-600 leading-snug mt-1 font-normal line-clamp-2">
                                             {child.desc}
                                           </p>
                                         )}
@@ -508,32 +526,40 @@ export function Header() {
                                 })}
                               </div>
 
-                              {/* Right: Signature Tesla / Silicon Valley Spotlight Showcase */}
+                              {/* Right: Signature Tesla / Silicon Valley Spotlight Bento Card */}
                               {spotlight && (
-                                <div className="col-span-4 rounded-xl bg-gradient-to-br from-slate-50 via-slate-50/80 to-cyan-50/30 border border-slate-200/80 p-3.5 flex flex-col justify-between">
-                                  <div>
-                                    <span className="inline-block text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-700 bg-cyan-100/60 border border-cyan-200/50 px-2 py-0.5 rounded">
-                                      {spotlight.badge}
-                                    </span>
-                                    <h5 className="text-[13px] font-bold text-slate-900 mt-2 leading-tight">
+                                <div className="col-span-4 rounded-xl bg-gradient-to-br from-[#020617] via-slate-900 to-[#0B1528] text-white p-4 sm:p-4.5 border border-slate-800 shadow-xl flex flex-col justify-between relative overflow-hidden group/spotlight">
+                                  {/* Ambient radial glow inside the Bento Spotlight */}
+                                  <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-gradient-to-tr from-cyan-500/20 to-emerald-500/15 rounded-full blur-2xl pointer-events-none group-hover/spotlight:scale-125 transition-transform duration-500" />
+                                  <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-cyan-500 via-sky-400 to-emerald-400 opacity-80" />
+
+                                  <div className="relative z-10">
+                                    <div className="flex items-center justify-between gap-2">
+                                      <span className="inline-block text-[9.5px] font-mono font-bold uppercase tracking-wider text-cyan-300 bg-cyan-950/80 border border-cyan-700/60 px-2 py-0.5 rounded-md shadow-xs">
+                                        {spotlight.badge}
+                                      </span>
+                                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                    </div>
+
+                                    <h5 className="text-[13.5px] font-bold text-white mt-3 leading-snug group-hover/spotlight:text-cyan-200 transition-colors">
                                       {spotlight.title}
                                     </h5>
-                                    <p className="text-[11.5px] text-slate-600 leading-relaxed mt-1">
+                                    <p className="text-[11.5px] text-slate-300 leading-relaxed mt-1.5 font-normal">
                                       {spotlight.desc}
                                     </p>
                                   </div>
 
-                                  <div className="pt-3 border-t border-slate-200/60 mt-3 flex items-center justify-between">
-                                    <span className="text-[10px] font-medium text-slate-400">
+                                  <div className="relative z-10 pt-3.5 border-t border-slate-800/80 mt-4 flex items-center justify-between">
+                                    <span className="text-[10px] font-mono text-slate-400">
                                       {spotlight.tag}
                                     </span>
                                     <Link
                                       href={spotlight.href}
                                       onClick={() => setActiveHover(null)}
-                                      className="inline-flex items-center gap-1 text-[11px] font-bold text-cyan-600 hover:text-cyan-700 hover:underline"
+                                      className="inline-flex items-center gap-1.5 text-[11px] font-bold text-cyan-300 hover:text-cyan-200 transition-colors group-hover/spotlight:translate-x-0.5"
                                     >
                                       <span>{spotlight.linkText}</span>
-                                      <ArrowRight className="w-3 h-3" />
+                                      <ArrowRight className="w-3 h-3 text-cyan-400" />
                                     </Link>
                                   </div>
                                 </div>
@@ -576,63 +602,85 @@ export function Header() {
                       )}>
                         <div className="bg-white/98 backdrop-blur-2xl border border-slate-200/90 shadow-[0_24px_50px_-12px_rgba(15,23,42,0.18)] rounded-2xl p-5 relative overflow-hidden ring-1 ring-slate-900/5">
                           <div className="relative z-10 space-y-3">
-                            <div className="pb-3 border-b border-slate-100">
-                              <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-700">
-                                Contact Direct &bull; Dakar
+                            <div className="pb-3 border-b border-slate-100 flex items-center justify-between">
+                              <div>
+                                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-700">
+                                  Contact Direct &bull; Dakar
+                                </div>
+                                <h5 className="text-[14px] font-bold text-slate-900 mt-0.5">
+                                  Parlons de votre projet IT
+                                </h5>
                               </div>
-                              <h5 className="text-[14px] font-bold text-slate-900 mt-1">
-                                Parlons de votre infrastructure
-                              </h5>
-                              <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
-                                Nos ingénieurs certifiés répondent sous 24h ouvrées.
-                              </p>
+                              <span className="inline-flex items-center gap-1.5 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                Support 24/7
+                              </span>
                             </div>
 
+                            {/* Bento Contact Cards */}
                             <div className="space-y-2 pt-0.5">
                               <a
                                 href="tel:+221773010838"
-                                className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50/70 border border-slate-200/60 hover:border-emerald-200 transition-colors group/tel"
+                                className="group/bento relative flex items-center gap-3 p-3 rounded-xl bg-slate-50/80 hover:bg-white border border-slate-200/70 hover:border-emerald-300 hover:shadow-md transition-all overflow-hidden"
                               >
-                                <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-emerald-600 shadow-2xs shrink-0">
+                                <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent opacity-0 group-hover/bento:opacity-100 transition-opacity pointer-events-none" />
+                                <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-emerald-600 shadow-2xs shrink-0 group-hover/bento:border-emerald-200">
                                   <Smartphone className="w-4 h-4" />
                                 </div>
-                                <div>
-                                  <div className="text-xs font-bold text-slate-900 group-hover/tel:text-emerald-600 transition-colors">
-                                    +221 77 301 08 38
+                                <div className="min-w-0 flex-1">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-xs font-bold text-slate-900 group-hover/bento:text-emerald-600 transition-colors">
+                                      +221 77 301 08 38
+                                    </span>
+                                    <span className="text-[9.5px] font-mono text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100">
+                                      Astreinte 24/7
+                                    </span>
                                   </div>
                                   <div className="text-[11px] text-slate-500">
-                                    Portable direct d’astreinte & WhatsApp
+                                    Portable direct & WhatsApp
                                   </div>
                                 </div>
                               </a>
 
                               <a
                                 href="tel:+221338140435"
-                                className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 hover:bg-cyan-50/70 border border-slate-200/60 hover:border-cyan-200 transition-colors group/fixe"
+                                className="group/bento relative flex items-center gap-3 p-3 rounded-xl bg-slate-50/80 hover:bg-white border border-slate-200/70 hover:border-cyan-300 hover:shadow-md transition-all overflow-hidden"
                               >
-                                <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-cyan-600 shadow-2xs shrink-0">
+                                <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover/bento:opacity-100 transition-opacity pointer-events-none" />
+                                <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-cyan-600 shadow-2xs shrink-0 group-hover/bento:border-cyan-200">
                                   <Phone className="w-4 h-4" />
                                 </div>
-                                <div>
-                                  <div className="text-xs font-bold text-slate-900 group-hover/fixe:text-cyan-600 transition-colors">
-                                    +221 33 814 04 35
+                                <div className="min-w-0 flex-1">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-xs font-bold text-slate-900 group-hover/bento:text-cyan-600 transition-colors">
+                                      +221 33 814 04 35
+                                    </span>
+                                    <span className="text-[9.5px] font-mono text-cyan-600 bg-cyan-50 px-1.5 py-0.5 rounded border border-cyan-100">
+                                      Standard Fixe
+                                    </span>
                                   </div>
                                   <div className="text-[11px] text-slate-500">
-                                    Standard fixe bureau Dakar
+                                    Bureau Dakar • Route Aéroport
                                   </div>
                                 </div>
                               </a>
 
                               <a
                                 href="mailto:contact@nobtech.fr"
-                                className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 hover:bg-cyan-50/70 border border-slate-200/60 hover:border-cyan-200 transition-colors group/mail"
+                                className="group/bento relative flex items-center gap-3 p-3 rounded-xl bg-slate-50/80 hover:bg-white border border-slate-200/70 hover:border-cyan-300 hover:shadow-md transition-all overflow-hidden"
                               >
-                                <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-cyan-600 shadow-2xs shrink-0">
+                                <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover/bento:opacity-100 transition-opacity pointer-events-none" />
+                                <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-cyan-600 shadow-2xs shrink-0 group-hover/bento:border-cyan-200">
                                   <Mail className="w-4 h-4" />
                                 </div>
-                                <div>
-                                  <div className="text-xs font-bold text-slate-900 group-hover/mail:text-cyan-600 transition-colors">
-                                    contact@nobtech.fr
+                                <div className="min-w-0 flex-1">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-xs font-bold text-slate-900 group-hover/bento:text-cyan-600 transition-colors">
+                                      contact@nobtech.fr
+                                    </span>
+                                    <span className="text-[9.5px] font-mono text-cyan-600 bg-cyan-50 px-1.5 py-0.5 rounded border border-cyan-100">
+                                      Courriel Pro
+                                    </span>
                                   </div>
                                   <div className="text-[11px] text-slate-500">
                                     Devis & cahier des charges
@@ -645,7 +693,7 @@ export function Header() {
                               <Link
                                 href="/contact"
                                 onClick={() => setActiveHover(null)}
-                                className="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-cyan-600 text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 shadow-xs"
+                                className="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-cyan-600 text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer"
                               >
                                 <span>Ouvrir la page de contact</span>
                                 <ArrowRight className="w-3.5 h-3.5" />
