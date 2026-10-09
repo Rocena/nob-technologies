@@ -25,25 +25,25 @@ const secondaryProjects: ProjectItem[] = [
     sector: 'Institutionnel & Diplomatique',
     description: 'Déploiement complet du câblage réseau structuré Cat 6A/7, pose de baies de brassage 42U, peignage méthodique des liaisons et certification de conformité pour le bureau de l’Union Européenne à Dakar.',
     tags: ['Union Européenne', 'Dakar', 'Câblage Cat 6A/7', 'Baies 42U', 'Certification Fluke'],
-    coverImage: '/images/gallery/galerie-1-baie-brassage.jpg',
+    coverImage: '/images/gallery/galerie-6-routeur-firewall.jpg',
     clientLogo: '/images/partners/union-europeenne-logo.svg',
   },
   {
     id: 'polyclinique-p2a',
     title: 'Polyclinique P2A (Dakar) — Infrastructure Réseau, VMware, VoIP Yeastar & FortiGate',
     sector: 'Santé & Établissement Médical',
-    description: 'Installation complète de l’infrastructure réseau physique et baies, virtualisation des serveurs d’établissement sous VMware, téléphonie d’entreprise VoIP Yeastar et pare-feu périmétrique Fortinet FortiGate (NGFW).',
-    tags: ['Polyclinique P2A', 'Réseau Physique', 'VMware', 'VoIP Yeastar', 'Fortinet FortiGate'],
-    coverImage: '/images/gallery/galerie-6-routeur-firewall.jpg',
+    description: 'Installation complète de l’infrastructure réseau physique et baies, virtualisation des serveurs médicaux sous VMware, téléphonie d’entreprise VoIP Yeastar et pare-feu Fortinet FortiGate (NGFW).',
+    tags: ['Polyclinique P2A', 'Réseau Médical', 'VMware', 'VoIP Yeastar', 'Fortinet FortiGate'],
+    coverImage: '/images/projects/polyclinique-medical.jpg',
     clientLogo: '/images/partners/polyclinique-p2a.svg',
   },
   {
     id: 'dolima-senegal',
     title: 'Dolima (La Laiterie du Berger) — Ingénierie & Infrastructure Réseau d’Entreprise',
     sector: 'Agro-Industrie & Production',
-    description: 'Ingénierie et déploiement de l’infrastructure réseau locale, interconnexion sécurisée des postes opérationnels, segmentation LAN/VLAN et fiabilisation de la connectivité pour les flux industriels de Dolima.',
+    description: 'Ingénierie et déploiement de l’infrastructure réseau locale, commutation LAN haute densité, segmentation VLAN et fiabilisation de la connectivité pour les flux industriels de Dolima.',
     tags: ['Dolima', 'Infrastructure Réseau', 'Switching LAN', 'Connectivité', 'Haute Disponibilité'],
-    coverImage: '/images/gallery/galerie-4-installation-reseau.jpg',
+    coverImage: '/images/projects/reseau-switching-datacenter.jpg',
     clientLogo: '/images/partners/dolima.png',
   },
   {
@@ -52,7 +52,7 @@ const secondaryProjects: ProjectItem[] = [
     sector: 'Formation & Éducation Numérique',
     description: 'Animation de modules intensifs et ateliers pratiques pour les apprenants de Simplon : architectures réseaux d’entreprise, administration système Linux/Windows, cybersécurité et préparation aux certifications.',
     tags: ['Simplon', 'Dakar', 'Formation Apprenants', 'Réseaux & Systèmes', 'Cybersécurité'],
-    coverImage: '/images/gallery/galerie-5-equipement-telecom.jpg',
+    coverImage: '/images/projects/simplon-formation-lab.jpg',
     clientLogo: '/images/partners/simplon.svg',
   },
   {
@@ -61,7 +61,7 @@ const secondaryProjects: ProjectItem[] = [
     sector: 'ERP, Digitalisation & Gestion Commerciale',
     description: 'Conception d’ERP sur-mesure pour des flux métiers spécifiques, ainsi qu’installation et paramétrage d’ERP de référence (Odoo, Dolibarr) pour la gestion des stocks, facturation, devis et comptabilité de structures sénégalaises et sous-régionales.',
     tags: ['ERP Sur-Mesure', 'Odoo & Dolibarr', 'Gestion Commerciale', 'Facturation', 'Comptabilité'],
-    coverImage: '/images/gallery/galerie-7-salle-serveurs.jpg',
+    coverImage: '/images/projects/erp-dashboard.jpg',
   },
   {
     id: 'infra-firewall',
@@ -69,7 +69,7 @@ const secondaryProjects: ProjectItem[] = [
     sector: 'Cybersécurité Périmétrique',
     description: 'Mise en place de passerelles de sécurité Sophos et Fortinet (NGFW) avec filtrage applicatif, VPN IPsec multi-sites pour le travail à distance et politiques de segmentation réseau LAN/VLAN.',
     tags: ['Sophos XGS', 'Fortinet FortiGate', 'VPN IPsec', 'Segmentation VLAN'],
-    coverImage: '/images/gallery/galerie-6-routeur-firewall.jpg',
+    coverImage: '/images/projects/datacenter-firewall.jpg',
   },
 ];
 
@@ -236,8 +236,8 @@ export default async function ProjectsPage() {
               {/* Main Feature Photo */}
               <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden border border-slate-700 bg-slate-950 shadow-2xl group">
                 <Image
-                  src="/images/gallery/galerie-1-baie-brassage.jpg"
-                  alt="Baie de brassage 42U peignée pour l'Union Européenne à Dakar"
+                  src="/images/gallery/galerie-6-routeur-firewall.jpg"
+                  alt="Paramétrage console et mise en service sur baie 42U pour l'Union Européenne à Dakar"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 1024px) 100vw, 60vw"
@@ -246,17 +246,17 @@ export default async function ProjectsPage() {
                 <div className="absolute bottom-5 left-5 right-5 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                   <div>
                     <span className="text-[11px] font-mono uppercase tracking-wider text-cyan-400 bg-cyan-950/80 px-2.5 py-1 rounded border border-cyan-800 inline-block mb-1.5">
-                      Baie 42U Haute Densité
+                      Baie 42U &amp; Mise en Service
                     </span>
                     <h3 className="text-lg sm:text-xl font-bold text-white">
-                      Peignage &amp; Organisation des Liaisons RJ45 Cat 6A
+                      Paramétrage Console &amp; Recette Technique sur Baie 42U
                     </h3>
                   </div>
                   <Link
                     href="/galerie"
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-colors shrink-0 shadow-lg"
                   >
-                    <span>Photos chantier</span>
+                    <span>Galerie complète</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </Link>
                 </div>
@@ -266,24 +266,24 @@ export default async function ProjectsPage() {
               <div className="lg:col-span-5 grid grid-cols-2 gap-4">
                 {[
                   {
+                    src: "/images/gallery/galerie-1-baie-brassage.jpg",
+                    title: "Pose Goulottes & Déroulage Câbles",
+                    tag: "Équipe Chantier",
+                  },
+                  {
                     src: "/images/gallery/galerie-7-salle-serveurs.jpg",
-                    title: "Salle Serveurs & Datacenter",
-                    tag: "Datacenter Local",
+                    title: "Passage en Faux-Plafond Couloir",
+                    tag: "Tirage en Hauteur",
                   },
                   {
                     src: "/images/gallery/galerie-3-rack-infrastructure.jpg",
-                    title: "Rack 42U & Énergie",
-                    tag: "Armoire Réseau",
+                    title: "Coffret Mural FINEN & Brassage",
+                    tag: "Coffret Réseau",
                   },
                   {
                     src: "/images/gallery/galerie-2-cablage-serveurs.jpg",
-                    title: "Switchs & Liaisons Serveurs",
-                    tag: "Interconnexion",
-                  },
-                  {
-                    src: "/images/gallery/galerie-8-interconnexion.jpg",
-                    title: "Cheminement Anti-Parasite",
-                    tag: "Chemins de câbles",
+                    title: "Boîtes de Sol Legrand & Prises Repérées",
+                    tag: "Boîtes de Sol",
                   },
                 ].map((item, idx) => (
                   <Link

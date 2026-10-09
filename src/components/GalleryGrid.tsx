@@ -8,7 +8,7 @@ import { FadeUp } from "./animations";
 export interface GalleryItem {
   id: string;
   title: string;
-  category: "baies" | "cablage" | "equipements" | "tous";
+  category: "baies" | "cablage" | "equipements" | "digital" | "tous";
   categoryLabel: string;
   image: string;
   description: string;
@@ -17,76 +17,108 @@ export interface GalleryItem {
 
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
-    id: "g1",
-    title: "Baie de brassage 42U & peignage — Union Européenne (Dakar)",
+    id: "g6",
+    title: "Paramétrage console & mise en service sur baie 42U",
     category: "baies",
     categoryLabel: "Baies & Racks",
-    image: "/images/gallery/galerie-1-baie-brassage.jpg",
-    description: "Peignage et repérage méthodique des liaisons RJ45 Cat 6A dans la baie informatique de la Délégation de l'Union Européenne à Dakar.",
+    image: "/images/gallery/galerie-6-routeur-firewall.jpg",
+    description: "Configuration console des commutateurs et pare-feux directement devant l’armoire baie 42U par nos ingénieurs équipés d'EPI pour la recette de site.",
   },
   {
-    id: "g2",
-    title: "Câblage serveurs & interconnexion — Union Européenne (Dakar)",
+    id: "g1",
+    title: "Pose de goulottes murales & déroulage du câblage réseau",
     category: "cablage",
-    categoryLabel: "Câblage & Fibre",
-    image: "/images/gallery/galerie-2-cablage-serveurs.jpg",
-    description: "Interconnexion des commutateurs réseau (Switchs) et serveurs rackables avec cordons certifiés pour l'infrastructure de l'UE à Dakar.",
+    categoryLabel: "Câblage & Goulottes",
+    image: "/images/gallery/galerie-1-baie-brassage.jpg",
+    description: "Équipe technique NOB Technologies sur site : pose des plinthes techniques murales Legrand et déroulage du câblage cuivre Cat 6A depuis le touret.",
   },
   {
     id: "g3",
-    title: "Armoire d'infrastructure 42U — Union Européenne (Dakar)",
+    title: "Coffret mural 9U/12U FINEN vitré & brassage RJ45",
     category: "baies",
-    categoryLabel: "Baies & Racks",
+    categoryLabel: "Baies & Coffrets",
     image: "/images/gallery/galerie-3-rack-infrastructure.jpg",
-    description: "Installation complète d’une armoire réseau 42U avec gestion de l’alimentation et ventilation pour la Délégation de l'UE à Dakar.",
+    description: "Fixation murale d’un coffret informatique FINEN à porte vitrée sécurisée avec switch réseau et peignage des cordons bleus RJ45.",
+  },
+  {
+    id: "g2",
+    title: "Boîte de sol Legrand encastrée & prises RJ45 repérées",
+    category: "cablage",
+    categoryLabel: "Câblage & Prises",
+    image: "/images/gallery/galerie-2-cablage-serveurs.jpg",
+    description: "Raccordement d'une boîte de sol au carrelage avec plastrons RJ45 identifiés (ports 9 à 13) et alimentation électrique pour postes de travail.",
   },
   {
     id: "g4",
-    title: "Raccordement réseau & tests Fluke — Union Européenne (Dakar)",
+    title: "Test de continuité RJ45 & contrôle au testeur numérique",
     category: "equipements",
-    categoryLabel: "Équipements Réseau",
+    categoryLabel: "Tests & Certification",
     image: "/images/gallery/galerie-4-installation-reseau.jpg",
-    description: "Mise en service des équipements d’accès réseau et tests de réflectométrie sur liaisons montantes au bureau de l'UE à Dakar.",
-  },
-  {
-    id: "g5",
-    title: "Équipements télécoms & routeurs professionnels",
-    category: "equipements",
-    categoryLabel: "Équipements Réseau",
-    image: "/images/gallery/galerie-5-equipement-telecom.jpg",
-    description: "Configuration et sécurisation de passerelles télécoms et routeurs d’interconnexion multi-sites.",
-  },
-  {
-    id: "g6",
-    title: "Intégration de pare-feu et routeurs de tête",
-    category: "equipements",
-    categoryLabel: "Équipements Réseau",
-    image: "/images/gallery/galerie-6-routeur-firewall.jpg",
-    description: "Déploiement physique des firewalls de nouvelle génération et switchs d’agrégation ciblés.",
+    description: "Vérification rigoureuse au testeur numérique de chaque liaison RJ45 sur le bandeau de brassage pour certifier l’intégrité des paires torsadées.",
   },
   {
     id: "g7",
-    title: "Salle serveurs & datacenter local — Union Européenne (Dakar)",
-    category: "baies",
-    categoryLabel: "Baies & Racks",
+    title: "Tirage de câbles en faux-plafond & passage en couloir",
+    category: "cablage",
+    categoryLabel: "Câblage & Chemins",
     image: "/images/gallery/galerie-7-salle-serveurs.jpg",
-    description: "Vue d’ensemble de la salle serveurs et de la distribution réseau physique réalisée pour la Délégation de l'Union Européenne au Sénégal.",
+    description: "Passage sous dalle et cheminement en faux-plafond des faisceaux de câbles réseau le long du couloir de circulation sur escabeau.",
   },
   {
     id: "g8",
-    title: "Cheminement filaire sous faux-plancher — Union Européenne (Dakar)",
+    title: "Sertissage & raccordement minutieux en boîte de sol",
     category: "cablage",
-    categoryLabel: "Câblage & Fibre",
+    categoryLabel: "Câblage & Prises",
     image: "/images/gallery/galerie-8-interconnexion.jpg",
-    description: "Passage et fixation sous chemin de câbles pour garantir une circulation d’air optimale et zéro interférence dans les bureaux de l'UE à Dakar.",
+    description: "Sertissage manuel précis des connecteurs RJ45 et ajustement des conducteurs à la pince coupante dans le boîtier de sol encastré.",
   },
   {
     id: "g9",
-    title: "Armoire murale de distribution d'étage",
-    category: "baies",
-    categoryLabel: "Baies & Racks",
+    title: "Goulottes techniques murales Legrand & blocs prises",
+    category: "cablage",
+    categoryLabel: "Câblage & Goulottes",
     image: "/images/gallery/galerie-9-armoire-reseau.jpg",
-    description: "Coffret mural 12U raccordant les postes de travail d’un plateau de bureaux avec switch PoE.",
+    description: "Pose des plinthes et goulottes compartimentées Legrand le long des murs, intégrant prises électriques rouges et plastrons RJ45 informatiques.",
+  },
+  {
+    id: "g5",
+    title: "Équipe technique en salle d'équipements (EPI & sécurité chantier)",
+    category: "equipements",
+    categoryLabel: "Chantiers & Équipe",
+    image: "/images/gallery/galerie-5-equipement-telecom.jpg",
+    description: "Supervision technique sur site par les ingénieurs NOB Technologies avec équipements de protection individuelle (gilets haute visibilité et casques).",
+  },
+  {
+    id: "g10",
+    title: "Centre de données & serveurs haute disponibilité",
+    category: "baies",
+    categoryLabel: "Baies & Datacenter",
+    image: "/images/projects/reseau-switching-datacenter.jpg",
+    description: "Architecture de serveurs et commutation haute densité en armoires fermées avec jarretières optiques et voyants d'activité pour infrastructure critique.",
+  },
+  {
+    id: "g11",
+    title: "Tableau de bord ERP & digitalisation des flux de gestion",
+    category: "digital",
+    categoryLabel: "ERP & Logiciels",
+    image: "/images/projects/erp-dashboard.jpg",
+    description: "Interface de gestion d'entreprise déployée sur-mesure (suivi des stocks, facturation, statistiques de vente et comptabilité analytique).",
+  },
+  {
+    id: "g12",
+    title: "Atelier pratique de formation IT & apprenants réseaux",
+    category: "digital",
+    categoryLabel: "Formations & Lab",
+    image: "/images/projects/simplon-formation-lab.jpg",
+    description: "Travaux pratiques et accompagnement d'apprenants sur postes informatiques : architecture réseau, administration Linux et préparation aux certifications.",
+  },
+  {
+    id: "g13",
+    title: "Commutation de haute sécurité & liaisons RJ45 certifiées",
+    category: "equipements",
+    categoryLabel: "Équipements Réseau",
+    image: "/images/projects/datacenter-firewall.jpg",
+    description: "Bandeau de brassage haute densité avec repérage numérique des ports et cordons réseau de catégorie supérieure pour la sécurité périmétrique.",
   },
 ];
 
@@ -126,9 +158,10 @@ export function GalleryGrid() {
       <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-12">
         {[
           { id: "tous", label: "Toutes les installations" },
-          { id: "baies", label: "Baies & Racks 42U" },
-          { id: "cablage", label: "Câblage & Fibre" },
-          { id: "equipements", label: "Équipements & Télécoms" },
+          { id: "baies", label: "Baies & Racks" },
+          { id: "cablage", label: "Câblage & Goulottes" },
+          { id: "equipements", label: "Équipements & Tests" },
+          { id: "digital", label: "ERP & Formations" },
         ].map((filter) => (
           <button
             key={filter.id}
