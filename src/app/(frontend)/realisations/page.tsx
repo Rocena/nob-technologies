@@ -29,6 +29,15 @@ const secondaryProjects: ProjectItem[] = [
     clientLogo: '/images/partners/union-europeenne-logo.svg',
   },
   {
+    id: 'seter-ter-dakar',
+    title: 'SETER (TER de Dakar) — Salles Serveurs, Baies Datacenter & Infrastructure Réseau',
+    sector: 'Transport Ferroviaire & Infrastructure Critique',
+    description: 'Déploiement et intégration de l’infrastructure réseau critique, câblage et aménagement des baies serveurs en salle technique pour la Société d’Exploitation du Train Express Régional de Dakar (SETER).',
+    tags: ['SETER', 'TER Dakar', 'Salles Serveurs', 'Baies Datacenter', 'Haute Disponibilité', 'Infrastructure Critique'],
+    coverImage: '/images/projects/seter-ter-datacenter.jpg',
+    clientLogo: '/images/partners/seter-ter-dakar.png',
+  },
+  {
     id: 'polyclinique-p2a',
     title: 'Polyclinique P2A (Dakar) — Infrastructure Réseau, VMware, VoIP Yeastar & FortiGate',
     sector: 'Santé & Établissement Médical',

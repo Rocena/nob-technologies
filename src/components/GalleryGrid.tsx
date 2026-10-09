@@ -18,11 +18,11 @@ export interface GalleryItem {
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: "g6",
-    title: "Paramétrage console & mise en service sur baie 42U",
+    title: "Intervention en salle serveurs & configuration baie technique (SETER / TER Dakar)",
     category: "baies",
     categoryLabel: "Baies & Racks",
-    image: "/images/gallery/galerie-6-routeur-firewall.jpg",
-    description: "Configuration console des commutateurs et pare-feux directement devant l’armoire baie 42U par nos ingénieurs équipés d'EPI pour la recette de site.",
+    image: "/images/projects/seter-ter-datacenter.jpg",
+    description: "Configuration console des équipements réseau et mise en service sur baie serveurs en salle technique par nos ingénieurs NOB Technologies (SETER - TER de Dakar).",
   },
   {
     id: "g1",
@@ -119,6 +119,14 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     categoryLabel: "Équipements Réseau",
     image: "/images/projects/datacenter-firewall.jpg",
     description: "Bandeau de brassage haute densité avec repérage numérique des ports et cordons réseau de catégorie supérieure pour la sécurité périmétrique.",
+  },
+  {
+    id: "g14",
+    title: "Infrastructure réseau & virtualisation médicale (Polyclinique P2A)",
+    category: "equipements",
+    categoryLabel: "Santé & Hôpital",
+    image: "/images/projects/polyclinique-medical.jpg",
+    description: "Architecture de serveurs virtualisés sous VMware, téléphonie Yeastar et sécurisation Fortinet FortiGate pour le milieu hospitalier.",
   },
 ];
 

@@ -175,13 +175,14 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
   }
 
   // 20. Clients & Réalisations ("Ils nous font confiance", Références)
-  if (/(client|confiance|r[eé]f[eé]rence|projet|r[eé]alisation|polyclinique|p2a|dolima|simplon|parc exotique|union europ[eé]enne|ue)/i.test(q) || (isOneWord && ["references", "clients"].includes(words[0]))) {
+  if (/(client|confiance|r[eé]f[eé]rence|projet|r[eé]alisation|seter|ter|polyclinique|p2a|dolima|simplon|parc exotique|union europ[eé]enne|ue)/i.test(q) || (isOneWord && ["references", "clients"].includes(words[0]))) {
     return "De grandes institutions et entreprises nous font confiance au Sénégal 🏆 :\n\n" +
       "1. **Délégation de l'Union Européenne à Dakar** : Câblage réseau structuré blindé Cat 6A et baies 42U.\n" +
-      "2. **Hôtel du Parc Exotique du Sénégal** : Plateforme web officielle de réservation et ERP d'établissement.\n" +
-      "3. **Polyclinique P2A (Dakar)** : Baies réseau, serveurs virtualisés VMware, téléphonie Yeastar et pare-feu FortiGate.\n" +
-      "4. **Dolima (Laiterie du Berger)** : Infrastructure réseau d'entreprise et connectivité industrielle.\n" +
-      "5. **Simplon Sénégal** : Formation pratique des apprenants aux infrastructures et à la cybersécurité.\n\n" +
+      "2. **SETER (TER de Dakar)** : Salles serveurs, baies techniques et infrastructure réseau critique.\n" +
+      "3. **Hôtel du Parc Exotique du Sénégal** : Plateforme web officielle de réservation et ERP d'établissement.\n" +
+      "4. **Polyclinique P2A (Dakar)** : Baies réseau, serveurs virtualisés VMware, téléphonie Yeastar et pare-feu FortiGate.\n" +
+      "5. **Dolima (Laiterie du Berger)** : Infrastructure réseau d'entreprise et connectivité industrielle.\n" +
+      "6. **Simplon Sénégal** : Formation pratique des apprenants aux infrastructures et à la cybersécurité.\n\n" +
       "Vous pouvez explorer toutes nos photos d'installations sur notre page [Réalisations](/realisations) !";
   }
 
@@ -192,7 +193,7 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
 
   // 22. Question "Pourquoi ?"
   if (isOneWord && words[0] === "pourquoi") {
-    return "Pourquoi choisir NOB TECHNOLOGIES ? Parce que nous allions la réactivité locale à Dakar et l'exigence des standards internationaux ! 🚀\n\n• Des ingénieurs certifiés sur le terrain (Cisco, Fortinet, Sophos).\n• Des références majeures qui attestent de notre sérieux (Union Européenne, Dolima, Polyclinique P2A).\n• Des solutions pérennes et durables, avec support technique disponible.\n\nQue cherchez-vous à améliorer dans votre entreprise ?";
+    return "Pourquoi choisir NOB TECHNOLOGIES ? Parce que nous allions la réactivité locale à Dakar et l'exigence des standards internationaux ! 🚀\n\n• Des ingénieurs certifiés sur le terrain (Cisco, Fortinet, Sophos).\n• Des références majeures qui attestent de notre sérieux (Union Européenne, SETER / TER Dakar, Dolima, Polyclinique P2A).\n• Des solutions pérennes et durables, avec support technique disponible.\n\nQue cherchez-vous à améliorer dans votre entreprise ?";
   }
 
   // 23. Réponse générale naturelle & conversationnelle (Attentive, chaleureuse et humaine)

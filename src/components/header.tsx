@@ -64,7 +64,7 @@ const SPOTLIGHTS: Record<string, SpotlightInfo> = {
   realisations: {
     badge: "PROJETS EN PRODUCTION",
     title: "Infrastructures Clés en Main",
-    desc: "Union Européenne, Polyclinique P2A, Parc Exotique, Simplon Sénégal & Dolima.",
+    desc: "Union Européenne, SETER (TER Dakar), Polyclinique P2A, Parc Exotique, Simplon & Dolima.",
     linkText: "Explorer la galerie",
     href: "/galerie",
     tag: "100% Photos Réelles",
@@ -126,7 +126,7 @@ const DEFAULT_NAV: NavItem[] = [
     desc: 'Déploiements d’infrastructures critiques et plateformes web en production',
     order: 4,
     children: [
-      { name: 'Projets & Déploiements', href: '/realisations', desc: 'Études de cas concrètes : Union Européenne, P2A, Parc Exotique' },
+      { name: 'Projets & Déploiements', href: '/realisations', desc: 'Études de cas concrètes : Union Européenne, SETER, P2A, Parc Exotique' },
       { name: 'Galerie d’Installations', href: '/galerie', desc: 'Photos réelles de baies de brassage, salles serveurs et câblage' },
     ]
   },

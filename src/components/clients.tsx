@@ -128,6 +128,28 @@ export const featuredClientReferences = [
     techTags: ["Câblage Cat 6A", "Baies 42U", "Peignage", "Certification Fluke"],
   },
   {
+    id: "seter-ter",
+    name: "SETER (TER de Dakar)",
+    subName: "Société d'Exploitation du Train Express Régional",
+    location: "Dakar, Sénégal",
+    sector: "Transport & Mobilité",
+    badgeColor: "bg-amber-50 text-amber-700 border-amber-200",
+    hoverBorder: "hover:border-amber-400",
+    accentColor: "text-amber-600",
+    logo: "/images/partners/seter-ter-dakar.png",
+    logoWidth: 160,
+    logoHeight: 52,
+    href: "/realisations#seter-ter-dakar",
+    scope: "Salles serveurs, baies techniques & infrastructure réseau critique",
+    missions: [
+      "Intervention en salle serveurs et aménagement des baies techniques",
+      "Déploiement et sécurisation de l'infrastructure réseau physique",
+      "Interconnexion, peignage de câbles et haute disponibilité",
+      "Respect des normes strictes de continuité de service ferroviaire",
+    ],
+    techTags: ["Salles Serveurs", "Baies Techniques", "Infrastructure Critique", "TER Dakar"],
+  },
+  {
     id: "parc-exotique",
     name: "Hôtel du Parc Exotique",
     subName: "Établissement Hôtelier & Réserve Naturelle",
@@ -311,8 +333,8 @@ export function Clients({ clients = [] }: { clients: any[] }) {
             </FadeUp>
           </div>
 
-          {/* 5 Flagship Client Cards - Ultra Corporate Logo Showcase */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5 mb-8">
+          {/* 6 Flagship Client Cards - Ultra Corporate Logo Showcase */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 lg:gap-4 xl:gap-4 mb-8">
             {featuredClientReferences.map((client, idx) => (
               <FadeUp key={client.id} delay={0.06 * idx}>
                 <button
