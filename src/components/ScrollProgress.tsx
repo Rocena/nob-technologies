@@ -23,7 +23,7 @@ export default function ScrollProgress() {
       aria-hidden="true"
     >
       <div
-        className="h-full bg-gradient-to-r from-primary to-accent transition-none"
+        className="h-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] transition-none shadow-[0_0_8px_rgba(0,212,255,0.7)]"
         style={{ width: `${progress}%` }}
       />
     </div>

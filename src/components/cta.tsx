@@ -89,7 +89,7 @@ export function CTA() {
 
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/80 via-transparent to-[#020617]/80 pointer-events-none"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-to-tr from-[#00D4FF]/10 via-[#00F0FF]/8 to-[#10E760]/8 rounded-full blur-[100px] pointer-events-none"></div>
 
       <Container className="relative z-10">
         <div className="text-center max-w-3xl mx-auto">
@@ -99,7 +99,7 @@ export function CTA() {
             </p>
             <Heading level={2} className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
               Passez à la vitesse supérieure avec nos{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                 infrastructures cloud et réseaux sécurisés.
               </span>
             </Heading>

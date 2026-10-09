@@ -41,7 +41,7 @@ export default async function AboutPage() {
               <TextReveal>
                 <h1 className="text-white mb-6 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-balance">
                   L&apos;Ingénierie Robuste :{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                     Des Fondations Digitales Pérennes
                   </span>
                 </h1>
@@ -91,9 +91,9 @@ export default async function AboutPage() {
             <div className="max-w-4xl mx-auto text-center">
               <FadeUp>
                 <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight mb-8">
-                  Concrètement, <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">qu'est-ce qu'on fait ?</span>
+                  Concrètement, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">qu'est-ce qu'on fait ?</span>
                 </h2>
-                <div className="w-24 h-1.5 rounded-full bg-gradient-to-r from-primary to-accent mx-auto mb-10"></div>
+                <div className="w-24 h-1.5 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] mx-auto mb-10"></div>
                 <p className="text-xl md:text-2xl text-slate-600 leading-relaxed max-w-3xl mx-auto font-light">
                   On intervient sur tout ce qui touche à l'informatique de votre structure :
                   connecter et sécuriser votre réseau, protéger vos données,

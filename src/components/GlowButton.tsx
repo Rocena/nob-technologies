@@ -44,9 +44,9 @@ export function GlowButton({
       <button
         type="button"
         onClick={handleClick}
-        className={`group relative inline-flex items-center justify-center rounded-xl text-[#020617] bg-accent hover:bg-[#00B4D8] transition-all duration-300 hover:scale-[1.02] shadow-[0_4px_14px_0_rgba(0,212,255,0.4)] hover:shadow-[0_6px_20px_rgba(0,212,255,0.3)] cursor-pointer active:scale-95 shrink-0 ${sizeClasses} ${className || ''}`}
+        className={`group relative inline-flex items-center justify-center rounded-xl text-[#020617] font-bold bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] hover:brightness-105 transition-all duration-300 hover:scale-[1.02] shadow-[0_4px_16px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_24px_rgba(16,231,96,0.35)] cursor-pointer active:scale-95 shrink-0 ${sizeClasses} ${className || ''}`}
       >
-        <span className="relative z-10 flex items-center justify-center whitespace-nowrap">
+        <span className="relative z-10 flex items-center justify-center whitespace-nowrap font-bold">
           {children}
         </span>
       </button>
@@ -57,9 +57,9 @@ export function GlowButton({
     <Link 
       href={href} 
       onClick={onClick} 
-      className={`group relative inline-flex items-center justify-center rounded-xl text-[#020617] bg-accent hover:bg-[#00B4D8] transition-all duration-300 hover:scale-[1.02] shadow-[0_4px_14px_0_rgba(0,212,255,0.4)] hover:shadow-[0_6px_20px_rgba(0,212,255,0.3)] shrink-0 ${sizeClasses} ${className || ''}`}
+      className={`group relative inline-flex items-center justify-center rounded-xl text-[#020617] font-bold bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] hover:brightness-105 transition-all duration-300 hover:scale-[1.02] shadow-[0_4px_16px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_24px_rgba(16,231,96,0.35)] shrink-0 ${sizeClasses} ${className || ''}`}
     >
-      <span className="relative z-10 flex items-center justify-center whitespace-nowrap">
+      <span className="relative z-10 flex items-center justify-center whitespace-nowrap font-bold">
         {children}
       </span>
     </Link>

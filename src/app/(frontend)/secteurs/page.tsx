@@ -49,7 +49,7 @@ export default function SectorsPage() {
                 <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 leading-tight mb-8">
                   La technologie n'est pas générique.
                 </h2>
-                <div className="w-16 h-1.5 bg-gradient-to-r from-primary to-accent rounded-full mb-8 mx-auto"></div>
+                <div className="w-16 h-1.5 bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] rounded-full mb-8 mx-auto"></div>
                 <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
                   Chaque secteur d'activité possède son propre rythme, ses propres menaces et ses propres normes. Chez NOB TECHNOLOGIES, nous n'appliquons pas de solutions toutes faites. Nous réalisons un audit précis de vos processus métiers pour concevoir, déployer et infogérer des solutions réseaux, télécoms et logicielles parfaitement alignées avec vos ambitions stratégiques.
                 </p>

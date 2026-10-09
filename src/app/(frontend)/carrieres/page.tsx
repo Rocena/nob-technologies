@@ -70,7 +70,7 @@ export default function CarrieresPage() {
               <TextReveal>
                 <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6 text-balance">
                   Carrières &amp; Opportunités :{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                     Construisez l&apos;Avenir Numérique
                   </span>
                 </h1>

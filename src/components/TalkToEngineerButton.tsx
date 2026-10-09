@@ -40,7 +40,7 @@ export function TalkToEngineerButton() {
         }
 
         .accent-gradient-flow {
-          background: linear-gradient(135deg, #00D4FF 0%, #38BDF8 30%, #00B4D8 70%, #0096C7 100%);
+          background: linear-gradient(135deg, #00D4FF 0%, #00F0FF 40%, #10E760 100%);
           background-size: 200% 200%;
           animation: accentBorderFlow 4s ease infinite;
         }
@@ -49,7 +49,7 @@ export function TalkToEngineerButton() {
       <div className="relative inline-flex items-center justify-center rounded-sm group select-none">
         {/* Soft Ambient Accent Shadow */}
         <div 
-          className="absolute inset-0 bg-[#00D4FF] rounded-sm blur-md opacity-30 group-hover:opacity-60 transition-opacity duration-300 pointer-events-none"
+          className="absolute inset-0 bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] rounded-sm blur-md opacity-30 group-hover:opacity-60 transition-opacity duration-300 pointer-events-none"
           aria-hidden="true"
         />
 
