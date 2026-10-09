@@ -29,7 +29,7 @@ export function Hero() {
 
           <FadeUp delay={0.3}>
             <div className="flex flex-col sm:flex-row gap-5 justify-center mt-8">
-              <Button size="lg" variant="light" asChild className="group h-14 px-8 text-base shadow-[0_0_40px_rgba(255,255,255,0.15)]">
+              <Button size="lg" variant="light" asChild className="group h-14 px-8 text-base font-bold rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.12)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto">
                 <Link href="/services">
                   Découvrir nos expertises
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />

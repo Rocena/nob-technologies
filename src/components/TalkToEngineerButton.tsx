@@ -46,10 +46,10 @@ export function TalkToEngineerButton() {
         }
       `}</style>
 
-      <div className="relative inline-flex items-center justify-center rounded-sm group select-none">
+      <div className="relative inline-flex items-center justify-center rounded-xl group select-none w-full sm:w-auto">
         {/* Soft Ambient Accent Shadow */}
         <div 
-          className="absolute inset-0 bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] rounded-sm blur-md opacity-30 group-hover:opacity-60 transition-opacity duration-300 pointer-events-none"
+          className="absolute inset-0 bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] rounded-xl blur-md opacity-30 group-hover:opacity-60 transition-opacity duration-300 pointer-events-none"
           aria-hidden="true"
         />
 
@@ -61,7 +61,7 @@ export function TalkToEngineerButton() {
           onMouseLeave={() => setIsHovered(false)}
           onMouseMove={handleMouseMove}
           aria-label="Parler à un ingénieur"
-          className="accent-gradient-flow relative z-10 h-14 min-w-[240px] px-8 rounded-sm font-bold text-base text-[#020617] flex items-center justify-center gap-2.5 cursor-pointer transition-all duration-300 shadow-[0_0_20px_rgba(0,212,255,0.35)] hover:shadow-[0_0_35px_rgba(0,212,255,0.6)] hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
+          className="accent-gradient-flow relative z-10 h-14 w-full sm:w-auto sm:min-w-[240px] px-8 rounded-xl font-bold text-base text-[#020617] flex items-center justify-center gap-2.5 cursor-pointer transition-all duration-300 shadow-[0_0_20px_rgba(0,212,255,0.35)] hover:shadow-[0_0_35px_rgba(0,212,255,0.6)] hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
         >
           {/* Subtle cursor spotlight inside the accent button */}
           {isHovered && (
