@@ -5,7 +5,7 @@ import Link from "next/link";
 import { 
   Menu, X, ArrowRight, Phone, Mail, Layers, Globe, Star, Info, ChevronDown, Camera,
   ShieldCheck, Network, Cpu, Code2, PhoneCall, Server, GraduationCap, Award, ShieldAlert, Sparkles,
-  Building2, Newspaper, HelpCircle, Users
+  Building2, Newspaper, HelpCircle, Users, Smartphone
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AnimatedLogo } from "./AnimatedLogo";
@@ -303,7 +303,7 @@ export function Header() {
       {/* Subtle Backdrop Dim Layer - Silicon Valley / Tesla pattern */}
       <div 
         className={cn(
-          "fixed inset-0 top-16 sm:top-20 bg-slate-950/25 backdrop-blur-[2px] pointer-events-none transition-opacity duration-300 z-40 hidden lg:block",
+          "fixed inset-0 top-[96px] sm:top-[112px] bg-slate-950/25 backdrop-blur-[2px] pointer-events-none transition-opacity duration-300 z-40 hidden lg:block",
           activeHover ? "opacity-100" : "opacity-0"
         )}
         aria-hidden="true"
@@ -311,6 +311,66 @@ export function Header() {
 
       {/* Main Header Bar - Corporate Silicon Valley Standard */}
       <header className="fixed top-0 inset-x-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200/80 shadow-[0_4px_25px_rgba(15,23,42,0.03)] transition-all duration-300">
+        {/* Executive Top Utility Bar - Direct Corporate Contacts */}
+        <div className="w-full bg-[#030712] border-b border-slate-800/80 text-slate-300">
+          <div className="w-full max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex h-8 sm:h-9 items-center justify-between text-[11px] sm:text-xs">
+              {/* Left: HQ & Status badge */}
+              <div className="flex items-center gap-2 text-slate-400">
+                <span className="relative flex h-2 w-2 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                <span className="hidden sm:inline font-medium text-slate-300 tracking-tight">
+                  Dakar, Sénégal <span className="text-slate-600">•</span> Route de l&apos;Aéroport LSS <span className="text-slate-600">•</span> <span className="text-emerald-400 font-semibold">Support &amp; Astreinte 24/7</span>
+                </span>
+                <span className="sm:hidden font-medium text-slate-300 tracking-tight text-[10.5px]">
+                  Dakar <span className="text-slate-600">•</span> <span className="text-emerald-400 font-semibold">Support 24/7</span>
+                </span>
+              </div>
+
+              {/* Right: Direct Contacts (Fixe, Portable, Mail) */}
+              <div className="flex items-center gap-3 sm:gap-4 md:gap-5">
+                {/* Fixe Dakar */}
+                <a 
+                  href="tel:+221338140435"
+                  className="flex items-center gap-1.5 text-slate-300 hover:text-cyan-400 transition-colors group"
+                  title="Téléphone fixe standard Dakar"
+                >
+                  <Phone className="w-3 h-3 text-cyan-400 shrink-0 group-hover:scale-110 transition-transform" />
+                  <span className="text-slate-400 hidden md:inline font-normal">Fixe :</span>
+                  <span className="font-semibold text-slate-200 group-hover:text-cyan-400 whitespace-nowrap text-[10.5px] sm:text-xs">+221 33 814 04 35</span>
+                </a>
+
+                <span className="text-slate-700 select-none" aria-hidden="true">|</span>
+
+                {/* Portable Direct */}
+                <a 
+                  href="tel:+221773010838"
+                  className="flex items-center gap-1.5 text-slate-300 hover:text-emerald-400 transition-colors group"
+                  title="Ligne directe portable & WhatsApp"
+                >
+                  <Smartphone className="w-3 h-3 text-emerald-400 shrink-0 group-hover:scale-110 transition-transform" />
+                  <span className="text-slate-400 hidden md:inline font-normal">Portable :</span>
+                  <span className="font-semibold text-slate-200 group-hover:text-emerald-400 whitespace-nowrap text-[10.5px] sm:text-xs">+221 77 301 08 38</span>
+                </a>
+
+                <span className="text-slate-700 hidden lg:inline select-none" aria-hidden="true">|</span>
+
+                {/* Email Direct */}
+                <a 
+                  href="mailto:contact@nobtech.fr"
+                  className="hidden lg:flex items-center gap-1.5 text-slate-300 hover:text-cyan-400 transition-colors group"
+                  title="Courriel officiel Nob Technologies"
+                >
+                  <Mail className="w-3 h-3 text-cyan-400 shrink-0 group-hover:scale-110 transition-transform" />
+                  <span className="font-semibold text-slate-200 group-hover:text-cyan-400 whitespace-nowrap">contact@nobtech.fr</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="w-full max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 sm:h-20 items-center justify-between gap-3 sm:gap-4">
             {/* Brand Logo */}
@@ -522,17 +582,34 @@ export function Header() {
                             <div className="space-y-2 pt-0.5">
                               <a
                                 href="tel:+221773010838"
-                                className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 hover:bg-cyan-50/70 border border-slate-200/60 hover:border-cyan-200 transition-colors group/tel"
+                                className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50/70 border border-slate-200/60 hover:border-emerald-200 transition-colors group/tel"
+                              >
+                                <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-emerald-600 shadow-2xs shrink-0">
+                                  <Smartphone className="w-4 h-4" />
+                                </div>
+                                <div>
+                                  <div className="text-xs font-bold text-slate-900 group-hover/tel:text-emerald-600 transition-colors">
+                                    +221 77 301 08 38
+                                  </div>
+                                  <div className="text-[11px] text-slate-500">
+                                    Portable direct d’astreinte & WhatsApp
+                                  </div>
+                                </div>
+                              </a>
+
+                              <a
+                                href="tel:+221338140435"
+                                className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 hover:bg-cyan-50/70 border border-slate-200/60 hover:border-cyan-200 transition-colors group/fixe"
                               >
                                 <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-cyan-600 shadow-2xs shrink-0">
                                   <Phone className="w-4 h-4" />
                                 </div>
                                 <div>
-                                  <div className="text-xs font-bold text-slate-900 group-hover/tel:text-cyan-600 transition-colors">
-                                    +221 77 301 08 38
+                                  <div className="text-xs font-bold text-slate-900 group-hover/fixe:text-cyan-600 transition-colors">
+                                    +221 33 814 04 35
                                   </div>
                                   <div className="text-[11px] text-slate-500">
-                                    Ligne directe d’astreinte & devis
+                                    Standard fixe bureau Dakar
                                   </div>
                                 </div>
                               </a>
@@ -628,7 +705,7 @@ export function Header() {
         />
 
         <div className={cn(
-          "absolute inset-x-0 top-16 sm:top-20 bottom-0 bg-white shadow-2xl flex flex-col justify-between overflow-y-auto transition-transform duration-300 ease-out",
+          "absolute inset-x-0 top-[96px] sm:top-[116px] bottom-0 bg-white shadow-2xl flex flex-col justify-between overflow-y-auto transition-transform duration-300 ease-out",
           isOpen ? "translate-y-0" : "-translate-y-4"
         )}>
           {/* Main Navigation Links */}
@@ -744,23 +821,31 @@ export function Header() {
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              <div className="grid grid-cols-2 gap-2.5 pt-1">
+              <div className="grid grid-cols-2 gap-2 pt-1">
                 <a
                   href="tel:+221773010838"
-                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-cyan-600 hover:border-cyan-200 transition-colors shadow-sm"
+                  className="flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-emerald-600 hover:border-emerald-200 transition-colors shadow-2xs"
                 >
-                  <Phone className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
+                  <Smartphone className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
                   <span className="truncate">+221 77 301 08 38</span>
                 </a>
 
                 <a
-                  href="mailto:contact@nobtech.fr"
-                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-cyan-600 hover:border-cyan-200 transition-colors shadow-sm"
+                  href="tel:+221338140435"
+                  className="flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-cyan-600 hover:border-cyan-200 transition-colors shadow-2xs"
                 >
-                  <Mail className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
-                  <span className="truncate">contact@nobtech.fr</span>
+                  <Phone className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
+                  <span className="truncate">+221 33 814 04 35</span>
                 </a>
               </div>
+
+              <a
+                href="mailto:contact@nobtech.fr"
+                className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-cyan-600 hover:border-cyan-200 transition-colors shadow-2xs"
+              >
+                <Mail className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
+                <span className="truncate font-medium">contact@nobtech.fr</span>
+              </a>
 
               <p className="text-center text-[11px] text-slate-400 font-mono">
                 Route de l&apos;Aéroport LSS lot N° 79, Dakar Sénégal

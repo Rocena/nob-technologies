@@ -10,7 +10,7 @@ import { TalkToEngineerButton } from "./TalkToEngineerButton";
 
 export function Hero() {
   return (
-    <Section data-cursor-binary="true" className="relative overflow-hidden bg-[#020617] pt-28 sm:pt-32 pb-28 sm:pb-40 min-h-[90vh] flex items-center justify-center">
+    <Section data-cursor-binary="true" className="relative overflow-hidden bg-[#020617] pt-32 sm:pt-36 pb-28 sm:pb-40 min-h-[90vh] flex items-center justify-center">
       {/* Silicon Valley Style Backgrounds with Logo Color Harmonization */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] bg-gradient-to-tr from-[#00D4FF]/12 via-[#00F0FF]/10 to-[#10E760]/10 rounded-full blur-[140px] pointer-events-none"></div>
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:32px_32px]"></div>
