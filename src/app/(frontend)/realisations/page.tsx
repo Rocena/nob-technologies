@@ -25,7 +25,7 @@ const secondaryProjects: ProjectItem[] = [
     sector: 'Institutionnel & Diplomatique',
     description: 'Déploiement complet du câblage réseau structuré Cat 6A/7, pose de baies de brassage 42U, peignage méthodique des liaisons et certification de conformité pour le bureau de l’Union Européenne à Dakar.',
     tags: ['Union Européenne', 'Dakar', 'Câblage Cat 6A/7', 'Baies 42U', 'Certification Fluke'],
-    coverImage: '/images/gallery/galerie-6-routeur-firewall.jpg',
+    coverImage: '/images/projects/union-europeenne-baie-42u.jpg',
     clientLogo: '/images/partners/union-europeenne-logo.svg',
   },
   {
@@ -245,8 +245,8 @@ export default async function ProjectsPage() {
               {/* Main Feature Photo */}
               <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden border border-slate-700 bg-slate-950 shadow-2xl group">
                 <Image
-                  src="/images/gallery/galerie-4-installation-reseau.jpg"
-                  alt="Test de certification Fluke et recette technique sur baie pour l'Union Européenne à Dakar"
+                  src="/images/projects/union-europeenne-baie-42u.jpg"
+                  alt="Délégation de l'Union Européenne à Dakar — Baie 42U, peignage Cat 6A et testeur Fluke PASS"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 1024px) 100vw, 60vw"
