@@ -56,11 +56,31 @@ const DEFAULT_KNOWLEDGE_BASE: KnowledgeItem[] = [
 ];
 
 function getBotResponse(input: string, knowledge: KnowledgeItem[]): string {
-  const lower = input.toLowerCase();
-  const words = lower.split(/[\s,.'?!]+/).filter(w => w.length > 1);
+  const lower = input.toLowerCase().trim();
+  const words = lower.split(/[\s,.'?!]+/).filter(w => w.length > 0);
   
   if (words.length === 0) {
-    return "Pourriez-vous préciser votre question ? 😊";
+    return "Je vous écoute ! Dites-moi tout : comment puis-je vous aider aujourd'hui ? 😊";
+  }
+
+  // Quick human checks for off-topic, humor or single words
+  if (/pizza|burger|nourriture|faim|manger/i.test(lower)) {
+    return "Haha, pas du tout ! 😄 Nous ne livrons pas de pizzas, mais nous sécurisons vos réseaux d'entreprise, installons des pare-feux et concevons des ERP sur-mesure. Si vous avez un besoin informatique, là vous pouvez compter sur nous !";
+  }
+  if (/blague|humour|marrant/i.test(lower)) {
+    return "Pourquoi les administrateurs réseaux et les développeurs détestent-ils la nature ? Parce qu'il y a trop de bugs et aucun Ctrl+Z ! 🐛💻 Comment se porte votre système informatique aujourd'hui ?";
+  }
+  if (/t['\s]?es qui|qui es-?tu|es-?tu (une |un )?ia|qui parle/i.test(lower) || (words.length === 1 && words[0] === "qui")) {
+    return "Je suis l'assistant digital de NOB TECHNOLOGIES ! 🤖 Je suis là pour vous renseigner en direct et vous mettre en relation avec nos ingénieurs à Dakar. Et vous, quel projet ou besoin vous amène ?";
+  }
+  if (/stage|recrutement|emploi|cv|job/i.test(lower)) {
+    return "Vous souhaitez rejoindre NOB TECHNOLOGIES ? 💼 C'est un plaisir ! Envoyez votre CV et lettre de motivation directement à contact@nobtech.fr avec en objet « Candidature Stage / Emploi ». Notre équipe RH l'étudiera avec attention !";
+  }
+  if (/urgent|urgence|sos|panne|bloqu/i.test(lower)) {
+    return "Je suis là ! 🚨 S'il s'agit d'une panne bloquante ou d'un incident critique, appelez directement nos ingénieurs au +221 77 301 08 38 pour une prise en charge immédiate. Sinon, décrivez-moi le problème ici !";
+  }
+  if (/whatsapp/i.test(lower)) {
+    return "Vous pouvez nous écrire directement sur WhatsApp au +221 77 301 08 38 📲 ! Nos ingénieurs vous répondent très rapidement.";
   }
 
   let bestMatch: KnowledgeItem | null = null;
@@ -85,7 +105,7 @@ function getBotResponse(input: string, knowledge: KnowledgeItem[]): string {
     return bestMatch.response;
   }
 
-  return "Je ne suis pas sûr de bien comprendre votre demande. 🧐 Pourriez-vous reformuler plus spécifiquement ? Autrement, je vous invite à contacter un agent humain sur notre page [Contact](/contact) pour une assistance personnalisée.";
+  return "Je vous écoute ! Chez NOB TECHNOLOGIES, nous intervenons en cybersécurité (Sophos, Fortinet), réseaux physiques & Wi-Fi, ERP sur-mesure (Odoo, Dolibarr), développement web et formations certifiantes à Dakar.\n\nDites-moi simplement en quelques mots ce que vous aimeriez réaliser ou joignez directement notre équipe au +221 77 301 08 38 !";
 }
 
 // Render simple markdown links
