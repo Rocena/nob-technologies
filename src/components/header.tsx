@@ -229,7 +229,7 @@ export function Header() {
               </div>
               
               {/* Desktop Navigation (large screens) */}
-              <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+              <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1.5">
                 {navItems.map((item, index) => {
                   const hasChildren = Boolean(item.children && item.children.length > 0);
                   const ParentIcon = getNavIcon(item.name);
@@ -238,12 +238,12 @@ export function Header() {
                     <div key={item.name} className="relative group">
                       <Link 
                         href={item.href} 
-                        className="group/link text-[15px] font-semibold text-slate-800 hover:text-cyan-600 transition-colors py-5 px-1 flex items-center"
+                        className="group/link text-sm xl:text-[15px] font-semibold text-slate-800 hover:text-cyan-600 transition-colors py-5 px-0.5 flex items-center"
                       >
-                        <span className="px-3 py-1.5 rounded-xl group-hover/link:bg-slate-100/90 group-hover/link:text-cyan-600 transition-all flex items-center gap-1.5">
+                        <span className="px-2.5 xl:px-3 py-1.5 rounded-xl group-hover/link:bg-slate-100/90 group-hover/link:text-cyan-600 transition-all flex items-center gap-1 xl:gap-1.5 whitespace-nowrap">
                           <span>{item.name}</span>
                           {(hasChildren || item.id === 'contact') && (
-                            <ChevronDown className="w-4 h-4 text-slate-400 group-hover/link:text-cyan-600 group-hover:rotate-180 transition-transform duration-200" />
+                            <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover/link:text-cyan-600 group-hover:rotate-180 transition-transform duration-200" />
                           )}
                         </span>
                       </Link>
@@ -417,9 +417,15 @@ export function Header() {
               </nav>
 
               {/* Desktop Quick Actions */}
-              <div className="hidden lg:flex items-center gap-3">
+              <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
                 <SearchButton />
-                <GlowButton onClick={() => openQuoteModal()}>Demander un devis</GlowButton>
+                <GlowButton 
+                  size="sm" 
+                  onClick={() => openQuoteModal()}
+                  className="!h-10 sm:!h-10 !px-4 xl:!px-5 text-xs font-bold"
+                >
+                  Demander un devis
+                </GlowButton>
               </div>
 
               {/* Mobile & Tablet Burger Button */}
