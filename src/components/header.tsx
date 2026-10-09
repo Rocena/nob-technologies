@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { AnimatedLogo } from "./AnimatedLogo";
 import { useQuoteModal } from "./EngineerModalContext";
 import { SearchButton } from "./SearchButton";
+import { GlowButton } from "./GlowButton";
 
 interface SubItem {
   name: string;
@@ -655,18 +656,13 @@ export function Header() {
             <div className="hidden lg:flex items-center gap-2.5 xl:gap-3 shrink-0">
               <SearchButton />
               
-              <button
-                type="button"
+              <GlowButton
+                size="sm"
                 onClick={() => openQuoteModal()}
-                className="relative inline-flex items-center gap-2 h-10 px-4 xl:px-5 rounded-full bg-slate-950 hover:bg-slate-800 text-white text-[13px] xl:text-[13.5px] font-semibold transition-all duration-200 border border-slate-800 hover:border-slate-700 shadow-xs hover:shadow-md active:scale-[0.98] cursor-pointer group shrink-0"
+                className="!h-10 sm:!h-10 !px-4 xl:!px-5 text-[13px] font-bold shadow-md hover:shadow-cyan-500/30 rounded-xl"
               >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-gradient-to-r from-cyan-400 to-blue-500" />
-                </span>
-                <span className="whitespace-nowrap tracking-tight">Demander un devis</span>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
-              </button>
+                Demander un devis
+              </GlowButton>
             </div>
 
             {/* Mobile & Tablet Burger Button */}
@@ -809,17 +805,15 @@ export function Header() {
           {/* Drawer Footer with Quick Calls & Devis CTA */}
           <div className="p-5 sm:p-8 bg-slate-50/90 border-t border-slate-200 mt-auto shrink-0">
             <div className="max-w-3xl mx-auto w-full space-y-3">
-              <button
-                type="button"
+              <GlowButton
                 onClick={() => {
                   closeMenu();
                   openQuoteModal();
                 }}
-                className="w-full h-12 rounded-xl bg-slate-950 hover:bg-slate-800 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md transition-colors"
+                className="w-full !h-12 rounded-xl text-sm sm:text-base font-bold shadow-md hover:shadow-cyan-500/30"
               >
-                <span>Demander un devis en ligne</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+                Demander un devis en ligne
+              </GlowButton>
 
               <div className="grid grid-cols-2 gap-2 pt-1">
                 <a
