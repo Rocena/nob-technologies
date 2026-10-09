@@ -464,12 +464,9 @@ export function Header() {
         )}>
           {/* Main Navigation Links */}
           <div className="p-5 sm:p-8 max-w-3xl mx-auto w-full space-y-4">
-            <div className="pb-2 border-b border-slate-100 flex items-center justify-between">
-              <p className="text-[11px] font-mono uppercase tracking-widest text-slate-400 font-semibold">
-                Menu &bull; Nobtech Navigation
-              </p>
-              <span className="text-[10px] font-mono font-bold text-cyan-600 bg-cyan-50 px-2 py-0.5 rounded">
-                NOBTECH OS
+            <div className="pb-2.5 border-b border-slate-100 flex items-center justify-between">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">
+                MENU
               </span>
             </div>
 
@@ -595,7 +592,7 @@ export function Header() {
               </div>
 
               <p className="text-center text-[11px] text-slate-400 font-mono">
-                Azura de l’Aéroport, 1SS lot N° 79, Dakar Sénégal
+                Route de l&apos;Aéroport LSS lot N° 79, Dakar Sénégal
               </p>
             </div>
           </div>

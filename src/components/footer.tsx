@@ -21,7 +21,7 @@ export async function Footer() {
   const desc = settings?.general?.siteDescription || "Solutions & Services Informatiques. Votre sécurité, notre priorité. Solutions complètes de cybersécurité & services managés.";
   const phone = settings?.contact?.phone || "+221 77 301 08 38 / +221 33 814 04 35";
   const email = settings?.contact?.email || "contact@nobtech.fr";
-  const address = settings?.contact?.address || "Azura de l’Aéroport, 1SS lot N° 79, Dakar Sénégal";
+  const address = settings?.contact?.address || "Route de l'Aéroport LSS lot N° 79, Dakar Sénégal";
 
   return (
     <footer data-cursor-binary="true" className="relative bg-[#020617] text-white pt-12 pb-8 md:pt-16 md:pb-10 lg:pt-24 lg:pb-12 overflow-hidden border-t border-white/10">

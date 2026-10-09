@@ -14,7 +14,7 @@ Identité & Coordonnées :
 - Site web officiel : nobtech.fr
 - Téléphones : +221 77 301 08 38 / +221 33 814 04 35
 - Email : contact@nobtech.fr
-- Adresse physique : Azura de l’Aéroport, 1SS lot N° 79, Dakar, Sénégal
+- Adresse physique : Route de l’Aéroport LSS lot N° 79, Dakar, Sénégal
 - Devise : « Votre sécurité, notre priorité »
 
 Expertises & Services clés :
@@ -121,9 +121,9 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
   }
 
   // 11. Coordonnées & Contact
-  if (/(contact|adresse|t[eé]l[eé]phone|num[eé]ro|mail|email|o[uù] [eê]tes|dakar|azura|si[eè]ge)/i.test(q)) {
+  if (/(contact|adresse|t[eé]l[eé]phone|num[eé]ro|mail|email|o[uù] [eê]tes|dakar|a[eé]roport|si[eè]ge)/i.test(q)) {
     return "Voici comment nous joindre directement 📍 :\n\n" +
-      "• Siège : Azura de l’Aéroport, 1SS lot N° 79, Dakar, Sénégal.\n" +
+      "• Siège : Route de l’Aéroport LSS lot N° 79, Dakar, Sénégal.\n" +
       "• Téléphone direct : +221 77 301 08 38 ou +221 33 814 04 35.\n" +
       "• Email officiel : contact@nobtech.fr\n" +
       "• Horaires : du lundi au vendredi de 8h30 à 18h00 (support d'astreinte 24/7 pour les contrats d'infogérance).";

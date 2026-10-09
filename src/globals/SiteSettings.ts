@@ -74,7 +74,7 @@ export const SiteSettings: GlobalConfig = {
               name: 'address', 
               type: 'textarea', 
               label: 'Adresse Physique du Siège',
-              defaultValue: 'Azura de l’Aéroport, 1SS lot N° 79, Dakar Sénégal' 
+              defaultValue: 'Route de l’Aéroport LSS lot N° 79, Dakar Sénégal' 
             },
           ]
         },
