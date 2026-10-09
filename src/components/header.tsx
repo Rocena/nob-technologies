@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Container } from "./ui/layout";
 import { 
   Menu, X, ArrowRight, Phone, Mail, Layers, Globe, Star, BookOpen, Info, DollarSign, Camera, ChevronDown,
   ShieldCheck, Network, Cpu, Code2, PhoneCall, Server, GraduationCap, Award, ShieldAlert, Sparkles,
@@ -218,18 +217,17 @@ export function Header() {
 
   return (
     <>
-      {/* Main Header Bar */}
-      <header className="fixed top-0 sm:top-4 inset-x-0 z-50 sm:px-6">
-        <div className="max-w-7xl mx-auto bg-white/95 backdrop-blur-xl sm:rounded-2xl border-b sm:border border-slate-200/80 shadow-[0_8px_32px_rgba(0,0,0,0.06)] transition-all duration-300">
-          <Container className="px-4 sm:px-6">
-            <div className="flex h-16 sm:h-20 items-center justify-between">
-              {/* Brand Logo */}
-              <div className="flex items-center shrink-0 max-w-[200px] sm:max-w-none">
-                <AnimatedLogo />
-              </div>
-              
-              {/* Desktop Navigation (large screens) */}
-              <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1.5">
+      {/* Main Header Bar - Full-Width Corporate Enterprise Standard */}
+      <header className="fixed top-0 inset-x-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200/80 shadow-[0_4px_25px_rgba(15,23,42,0.04)] transition-all duration-300">
+        <div className="w-full max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 sm:h-20 items-center justify-between gap-4">
+            {/* Brand Logo */}
+            <div className="flex items-center shrink-0">
+              <AnimatedLogo />
+            </div>
+            
+            {/* Desktop Navigation (large screens) */}
+            <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
                 {navItems.map((item, index) => {
                   const hasChildren = Boolean(item.children && item.children.length > 0);
                   const ParentIcon = getNavIcon(item.name);
@@ -417,12 +415,12 @@ export function Header() {
               </nav>
 
               {/* Desktop Quick Actions */}
-              <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
+              <div className="hidden lg:flex items-center gap-3 xl:gap-4 shrink-0">
                 <SearchButton />
                 <GlowButton 
-                  size="sm" 
+                  size="md" 
                   onClick={() => openQuoteModal()}
-                  className="!h-10 sm:!h-10 !px-4 xl:!px-5 text-xs font-bold"
+                  className="!h-11 !px-5 xl:!px-6 text-sm font-bold shadow-md hover:shadow-cyan-500/25"
                 >
                   Demander un devis
                 </GlowButton>
@@ -442,8 +440,7 @@ export function Header() {
                 </button>
               </div>
             </div>
-          </Container>
-        </div>
+          </div>
       </header>
 
       {/* Mobile & Tablet Navigation Overlay */}
@@ -465,7 +462,7 @@ export function Header() {
         />
 
         <div className={cn(
-          "absolute inset-x-0 top-16 sm:top-24 bottom-0 bg-white shadow-2xl flex flex-col justify-between overflow-y-auto transition-transform duration-300 ease-out",
+          "absolute inset-x-0 top-16 sm:top-20 bottom-0 bg-white shadow-2xl flex flex-col justify-between overflow-y-auto transition-transform duration-300 ease-out",
           isOpen ? "translate-y-0" : "-translate-y-4"
         )}>
           {/* Main Navigation Links */}
