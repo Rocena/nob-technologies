@@ -1,10 +1,5 @@
 <svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="p2a_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0284C7"/>
-      <stop offset="50%" stop-color="#0D9488"/>
-      <stop offset="100%" stop-color="#10B981"/>
-    </linearGradient>
     <linearGradient id="p2a_cross" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0284C7"/>
       <stop offset="100%" stop-color="#059669"/>
@@ -37,7 +32,7 @@
     
     <!-- Subtitle / Full Title -->
     <text x="0" y="32" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="9" letter-spacing="0.8" fill="#0D9488">
-      AMITIÉ &amp; ALLIANCE &bull; DAKAR
+      AMITIÉ &amp; ALLIANCE &#8226; DAKAR
     </text>
   </g>
 </svg>

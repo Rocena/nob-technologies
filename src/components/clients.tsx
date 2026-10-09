@@ -9,8 +9,6 @@ import {
   ArrowRight,
   CheckCircle2,
   MapPin,
-  Building2,
-  ShieldCheck,
   Server,
   Activity,
   GraduationCap,
@@ -221,10 +219,9 @@ export function Clients({ clients = [] }: { clients: any[] }) {
         {/* Section Header: Constructeurs & Éditeurs Partenaires */}
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
           <FadeUp>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-50 text-cyan-800 border border-cyan-200 text-xs font-semibold mb-3">
-              <ShieldCheck className="w-3.5 h-3.5 text-cyan-600" />
-              Écosystème Technologique International
-            </div>
+            <p className="font-mono text-cyan-600 text-sm md:text-base tracking-[0.25em] uppercase mb-4 font-bold">
+              &gt;_ ÉCOSYSTÈME TECHNOLOGIQUE INTERNATIONAL
+            </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
               Partenaires Technologiques &amp; Constructeurs
             </h2>
@@ -280,10 +277,9 @@ export function Clients({ clients = [] }: { clients: any[] }) {
         <div className="pt-10 border-t border-slate-200/90">
           <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
             <FadeUp>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 text-blue-800 border border-blue-200 text-xs font-bold uppercase tracking-wider mb-3">
-                <Building2 className="w-3.5 h-3.5 text-blue-600" />
-                Références Clients &amp; Déploiements Majeurs
-              </div>
+              <p className="font-mono text-cyan-600 text-sm md:text-base tracking-[0.25em] uppercase mb-4 font-bold">
+                &gt;_ RÉFÉRENCES CLIENTS &amp; DÉPLOIEMENTS MAJEURS
+              </p>
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
                 Ils Nous Font Confiance
               </h3>
