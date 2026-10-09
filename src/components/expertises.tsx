@@ -105,7 +105,7 @@ export function Expertises({ services = [] }: { services: any[] }) {
             <Heading level={2} className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
               Nous construisons les fondations numériques des leaders de demain.
             </Heading>
-            <Text className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
+            <Text className="text-base sm:text-lg lg:text-xl text-slate-800 md:text-slate-700 font-medium sm:font-normal leading-relaxed max-w-3xl mx-auto">
               Chez NOB TECHNOLOGIES, nous ne nous contentons pas de fournir des services IT. Nous architecturons des écosystèmes complets, résilients et évolutifs. Face à la complexité croissante des réseaux et à l&apos;évolution des cybermenaces, notre mission est de vous offrir un socle technologique infaillible.
             </Text>
           </FadeUp>

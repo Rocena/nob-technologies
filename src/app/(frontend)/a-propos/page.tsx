@@ -118,10 +118,10 @@ export default async function AboutPage() {
                   <h3 className="text-3xl font-extrabold tracking-tight text-slate-900 mb-4">
                     Nous construisons les fondations numériques des leaders de demain.
                   </h3>
-                  <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-4">
+                  <p className="text-base sm:text-lg text-slate-800 md:text-slate-700 font-medium sm:font-normal leading-relaxed mb-4">
                     Chez NOB TECHNOLOGIES, nous ne nous contentons pas de fournir des services IT. Nous architecturons des écosystèmes complets, résilients et évolutifs. Face à la complexité croissante des réseaux et à l&apos;évolution des cybermenaces, notre mission est de vous offrir un socle technologique infaillible.
                   </p>
-                  <p className="text-sm text-slate-500 leading-relaxed">
+                  <p className="text-sm sm:text-base text-slate-700 md:text-slate-600 leading-relaxed">
                     Nous croyons fermement qu&apos;une infrastructure technologique performante ne devrait pas être un luxe réservé aux multinationales. Notre but est de démocratiser l&apos;accès à une informatique de pointe, robuste et sécurisée pour l&apos;ensemble de nos clients.
                   </p>
                 </FadeUp>

@@ -16,7 +16,7 @@ export function ValueProposition() {
             <h3 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-8 tracking-tight leading-[1.15]">
               Nous construisons les fondations numériques des leaders de demain.
             </h3>
-            <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-slate-800 md:text-slate-700 font-medium sm:font-normal leading-relaxed max-w-3xl mx-auto">
               Chez NOB TECHNOLOGIES, nous ne nous contentons pas de fournir des services IT. Nous architecturons des écosystèmes complets, résilients et évolutifs. Face à la complexité croissante des réseaux et à l'évolution des cybermenaces, notre mission est de vous offrir un socle technologique infaillible.
             </p>
           </FadeUp>
@@ -32,7 +32,7 @@ export function ValueProposition() {
                 </div>
               </MagneticElement>
               <h4 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-accent transition-colors">Cyber-Résilience Maximale</h4>
-              <p className="text-slate-600 leading-relaxed text-lg mb-8 flex-1">
+              <p className="text-slate-700 md:text-slate-600 leading-relaxed text-base sm:text-lg mb-8 flex-1 font-normal">
                 Des pare-feux de nouvelle génération à l'audit de vulnérabilité, nous verrouillons vos données contre toute intrusion externe.
               </p>
               <div className="mt-auto flex items-center text-accent font-semibold text-sm tracking-wide">
@@ -50,7 +50,7 @@ export function ValueProposition() {
                 </div>
               </MagneticElement>
               <h4 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-accent transition-colors">Haute Disponibilité</h4>
-              <p className="text-slate-600 leading-relaxed text-lg mb-8 flex-1">
+              <p className="text-slate-700 md:text-slate-600 leading-relaxed text-base sm:text-lg mb-8 flex-1 font-normal">
                 Des architectures réseau redondantes garantissant un uptime de 99.9%, pour que votre activité ne s'arrête jamais.
               </p>
               <div className="mt-auto flex items-center text-accent font-semibold text-sm tracking-wide">
@@ -68,7 +68,7 @@ export function ValueProposition() {
                 </div>
               </MagneticElement>
               <h4 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-accent transition-colors">Innovation Logicielle</h4>
-              <p className="text-slate-600 leading-relaxed text-lg mb-8 flex-1">
+              <p className="text-slate-700 md:text-slate-600 leading-relaxed text-base sm:text-lg mb-8 flex-1 font-normal">
                 Développement d'ERP et d'applications sur-mesure pour automatiser vos processus les plus complexes.
               </p>
               <div className="mt-auto flex items-center text-accent font-semibold text-sm tracking-wide">
@@ -86,7 +86,7 @@ export function ValueProposition() {
                 </div>
               </MagneticElement>
               <h4 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-accent transition-colors">Vision Globale</h4>
-              <p className="text-slate-600 leading-relaxed text-lg mb-8 flex-1">
+              <p className="text-slate-700 md:text-slate-600 leading-relaxed text-base sm:text-lg mb-8 flex-1 font-normal">
                 Une approche 360° allant du simple câblage physique jusqu'à l'infogérance totale de votre parc informatique.
               </p>
               <div className="mt-auto flex items-center text-accent font-semibold text-sm tracking-wide">
