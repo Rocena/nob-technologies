@@ -18,11 +18,11 @@ export interface GalleryItem {
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: "g6",
-    title: "Formation pratique techniciens & baie télécoms GSM-R (SETER / TER Dakar)",
+    title: "Intervention sur baie technique & télécoms GSM-R (SETER / TER Dakar)",
     category: "baies",
-    categoryLabel: "Baies & GSM-R",
+    categoryLabel: "Baies & Télécoms",
     image: "/images/projects/seter-ter-datacenter.jpg",
-    description: "Atelier pratique et formation des techniciens de la SETER directement devant les équipements en salle technique pour la maintenance du réseau de communication ferroviaire GSM-R du TER de Dakar.",
+    description: "Intervention en salle serveurs et paramétrage sur baie technique pour les équipements de communication ferroviaire GSM-R de la SETER (TER de Dakar).",
   },
   {
     id: "g1",
@@ -106,11 +106,11 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: "g12",
-    title: "Atelier pratique de formation IT & apprenants réseaux",
+    title: "Formations certifiantes & ateliers apprenants réseaux (Simplon Sénégal)",
     category: "digital",
-    categoryLabel: "Formations & Lab",
+    categoryLabel: "Formations (Simplon)",
     image: "/images/projects/simplon-formation-lab.jpg",
-    description: "Travaux pratiques et accompagnement d'apprenants sur postes informatiques : architecture réseau, administration Linux et préparation aux certifications.",
+    description: "Sessions de formation professionnelle et ateliers pratiques dispensés aux apprenants de Simplon Sénégal : architectures réseaux, administration systèmes Linux et préparation aux examens de certification.",
   },
   {
     id: "g13",
