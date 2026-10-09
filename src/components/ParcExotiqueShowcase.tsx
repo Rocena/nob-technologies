@@ -200,7 +200,7 @@ export function ParcExotiqueShowcase({ projects = [] }: { projects?: any[] }) {
                   {/* Primary Action: Quote modal popup */}
                   <QuoteRequestButton
                     service="Développement Web & Plateformes"
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-accent hover:bg-[#00B4D8] text-[#020617] font-bold text-xs sm:text-sm transition-all duration-200 shadow-[0_4px_14px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_20px_rgba(0,212,255,0.45)] hover:scale-[1.01] active:scale-95 cursor-pointer group"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[#020617] font-bold text-xs sm:text-sm bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] hover:brightness-105 transition-all duration-300 hover:scale-[1.02] shadow-[0_4px_16px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_24px_rgba(16,231,96,0.35)] cursor-pointer active:scale-95 group"
                   >
                     <span>Vous avez un projet ? Demander un devis</span>
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

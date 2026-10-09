@@ -196,7 +196,7 @@ export default async function ProjectsPage() {
                   href="https://parcexotique.sn/fr/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent hover:bg-[#00B4D8] text-[#020617] font-bold text-xs shadow-sm hover:shadow-[0_2px_10px_rgba(0,212,255,0.3)] transition-all active:scale-95"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] hover:brightness-105 text-[#020617] font-bold text-xs shadow-[0_4px_14px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_20px_rgba(16,231,96,0.35)] transition-all hover:scale-[1.02] active:scale-95"
                 >
                   <span>Visiter le site en direct</span>
                   <ExternalLink className="w-3.5 h-3.5" />
