@@ -48,20 +48,22 @@ export function AnimatedHeroText() {
         Nous créons des solutions pour
       </h1>
       <div className="relative h-20 sm:h-24 lg:h-32 flex items-center justify-center w-full mt-2">
-        <div className="text-accent text-5xl sm:text-6xl lg:text-7xl font-mono tracking-tighter py-4 flex items-center">
-          <span className="text-accent/40 mr-4 font-light opacity-50 select-none">{">"}</span>
+        <div className="text-5xl sm:text-6xl lg:text-7xl font-mono tracking-tighter py-4 flex items-center">
+          <span className="text-[#00D4FF]/40 mr-4 font-light opacity-50 select-none">{">"}</span>
           <span className="relative">
-            {displayedText}
-            {/* Intelligent Micro-blink Cursor */}
+            <span className="bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] bg-clip-text text-transparent inline-block font-extrabold pb-1 drop-shadow-[0_0_30px_rgba(0,212,255,0.35)]">
+              {displayedText}
+            </span>
+            {/* Intelligent Micro-blink Cursor with Logo Gradient */}
             <motion.span
               animate={{ opacity: [1, 0] }}
               transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
-              className="absolute -right-6 top-[10%] w-4 h-[80%] bg-accent ml-2"
+              className="absolute -right-6 top-[10%] w-4 h-[80%] bg-gradient-to-b from-[#00D4FF] to-[#10E760] ml-2 rounded-xs shadow-[0_0_12px_rgba(0,212,255,0.7)]"
             />
-            {/* Subtle glow behind the typing text */}
+            {/* Subtle multi-color glow behind the typing text */}
             <motion.span 
-              className="absolute inset-0 bg-accent/20 blur-2xl -z-10"
-              animate={{ opacity: isDeleting ? 0 : 0.5 }}
+              className="absolute inset-0 bg-gradient-to-r from-[#00D4FF]/25 via-[#00F0FF]/20 to-[#10E760]/25 blur-2xl -z-10"
+              animate={{ opacity: isDeleting ? 0 : 0.6 }}
               transition={{ duration: 0.3 }}
             />
           </span>
