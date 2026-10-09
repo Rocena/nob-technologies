@@ -146,6 +146,8 @@ export default buildConfig({
       },
       push: true,
       prodMigrations: migrations,
+      busyTimeout: 10000,
+      wal: true,
     });
   })(),
   typescript: {

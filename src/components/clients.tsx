@@ -434,8 +434,7 @@ export function Clients({ clients = [] }: { clients: any[] }) {
                   <div className="p-6 sm:p-7 space-y-5 max-h-[60vh] overflow-y-auto">
                     {/* Mission Scope Highlight Box */}
                     <div>
-                      <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-bold mb-2 flex items-center gap-1.5">
-                        <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
+                      <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-bold mb-2">
                         Périmètre Technique Déployé
                       </div>
                       <div className="p-3.5 sm:p-4 rounded-xl bg-cyan-50/70 border border-cyan-200/80 text-xs sm:text-sm font-semibold text-slate-800 leading-relaxed">

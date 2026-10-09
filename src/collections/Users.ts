@@ -24,10 +24,35 @@ export const Users: CollectionConfig = {
   auth: true, 
   access: {
     read: isAdminOrSelf, 
-    create: isAdmin,
+    create: async ({ req }) => {
+      if (req.user?.role === 'super_admin') return true;
+      try {
+        const { totalDocs } = await req.payload.count({ collection: 'users' });
+        return totalDocs === 0;
+      } catch {
+        return true;
+      }
+    },
     update: isAdminOrSelf,
     delete: isAdmin,
     admin: ({ req: { user } }) => Boolean(user), // Tous les utilisateurs créés peuvent se connecter au back-office
+  },
+  hooks: {
+    beforeChange: [
+      async ({ operation, data, req }) => {
+        if (operation === 'create') {
+          try {
+            const { totalDocs } = await req.payload.count({ collection: 'users' });
+            if (totalDocs === 0) {
+              data.role = 'super_admin';
+            }
+          } catch {
+            data.role = 'super_admin';
+          }
+        }
+        return data;
+      },
+    ],
   },
   fields: [
     {
