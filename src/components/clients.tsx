@@ -194,7 +194,7 @@ export const featuredClientReferences = [
   {
     id: "simplon",
     name: "Simplon Sénégal",
-    subName: "Pôle Formation Numérique & Certifications IT",
+    subName: "Centre de Formation & Certifications Tech",
     location: "Dakar, Sénégal",
     sector: "Formation & Éducation Tech",
     badgeColor: "bg-rose-50 text-rose-700 border-rose-200",

@@ -1,18 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { 
-  Menu, X, ArrowRight, Phone, Mail, Layers, Globe, Star, BookOpen, Info, DollarSign, Camera, ChevronDown,
+  Menu, X, ArrowRight, Phone, Mail, Layers, Globe, Star, Info, ChevronDown, Camera,
   ShieldCheck, Network, Cpu, Code2, PhoneCall, Server, GraduationCap, Award, ShieldAlert, Sparkles,
   Building2, Newspaper, HelpCircle, Users
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AnimatedLogo } from "./AnimatedLogo";
-import { GlowButton } from "./GlowButton";
 import { useQuoteModal } from "./EngineerModalContext";
 import { SearchButton } from "./SearchButton";
-import { usePalette } from "./CommandPaletteProvider";
 
 interface SubItem {
   name: string;
@@ -28,6 +26,58 @@ interface NavItem {
   order?: number;
   children?: SubItem[];
 }
+
+interface SpotlightInfo {
+  badge: string;
+  title: string;
+  desc: string;
+  linkText: string;
+  href: string;
+  tag: string;
+}
+
+const SPOTLIGHTS: Record<string, SpotlightInfo> = {
+  solutions: {
+    badge: "RÉFÉRENCE MAJEURE",
+    title: "Délégation de l'Union Européenne",
+    desc: "Câblage structuré cat 6A/7, baie 42U et sécurisation du LAN à Dakar.",
+    linkText: "Voir l'étude de cas",
+    href: "/realisations",
+    tag: "Dakar • En production",
+  },
+  formations: {
+    badge: "PROGRAMMES 2025",
+    title: "Fortinet NSE 4 & Cisco CCNA",
+    desc: "Sessions intensives sur bancs physiques et préparation aux examens internationaux.",
+    linkText: "Découvrir les cursus",
+    href: "/formations",
+    tag: "Certifications Officielles",
+  },
+  partenaires: {
+    badge: "ALLIANCES STRATÉGIQUES",
+    title: "Constructeurs Mondiaux",
+    desc: "Partenariats certifiés Sophos, Fortinet, Cisco, Dell Technologies & Microsoft 365.",
+    linkText: "Consulter l'écosystème",
+    href: "/partenaires",
+    tag: "Support & Matériel Garanti",
+  },
+  realisations: {
+    badge: "PROJETS EN PRODUCTION",
+    title: "Infrastructures Clés en Main",
+    desc: "Union Européenne, Polyclinique P2A, Parc Exotique, Simplon Sénégal & Dolima.",
+    linkText: "Explorer la galerie",
+    href: "/galerie",
+    tag: "100% Photos Réelles",
+  },
+  'a-propos': {
+    badge: "INGÉNIERIE SÉNÉGAL",
+    title: "Cabinet Nob Technologies",
+    desc: "Équipe d'ingénieurs réseaux, télécoms et cybersécurité sur la Route de l'Aéroport.",
+    linkText: "Notre vision & équipe",
+    href: "/a-propos",
+    tag: "Intervention sous 24h",
+  },
+};
 
 const DEFAULT_NAV: NavItem[] = [
   { 
@@ -76,7 +126,7 @@ const DEFAULT_NAV: NavItem[] = [
     desc: 'Déploiements d’infrastructures critiques et plateformes web en production',
     order: 4,
     children: [
-      { name: 'Projets & Déploiements', href: '/realisations', desc: 'Études de cas concrètes dont le Parc Exotique du Sénégal' },
+      { name: 'Projets & Déploiements', href: '/realisations', desc: 'Études de cas concrètes : Union Européenne, P2A, Parc Exotique' },
       { name: 'Galerie d’Installations', href: '/galerie', desc: 'Photos réelles de baies de brassage, salles serveurs et câblage' },
     ]
   },
@@ -113,6 +163,16 @@ const getNavIcon = (name: string) => {
   return ArrowRight;
 };
 
+const getHeaderCategoryLabel = (idOrName: string) => {
+  const s = idOrName.toLowerCase();
+  if (s.includes('solution') || s.includes('service')) return "Solutions & Infrastructures d'Entreprise";
+  if (s.includes('format')) return "Programmes de Formation & Certifications";
+  if (s.includes('partenaire')) return "Alliances Stratégiques & Constructeurs";
+  if (s.includes('réalis') || s.includes('realis')) return "Déploiements & Références en Production";
+  if (s.includes('propos') || s.includes('entreprise')) return "Cabinet d'Ingénierie & Organisation";
+  return idOrName;
+};
+
 const getSubItemIcon = (name: string, href: string = "") => {
   const n = (name + " " + href).toLowerCase();
   if (n.includes('cyber') || n.includes('firewall')) return ShieldCheck;
@@ -137,16 +197,17 @@ const getSubItemIcon = (name: string, href: string = "") => {
 };
 
 const getDropdownWidth = (item: NavItem) => {
-  if (item.id === 'solutions') return "w-[720px]";
-  if (item.id === 'formations' || item.id === 'a-propos') return "w-[640px]";
-  if (item.id === 'partenaires' || item.id === 'realisations') return "w-[560px]";
+  if (item.id === 'solutions') return "w-[780px] xl:w-[820px]";
+  if (item.id === 'formations' || item.id === 'a-propos') return "w-[740px] xl:w-[780px]";
+  if (item.id === 'partenaires' || item.id === 'realisations') return "w-[700px] xl:w-[740px]";
   if (item.id === 'contact') return "w-[380px]";
-  return item.children && item.children.length > 2 ? "w-[640px]" : "w-[480px]";
+  return item.children && item.children.length > 2 ? "w-[740px]" : "w-[520px]";
 };
 
 const getDropdownAlign = (index: number, total: number) => {
   if (index === 0) return "left-0";
-  if (index === 1) return "left-[-40px]";
+  if (index === 1) return "left-[-80px]";
+  if (index === 2) return "left-1/2 -translate-x-1/2";
   if (index >= total - 2) return "right-0";
   return "left-1/2 -translate-x-1/2";
 };
@@ -155,8 +216,26 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [openMobileSubmenu, setOpenMobileSubmenu] = useState<string | null>(null);
   const [navItems, setNavItems] = useState<NavItem[]>(DEFAULT_NAV);
-  const { setOpen: openSearch } = usePalette();
+  const [activeHover, setActiveHover] = useState<string | null>(null);
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { openQuoteModal } = useQuoteModal();
+
+  const handleMenuEnter = (id: string) => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setActiveHover(id);
+  };
+
+  const handleMenuLeave = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+    closeTimeoutRef.current = setTimeout(() => {
+      setActiveHover(null);
+    }, 140);
+  };
 
   // Fetch dynamic pages marked to be included in navigation from CMS
   useEffect(() => {
@@ -204,7 +283,10 @@ export function Header() {
   // Handle escape key
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsOpen(false);
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        setActiveHover(null);
+      }
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
@@ -213,84 +295,119 @@ export function Header() {
   const closeMenu = () => {
     setIsOpen(false);
     setOpenMobileSubmenu(null);
+    setActiveHover(null);
   };
 
   return (
     <>
-      {/* Main Header Bar - Full-Width Corporate Enterprise Standard */}
-      <header className="fixed top-0 inset-x-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200/80 shadow-[0_4px_25px_rgba(15,23,42,0.04)] transition-all duration-300">
+      {/* Subtle Backdrop Dim Layer - Silicon Valley / Tesla pattern */}
+      <div 
+        className={cn(
+          "fixed inset-0 top-16 sm:top-20 bg-slate-950/25 backdrop-blur-[2px] pointer-events-none transition-opacity duration-300 z-40 hidden lg:block",
+          activeHover ? "opacity-100" : "opacity-0"
+        )}
+        aria-hidden="true"
+      />
+
+      {/* Main Header Bar - Corporate Silicon Valley Standard */}
+      <header className="fixed top-0 inset-x-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200/80 shadow-[0_4px_25px_rgba(15,23,42,0.03)] transition-all duration-300">
         <div className="w-full max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 sm:h-20 items-center justify-between gap-4">
+          <div className="flex h-16 sm:h-20 items-center justify-between gap-3 sm:gap-4">
             {/* Brand Logo */}
             <div className="flex items-center shrink-0">
               <AnimatedLogo />
             </div>
             
-            {/* Desktop Navigation (large screens) */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
-                {navItems.map((item, index) => {
-                  const hasChildren = Boolean(item.children && item.children.length > 0);
-                  const ParentIcon = getNavIcon(item.name);
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5">
+              {navItems.map((item, index) => {
+                const hasChildren = Boolean(item.children && item.children.length > 0);
+                const ParentIcon = getNavIcon(item.name);
+                const isHovered = activeHover === (item.id || item.name);
+                const spotlight = item.id ? SPOTLIGHTS[item.id] : null;
 
-                  return (
-                    <div key={item.name} className="relative group">
-                      <Link 
-                        href={item.href} 
-                        className="group/link text-sm xl:text-[15px] font-semibold text-slate-800 hover:text-cyan-600 transition-colors py-5 px-0.5 flex items-center"
-                      >
-                        <span className="px-2.5 xl:px-3 py-1.5 rounded-xl group-hover/link:bg-slate-100/90 group-hover/link:text-cyan-600 transition-all flex items-center gap-1 xl:gap-1.5 whitespace-nowrap">
-                          <span>{item.name}</span>
-                          {(hasChildren || item.id === 'contact') && (
-                            <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover/link:text-cyan-600 group-hover:rotate-180 transition-transform duration-200" />
-                          )}
-                        </span>
-                      </Link>
+                return (
+                  <div 
+                    key={item.name} 
+                    className="relative"
+                    onMouseEnter={() => handleMenuEnter(item.id || item.name)}
+                    onMouseLeave={handleMenuLeave}
+                  >
+                    <Link 
+                      href={item.href} 
+                      className={cn(
+                        "text-[13.5px] xl:text-[14px] font-semibold transition-colors py-5 px-0.5 flex items-center",
+                        isHovered ? "text-cyan-600" : "text-slate-800 hover:text-cyan-600"
+                      )}
+                    >
+                      <span className={cn(
+                        "px-2.5 xl:px-3 py-1.5 rounded-lg transition-all flex items-center gap-1 xl:gap-1.5 whitespace-nowrap",
+                        isHovered ? "bg-slate-100 text-cyan-600" : "hover:bg-slate-100/80"
+                      )}>
+                        <span>{item.name}</span>
+                        {(hasChildren || item.id === 'contact') && (
+                          <ChevronDown className={cn(
+                            "w-3.5 h-3.5 transition-transform duration-200",
+                            isHovered ? "rotate-180 text-cyan-600" : "text-slate-400"
+                          )} />
+                        )}
+                      </span>
+                    </Link>
 
-                      {/* Desktop Mega-Menu Hover Card */}
-                      {hasChildren ? (
-                        <div className={cn(
-                          "absolute top-full pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50",
-                          getDropdownAlign(index, navItems.length),
-                          getDropdownWidth(item)
-                        )}>
-                          <div className="bg-white/98 backdrop-blur-2xl border border-slate-200/90 shadow-[0_24px_50px_-12px_rgba(15,23,42,0.18),0_0_0_1px_rgba(15,23,42,0.04)] rounded-2xl p-5 sm:p-6 relative overflow-hidden ring-1 ring-slate-900/5">
-                            {/* Discrete NOBTECH Shield Watermark in top-right */}
-                            <div className="absolute -top-3 -right-3 w-28 h-28 opacity-[0.06] pointer-events-none select-none overflow-hidden">
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img 
-                                src="/images/nobtech-shield.png" 
-                                alt="" 
-                                className="w-full h-full object-contain" 
-                              />
-                            </div>
-                            
-                            <div className="relative z-10">
-                              {/* Dropdown Header Banner */}
-                              <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-100">
-                                <div className="flex items-center gap-3">
-                                  <div className="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-600 border border-cyan-500/20 flex items-center justify-center font-bold text-xs shrink-0">
-                                    <ParentIcon className="w-4 h-4" />
-                                  </div>
-                                  <div>
-                                    <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-700">
-                                      Pôle {item.name}
-                                    </div>
-                                    <p className="text-xs text-slate-500 line-clamp-1">
-                                      {item.desc}
-                                    </p>
-                                  </div>
+                    {/* Desktop Mega-Menu Panel */}
+                    {hasChildren ? (
+                      <div className={cn(
+                        "absolute top-full pt-2 transition-all duration-200 z-50",
+                        isHovered 
+                          ? "opacity-100 translate-y-0 pointer-events-auto" 
+                          : "opacity-0 translate-y-2 pointer-events-none",
+                        getDropdownAlign(index, navItems.length),
+                        getDropdownWidth(item)
+                      )}>
+                        <div className="bg-white/98 backdrop-blur-2xl border border-slate-200/90 shadow-[0_24px_50px_-12px_rgba(15,23,42,0.18),0_0_0_1px_rgba(15,23,42,0.04)] rounded-2xl p-5 sm:p-6 relative overflow-hidden ring-1 ring-slate-900/5">
+                          {/* Discrete NOBTECH Shield Watermark in top-right */}
+                          <div className="absolute -top-3 -right-3 w-28 h-28 opacity-[0.05] pointer-events-none select-none overflow-hidden">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img 
+                              src="/images/nobtech-shield.png" 
+                              alt="" 
+                              className="w-full h-full object-contain" 
+                            />
+                          </div>
+                          
+                          <div className="relative z-10">
+                            {/* Dropdown Header Banner (Clean Corporate, Zero "Pôle") */}
+                            <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-100">
+                              <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-600 border border-cyan-500/20 flex items-center justify-center font-bold text-xs shrink-0">
+                                  <ParentIcon className="w-4 h-4" />
                                 </div>
-                                <Link
-                                  href={item.href}
-                                  className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 hover:text-cyan-600 hover:bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200/70 transition-colors shrink-0"
-                                >
-                                  <span>Voir tout</span>
-                                  <ArrowRight className="w-3.5 h-3.5 text-cyan-600" />
-                                </Link>
+                                <div>
+                                  <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-700">
+                                    {getHeaderCategoryLabel(item.id || item.name)}
+                                  </div>
+                                  <p className="text-xs text-slate-500 line-clamp-1">
+                                    {item.desc}
+                                  </p>
+                                </div>
                               </div>
+                              <Link
+                                href={item.href}
+                                onClick={() => setActiveHover(null)}
+                                className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 hover:text-cyan-600 hover:bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200/70 transition-colors shrink-0"
+                              >
+                                <span>Voir tout</span>
+                                <ArrowRight className="w-3.5 h-3.5 text-cyan-600" />
+                              </Link>
+                            </div>
 
-                              {/* Grid of Child Services & Offerings */}
-                              <div className="grid grid-cols-2 gap-2.5">
+                            {/* Split Grid: Offerings (Left) + Silicon Valley Spotlight Card (Right) */}
+                            <div className="grid grid-cols-12 gap-4 items-stretch">
+                              {/* Left: Interactive list of services */}
+                              <div className={cn(
+                                spotlight ? "col-span-8" : "col-span-12",
+                                "grid grid-cols-2 gap-2"
+                              )}>
                                 {item.children!.map((child) => {
                                   const ChildIcon = getSubItemIcon(child.name, child.href);
 
@@ -298,20 +415,21 @@ export function Header() {
                                     <Link
                                       key={child.href}
                                       href={child.href}
-                                      className="group/child p-3 rounded-xl hover:bg-slate-50/90 border border-transparent hover:border-slate-200/80 transition-all flex items-start gap-3.5 relative"
+                                      onClick={() => setActiveHover(null)}
+                                      className="group/child p-2.5 rounded-xl hover:bg-slate-50/90 border border-transparent hover:border-slate-200/80 transition-all flex items-start gap-3 relative"
                                     >
-                                      <div className="w-10 h-10 rounded-xl bg-slate-100/80 border border-slate-200/60 flex items-center justify-center text-slate-700 group-hover/child:bg-cyan-50 group-hover/child:text-cyan-600 group-hover/child:border-cyan-200 transition-colors shrink-0 shadow-2xs">
-                                        <ChildIcon className="w-5 h-5 stroke-[2]" />
+                                      <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200/60 flex items-center justify-center text-slate-700 group-hover/child:bg-cyan-50 group-hover/child:text-cyan-600 group-hover/child:border-cyan-200 transition-colors shrink-0 shadow-2xs">
+                                        <ChildIcon className="w-4 h-4 stroke-[2]" />
                                       </div>
                                       <div className="min-w-0 flex-1">
                                         <div className="flex items-center justify-between gap-1">
-                                          <span className="text-[14px] font-bold text-slate-900 group-hover/child:text-cyan-600 transition-colors">
+                                          <span className="text-[13px] font-semibold text-slate-900 group-hover/child:text-cyan-600 transition-colors">
                                             {child.name}
                                           </span>
-                                          <ArrowRight className="w-3.5 h-3.5 text-slate-300 opacity-0 group-hover/child:opacity-100 group-hover/child:translate-x-0.5 group-hover/child:text-cyan-600 transition-all shrink-0" />
+                                          <ArrowRight className="w-3 h-3 text-slate-300 opacity-0 group-hover/child:opacity-100 group-hover/child:translate-x-0.5 group-hover/child:text-cyan-600 transition-all shrink-0" />
                                         </div>
                                         {child.desc && (
-                                          <p className="text-[12px] text-slate-500 leading-snug mt-1 font-normal line-clamp-2">
+                                          <p className="text-[11.5px] text-slate-500 leading-snug mt-0.5 font-normal line-clamp-1">
                                             {child.desc}
                                           </p>
                                         )}
@@ -321,126 +439,174 @@ export function Header() {
                                 })}
                               </div>
 
-                              {/* Dropdown Footer Strip */}
-                              <div className="mt-4 pt-3.5 border-t border-slate-100/90 -mx-5 -mb-5 sm:-mx-6 sm:-mb-6 px-5 sm:px-6 py-3 bg-slate-50/80 rounded-b-2xl flex items-center justify-between text-xs text-slate-600">
-                                <span className="flex items-center gap-2">
-                                  <span className="font-semibold text-slate-800">Support & Ingénierie Dakar</span>
-                                  <span className="text-slate-400">&bull;</span>
-                                  <span>Interventions garanties sous 24h</span>
-                                </span>
-                                <button
-                                  type="button"
-                                  onClick={() => openQuoteModal(item.name)}
-                                  className="font-bold text-cyan-600 hover:text-cyan-700 flex items-center gap-1 hover:underline cursor-pointer"
-                                >
-                                  <span>Demander un devis</span>
-                                  <ArrowRight className="w-3 h-3" />
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ) : item.id === 'contact' ? (
-                        <div className={cn(
-                          "absolute top-full pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50",
-                          getDropdownAlign(index, navItems.length),
-                          getDropdownWidth(item)
-                        )}>
-                          <div className="bg-white/98 backdrop-blur-2xl border border-slate-200/90 shadow-[0_24px_50px_-12px_rgba(15,23,42,0.18)] rounded-2xl p-5 relative overflow-hidden ring-1 ring-slate-900/5">
-                            <div className="relative z-10 space-y-3">
-                              <div className="pb-3 border-b border-slate-100">
-                                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-700">
-                                  Contact Direct &bull; Dakar
+                              {/* Right: Signature Tesla / Silicon Valley Spotlight Showcase */}
+                              {spotlight && (
+                                <div className="col-span-4 rounded-xl bg-gradient-to-br from-slate-50 via-slate-50/80 to-cyan-50/30 border border-slate-200/80 p-3.5 flex flex-col justify-between">
+                                  <div>
+                                    <span className="inline-block text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-700 bg-cyan-100/60 border border-cyan-200/50 px-2 py-0.5 rounded">
+                                      {spotlight.badge}
+                                    </span>
+                                    <h5 className="text-[13px] font-bold text-slate-900 mt-2 leading-tight">
+                                      {spotlight.title}
+                                    </h5>
+                                    <p className="text-[11.5px] text-slate-600 leading-relaxed mt-1">
+                                      {spotlight.desc}
+                                    </p>
+                                  </div>
+
+                                  <div className="pt-3 border-t border-slate-200/60 mt-3 flex items-center justify-between">
+                                    <span className="text-[10px] font-medium text-slate-400">
+                                      {spotlight.tag}
+                                    </span>
+                                    <Link
+                                      href={spotlight.href}
+                                      onClick={() => setActiveHover(null)}
+                                      className="inline-flex items-center gap-1 text-[11px] font-bold text-cyan-600 hover:text-cyan-700 hover:underline"
+                                    >
+                                      <span>{spotlight.linkText}</span>
+                                      <ArrowRight className="w-3 h-3" />
+                                    </Link>
+                                  </div>
                                 </div>
-                                <h5 className="text-[15px] font-bold text-slate-900 mt-1">
-                                  Parlons de votre infrastructure
-                                </h5>
-                                <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
-                                  Nos ingénieurs certifiés répondent sous 24h ouvrées.
-                                </p>
-                              </div>
+                              )}
+                            </div>
 
-                              <div className="space-y-2 pt-0.5">
-                                <a
-                                  href="tel:+221773010838"
-                                  className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 hover:bg-cyan-50/70 border border-slate-200/60 hover:border-cyan-200 transition-colors group/tel"
-                                >
-                                  <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-cyan-600 shadow-2xs shrink-0">
-                                    <Phone className="w-4 h-4" />
-                                  </div>
-                                  <div>
-                                    <div className="text-xs font-bold text-slate-900 group-hover/tel:text-cyan-600 transition-colors">
-                                      +221 77 301 08 38
-                                    </div>
-                                    <div className="text-[11px] text-slate-500">
-                                      Ligne directe d’astreinte & devis
-                                    </div>
-                                  </div>
-                                </a>
-
-                                <a
-                                  href="mailto:contact@nobtech.fr"
-                                  className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 hover:bg-cyan-50/70 border border-slate-200/60 hover:border-cyan-200 transition-colors group/mail"
-                                >
-                                  <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-cyan-600 shadow-2xs shrink-0">
-                                    <Mail className="w-4 h-4" />
-                                  </div>
-                                  <div>
-                                    <div className="text-xs font-bold text-slate-900 group-hover/mail:text-cyan-600 transition-colors">
-                                      contact@nobtech.fr
-                                    </div>
-                                    <div className="text-[11px] text-slate-500">
-                                      Devis & cahier des charges
-                                    </div>
-                                  </div>
-                                </a>
-                              </div>
-
-                              <div className="pt-1">
-                                <Link
-                                  href="/contact"
-                                  className="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-cyan-600 text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 shadow-xs"
-                                >
-                                  <span>Ouvrir la page de contact</span>
-                                  <ArrowRight className="w-3.5 h-3.5" />
-                                </Link>
-                              </div>
+                            {/* Dropdown Footer Strip */}
+                            <div className="mt-4 pt-3 border-t border-slate-100/90 -mx-5 -mb-5 sm:-mx-6 sm:-mb-6 px-5 sm:px-6 py-2.5 bg-slate-50/80 rounded-b-2xl flex items-center justify-between text-xs text-slate-600">
+                              <span className="flex items-center gap-2">
+                                <span className="inline-flex items-center gap-1.5 font-semibold text-slate-800">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                  Support Dakar 24/7
+                                </span>
+                                <span className="text-slate-400">&bull;</span>
+                                <span className="text-slate-500">Interventions garanties sous 24h</span>
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setActiveHover(null);
+                                  openQuoteModal(item.name);
+                                }}
+                                className="font-bold text-cyan-600 hover:text-cyan-700 flex items-center gap-1 hover:underline cursor-pointer"
+                              >
+                                <span>Demander un devis pour {item.name}</span>
+                                <ArrowRight className="w-3 h-3" />
+                              </button>
                             </div>
                           </div>
                         </div>
-                      ) : null}
-                    </div>
-                  );
-                })}
-              </nav>
+                      </div>
+                    ) : item.id === 'contact' ? (
+                      <div className={cn(
+                        "absolute top-full pt-2 transition-all duration-200 z-50",
+                        isHovered 
+                          ? "opacity-100 translate-y-0 pointer-events-auto" 
+                          : "opacity-0 translate-y-2 pointer-events-none",
+                        getDropdownAlign(index, navItems.length),
+                        getDropdownWidth(item)
+                      )}>
+                        <div className="bg-white/98 backdrop-blur-2xl border border-slate-200/90 shadow-[0_24px_50px_-12px_rgba(15,23,42,0.18)] rounded-2xl p-5 relative overflow-hidden ring-1 ring-slate-900/5">
+                          <div className="relative z-10 space-y-3">
+                            <div className="pb-3 border-b border-slate-100">
+                              <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-700">
+                                Contact Direct &bull; Dakar
+                              </div>
+                              <h5 className="text-[14px] font-bold text-slate-900 mt-1">
+                                Parlons de votre infrastructure
+                              </h5>
+                              <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
+                                Nos ingénieurs certifiés répondent sous 24h ouvrées.
+                              </p>
+                            </div>
 
-              {/* Desktop Quick Actions */}
-              <div className="hidden lg:flex items-center gap-3 xl:gap-4 shrink-0">
-                <SearchButton />
-                <GlowButton 
-                  size="md" 
-                  onClick={() => openQuoteModal()}
-                  className="!h-11 !px-5 xl:!px-6 text-sm font-bold shadow-md hover:shadow-cyan-500/25"
-                >
-                  Demander un devis
-                </GlowButton>
-              </div>
+                            <div className="space-y-2 pt-0.5">
+                              <a
+                                href="tel:+221773010838"
+                                className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 hover:bg-cyan-50/70 border border-slate-200/60 hover:border-cyan-200 transition-colors group/tel"
+                              >
+                                <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-cyan-600 shadow-2xs shrink-0">
+                                  <Phone className="w-4 h-4" />
+                                </div>
+                                <div>
+                                  <div className="text-xs font-bold text-slate-900 group-hover/tel:text-cyan-600 transition-colors">
+                                    +221 77 301 08 38
+                                  </div>
+                                  <div className="text-[11px] text-slate-500">
+                                    Ligne directe d’astreinte & devis
+                                  </div>
+                                </div>
+                              </a>
 
-              {/* Mobile & Tablet Burger Button */}
-              <div className="flex lg:hidden items-center">
-                <button 
-                  type="button"
-                  className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 text-white hover:bg-slate-800 active:scale-95 transition-all cursor-pointer shadow-sm"
-                  onClick={() => setIsOpen(!isOpen)}
-                  aria-expanded={isOpen}
-                  aria-controls="mobile-nav-drawer"
-                  aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
-                >
-                  {isOpen ? <X className="h-5 w-5 stroke-[2.4]" /> : <Menu className="h-5 w-5 stroke-[2.4]" />}
-                </button>
-              </div>
+                              <a
+                                href="mailto:contact@nobtech.fr"
+                                className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 hover:bg-cyan-50/70 border border-slate-200/60 hover:border-cyan-200 transition-colors group/mail"
+                              >
+                                <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-cyan-600 shadow-2xs shrink-0">
+                                  <Mail className="w-4 h-4" />
+                                </div>
+                                <div>
+                                  <div className="text-xs font-bold text-slate-900 group-hover/mail:text-cyan-600 transition-colors">
+                                    contact@nobtech.fr
+                                  </div>
+                                  <div className="text-[11px] text-slate-500">
+                                    Devis & cahier des charges
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+
+                            <div className="pt-1">
+                              <Link
+                                href="/contact"
+                                onClick={() => setActiveHover(null)}
+                                className="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-cyan-600 text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 shadow-xs"
+                              >
+                                <span>Ouvrir la page de contact</span>
+                                <ArrowRight className="w-3.5 h-3.5" />
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                );
+              })}
+            </nav>
+
+            {/* Desktop Corporate Actions - Silicon Valley Executive Style */}
+            <div className="hidden lg:flex items-center gap-2.5 xl:gap-3 shrink-0">
+              <SearchButton />
+              
+              <button
+                type="button"
+                onClick={() => openQuoteModal()}
+                className="relative inline-flex items-center gap-2 h-10 px-4 xl:px-5 rounded-full bg-slate-950 hover:bg-slate-800 text-white text-[13px] xl:text-[13.5px] font-semibold transition-all duration-200 border border-slate-800 hover:border-slate-700 shadow-xs hover:shadow-md active:scale-[0.98] cursor-pointer group shrink-0"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-gradient-to-r from-cyan-400 to-blue-500" />
+                </span>
+                <span className="whitespace-nowrap tracking-tight">Demander un devis</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+              </button>
+            </div>
+
+            {/* Mobile & Tablet Burger Button */}
+            <div className="flex lg:hidden items-center">
+              <button 
+                type="button"
+                className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 text-white hover:bg-slate-800 active:scale-95 transition-all cursor-pointer shadow-sm"
+                onClick={() => setIsOpen(!isOpen)}
+                aria-expanded={isOpen}
+                aria-controls="mobile-nav-drawer"
+                aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              >
+                {isOpen ? <X className="h-5 w-5 stroke-[2.4]" /> : <Menu className="h-5 w-5 stroke-[2.4]" />}
+              </button>
             </div>
           </div>
+        </div>
       </header>
 
       {/* Mobile & Tablet Navigation Overlay */}
@@ -469,7 +635,7 @@ export function Header() {
           <div className="p-5 sm:p-8 max-w-3xl mx-auto w-full space-y-4">
             <div className="pb-2.5 border-b border-slate-100 flex items-center justify-between">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">
-                MENU
+                NAVIGATION
               </span>
             </div>
 
@@ -528,7 +694,7 @@ export function Header() {
                           onClick={closeMenu}
                           className="block p-2 rounded-lg text-xs font-bold text-cyan-700 bg-cyan-50/50 hover:bg-cyan-100/60 transition-colors"
                         >
-                          &rarr; Voir la vue d’ensemble ({item.name})
+                          &rarr; Vue d’ensemble ({item.name})
                         </Link>
                         {item.children!.map((c) => {
                           const SubIcon = getSubItemIcon(c.name, c.href);
@@ -566,15 +732,17 @@ export function Header() {
           {/* Drawer Footer with Quick Calls & Devis CTA */}
           <div className="p-5 sm:p-8 bg-slate-50/90 border-t border-slate-200 mt-auto shrink-0">
             <div className="max-w-3xl mx-auto w-full space-y-3">
-              <GlowButton
+              <button
+                type="button"
                 onClick={() => {
                   closeMenu();
                   openQuoteModal();
                 }}
-                className="w-full h-12 text-sm sm:text-base shadow-md"
+                className="w-full h-12 rounded-xl bg-slate-950 hover:bg-slate-800 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md transition-colors"
               >
-                Demander un devis en ligne
-              </GlowButton>
+                <span>Demander un devis en ligne</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
 
               <div className="grid grid-cols-2 gap-2.5 pt-1">
                 <a
