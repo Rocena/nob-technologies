@@ -3,7 +3,8 @@ import { Container, Section } from "@/components/ui/layout";
 import { FadeUp } from "@/components/animations";
 import { ClientLogoImg } from "./ClientLogoImg";
 import Image from "next/image";
-import { ExternalLink } from "lucide-react";
+import Link from "next/link";
+import { ExternalLink, ArrowRight } from "lucide-react";
 
 export const defaultTrustedBrands = [
   {
@@ -153,11 +154,11 @@ export function Clients({ clients = [] }: { clients: any[] }) {
         </div>
 
         {/* Dynamic CMS Client References if any are published */}
-        {dynamicClients.length > 0 && (
+        {dynamicClients.length > 0 ? (
           <div className="mb-14 pt-8 border-t border-slate-200/80">
             <div className="text-center mb-6">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">
-                Références Clients & Déploiements
+                Références Clients &amp; Déploiements
               </span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5 md:gap-4">
@@ -181,6 +182,85 @@ export function Clients({ clients = [] }: { clients: any[] }) {
                   </FadeUp>
                 );
               })}
+            </div>
+          </div>
+        ) : (
+          /* High-Profile Institutional & Business Client References */
+          <div className="pt-8 border-t border-slate-200/80">
+            <div className="text-center mb-6">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">
+                Ils nous font confiance pour leurs infrastructures &amp; plateformes
+              </span>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
+              {/* Union Européenne */}
+              <FadeUp delay={0.1}>
+                <Link
+                  href="/realisations"
+                  className="group bg-white hover:bg-slate-50/90 rounded-2xl border border-slate-200/90 hover:border-blue-400 p-4 sm:p-5 flex items-center justify-between transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
+                >
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-12 h-12 rounded-xl bg-slate-50 p-2 border border-slate-100 flex items-center justify-center shrink-0">
+                      <Image
+                        src="/images/partners/union-europeenne.svg"
+                        alt="Logo officiel Union Européenne"
+                        width={40}
+                        height={28}
+                        className="w-full h-auto object-contain rounded-xs"
+                      />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
+                          Union Européenne &bull; Dakar
+                        </span>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 font-semibold">
+                          Diplomatique
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 line-clamp-1">
+                        Câblage réseau structuré Cat 6A &amp; baies 42U
+                      </p>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-transform group-hover:translate-x-1 shrink-0" />
+                </Link>
+              </FadeUp>
+
+              {/* Parc Exotique */}
+              <FadeUp delay={0.2}>
+                <Link
+                  href="/realisations"
+                  className="group bg-white hover:bg-slate-50/90 rounded-2xl border border-slate-200/90 hover:border-cyan-400 p-4 sm:p-5 flex items-center justify-between transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
+                >
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-12 h-12 rounded-xl bg-slate-50 p-2 border border-slate-100 flex items-center justify-center shrink-0">
+                      <Image
+                        src="/images/parc-exotique-logo.png"
+                        alt="Logo Parc Exotique du Sénégal"
+                        width={40}
+                        height={40}
+                        className="w-full h-auto object-contain"
+                      />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-cyan-700 transition-colors">
+                          Parc Exotique du Sénégal
+                        </span>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-200 font-semibold">
+                          Plateforme Web
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 line-clamp-1">
+                        Développement web &amp; système de réservation
+                      </p>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-cyan-600 transition-transform group-hover:translate-x-1 shrink-0" />
+                </Link>
+              </FadeUp>
             </div>
           </div>
         )}

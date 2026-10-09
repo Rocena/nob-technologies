@@ -19,7 +19,7 @@ Identité & Coordonnées :
 
 Expertises & Services clés :
 1. Cybersécurité & Firewalls : Sophos (firewalls XGS, Intercept X), Fortinet (FortiGate NGFW), Acronis (sauvegarde anti-ransomware), Wallix (gestion des accès à privilèges PAM/IAM), Kaspersky, Allot (anti-DDoS), GateWatcher (NDR IA souveraine).
-2. Réseaux & Câblage : Câblage structuré cuivre et fibre optique, baies de brassage, commutation Cisco Catalyst, HPE Aruba, Wi-Fi d'entreprise.
+2. Réseaux & Câblage : Câblage structuré cuivre et fibre optique, baies de brassage 42U, commutation Cisco Catalyst, HPE Aruba, Wi-Fi d'entreprise. Référence majeure : Câblage réseau structuré certifié et baies 42U pour la Délégation de l'Union Européenne au Sénégal (Bureau de Dakar).
 3. ERP & Digitalisation : Conception d'ERP sur-mesure développés de bout en bout pour vos processus métiers uniques, ainsi qu'intégration et paramétrage d'ERP de référence (Dolibarr, Odoo) pour la facturation, stocks, CRM, RH et comptabilité.
 4. Développement Web & Mobile : Applications web sur-mesure (ex: plateforme officielle de l'Hôtel du Parc / Parc Exotique du Sénégal), applications mobiles Flutter (iOS/Android).
 5. Sauvegarde & Cloud Hybride : Solutions Acronis & Veritas, continuité d'activité (PCA/PRA).
@@ -84,14 +84,14 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
       "Souhaitez-vous un audit de votre parc actuel ou le déploiement d'une appliance sécurisée ?";
   }
 
-  // 6. Réseaux, Câblage & Matériel (Cisco, Dell, Baies, Fibre)
-  if (/(r[eé]seau|c[aâ]bl|fibre|baie|switch|routeur|cisco|dell|serveur|aruba|wi-?fi|wifi|lan|wan)/i.test(q)) {
-    return "Nous concevons et déployons des architectures réseau haute disponibilité 🌐 :\n\n" +
-      "• Câblage structuré Cat 6A/7 et raccordement fibre optique.\n" +
-      "• Aménagement complet de baies de brassage et data centers d'entreprise.\n" +
-      "• Commutateurs et routeurs Cisco Catalyst, HPE Aruba.\n" +
+  // 6. Réseaux, Câblage & Matériel (Cisco, Dell, Baies, Fibre, Union Européenne)
+  if (/(r[eé]seau|c[aâ]bl|fibre|baie|switch|routeur|cisco|dell|serveur|aruba|wi-?fi|wifi|lan|wan|union europ[eé]enne|ue|dakar)/i.test(q)) {
+    return "Nous concevons et déployons des architectures réseau de niveau institutionnel et entreprise 🌐 :\n\n" +
+      "• Câblage structuré cuivre Cat 6A/7 et liaisons fibre optique certifiées.\n" +
+      "• Fourniture, pose et peignage méthodique de baies de brassage 42U (notamment réalisé pour le bureau de la Délégation de l'Union Européenne à Dakar).\n" +
+      "• Commutateurs et routeurs Cisco Catalyst, HPE Aruba et Wi-Fi d'entreprise.\n" +
       "• Serveurs physiques Dell Technologies PowerEdge et baies de stockage SAN/NAS.\n\n" +
-      "Toutes nos installations font l'objet de tests de certification et de documentation technique complète.";
+      "Toutes nos installations font l'objet de tests de certification (Fluke Networks) et de documentation technique complète.";
   }
 
   // 7. ERP, Digitalisation, Conception sur-mesure & Intégration

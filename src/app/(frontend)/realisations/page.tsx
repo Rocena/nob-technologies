@@ -7,7 +7,8 @@ import { CTA } from '@/components/cta'
 import { FadeUp, TextReveal } from '@/components/animations'
 import { ProjectCard, ProjectItem } from '@/components/ProjectCard'
 import { VercelSitePreview } from '@/components/VercelSitePreview'
-import { ExternalLink, CheckCircle2, Globe, Server, ShieldCheck, Cpu } from 'lucide-react'
+import { ExternalLink, CheckCircle2, Globe, Server, ShieldCheck, Cpu, Building2, Network } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
@@ -18,6 +19,14 @@ export const metadata = {
 }
 
 const secondaryProjects: ProjectItem[] = [
+  {
+    id: 'union-europeenne-dakar',
+    title: 'Délégation de l’Union Européenne à Dakar — Infrastructure Réseau & Baies 42U',
+    sector: 'Institutionnel & Diplomatique',
+    description: 'Déploiement complet du câblage réseau structuré Cat 6A/7, pose de baies de brassage 42U, peignage méthodique des liaisons et certification de conformité pour le bureau de l’Union Européenne à Dakar.',
+    tags: ['Union Européenne', 'Dakar', 'Câblage Cat 6A/7', 'Baies 42U', 'Certification Fluke'],
+    coverImage: '/images/gallery/galerie-1-baie-brassage.jpg',
+  },
   {
     id: 'erp-gestion',
     title: 'Conception & Déploiement d’ERP d’Entreprise (Sur-Mesure / Odoo / Dolibarr)',
@@ -163,6 +172,186 @@ export default async function ProjectsPage() {
                   <span>Visiter le site en direct</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
+              </div>
+            </div>
+          </Container>
+        </Section>
+
+        {/* Flagship Reference 2: Délégation de l'Union Européenne au Sénégal (Bureau de Dakar) */}
+        <Section className="py-16 md:py-24 bg-slate-900 text-white relative overflow-hidden border-b border-slate-800">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+          <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+          
+          <Container className="relative z-10">
+            <FadeUp>
+              <div className="mb-12 text-center max-w-3xl mx-auto flex flex-col items-center">
+                {/* Official Logo */}
+                <div className="bg-white rounded-2xl px-6 py-3.5 mb-6 shadow-xl border border-white/20 inline-flex items-center justify-center">
+                  <Image
+                    src="/images/partners/union-europeenne-logo.svg"
+                    alt="Logo officiel Délégation de l'Union Européenne au Sénégal"
+                    width={280}
+                    height={65}
+                    className="h-10 sm:h-12 w-auto object-contain"
+                  />
+                </div>
+
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/15 text-cyan-300 border border-blue-500/30 text-xs font-semibold mb-4">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  Référence Diplomatique &bull; Bureau de Dakar (12, Av. Hassan II)
+                </div>
+
+                <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+                  Délégation de l’Union Européenne &mdash; Câblage Réseau &amp; Salles Serveurs
+                </h2>
+
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
+                  Conception, pose et certification de l’infrastructure réseau physique : armoires de brassage 42U, peignage méthodique des liaisons cuivre Cat 6A/7, raccordement optique et distribution sécurisée pour le bureau de l&apos;UE à Dakar.
+                </p>
+              </div>
+            </FadeUp>
+
+            {/* Photo Showcase of the Installation */}
+            <div className="grid lg:grid-cols-12 gap-6 mb-12">
+              {/* Main Feature Photo */}
+              <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden border border-slate-700 bg-slate-950 shadow-2xl group">
+                <Image
+                  src="/images/gallery/galerie-1-baie-brassage.jpg"
+                  alt="Baie de brassage 42U peignée pour l'Union Européenne à Dakar"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
+                <div className="absolute bottom-5 left-5 right-5 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                  <div>
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-cyan-400 bg-cyan-950/80 px-2.5 py-1 rounded border border-cyan-800 inline-block mb-1.5">
+                      Baie 42U Haute Densité
+                    </span>
+                    <h3 className="text-lg sm:text-xl font-bold text-white">
+                      Peignage &amp; Organisation des Liaisons RJ45 Cat 6A
+                    </h3>
+                  </div>
+                  <Link
+                    href="/galerie"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-colors shrink-0 shadow-lg"
+                  >
+                    <span>Photos chantier</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+
+              {/* 4 Supporting Photo Cards */}
+              <div className="lg:col-span-5 grid grid-cols-2 gap-4">
+                {[
+                  {
+                    src: "/images/gallery/galerie-7-salle-serveurs.jpg",
+                    title: "Salle Serveurs & Datacenter",
+                    tag: "Datacenter Local",
+                  },
+                  {
+                    src: "/images/gallery/galerie-3-rack-infrastructure.jpg",
+                    title: "Rack 42U & Énergie",
+                    tag: "Armoire Réseau",
+                  },
+                  {
+                    src: "/images/gallery/galerie-2-cablage-serveurs.jpg",
+                    title: "Switchs & Liaisons Serveurs",
+                    tag: "Interconnexion",
+                  },
+                  {
+                    src: "/images/gallery/galerie-8-interconnexion.jpg",
+                    title: "Cheminement Anti-Parasite",
+                    tag: "Chemins de câbles",
+                  },
+                ].map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href="/galerie"
+                    className="group relative aspect-square rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-md hover:border-cyan-500/60 transition-all"
+                  >
+                    <Image
+                      src={item.src}
+                      alt={item.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      sizes="(max-width: 1024px) 50vw, 25vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
+                    <div className="absolute bottom-2.5 left-2.5 right-2.5">
+                      <span className="text-[9px] font-mono text-cyan-300 uppercase tracking-wider block mb-0.5">
+                        {item.tag}
+                      </span>
+                      <p className="text-xs font-semibold text-white truncate">
+                        {item.title}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Grounded Technical Case Study Specifications */}
+            <div className="grid lg:grid-cols-3 gap-6 p-7 sm:p-8 rounded-2xl bg-slate-800/60 border border-slate-700/80 backdrop-blur-xs">
+              <div>
+                <h4 className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold mb-3 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                  01. Contexte &amp; Exigences Diplomatiques
+                </h4>
+                <p className="text-sm text-slate-300 leading-relaxed">
+                  Le bureau de la Délégation de l&apos;Union Européenne à Dakar (12, Avenue Hassan II) exigeait une infrastructure réseau d&apos;une fiabilité absolue et répondant aux normes internationales les plus rigoureuses pour supporter les opérations diplomatiques et l&apos;interconnexion permanente de ses équipes.
+                </p>
+              </div>
+
+              <div>
+                <h4 className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold mb-3 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                  02. Réalisations Techniques &amp; Normes
+                </h4>
+                <ul className="text-sm text-slate-300 space-y-2">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <span>Câblage cuivre certifié Cat 6A / 7 à blindage renforcé (S/FTP).</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <span>Fourniture et équipement de baies de brassage 42U avec peignage au peigne.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <span>Repérage normalisé et étiquetage millimétré de chaque prise.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <span>Tests de réflectométrie et certification Fluke de l&apos;ensemble des liens.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold mb-3 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                  03. Résultats &amp; Réception de Chantier
+                </h4>
+                <p className="text-sm text-slate-300 leading-relaxed mb-4">
+                  Livraison clé en main conforme aux standards européens ISO/IEC 11801 avec transmission du dossier de récolement et plan de câblage technique. Débit 10 Gbps certifié et disponibilité maximale.
+                </p>
+                <div className="flex flex-wrap gap-2.5">
+                  <Link
+                    href="/galerie"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-all active:scale-95 shadow-sm"
+                  >
+                    <span>Voir toutes les photos</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/15 transition-all"
+                  >
+                    <span>Demander une étude</span>
+                  </Link>
+                </div>
               </div>
             </div>
           </Container>
