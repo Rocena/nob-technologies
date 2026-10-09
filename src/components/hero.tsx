@@ -4,7 +4,6 @@ import { Heading, Text } from "./ui/typography";
 import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedHeroText } from "./AnimatedHeroText";
-import { TypewriterText } from "./TypewriterText";
 import { FadeUp } from "./animations";
 import Link from "next/link";
 import { TalkToEngineerButton } from "./TalkToEngineerButton";
