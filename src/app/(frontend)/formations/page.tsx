@@ -44,13 +44,13 @@ export default async function FormationsCatalogPage() {
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6 text-balance">
                 Formations Professionnelles :{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
-                  Préparation aux Certifications Mondiales
+                  Pratiques, Réalistes &amp; Certifiantes
                 </span>
               </h1>
             </TextReveal>
             <FadeUp delay={0.2}>
               <p className="text-slate-300 text-base sm:text-lg md:text-xl font-normal max-w-3xl mx-auto leading-relaxed">
-                Cursus intensifs de 6 mois axés sur la pratique réelle à Dakar pour préparer méthodiquement vos ingénieurs et techniciens à réussir les examens de référence (Cisco, Fortinet, Sophos).
+                Des programmes concrets et réalistes animés par nos ingénieurs à Dakar : initiations ciblées, sensibilisation au phishing, préparation aux certifications mondiales (Cisco CCNA, Fortinet, Sophos) et cadres de conformité (NIST, ISO 27001).
               </p>
             </FadeUp>
 
@@ -59,7 +59,7 @@ export default async function FormationsCatalogPage() {
               <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
                 <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
                   <GraduationCap className="w-4 h-4 text-cyan-400" />
-                  Programmes structurés sur 6 mois (24 semaines)
+                  10 Formations &amp; Modules Pratiques
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-950/40 border border-cyan-500/30 text-xs text-cyan-300">
                   <Clock className="w-4 h-4 text-cyan-400" />
@@ -84,89 +84,89 @@ export default async function FormationsCatalogPage() {
             <FadeUp>
               <div className="text-center max-w-3xl mx-auto mb-16">
                 <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
-                  Nos Parcours Certifiants sur 6 Mois
+                  Catalogue des Formations
                 </h2>
                 <p className="text-slate-400 text-base leading-relaxed">
-                  Choisissez votre spécialisation et accédez au syllabus détaillé mois par mois avec ateliers pratiques et livrables d&apos;évaluation.
+                  Consultez notre catalogue complet de formations opérationnelles, adaptées aux impératifs des entreprises et aux ambitions des professionnels de l&apos;IT au Sénégal.
                 </p>
               </div>
             </FadeUp>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {formations.map((track, idx) => (
-                <FadeUp key={track.slug} delay={idx * 0.1}>
-                  <div className="h-full bg-slate-950/80 rounded-2xl border border-white/10 p-7 md:p-8 flex flex-col justify-between hover:border-cyan-500/50 hover:shadow-2xl transition-all duration-300 relative group">
+                <FadeUp key={track.slug} delay={idx * 0.05}>
+                  <div className="h-full bg-slate-950/80 rounded-2xl border border-white/10 p-6 sm:p-7 flex flex-col justify-between hover:border-cyan-500/50 hover:shadow-2xl transition-all duration-300 relative group">
                     <div>
-                      <div className="flex items-center justify-between gap-3 mb-5">
-                        <span className="text-xs font-semibold text-cyan-400">
-                          Programme Certifiant
+                      <div className="flex items-center justify-between gap-3 mb-4">
+                        <span className="text-xs font-semibold font-mono text-cyan-400">
+                          {track.category || "Formation IT"}
                         </span>
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-800/40 px-2 py-0.5 rounded flex items-center gap-1">
-                            <Clock className="w-3 h-3 text-cyan-400" />
-                            Max 6h / sem
-                          </span>
-                          <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+                          <span className="text-xs font-mono text-slate-300 bg-white/5 border border-white/10 px-2 py-0.5 rounded flex items-center gap-1.5">
                             <Calendar className="w-3.5 h-3.5 text-cyan-400" />
-                            {track.duration.split(" ")[0]} Mois
+                            {track.duration}
                           </span>
                         </div>
                       </div>
 
-                      <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
+                      <h3 className="text-xl font-bold text-white mb-2.5 group-hover:text-cyan-300 transition-colors leading-snug">
                         {track.title}
                       </h3>
-                      <p className="text-sm text-slate-400 leading-relaxed mb-6">
+                      <p className="text-sm text-slate-400 leading-relaxed mb-5 line-clamp-3">
                         {track.shortDesc}
                       </p>
 
                       {/* Targeted Certifications Badges */}
-                      <div className="mb-6 pb-6 border-b border-white/10">
-                        <p className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-2.5">
-                          Certifications officielles visées :
-                        </p>
-                        <div className="flex flex-wrap gap-1.5">
-                          {track.targetCertifications.map((cert, i) => (
-                            <span
-                              key={i}
-                              className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-slate-300"
-                            >
-                              {cert.title}
-                            </span>
-                          ))}
+                      {track.targetCertifications && track.targetCertifications.length > 0 && (
+                        <div className="mb-5 pb-5 border-b border-white/10">
+                          <p className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-2">
+                            Validation &amp; Certification visée :
+                          </p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {track.targetCertifications.map((cert, i) => (
+                              <span
+                                key={i}
+                                className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[11px] font-medium text-slate-300"
+                              >
+                                {cert.title}
+                              </span>
+                            ))}
+                          </div>
                         </div>
-                      </div>
+                      )}
 
                       {/* Partner Logos */}
-                      <div className="mb-6">
-                        <span className="block text-[10px] font-mono uppercase text-slate-500 mb-2">Technologies &amp; Constructeurs :</span>
-                        <div className="flex flex-wrap items-center gap-2">
-                          {track.partnerLogos.map((p, i) => (
-                            <div 
-                              key={i} 
-                              title={p.name}
-                              className="h-7 px-2.5 py-0.5 bg-white rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform"
-                            >
-                              <Image
-                                src={p.logo}
-                                alt={p.name}
-                                width={65}
-                                height={20}
-                                unoptimized
-                                className="h-4 max-h-4 w-auto object-contain"
-                              />
-                            </div>
-                          ))}
+                      {track.partnerLogos && track.partnerLogos.length > 0 && (
+                        <div className="mb-6">
+                          <span className="block text-[10px] font-mono uppercase text-slate-500 mb-2">Technologies &amp; Constructeurs :</span>
+                          <div className="flex flex-wrap items-center gap-2">
+                            {track.partnerLogos.map((p, i) => (
+                              <div 
+                                key={i} 
+                                title={p.name}
+                                className="h-7 px-2.5 py-0.5 bg-white rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform"
+                              >
+                                <Image
+                                  src={p.logo}
+                                  alt={p.name}
+                                  width={65}
+                                  height={20}
+                                  unoptimized
+                                  className="h-4 max-h-4 w-auto object-contain"
+                                />
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
 
-                    <div className="pt-6 border-t border-white/10 space-y-2.5">
+                    <div className="pt-5 border-t border-white/10 space-y-2 mt-auto">
                       <Link
                         href={`/formations/${track.slug}`}
-                        className="inline-flex items-center justify-center gap-2 w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-xs hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg shadow-cyan-500/20 group-hover:shadow"
+                        className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-xs hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg shadow-cyan-500/20 group-hover:shadow"
                       >
-                        <span>Découvrir le programme (6 mois)</span>
+                        <span>Découvrir le programme ({track.duration})</span>
                         <ArrowRight className="w-4 h-4" />
                       </Link>
 
@@ -174,7 +174,7 @@ export default async function FormationsCatalogPage() {
                         href={`/formations/${track.slug}#candidature`}
                         className="inline-flex items-center justify-center w-full py-2.5 px-4 rounded-xl bg-white/5 border border-white/10 text-slate-300 font-medium text-xs hover:bg-white/10 hover:text-white transition-colors"
                       >
-                        Postuler à la prochaine session
+                        Postuler ou Demander un devis
                       </Link>
                     </div>
                   </div>

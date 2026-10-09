@@ -22,10 +22,13 @@ import { useEngineerModal } from "@/components/EngineerModalContext";
 interface CurriculumSyllabusProps {
   months: FormationMonth[];
   formationTitle: string;
+  duration?: string;
+  hours?: string;
+  pace?: string;
 }
 
-export function CurriculumSyllabus({ months, formationTitle }: CurriculumSyllabusProps) {
-  // Par défaut, le premier mois est ouvert pour donner un aperçu immédiat
+export function CurriculumSyllabus({ months, formationTitle, duration, hours, pace }: CurriculumSyllabusProps) {
+  // Par défaut, le premier module est ouvert pour donner un aperçu immédiat
   const [openMonths, setOpenMonths] = useState<Record<number, boolean>>({
     1: true,
   });
@@ -57,7 +60,7 @@ export function CurriculumSyllabus({ months, formationTitle }: CurriculumSyllabu
 
   return (
     <div className="w-full">
-      {/* Header du Syllabus inspiré des plateformes d'apprentissage de référence */}
+      {/* Header du Syllabus */}
       <div className="mb-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/10">
           <div className="max-w-2xl">
@@ -65,7 +68,7 @@ export function CurriculumSyllabus({ months, formationTitle }: CurriculumSyllabu
               Programme d&apos;études &amp; Syllabus détaillé
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              24 semaines d&apos;apprentissage structurées en 6 modules progressifs avec un rythme allégé de max 6h par semaine pour concilier activité professionnelle et montée en compétences. Chaque mois combine théorie ciblée, ateliers pratiques et évaluation continue.
+              {months.length} modules progressifs structurés pour concilier activité professionnelle et montée en compétences. Chaque étape combine théorie ciblée, ateliers pratiques et évaluation continue.
             </p>
           </div>
 
@@ -91,23 +94,23 @@ export function CurriculumSyllabus({ months, formationTitle }: CurriculumSyllabu
           </div>
         </div>
 
-        {/* Barre de métriques clés du cursus (Style Coursera / edX) */}
+        {/* Barre de métriques clés du cursus */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
           <div className="p-4 rounded-xl bg-slate-900/80 border border-white/10">
             <div className="flex items-center gap-2.5 text-cyan-400 mb-1">
               <Calendar className="w-4 h-4 shrink-0" />
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Durée du cycle</span>
             </div>
-            <p className="text-lg font-bold text-white">6 Mois (24 semaines)</p>
+            <p className="text-lg font-bold text-white">{duration || `${months.length} Modules`}</p>
             <p className="text-xs text-slate-400 mt-0.5">Progression étape par étape</p>
           </div>
 
           <div className="p-4 rounded-xl bg-slate-900/80 border border-white/10">
             <div className="flex items-center gap-2.5 text-cyan-400 mb-1">
               <Clock className="w-4 h-4 shrink-0" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Rythme allégé</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Rythme</span>
             </div>
-            <p className="text-lg font-bold text-white">Max 6h / semaine</p>
+            <p className="text-lg font-bold text-white">{pace || "Max 6h / semaine"}</p>
             <p className="text-xs text-slate-400 mt-0.5">Soirs ou samedis (compatible emploi)</p>
           </div>
 
@@ -116,7 +119,7 @@ export function CurriculumSyllabus({ months, formationTitle }: CurriculumSyllabu
               <Terminal className="w-4 h-4 shrink-0" />
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Pratique réelle</span>
             </div>
-            <p className="text-lg font-bold text-white">6 Labs &amp; Ateliers</p>
+            <p className="text-lg font-bold text-white">{months.length} Labs &amp; Ateliers</p>
             <p className="text-xs text-slate-400 mt-0.5">Matériel physique &amp; émulateurs</p>
           </div>
 
@@ -125,12 +128,12 @@ export function CurriculumSyllabus({ months, formationTitle }: CurriculumSyllabu
               <Award className="w-4 h-4 shrink-0" />
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Validation</span>
             </div>
-            <p className="text-lg font-bold text-white">Examens Blancs</p>
-            <p className="text-xs text-slate-400 mt-0.5">Simulations format Pearson VUE</p>
+            <p className="text-lg font-bold text-white">Cas Pratiques</p>
+            <p className="text-xs text-slate-400 mt-0.5">Évaluation &amp; livrables réels</p>
           </div>
         </div>
 
-        {/* Sélecteur de mois / Navigation par onglets */}
+        {/* Sélecteur de module / Navigation par onglets */}
         <div className="flex items-center gap-2 mt-8 overflow-x-auto pb-2 scrollbar-none">
           <button
             type="button"
@@ -141,7 +144,7 @@ export function CurriculumSyllabus({ months, formationTitle }: CurriculumSyllabu
                 : "bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white border border-white/10"
             }`}
           >
-            Vue complète ({months.length} mois)
+            Vue complète ({months.length} modules)
           </button>
           {months.map((m) => (
             <button
@@ -157,7 +160,7 @@ export function CurriculumSyllabus({ months, formationTitle }: CurriculumSyllabu
                   : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white border border-white/5"
               }`}
             >
-              Mois {m.month}
+              Module {m.month}
             </button>
           ))}
         </div>
@@ -187,7 +190,7 @@ export function CurriculumSyllabus({ months, formationTitle }: CurriculumSyllabu
                 <div className="flex items-start sm:items-center gap-4">
                   {/* Badge d'index de mois épuré */}
                   <div className="shrink-0 w-11 h-11 rounded-lg bg-slate-800 border border-white/10 flex flex-col items-center justify-center text-center">
-                    <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400 leading-none">Mois</span>
+                    <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400 leading-none">Mod.</span>
                     <span className="text-sm font-bold text-white leading-none mt-0.5">{String(m.month).padStart(2, "0")}</span>
                   </div>
 

@@ -66,12 +66,19 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
   }
 
   // 4. Formations & Préparation aux Certifications
-  if (/(formation|certif|ccna|ccnp|nse|comptia|iso 27001|apprendre|programme|cours|6 mois|syllabus)/i.test(q)) {
-    return "Nous proposons 3 grands programmes d'excellence sur 6 mois (180 heures de pratique en labs réels) :\n\n" +
-      "1. Préparation aux Certifications IT : pour réussir les examens Cisco CCNA/CCNP, Fortinet NSE 4, Sophos Certified Engineer et CompTIA Security+.\n" +
-      "2. Cybersécurité, Audit & SOC : gouvernance ISO 27001, analyse de vulnérabilités, surveillance SOC et détection des intrusions.\n" +
-      "3. Automatisation d'Entreprise & IA : flux n8n, scripts Python, connecteurs ERP (Dolibarr/Odoo) et agents IA.\n\n" +
-      "Vous pouvez consulter les programmes détaillés sur notre page dédiée [Formations](/formations) et candidater directement pour la prochaine promotion.";
+  if (/(formation|certif|ccna|ccnp|nse|fortinet|sophos|phishing|ethical|hacking|nist|iso 27001|gestion de projet|apprendre|programme|cours|syllabus)/i.test(q)) {
+    return "Nous proposons un catalogue complet de formations concrètes, réalistes et adaptées aux entreprises comme aux professionnels à Dakar 🎓 :\n\n" +
+      "1. Initiation à la cybersécurité (4 sem.) : fondamentaux, hygiène cyber et durcissement des postes.\n" +
+      "2. Sensibilisation au phishing - cas pratiques (2 sem.) : ateliers réels contre l'ingénierie sociale et la fraude au virement.\n" +
+      "3. Initiation à l'IA (4 sem.) : IA générative, prompt engineering et automatisation des tâches métiers.\n" +
+      "4. Préparation à la certification Fortinet NSE 4 / FCP (8 sem.) : administration avancée des pare-feux FortiGate.\n" +
+      "5. Initiation à Sophos (4 sem.) : pare-feux XGS, protection endpoint Intercept X et sécurité synchronisée.\n" +
+      "6. Initiation Microsoft 365 (4 sem.) : administration du tenant, Exchange, Teams, SharePoint et sécurité Entra ID.\n" +
+      "7. Cisco CCNA 200-301 (10 sem.) : commutation VLAN, routage OSPF et labs sur racks physiques.\n" +
+      "8. Gestion de projet IT (4 sem.) : méthodologies agiles (Scrum, Kanban), cadrage et pilotage budgétaire.\n" +
+      "9. Cadre de conformité & normes (6 sem.) : ISO/IEC 27001, NIST CSF 2.0, réglementations BCEAO et CDP Sénégal.\n" +
+      "10. Ethical Hacking & Pentest (8 sem.) : tests d'intrusion éthiques, scans de vulnérabilités et labs CTF.\n\n" +
+      "Formats adaptés : intra-entreprise pour équipes DSI, bootcamps intensifs ou cours allégés du soir/samedi (max 6h/semaine). Vous pouvez consulter le syllabus complet sur notre page [Formations](/formations).";
   }
 
   // 5. Cybersécurité, Pare-feu & Partenaires (Sophos, Fortinet, Acronis, Wallix...)

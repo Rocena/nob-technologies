@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!formation) return { title: "Formation non trouvée | NOB TECHNOLOGIES" };
 
   return {
-    title: `${formation.title} (Programme 6 Mois) | NOB TECHNOLOGIES`,
+    title: `${formation.title} | Formations NOB TECHNOLOGIES`,
     description: formation.shortDesc,
   };
 }
@@ -205,6 +205,9 @@ export default async function FormationDetailPage({ params }: Props) {
             <CurriculumSyllabus
               months={formation.months}
               formationTitle={formation.title}
+              duration={formation.duration}
+              hours={formation.hours}
+              pace={formation.pace}
             />
           </Container>
         </Section>
@@ -220,7 +223,7 @@ export default async function FormationDetailPage({ params }: Props) {
                   Débouchés Professionnels &amp; Rémunérations au Sénégal
                 </h2>
                 <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                  Ce cursus intensif de 6 mois est calibré pour répondre aux besoins critiques de recrutement des entreprises sénégalaises, banques de la place et multinationales basées à Dakar.
+                  Ce cursus pratique est calibré pour répondre aux besoins critiques de recrutement des entreprises sénégalaises, banques de la place et multinationales basées à Dakar.
                 </p>
               </div>
 
