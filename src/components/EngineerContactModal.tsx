@@ -140,9 +140,9 @@ export function EngineerContactModal({
             <div className="p-6 sm:p-8 max-h-[calc(85vh-140px)] overflow-y-auto">
               {isSuccess ? (
                 <FormSuccessMessage
-                  title="Merci d'avoir rempli notre formulaire !"
-                  message="Votre demande a bien été envoyée et prise en compte par nos équipes. Un ingénieur NOB TECHNOLOGIES analysera votre projet et vous recontactera personnellement sous 24h ouvrées."
-                  badge="Demande envoyée et prise en compte"
+                  title="Votre demande a bien été transmise"
+                  message="Nous accusons bonne réception de vos informations. Nos équipes d'ingénierie NOB TECHNOLOGIES étudient vos éléments et vous recontacteront sous 24h ouvrées."
+                  badge="Prise en charge confirmée"
                   onReset={onClose}
                   resetButtonText="Fermer la fenêtre"
                 />

@@ -15,9 +15,9 @@ interface FormSuccessMessageProps {
 }
 
 export function FormSuccessMessage({
-  title = "Merci d'avoir rempli notre formulaire !",
-  message = "Votre demande a bien été envoyée et prise en compte par nos équipes. Un ingénieur NOB TECHNOLOGIES analysera vos spécifications et vous recontactera personnellement sous 24h ouvrées.",
-  badge = "Demande envoyée & prise en compte",
+  title = "Votre demande a bien été transmise",
+  message = "Nous accusons bonne réception de vos informations. Nos ingénieurs NOB TECHNOLOGIES analysent vos spécifications techniques et vous contacteront avec une réponse concrète sous 24h ouvrées.",
+  badge = "Prise en charge confirmée",
   onReset,
   resetButtonText = "Fermer la fenêtre",
   variant = "light",
@@ -35,22 +35,76 @@ export function FormSuccessMessage({
           : "bg-emerald-50/70 border border-emerald-200 text-slate-900 shadow-xl shadow-emerald-950/5"
       }`}
     >
+      {/* Aura diffuse néon d'arrière-plan (blur-3xl) */}
+      <div
+        className={`absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full blur-3xl pointer-events-none transition-opacity duration-1000 ${
+          isDark
+            ? "bg-gradient-to-tr from-emerald-500/20 via-teal-500/15 to-cyan-500/10"
+            : "bg-gradient-to-tr from-emerald-400/25 via-teal-300/20 to-cyan-400/15"
+        }`}
+        aria-hidden="true"
+      />
+
       <div className="relative z-10 flex flex-col items-center">
-        {/* Animated Check Icon */}
-        <div className="relative mb-6">
+        {/* Animated Check Icon with Multi-ring Radar Wave */}
+        <div className="relative mb-6 flex items-center justify-center">
+          {/* Onde radar 1 (vague principale) */}
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0.7 }}
+            animate={{ scale: [0.8, 1.5, 2.1], opacity: [0.7, 0.35, 0] }}
+            transition={{
+              duration: 2.6,
+              repeat: Infinity,
+              ease: "easeOut",
+            }}
+            className={`absolute w-20 h-20 rounded-full border ${
+              isDark
+                ? "border-emerald-400/60 bg-emerald-500/15"
+                : "border-emerald-500/50 bg-emerald-500/10"
+            }`}
+            aria-hidden="true"
+          />
+
+          {/* Onde radar 2 (vague déphasée pour effet continu) */}
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0.6 }}
+            animate={{ scale: [0.8, 1.5, 2.1], opacity: [0.6, 0.3, 0] }}
+            transition={{
+              duration: 2.6,
+              repeat: Infinity,
+              ease: "easeOut",
+              delay: 1.3,
+            }}
+            className={`absolute w-20 h-20 rounded-full border ${
+              isDark
+                ? "border-teal-400/50 bg-teal-500/10"
+                : "border-teal-500/40 bg-teal-500/10"
+            }`}
+            aria-hidden="true"
+          />
+
+          {/* Halo doux statique immédiat */}
+          <div
+            className={`absolute w-24 h-24 rounded-full blur-md ${
+              isDark ? "bg-emerald-400/20" : "bg-emerald-500/15"
+            }`}
+            aria-hidden="true"
+          />
+
+          {/* Icône de validation avec animation spring */}
           <motion.div
             initial={{ scale: 0, rotate: -20 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{
               type: "spring",
-              damping: 15,
+              damping: 16,
               stiffness: 260,
               delay: 0.1,
             }}
-            className={`w-20 h-20 rounded-full flex items-center justify-center shadow-lg relative z-10 ${
+            className={`w-20 h-20 rounded-full flex items-center justify-center shadow-xl relative z-10 ${
               isDark
-                ? "bg-gradient-to-tr from-emerald-600 to-teal-400 text-[#020617] ring-4 ring-emerald-500/20 shadow-emerald-500/30"
-                : "bg-gradient-to-tr from-emerald-500 to-teal-500 text-white ring-4 ring-emerald-100 shadow-emerald-500/20"
+                ? "bg-gradient-to-tr from-emerald-600 via-emerald-500 to-teal-400 text-slate-950 ring-4 ring-emerald-500/20 shadow-[0_0_35px_rgba(16,185,129,0.35)]"
+                : "bg-gradient-to-tr from-emerald-600 via-emerald-500 to-teal-500 text-white ring-4 ring-emerald-100 shadow-[0_10px_30px_rgba(16,185,129,0.25)]"
             }`}
           >
             <CheckCircle2 className="w-10 h-10 stroke-[2.2]" />
