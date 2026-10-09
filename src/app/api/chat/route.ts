@@ -178,7 +178,7 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
   if (/(client|confiance|r[eé]f[eé]rence|projet|r[eé]alisation|seter|ter|polyclinique|p2a|dolima|simplon|parc exotique|union europ[eé]enne|ue)/i.test(q) || (isOneWord && ["references", "clients"].includes(words[0]))) {
     return "De grandes institutions et entreprises nous font confiance au Sénégal 🏆 :\n\n" +
       "1. **Délégation de l'Union Européenne à Dakar** : Câblage réseau structuré blindé Cat 6A et baies 42U.\n" +
-      "2. **SETER (TER de Dakar)** : Salles serveurs, baies techniques et infrastructure réseau critique.\n" +
+      "2. **SETER (TER de Dakar)** : Formation spécialisée des techniciens aux télécommunications ferroviaires GSM-R.\n" +
       "3. **Hôtel du Parc Exotique du Sénégal** : Plateforme web officielle de réservation et ERP d'établissement.\n" +
       "4. **Polyclinique P2A (Dakar)** : Baies réseau, serveurs virtualisés VMware, téléphonie Yeastar et pare-feu FortiGate.\n" +
       "5. **Dolima (Laiterie du Berger)** : Infrastructure réseau d'entreprise et connectivité industrielle.\n" +

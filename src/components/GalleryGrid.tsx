@@ -18,11 +18,11 @@ export interface GalleryItem {
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: "g6",
-    title: "Intervention en salle serveurs & configuration baie technique (SETER / TER Dakar)",
+    title: "Formation pratique techniciens & baie télécoms GSM-R (SETER / TER Dakar)",
     category: "baies",
-    categoryLabel: "Baies & Racks",
+    categoryLabel: "Baies & GSM-R",
     image: "/images/projects/seter-ter-datacenter.jpg",
-    description: "Configuration console des équipements réseau et mise en service sur baie serveurs en salle technique par nos ingénieurs NOB Technologies (SETER - TER de Dakar).",
+    description: "Atelier pratique et formation des techniciens de la SETER directement devant les équipements en salle technique pour la maintenance du réseau de communication ferroviaire GSM-R du TER de Dakar.",
   },
   {
     id: "g1",
