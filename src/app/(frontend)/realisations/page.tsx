@@ -28,6 +28,30 @@ const secondaryProjects: ProjectItem[] = [
     coverImage: '/images/gallery/galerie-1-baie-brassage.jpg',
   },
   {
+    id: 'polyclinique-p2a',
+    title: 'Polyclinique P2A (Dakar) — Infrastructure Réseau, VMware, VoIP Yeastar & FortiGate',
+    sector: 'Santé & Établissement Médical',
+    description: 'Installation complète de l’infrastructure réseau physique et baies, virtualisation des serveurs d’établissement sous VMware, téléphonie d’entreprise VoIP Yeastar et pare-feu périmétrique Fortinet FortiGate (NGFW).',
+    tags: ['Polyclinique P2A', 'Réseau Physique', 'VMware', 'VoIP Yeastar', 'Fortinet FortiGate'],
+    coverImage: '/images/gallery/galerie-6-routeur-firewall.jpg',
+  },
+  {
+    id: 'dolima-senegal',
+    title: 'Dolima (La Laiterie du Berger) — Ingénierie & Infrastructure Réseau d’Entreprise',
+    sector: 'Agro-Industrie & Production',
+    description: 'Ingénierie et déploiement de l’infrastructure réseau locale, interconnexion sécurisée des postes opérationnels, segmentation LAN/VLAN et fiabilisation de la connectivité pour les flux industriels de Dolima.',
+    tags: ['Dolima', 'Infrastructure Réseau', 'Switching LAN', 'Connectivité', 'Haute Disponibilité'],
+    coverImage: '/images/gallery/galerie-4-installation-reseau.jpg',
+  },
+  {
+    id: 'simplon-senegal',
+    title: 'Simplon Sénégal — Formation Professionnelle & Accompagnement Apprenants',
+    sector: 'Formation & Éducation Numérique',
+    description: 'Animation de modules intensifs et ateliers pratiques pour les apprenants de Simplon : architectures réseaux d’entreprise, administration système Linux/Windows, cybersécurité et préparation aux certifications.',
+    tags: ['Simplon', 'Dakar', 'Formation Apprenants', 'Réseaux & Systèmes', 'Cybersécurité'],
+    coverImage: '/images/gallery/galerie-5-equipement-telecom.jpg',
+  },
+  {
     id: 'erp-gestion',
     title: 'Conception & Déploiement d’ERP d’Entreprise (Sur-Mesure / Odoo / Dolibarr)',
     sector: 'ERP, Digitalisation & Gestion Commerciale',
@@ -37,19 +61,11 @@ const secondaryProjects: ProjectItem[] = [
   },
   {
     id: 'infra-firewall',
-    title: 'Sécurisation Réseau & Pare-feu de Nouvelle Génération',
+    title: 'Sécurisation Réseau & Pare-feu de Nouvelle Génération (NGFW)',
     sector: 'Cybersécurité Périmétrique',
     description: 'Mise en place de passerelles de sécurité Sophos et Fortinet (NGFW) avec filtrage applicatif, VPN IPsec multi-sites pour le travail à distance et politiques de segmentation réseau LAN/VLAN.',
     tags: ['Sophos XGS', 'Fortinet FortiGate', 'VPN IPsec', 'Segmentation VLAN'],
     coverImage: '/images/gallery/galerie-6-routeur-firewall.jpg',
-  },
-  {
-    id: 'cablage-telecom',
-    title: 'Câblage Réseau Structuré & Baies de Brassage',
-    sector: 'Infrastructures Câblage & Télécoms',
-    description: 'Pose de câblage informatique catégorie 6A/7, installation et peignage de baies de brassage 42U, raccordement de liaisons fibre optique et déploiement de standard téléphonique IP (VoIP).',
-    tags: ['Câblage Cat 6A', 'Baies 42U', 'Fibre Optique', 'Téléphonie IP'],
-    coverImage: '/images/gallery/galerie-1-baie-brassage.jpg',
   },
 ];
 
@@ -95,7 +111,7 @@ export default async function ProjectsPage() {
         </Section>
         
         {/* Flagship Reference: Parc Exotique du Sénégal with Vercel Preview */}
-        <Section className="py-16 md:py-24 bg-white border-b border-slate-200">
+        <Section id="parc-exotique" className="scroll-mt-20 py-16 md:py-24 bg-white border-b border-slate-200">
           <Container>
             <FadeUp>
               <div className="mb-10 text-center max-w-3xl mx-auto">
@@ -178,7 +194,7 @@ export default async function ProjectsPage() {
         </Section>
 
         {/* Flagship Reference 2: Délégation de l'Union Européenne au Sénégal (Bureau de Dakar) */}
-        <Section className="py-16 md:py-24 bg-slate-900 text-white relative overflow-hidden border-b border-slate-800">
+        <Section id="union-europeenne-dakar" className="scroll-mt-20 py-16 md:py-24 bg-slate-900 text-white relative overflow-hidden border-b border-slate-800">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
           <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
           
@@ -381,7 +397,9 @@ export default async function ProjectsPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {secondaryProjects.map((project, index) => (
                 <FadeUp key={project.id} delay={index * 0.1}>
-                  <ProjectCard project={project} />
+                  <div id={String(project.id)} className="scroll-mt-28 h-full">
+                    <ProjectCard project={project} />
+                  </div>
                 </FadeUp>
               ))}
 

@@ -120,7 +120,18 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
     return "Nous installons des solutions de téléphonie IP (VoIP) de dernière génération avec Yeastar et Cisco, ainsi que des systèmes de vidéosurveillance IP haute définition pour sécuriser vos locaux et entrepôts.";
   }
 
-  // 11. Coordonnées & Contact
+  // 11. Références Clients, Réalisations & Déploiements Majeurs
+  if (/(client|confiance|r[eé]f[eé]rence|projet|r[eé]alisation|polyclinique|p2a|dolima|simplon|parc exotique|union europ[eé]enne|d[eé]l[eé]gation)/i.test(q)) {
+    return "De grandes institutions et entreprises font confiance à NOB TECHNOLOGIES pour leurs projets informatiques critiques 🏆 :\n\n" +
+      "1. Délégation de l’Union Européenne au Sénégal (Dakar) : Câblage réseau structuré cuivre blindé Cat 6A, baies de brassage 42U et certification Fluke Networks.\n" +
+      "2. Hôtel du Parc Exotique du Sénégal (Somone) : Conception et mise en ligne de la plateforme web officielle (parcexotique.sn) et déploiement de l'ERP de gestion d'établissement.\n" +
+      "3. Polyclinique P2A (Dakar) : Installation de l'infrastructure réseau physique, virtualisation des serveurs avec VMware, téléphonie d'entreprise VoIP Yeastar et pare-feu Fortinet FortiGate (NGFW).\n" +
+      "4. Dolima / Laiterie du Berger : Ingénierie et déploiement de l'infrastructure réseau d'entreprise et fiabilisation de la connectivité.\n" +
+      "5. Simplon Sénégal (Dakar) : Formation professionnelle et ateliers pratiques pour leurs apprenants (infrastructures réseaux, cybersécurité et certifications IT).\n\n" +
+      "Vous pouvez découvrir les détails et photos de nos chantiers sur notre page dédiée [Réalisations](/realisations).";
+  }
+
+  // 12. Coordonnées & Contact
   if (/(contact|adresse|t[eé]l[eé]phone|num[eé]ro|mail|email|o[uù] [eê]tes|dakar|a[eé]roport|si[eè]ge)/i.test(q)) {
     return "Voici comment nous joindre directement 📍 :\n\n" +
       "• Siège : Route de l’Aéroport LSS lot N° 79, Dakar, Sénégal.\n" +
@@ -129,7 +140,7 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
       "• Horaires : du lundi au vendredi de 8h30 à 18h00 (support d'astreinte 24/7 pour les contrats d'infogérance).";
   }
 
-  // 12. Réponse contextuelle par défaut mais intelligente
+  // 13. Réponse contextuelle par défaut mais intelligente
   return "Je comprends votre demande concernant votre système d'information. Chez NOB TECHNOLOGIES, nous intervenons sur l'ensemble du spectre IT : cybersécurité (Sophos, Fortinet), réseaux & câblage, conception et intégration d'ERP (sur-mesure, Odoo, Dolibarr), développement web/mobile, licences Office 365 et formations certifiantes sur 6 mois.\n\nPourriez-vous préciser votre besoin afin que je vous oriente au mieux, ou souhaitez-vous échanger directement avec un ingénieur au +221 77 301 08 38 ?";
 }
 

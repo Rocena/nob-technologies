@@ -1,0 +1,43 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="p2a_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="50%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="p2a_cross" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Medical Cross / Shield Emblem -->
+  <g transform="translate(6, 6)">
+    <!-- Rounded Background Badge -->
+    <rect x="0" y="0" width="48" height="48" rx="12" fill="#F0FDFA" stroke="#CCFBF1" stroke-width="1.5"/>
+    
+    <!-- Stylized Medical Cross with Heartbeat -->
+    <g transform="translate(9, 9)">
+      <!-- Cross Vertical Beam -->
+      <rect x="11" y="2" width="8" height="26" rx="4" fill="url(#p2a_cross)"/>
+      <!-- Cross Horizontal Beam -->
+      <rect x="2" y="11" width="26" height="8" rx="4" fill="url(#p2a_cross)"/>
+      
+      <!-- Heartbeat / Vital Pulse Line in White -->
+      <path d="M4 15 H10 L12.5 9 L16 21 L18.5 12 L20.5 15 H26" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <!-- Typography -->
+  <g transform="translate(66, 15)">
+    <!-- Brand Name -->
+    <text x="0" y="17" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="16" letter-spacing="0.5" fill="#0F172A">
+      POLYCLINIQUE <tspan fill="#0284C7">P2A</tspan>
+    </text>
+    
+    <!-- Subtitle / Full Title -->
+    <text x="0" y="32" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="9" letter-spacing="0.8" fill="#0D9488">
+      AMITIÉ &amp; ALLIANCE &bull; DAKAR
+    </text>
+  </g>
+</svg>
