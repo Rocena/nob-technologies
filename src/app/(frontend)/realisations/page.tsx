@@ -245,8 +245,8 @@ export default async function ProjectsPage() {
               {/* Main Feature Photo */}
               <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden border border-slate-700 bg-slate-950 shadow-2xl group">
                 <Image
-                  src="/images/gallery/galerie-6-routeur-firewall.jpg"
-                  alt="Paramétrage console et mise en service sur baie 42U pour l'Union Européenne à Dakar"
+                  src="/images/gallery/galerie-4-installation-reseau.jpg"
+                  alt="Test de certification Fluke et recette technique sur baie pour l'Union Européenne à Dakar"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 1024px) 100vw, 60vw"
@@ -255,10 +255,10 @@ export default async function ProjectsPage() {
                 <div className="absolute bottom-5 left-5 right-5 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                   <div>
                     <span className="text-[11px] font-mono uppercase tracking-wider text-cyan-400 bg-cyan-950/80 px-2.5 py-1 rounded border border-cyan-800 inline-block mb-1.5">
-                      Baie 42U &amp; Mise en Service
+                      Baie 42U &amp; Tests Fluke
                     </span>
                     <h3 className="text-lg sm:text-xl font-bold text-white">
-                      Paramétrage Console &amp; Recette Technique sur Baie 42U
+                      Recette Technique &amp; Certification de Câblage Cat 6A
                     </h3>
                   </div>
                   <Link
