@@ -140,7 +140,10 @@ export function Expertises({ services = [] }: { services: any[] }) {
                     >
                       Demander un devis &rarr;
                     </QuoteRequestButton>
-                    <Link href="/services" className="flex items-center gap-1 text-cyan-600 text-xs font-semibold hover:underline">
+                    <Link 
+                      href={href} 
+                      className="flex items-center gap-1 text-cyan-600 hover:text-cyan-700 text-xs font-semibold hover:underline"
+                    >
                       En savoir plus <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>

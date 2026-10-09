@@ -251,6 +251,56 @@ const SERVICES_DATA: Record<string, {
     content: "Déploiement de firewalls Sophos et Fortinet.",
     features: ["Pare-feu NGFW", "VPN d'entreprise", "Filtrage web"],
     tech: ["Sophos", "Fortinet"]
+  },
+  "licences-materiels": {
+    title: "Vente de Licences Office 365 (ESD & CSP) & Matériels IT",
+    short: "Licences & Matériels",
+    icon: Key,
+    color: "from-emerald-500 to-teal-600",
+    description: "Distribution officielle de licences Microsoft 365 (ESD & CSP) et fourniture d’équipements informatiques professionnels d’origine.",
+    content: "Équipez votre entreprise avec des logiciels légaux et du matériel performant sous garantie constructeur. En tant que partenaire revendeur officiel, NOB TECHNOLOGIES distribue les licences Microsoft Office 365 (licences perpétuelles ESD et abonnements d'entreprise CSP), des serveurs Dell, des ordinateurs portables professionnels et des switchs/routeurs d’origine.",
+    features: [
+      "Vente officielle de licences Microsoft 365 Business, Standard & Enterprise",
+      "Fourniture de licences ESD (Electronic Software Delivery) et CSP",
+      "Serveurs d'entreprise Dell PowerEdge et baies de stockage",
+      "Postes de travail PC portables et de bureau pour collaborateurs",
+      "Onduleurs de protection électrique et périphériques réseau"
+    ],
+    tech: ["Microsoft", "Dell Technologies", "Lenovo", "APC", "Eaton"]
+  },
+  "telephonie-videosurveillance": {
+    title: "Téléphonie IP d’Entreprise (VoIP) & Vidéosurveillance IP",
+    short: "Téléphonie & Vidéo",
+    icon: Phone,
+    color: "from-sky-500 to-blue-600",
+    description: "Migration vers la voix sur IP Yeastar Série P, postes téléphoniques Cisco et caméras réseau haute définition.",
+    content: "Modernisez les communications et la sécurité physique de vos locaux d'entreprise. Nous installons des serveurs IPBX Yeastar de dernière génération, des combinés Cisco VoIP et des caméras IP avec vision nocturne et enregistreurs NVR sécurisés.",
+    features: [
+      "Installation d’IPBX VoIP Yeastar et liaisons SIP d'entreprise",
+      "Fourniture de postes téléphoniques IP Cisco et sans-fil DECT",
+      "Systèmes de vidéosurveillance IP haute définition jour/nuit",
+      "Enregistreurs NVR sécurisés et visionnage à distance",
+      "Contrôle d’accès biométrique et interconnexions multi-sites"
+    ],
+    tech: ["Yeastar", "Cisco", "Hikvision", "Dahua", "Grandstream"]
+  },
+  "erp-digitalisation": {
+    title: "Conception & Intégration d’ERP (Sur-Mesure, Odoo, Dolibarr)",
+    short: "ERP & Digitalisation",
+    icon: Database,
+    color: "from-indigo-500 to-purple-500",
+    description: "Conception de logiciels ERP sur-mesure et intégration d'ERP de référence pour unifier et digitaliser la facturation, stocks, comptabilité, CRM et RH.",
+    content: "La transformation digitale de votre entreprise exige des outils qui collent parfaitement à votre réalité opérationnelle. Chez NOB TECHNOLOGIES, nous concevons des ERP sur-mesure développés selon vos logiques métiers spécifiques, tout en assurant l'intégration et le paramétrage avancé des solutions reconnues comme Odoo et Dolibarr. Nous modélisons vos flux, développons vos modules personnalisés, migrons vos données existantes et formons vos équipes pour une adoption fluide et immédiate.",
+    features: [
+      "Conception et développement d'ERP sur-mesure adaptés à vos processus métiers",
+      "Paramétrage et intégration d’ERP open-source Dolibarr et Odoo (serveurs locaux ou cloud)",
+      "Gestion commerciale unifiée : devis, commandes, facturation conforme et relances",
+      "Gestion avancée des stocks, inventaires multi-dépôts, achats et fournisseurs",
+      "Comptabilité générale, trésorerie prévisionnelle et tableaux de bord décisionnels",
+      "Connecteurs API personnalisés avec votre site e-commerce, application mobile et outils tiers",
+      "Gestion des ressources humaines, congés, plannings et notes de frais"
+    ],
+    tech: ["Développement Sur-Mesure", "Odoo", "Dolibarr", "PostgreSQL", "Python", "Node.js", "Linux"]
   }
 };
 
