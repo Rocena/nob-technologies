@@ -12,6 +12,7 @@ export const CustomCreateFirstUser: React.FC = () => {
   const [step, setStep] = useState<Step>('WELCOME');
   const [guideIndex, setGuideIndex] = useState(0);
   
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -46,6 +47,10 @@ export const CustomCreateFirstUser: React.FC = () => {
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (password.length < 8) {
+      setError('Le mot de passe doit comporter au moins 8 caractères.');
+      return;
+    }
     if (password !== confirmPassword) {
       setError('Les mots de passe ne correspondent pas.');
       return;
@@ -58,24 +63,26 @@ export const CustomCreateFirstUser: React.FC = () => {
       const res = await fetch('/api/users/first-register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, role: 'super_admin' }),
+        body: JSON.stringify({ email, password, name, role: 'super_admin' }),
         credentials: 'same-origin',
       });
 
       if (res.ok) {
-        await fetch('/api/users/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password }),
-          credentials: 'same-origin',
-        });
+        // En cas de secours, s'assurer que la session est également rafraîchie
+        try {
+          await fetch('/api/users/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password }),
+            credentials: 'same-origin',
+          });
+        } catch {}
         
-        // Artificial delay for the beautiful "Creating" animation
         setTimeout(() => {
           setStep('SUCCESS');
-        }, 2000);
+        }, 1500);
       } else {
-        const data = await res.json();
+        const data = await res.json().catch(() => ({}));
         setError(data.errors?.[0]?.message || 'Erreur lors de la configuration.');
         setStep('CREATE_ADMIN');
       }
@@ -142,10 +149,23 @@ export const CustomCreateFirstUser: React.FC = () => {
               <form onSubmit={handleCreate} className="flex flex-col gap-5">
                 <div className="group flex flex-col gap-2">
                   <label className="text-xs font-medium text-slate-400 group-focus-within:text-[#00D4FF] transition-colors">
-                    Adresse Email
+                    Nom & Prénom
                   </label>
                   <input
                     autoFocus
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="ex: Ozias Nzongo"
+                    className="w-full rounded-xl border border-slate-800 bg-slate-900/50 px-4 py-3.5 text-sm text-white outline-none transition-all placeholder:text-slate-600 focus:border-[#00D4FF] focus:bg-slate-900 focus:ring-4 focus:ring-[#00D4FF]/10"
+                  />
+                </div>
+
+                <div className="group flex flex-col gap-2">
+                  <label className="text-xs font-medium text-slate-400 group-focus-within:text-[#00D4FF] transition-colors">
+                    Adresse Email
+                  </label>
+                  <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -225,7 +245,7 @@ export const CustomCreateFirstUser: React.FC = () => {
                 <div className="absolute inset-0 border-4 border-[#00D4FF]/20 rounded-full"></div>
                 <div className="absolute inset-0 border-4 border-[#00D4FF] rounded-full border-t-transparent animate-spin"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <Shield size={32} className="text-[#00D4FF] animate-pulse" />
+                  <Shield size={32} className="text-[#00D4FF]" />
                 </div>
               </div>
               <h2 className="text-xl font-bold text-white mb-2">Configuration en cours...</h2>

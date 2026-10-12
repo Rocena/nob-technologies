@@ -52,7 +52,12 @@ export const CustomLogin: React.FC = () => {
 
       if (res.ok) {
         setView('SUCCESS');
-        setTimeout(() => { window.location.href = '/admin'; }, 1200);
+        setTimeout(() => {
+          const params = new URLSearchParams(window.location.search);
+          const redirectUrl = params.get('redirect');
+          const target = (redirectUrl && redirectUrl.startsWith('/admin')) ? redirectUrl : '/admin';
+          window.location.href = target;
+        }, 1200);
       } else {
         const data = await res.json().catch(() => ({}));
         setError(data.errors?.[0]?.message || 'Identifiants incorrects ou accès refusé.');
@@ -144,7 +149,7 @@ export const CustomLogin: React.FC = () => {
                 <div className="absolute inset-0 border-4 border-[#00D4FF]/20 rounded-full" />
                 <div className="absolute inset-0 border-4 border-[#00D4FF] rounded-full border-t-transparent animate-spin" />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <Lock size={30} className="text-[#00D4FF] animate-pulse" />
+                  <Lock size={30} className="text-[#00D4FF]" />
                 </div>
               </div>
               <h2 className="text-xl font-bold text-white mb-2">Connexion sécurisée</h2>

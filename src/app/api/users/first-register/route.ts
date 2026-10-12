@@ -36,7 +36,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { email, password } = body;
+    const { email, password, name } = body;
 
     if (!email || !password) {
       return NextResponse.json(
@@ -44,6 +44,15 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+
+    if (password.length < 8) {
+      return NextResponse.json(
+        { errors: [{ message: 'Le mot de passe doit comporter au moins 8 caractères.' }] },
+        { status: 400 }
+      );
+    }
+
+    const fullName = typeof name === 'string' && name.trim() ? name.trim() : 'Super Admin';
 
     let user;
     try {
@@ -53,8 +62,9 @@ export async function POST(request: Request) {
           email,
           password,
           role: 'super_admin',
-          name: 'Super Admin',
+          name: fullName,
         },
+        overrideAccess: true,
       });
     } catch (createError: any) {
       if (payload.db?.migrate && typeof payload.db.migrate === 'function') {
@@ -65,15 +75,50 @@ export async function POST(request: Request) {
             email,
             password,
             role: 'super_admin',
-            name: 'Super Admin',
+            name: fullName,
           },
+          overrideAccess: true,
         });
       } else {
         throw createError;
       }
     }
 
-    return NextResponse.json({ success: true, user: { id: user.id, email: user.email } });
+    // Auto-login immédiat pour configurer la session et générer le token JWT
+    let token = null;
+    let expSeconds = 7200;
+    try {
+      const loginRes = await payload.login({
+        collection: 'users',
+        data: { email, password },
+      });
+      if (loginRes?.token) {
+        token = loginRes.token;
+        if (loginRes.exp) {
+          expSeconds = loginRes.exp - Math.floor(Date.now() / 1000);
+        }
+      }
+    } catch (loginErr) {
+      console.warn('Auto-login during first-register warning:', loginErr);
+    }
+
+    const response = NextResponse.json({
+      success: true,
+      user: { id: user.id, email: user.email, name: user.name, role: user.role },
+      token,
+    });
+
+    if (token) {
+      response.cookies.set('payload-token', token, {
+        httpOnly: true,
+        path: '/',
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: expSeconds > 0 ? expSeconds : 7200,
+      });
+    }
+
+    return response;
   } catch (error: any) {
     console.error('Error in first-register:', error);
     return NextResponse.json(

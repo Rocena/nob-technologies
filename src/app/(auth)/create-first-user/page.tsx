@@ -3,12 +3,30 @@ import { isRedirectError } from 'next/dist/client/components/redirect-error';
 import { getPayloadClient } from '@/lib/payload';
 import { migrations } from '@/migrations';
 import { CustomCreateFirstUser } from '@/components/admin/CustomCreateFirstUser';
+import { cookies, headers } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
 
 export default async function CreateFirstUserPage() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('payload-token')?.value;
+
   try {
     const payload = await getPayloadClient();
+
+    // Si une session est déjà valide, rediriger directement vers /admin
+    if (token) {
+      try {
+        const reqHeaders = await headers();
+        const { user } = await payload.auth({ headers: reqHeaders });
+        if (user) {
+          redirect('/admin');
+        }
+      } catch (authErr) {
+        if (isRedirectError(authErr)) throw authErr;
+      }
+    }
+
     try {
       const { totalDocs } = await payload.count({
         collection: 'users',
@@ -41,3 +59,4 @@ export default async function CreateFirstUserPage() {
 
   return <CustomCreateFirstUser />;
 }
+
