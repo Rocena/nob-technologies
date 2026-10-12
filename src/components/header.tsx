@@ -107,7 +107,7 @@ const DEFAULT_NAV: NavItem[] = [
       { name: 'Catalogue Formations (6 Mois)', href: '/formations', desc: 'Cursus d’excellence et ateliers pratiques à Dakar (max 6h/sem)', tag: 'Immersion • 6 Mois' },
       { name: 'Préparation Certifications IT', href: '/formations/preparation-certifications-it', desc: 'Préparation officielle Cisco CCNA, Fortinet NSE, Sophos & CompTIA', tag: 'CCNA • NSE 4 • Sophos' },
       { name: 'Cybersécurité & Audit SOC', href: '/formations/cybersecurite-audit-soc', desc: 'Gouvernance ISO 27001, surveillance SOC et techniques de pentest', tag: 'ISO 27001 • Pentest' },
-      { name: 'Automatisation & IA', href: '/formations/automatisation-ia', desc: 'Workflows n8n, scripting Python, agents IA et productivité', tag: 'n8n • Python • IA' },
+      { name: 'Automatisation & IA', href: '/formations/automatisation-ia', desc: 'Workflows Make, scripting Python, agents IA et productivité', tag: 'Make • Python • IA' },
     ]
   },
   { 
