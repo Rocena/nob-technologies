@@ -336,21 +336,8 @@ export function Header() {
                 </a>
               </div>
 
-              {/* Right: Direct Contacts (Fixe, Portable, Mail) */}
+              {/* Right: Direct Contacts (Portable, Fixe, Mail) */}
               <div className="flex items-center gap-3 sm:gap-4 md:gap-5">
-                {/* Fixe Dakar */}
-                <a 
-                  href="tel:+221338140435"
-                  className="flex items-center gap-1.5 text-slate-300 hover:text-cyan-400 transition-colors group"
-                  title="Téléphone fixe standard Dakar"
-                >
-                  <Phone className="w-3 h-3 text-cyan-400 shrink-0 group-hover:scale-110 transition-transform" />
-                  <span className="text-slate-400 hidden md:inline font-normal">Fixe :</span>
-                  <span className="font-semibold text-slate-200 group-hover:text-cyan-400 whitespace-nowrap text-[10.5px] sm:text-xs">+221 33 814 04 35</span>
-                </a>
-
-                <span className="text-slate-700 select-none" aria-hidden="true">|</span>
-
                 {/* Portable Direct */}
                 <a 
                   href="tel:+221773010838"
@@ -360,6 +347,19 @@ export function Header() {
                   <Smartphone className="w-3 h-3 text-emerald-400 shrink-0 group-hover:scale-110 transition-transform" />
                   <span className="text-slate-400 hidden md:inline font-normal">Portable :</span>
                   <span className="font-semibold text-slate-200 group-hover:text-emerald-400 whitespace-nowrap text-[10.5px] sm:text-xs">+221 77 301 08 38</span>
+                </a>
+
+                <span className="text-slate-700 select-none" aria-hidden="true">|</span>
+
+                {/* Fixe Dakar */}
+                <a 
+                  href="tel:+221338140435"
+                  className="flex items-center gap-1.5 text-slate-300 hover:text-cyan-400 transition-colors group"
+                  title="Téléphone fixe standard Dakar"
+                >
+                  <Phone className="w-3 h-3 text-cyan-400 shrink-0 group-hover:scale-110 transition-transform" />
+                  <span className="text-slate-400 hidden md:inline font-normal">Fixe :</span>
+                  <span className="font-semibold text-slate-200 group-hover:text-cyan-400 whitespace-nowrap text-[10.5px] sm:text-xs">+221 33 814 04 35</span>
                 </a>
 
                 <span className="text-slate-700 hidden lg:inline select-none" aria-hidden="true">|</span>
