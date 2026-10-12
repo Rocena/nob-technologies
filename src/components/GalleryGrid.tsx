@@ -184,14 +184,6 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     image: "/images/gallery/polyclinique-p2a-chassis-stockage-onduleur.jpg",
     description: "Détail des baies de disques durs hotswap sécurisées avec voyants de statut, commutateur d'agrégation et monitoring d'alimentation continue (UPS / onduleur 100%).",
   },
-  {
-    id: "g15",
-    title: "Baie 42U, câblage Cat 6A & certification Fluke (Union Européenne Dakar)",
-    category: "baies",
-    categoryLabel: "Baies & Racks",
-    image: "/images/projects/union-europeenne-baie-42u.jpg",
-    description: "Déploiement complet du câblage réseau Cat 6A/7, baie de brassage 42U, peignage méthodique des liaisons et recette de conformité avec testeur Fluke pour la Délégation de l'Union Européenne à Dakar.",
-  },
 ];
 
 export function GalleryGrid() {
