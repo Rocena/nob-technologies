@@ -59,9 +59,9 @@ const corporateReferences: ProjectItem[] = [
     id: "dolima-senegal",
     title: "Dolima — La Laiterie du Berger",
     sector: "Agro-Industrie & Production",
-    description: "Ingénierie du réseau d'entreprise, commutation LAN haute densité, segmentation VLAN et fiabilisation de la connectivité continue.",
-    tags: ["Dolima", "Switching LAN", "Segmentation VLAN", "Haute Disponibilité"],
-    coverImage: "/images/projects/reseau-switching-datacenter.jpg",
+    description: "Ingénierie de l'infrastructure réseau physique, câblage cuivre Cat 6, coffret de brassage FINEN et commutation LAN haute densité pour Dolima.",
+    tags: ["Dolima", "Câblage Cuivre Cat 6", "Coffret FINEN", "Switching LAN"],
+    coverImage: "/images/projects/dolima-cablage-panneau-brassage.jpg",
     clientLogo: "/images/partners/dolima.png",
   },
 ];
