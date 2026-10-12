@@ -128,18 +128,26 @@ export function ParcExotiqueShowcase({ projects = [] }: { projects?: any[] } = {
                   </p>
 
                   {/* Saad Diakhité Testimonial Box */}
-                  <div className="mb-5 p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200/90 relative">
-                    <Quote className="w-5 h-5 text-slate-300 absolute top-3 right-3" />
+                  <div className="mb-5 p-4 sm:p-5 rounded-xl bg-slate-50/90 border border-slate-200/90">
+                    <div className="flex items-center justify-between gap-3 mb-2.5">
+                      <div className="flex items-center gap-1 text-amber-500 text-xs">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        <span className="text-[11px] font-bold text-slate-700 ml-1.5 not-italic">5.0 &bull; Avis Vérifié</span>
+                      </div>
+                      <Quote className="w-4 h-4 text-cyan-600/50 shrink-0" />
+                    </div>
+
                     <p className="text-xs sm:text-sm text-slate-800 italic leading-relaxed mb-3">
                       &laquo; Excellent travail franchement, très professionnel et surtout très réactif. Je ne pourrais pas trouver mieux ailleurs. &raquo;
                     </p>
-                    <div className="flex items-center gap-2.5 pt-2 border-t border-slate-200/70">
-                      <div className="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-[11px]">
+
+                    <div className="flex items-center gap-2.5 pt-2.5 border-t border-slate-200/70">
+                      <div className="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-[11px] shrink-0">
                         SD
                       </div>
                       <div>
                         <div className="text-xs font-bold text-slate-900">Saad Diakhité</div>
-                        <div className="text-[11px] text-slate-500">Directeur Général Adjoint (DGA), Hôtel du Parc</div>
+                        <div className="text-[11px] text-slate-500 font-medium">Directeur Général Adjoint (DGA), Hôtel du Parc</div>
                       </div>
                     </div>
                   </div>
