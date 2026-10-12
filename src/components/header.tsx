@@ -317,12 +317,8 @@ export function Header() {
         <div className="w-full bg-[#030712] border-b border-slate-800/80 text-slate-300">
           <div className="w-full max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex h-8 sm:h-9 items-center justify-between text-[11px] sm:text-xs">
-              {/* Left: HQ & Status badge */}
-              <div className="flex items-center gap-2 text-slate-400">
-                <span className="relative flex h-2 w-2 shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                </span>
+              {/* Left: HQ Location Link */}
+              <div className="flex items-center text-slate-400">
                 <a
                   href="https://www.google.com/maps/search/?api=1&query=QG3J%2BHP+Dakar"
                   target="_blank"
@@ -330,11 +326,12 @@ export function Header() {
                   className="hover:text-cyan-400 transition-colors group flex items-center gap-1.5"
                   title="Localisation Google Maps : QG3J+HP Dakar (Route de l'Aéroport)"
                 >
+                  <MapPin className="w-3 h-3 text-cyan-400 shrink-0 group-hover:scale-110 transition-transform" />
                   <span className="hidden sm:inline font-medium text-slate-300 group-hover:text-cyan-300 tracking-tight">
-                    Dakar, Sénégal <span className="text-slate-600">•</span> Route de l&apos;Aéroport LSS <span className="text-slate-600">•</span> <span className="text-emerald-400 font-semibold">Support &amp; Astreinte 24/7</span>
+                    Dakar, Sénégal <span className="text-slate-600">•</span> Route de l&apos;Aéroport LSS
                   </span>
                   <span className="sm:hidden font-medium text-slate-300 group-hover:text-cyan-300 tracking-tight text-[10.5px]">
-                    Dakar <span className="text-slate-600">•</span> <span className="text-emerald-400 font-semibold">Support 24/7</span>
+                    Dakar, Sénégal <span className="text-slate-600">•</span> Route de l&apos;Aéroport
                   </span>
                 </a>
               </div>
