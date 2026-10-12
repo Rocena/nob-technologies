@@ -93,6 +93,9 @@ export function FormationOfferingsSection({ formationTitle }: FormationOfferings
     <div className="w-full">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto mb-12">
+        <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+          ACCOMPAGNEMENT &bull; FLEXIBILITÉ
+        </p>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3">
           3 Formats Adaptés à Vos Objectifs
         </h2>
@@ -153,10 +156,10 @@ export function FormationOfferingsSection({ formationTitle }: FormationOfferings
               <button
                 type="button"
                 onClick={offering.action}
-                className="w-full py-3 px-4 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 hover:border-cyan-500/40 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors"
+                className="w-full py-3 px-4 rounded-xl text-[#020617] font-bold text-xs bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] hover:brightness-105 active:scale-95 transition-all shadow-[0_4px_14px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_20px_rgba(16,231,96,0.35)] flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>{offering.ctaText}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#020617]" />
               </button>
             </div>
           );

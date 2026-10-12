@@ -90,6 +90,9 @@ export default async function AboutPage() {
           <Container className="relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <FadeUp>
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                  NOTRE MISSION &bull; PÉRIMÈTRE D&apos;INTERVENTION
+                </p>
                 <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight mb-8">
                   Concrètement, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">qu'est-ce qu'on fait ?</span>
                 </h2>
@@ -112,7 +115,7 @@ export default async function AboutPage() {
               
               <div className="space-y-12">
                 <FadeUp>
-                  <p className="text-cyan-600 text-xs tracking-[0.25em] uppercase mb-2 font-semibold">
+                  <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                     L&apos;Ingénierie à l&apos;état pur
                   </p>
                   <h3 className="text-3xl font-extrabold tracking-tight text-slate-900 mb-4">

@@ -46,6 +46,9 @@ export default function SectorsPage() {
           <Container>
             <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
               <FadeUp>
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                  APPROCHE MÉTIER &bull; AUDIT SUR-MESURE
+                </p>
                 <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 leading-tight mb-8">
                   La technologie n'est pas générique.
                 </h2>
@@ -81,8 +84,9 @@ export default function SectorsPage() {
                   </p>
                   
                   <div className="mt-auto pt-8 border-t border-slate-100">
-                    <Link href="/secteurs/pme-eti" className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-slate-900 text-white font-semibold rounded-sm hover:bg-accent transition-colors">
-                      Découvrir nos solutions PME <ArrowRight className="w-4 h-4 ml-2" />
+                    <Link href="/secteurs/pme-eti" className="inline-flex items-center justify-center w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-800 hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs">
+                      <span>Découvrir nos solutions PME</span>
+                      <ArrowRight className="w-3.5 h-3.5 ml-2 text-slate-500" />
                     </Link>
                   </div>
                 </div>
@@ -106,8 +110,9 @@ export default function SectorsPage() {
                   </p>
                   
                   <div className="mt-auto pt-8 border-t border-slate-100">
-                    <Link href="/secteurs/pmi-industrie" className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-slate-900 text-white font-semibold rounded-sm hover:bg-accent transition-colors">
-                      Découvrir nos solutions Industrie <ArrowRight className="w-4 h-4 ml-2" />
+                    <Link href="/secteurs/pmi-industrie" className="inline-flex items-center justify-center w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-800 hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs">
+                      <span>Découvrir nos solutions Industrie</span>
+                      <ArrowRight className="w-3.5 h-3.5 ml-2 text-slate-500" />
                     </Link>
                   </div>
                 </div>
@@ -131,8 +136,9 @@ export default function SectorsPage() {
                   </p>
                   
                   <div className="mt-auto pt-8 border-t border-slate-100">
-                    <Link href="/secteurs/commerces-institutions" className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-slate-900 text-white font-semibold rounded-sm hover:bg-accent transition-colors">
-                      Découvrir nos solutions Commerce <ArrowRight className="w-4 h-4 ml-2" />
+                    <Link href="/secteurs/commerces-institutions" className="inline-flex items-center justify-center w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-800 hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs">
+                      <span>Découvrir nos solutions Commerce</span>
+                      <ArrowRight className="w-3.5 h-3.5 ml-2 text-slate-500" />
                     </Link>
                   </div>
                 </div>
@@ -156,8 +162,9 @@ export default function SectorsPage() {
                   </p>
                   
                   <div className="mt-auto pt-8 border-t border-slate-100">
-                    <Link href="/secteurs/particuliers-startups" className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-slate-900 text-white font-semibold rounded-sm hover:bg-accent transition-colors">
-                      Découvrir nos solutions Startups <ArrowRight className="w-4 h-4 ml-2" />
+                    <Link href="/secteurs/particuliers-startups" className="inline-flex items-center justify-center w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-800 hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs">
+                      <span>Découvrir nos solutions Startups</span>
+                      <ArrowRight className="w-3.5 h-3.5 ml-2 text-slate-500" />
                     </Link>
                   </div>
                 </div>

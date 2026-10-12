@@ -42,8 +42,8 @@ export function Testimonials({ testimonials = [] }: { testimonials: any[] }) {
       <Container className="relative z-10">
         <div className="text-center max-w-2xl mx-auto mb-20">
           <FadeUp>
-            <p className="text-cyan-400 text-xs sm:text-sm tracking-[0.25em] uppercase mb-4 sm:mb-6 font-semibold">
-              Retours Clients
+            <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+              RETOURS CLIENTS &bull; TÉMOIGNAGES
             </p>
             <Heading level={2} className="mb-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white">
               Ce que disent nos clients.

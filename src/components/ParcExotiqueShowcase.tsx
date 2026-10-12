@@ -39,6 +39,9 @@ export function ParcExotiqueShowcase({ projects = [] }: { projects?: any[] } = {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
           <FadeUp>
+            <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+              PROJETS &bull; DÉPLOIEMENTS EN PRODUCTION
+            </p>
             <Heading
               level={2}
               className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.18] mb-4"
@@ -181,17 +184,17 @@ export function ParcExotiqueShowcase({ projects = [] }: { projects?: any[] } = {
                 <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <QuoteRequestButton
                     service="Développement Web & Plateformes"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-white font-semibold text-xs sm:text-sm bg-slate-900 hover:bg-slate-800 transition-colors shadow-sm cursor-pointer group"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-[#020617] font-bold text-xs sm:text-sm bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] hover:brightness-105 active:scale-95 transition-all shadow-[0_4px_16px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_24px_rgba(16,231,96,0.35)] cursor-pointer group"
                   >
                     <span>Demander un devis</span>
-                    <ArrowRight className="w-4 h-4 text-cyan-400 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="w-4 h-4 text-[#020617] transition-transform group-hover:translate-x-1" />
                   </QuoteRequestButton>
 
                   <a
                     href="https://parcexotique.sn/fr/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-semibold text-xs sm:text-sm transition-colors shadow-2xs"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-800 hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs"
                   >
                     <span>Voir le site en ligne</span>
                     <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
@@ -207,7 +210,7 @@ export function ParcExotiqueShowcase({ projects = [] }: { projects?: any[] } = {
         <div className="mt-12 text-center">
           <Link
             href="/realisations"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-slate-800 font-semibold text-xs sm:text-sm transition-colors shadow-2xs group"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-800 hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs group"
           >
             <span>Découvrir l&apos;ensemble de nos réalisations d&apos;ingénierie</span>
             <ArrowRight className="w-4 h-4 text-cyan-700 transition-transform group-hover:translate-x-1" />

@@ -75,6 +75,9 @@ export default async function ContactPage({
             <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
               <FadeUp className="lg:col-span-1 space-y-8">
                 <div>
+                  <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                    CONTACT DIRECT &bull; DAKAR
+                  </p>
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3 tracking-tight">
                     Nos coordonnées
                   </h2>

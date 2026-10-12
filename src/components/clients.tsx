@@ -264,7 +264,7 @@ export function Clients({ clients = [] }: { clients: any[] }) {
         {/* Section Header: Constructeurs & Éditeurs Partenaires */}
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
           <FadeUp>
-            <p className="text-cyan-600 text-xs sm:text-sm tracking-[0.25em] uppercase mb-3 font-semibold">
+            <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
               ÉCOSYSTÈME TECHNOLOGIQUE INTERNATIONAL
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
@@ -322,7 +322,7 @@ export function Clients({ clients = [] }: { clients: any[] }) {
         <div className="pt-10 border-t border-slate-200/90">
           <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
             <FadeUp>
-              <p className="text-cyan-600 text-xs sm:text-sm tracking-[0.25em] uppercase mb-3 font-semibold">
+              <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                 RÉFÉRENCES CLIENTS &amp; DÉPLOIEMENTS MAJEURS
               </p>
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
@@ -506,10 +506,10 @@ export function Clients({ clients = [] }: { clients: any[] }) {
                     <Link
                       href={selectedClient.href}
                       onClick={() => setSelectedClient(null)}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs shadow-sm hover:shadow-cyan-500/20 transition-all active:scale-95"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-800 hover:text-slate-900 font-semibold text-xs transition-all shadow-2xs"
                     >
                       <span>Voir la fiche réalisation complète</span>
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
                     </Link>
 
                     <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
@@ -520,7 +520,7 @@ export function Clients({ clients = [] }: { clients: any[] }) {
                           setSelectedClient(null);
                           openQuoteModal(clientName);
                         }}
-                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs transition-colors"
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-[#020617] font-bold text-xs bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] hover:brightness-105 active:scale-95 transition-all shadow-[0_4px_14px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_20px_rgba(16,231,96,0.35)] cursor-pointer"
                       >
                         Demander un projet similaire
                       </button>

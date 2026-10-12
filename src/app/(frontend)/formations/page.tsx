@@ -83,6 +83,9 @@ export default async function FormationsCatalogPage() {
           <Container>
             <FadeUp>
               <div className="text-center max-w-3xl mx-auto mb-16">
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                  EXCELLENCE &bull; PROGRAMMES CERTIFIANTS
+                </p>
                 <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
                   Catalogue des Formations
                 </h2>
@@ -163,18 +166,18 @@ export default async function FormationsCatalogPage() {
 
                     <div className="pt-5 border-t border-white/10 space-y-2 mt-auto">
                       <Link
-                        href={`/formations/${track.slug}`}
-                        className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-xs hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg shadow-cyan-500/20 group-hover:shadow"
+                        href={`/formations/${track.slug}#candidature`}
+                        className="inline-flex items-center justify-center w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-[#020617] font-bold text-xs hover:brightness-105 active:scale-95 transition-all shadow-[0_4px_14px_0_rgba(0,212,255,0.35)]"
                       >
-                        <span>Découvrir le programme ({track.duration})</span>
-                        <ArrowRight className="w-4 h-4" />
+                        Postuler ou Demander un devis
                       </Link>
 
                       <Link
-                        href={`/formations/${track.slug}#candidature`}
-                        className="inline-flex items-center justify-center w-full py-2.5 px-4 rounded-xl bg-white/5 border border-white/10 text-slate-300 font-medium text-xs hover:bg-white/10 hover:text-white transition-colors"
+                        href={`/formations/${track.slug}`}
+                        className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/20 transition-all shadow-2xs"
                       >
-                        Postuler ou Demander un devis
+                        <span>Découvrir le programme ({track.duration})</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-slate-300" />
                       </Link>
                     </div>
                   </div>
@@ -197,6 +200,9 @@ export default async function FormationsCatalogPage() {
           <Container>
             <FadeUp>
               <div className="text-center max-w-3xl mx-auto mb-16">
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                  PÉDAGOGIE &bull; IMMERSION TECHNIQUE
+                </p>
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-4">
                   Une méthode d&apos;apprentissage axée sur le terrain
                 </h2>

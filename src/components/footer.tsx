@@ -97,14 +97,16 @@ export async function Footer() {
           </div>
           
           <div className="lg:col-span-3">
-            <h4 className="font-semibold text-xs tracking-[0.2em] uppercase text-slate-100 mb-6">Prêt à innover ?</h4>
-            <div className="p-6 rounded-sm bg-accent/10 border border-accent/30 backdrop-blur-md relative overflow-hidden group">
+            <h4 className="font-mono text-xs tracking-[0.2em] uppercase mb-4 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+              Prêt à innover ?
+            </h4>
+            <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md relative overflow-hidden group">
               <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <p className="text-base text-white mb-6 leading-relaxed font-medium relative z-10">
+              <p className="text-sm text-slate-300 mb-5 leading-relaxed font-normal relative z-10">
                 Passez à la vitesse supérieure avec nos infrastructures cloud et réseaux sécurisés.
               </p>
-              <Link href="/contact" className="relative z-10 group/btn inline-flex items-center px-4 py-2 bg-accent text-[#020617] text-sm font-bold rounded-sm hover:bg-[#00B4D8] transition-all shadow-[0_0_15px_rgba(0,212,255,0.2)] hover:shadow-[0_0_25px_rgba(0,212,255,0.4)]">
-                Démarrer un projet
+              <Link href="/contact" className="relative z-10 group/btn inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-[#020617] text-xs sm:text-sm font-bold rounded-xl hover:brightness-105 active:scale-95 shadow-[0_4px_16px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_24px_rgba(16,231,96,0.35)] transition-all">
+                <span>Démarrer un projet</span>
                 <svg className="w-4 h-4 ml-2 transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
               </Link>
             </div>

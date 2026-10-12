@@ -284,7 +284,7 @@ export function ChatBot() {
           <div className="flex-1 min-w-0">
             <div className="text-sm font-semibold text-white leading-tight">Assistant NOB TECH</div>
             <div className="text-[10px] text-[#00D4FF]/80 font-mono flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
               Assistant Virtuel · En ligne
             </div>
           </div>

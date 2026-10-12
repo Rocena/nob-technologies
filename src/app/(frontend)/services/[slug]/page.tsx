@@ -375,15 +375,18 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
               <div className="lg:col-span-8 space-y-12">
                 <FadeUp delay={0.1}>
                   <div className="bg-white rounded-2xl border border-slate-200 p-8 md:p-10 shadow-sm">
+                    <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                      INGÉNIERIE &bull; MÉTHODOLOGIE
+                    </p>
                     <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-6">
-                      Approche & Spécifications Techniques
+                      Approche &amp; Spécifications Techniques
                     </h2>
                     <p className="text-slate-600 text-base leading-relaxed mb-8">
                       {service.content}
                     </p>
 
                     <h3 className="text-lg font-bold text-slate-900 mb-4 pt-6 border-t border-slate-100">
-                      Prestations & Livrables Inclus
+                      Prestations &amp; Livrables Inclus
                     </h3>
                     <div className="grid sm:grid-cols-1 gap-3.5">
                       {service.features.map((feat, i) => (
@@ -401,7 +404,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
                   <FadeUp delay={0.2}>
                     <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
                       <h3 className="text-base font-bold text-slate-900 mb-4">
-                        Technologies & Marques Partenaires
+                        Technologies &amp; Marques Partenaires
                       </h3>
                       <div className="flex flex-wrap gap-2">
                         {service.tech.map((t, i) => (
@@ -422,7 +425,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
               <div className="lg:col-span-4 sticky top-28">
                 <FadeUp delay={0.2}>
                   <div className="bg-slate-900 text-white rounded-2xl p-7 md:p-8 border border-slate-800 shadow-xl">
-                    <span className="text-[11px] text-cyan-400 font-semibold tracking-wider uppercase block mb-2">
+                    <span className="font-mono text-[11px] tracking-wider uppercase block mb-2 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                       DEVIS RAPIDE &amp; ACCOMPAGNEMENT
                     </span>
                     <h3 className="text-xl font-bold mb-3">
@@ -434,7 +437,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
 
                     <QuoteRequestButton
                       service={service.title}
-                      className="flex items-center justify-center w-full py-3.5 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-colors shadow-lg mb-4 text-center cursor-pointer"
+                      className="flex items-center justify-center w-full py-3.5 px-4 rounded-xl text-[#020617] font-bold text-xs bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] hover:brightness-105 active:scale-95 transition-all shadow-[0_4px_16px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_24px_rgba(16,231,96,0.35)] mb-4 text-center cursor-pointer"
                     >
                       Demander un devis personnalisé
                     </QuoteRequestButton>

@@ -431,7 +431,7 @@ export default async function FormationDetailPage({ params }: Props) {
         <Section className="py-16 bg-slate-900 border-t border-white/10">
           <Container>
             <div className="text-center max-w-2xl mx-auto mb-10">
-              <p className="text-cyan-400 text-xs tracking-[0.25em] uppercase mb-2 font-semibold">
+              <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                 DÉCOUVRIR LES AUTRES PARCOURS
               </p>
               <h2 className="text-2xl font-extrabold text-white">

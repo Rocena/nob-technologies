@@ -128,16 +128,9 @@ export default async function ProjectsPage() {
           <Container>
             <FadeUp>
               <div className="mb-10 text-center max-w-3xl mx-auto">
-                <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white text-xs font-semibold text-slate-800 mb-4 border border-slate-200 shadow-sm relative overflow-hidden group">
-                  <span className="flex h-2 w-2 rounded-full bg-[#10E760] shrink-0" />
-                  <span className="font-mono text-[11px] uppercase tracking-wider font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00B4D8] to-[#10E760]">
-                    Retours Clients &bull; Projet Livré
-                  </span>
-                  <span className="text-slate-300">&bull;</span>
-                  <span className="text-slate-700 font-medium">
-                    Conçu &amp; déployé par NOB TECHNOLOGIES
-                  </span>
-                </div>
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                  ÉTUDE DE CAS &bull; HÔTELLERIE &amp; WEB
+                </p>
                 <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
                   Parc Exotique du Sénégal &mdash; Plateforme Web Officielle
                 </h2>
@@ -207,10 +200,10 @@ export default async function ProjectsPage() {
                   href="https://parcexotique.sn/fr/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] hover:brightness-105 text-[#020617] font-bold text-xs shadow-[0_4px_14px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_20px_rgba(16,231,96,0.35)] transition-all hover:scale-[1.02] active:scale-95"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-800 hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs"
                 >
                   <span>Visiter le site en direct</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
                 </a>
               </div>
             </div>
@@ -265,16 +258,9 @@ export default async function ProjectsPage() {
                   />
                 </div>
 
-                <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-950/80 text-xs font-semibold text-white mb-4 border border-cyan-500/40 shadow-[0_0_20px_rgba(0,212,255,0.15)]">
-                  <span className="flex h-2 w-2 rounded-full bg-[#10E760] shrink-0" />
-                  <span className="font-mono text-[11px] uppercase tracking-wider font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-                    Retours Clients &bull; Recette Diplomatique Conforme
-                  </span>
-                  <span className="text-slate-500">&bull;</span>
-                  <span className="text-slate-300 font-medium">
-                    Délégation de l’Union Européenne &bull; Dakar (12, Av. Hassan II)
-                  </span>
-                </div>
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                  RÉFÉRENCE DIPLOMATIQUE &bull; INFRASTRUCTURE PHYSIQUE
+                </p>
 
                 <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
                   Délégation de l’Union Européenne &mdash; Câblage Réseau &amp; Salles Serveurs
@@ -414,17 +400,17 @@ export default async function ProjectsPage() {
                 </p>
                 <div className="flex flex-wrap gap-2.5">
                   <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-[#020617] font-bold text-xs bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] hover:brightness-105 active:scale-95 transition-all shadow-[0_4px_14px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_20px_rgba(16,231,96,0.35)]"
+                  >
+                    <span>Demander une étude</span>
+                  </Link>
+                  <Link
                     href="/galerie"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-all active:scale-95 shadow-sm"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/20 transition-all shadow-2xs"
                   >
                     <span>Voir toutes les photos</span>
                     <ExternalLink className="w-3.5 h-3.5" />
-                  </Link>
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/15 transition-all"
-                  >
-                    <span>Demander une étude</span>
                   </Link>
                 </div>
               </div>
@@ -460,8 +446,11 @@ export default async function ProjectsPage() {
               <FadeUp>
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-6">
                   <div>
+                    <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                      DÉPLOIEMENTS EN PRODUCTION &bull; RÉFÉRENCES TERRAIN
+                    </p>
                     <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-                      Infrastructures, ERP & Réseaux
+                      Infrastructures, ERP &amp; Réseaux
                     </h2>
                   </div>
                   <Link

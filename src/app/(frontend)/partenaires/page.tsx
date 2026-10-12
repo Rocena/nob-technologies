@@ -272,7 +272,7 @@ export default function PartenairesPage() {
           <Container className="relative z-10">
             <FadeUp>
               <div className="text-center mb-12">
-                <p className="text-cyan-400 text-xs tracking-[0.25em] uppercase mb-3 font-semibold">
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                   ALLIANCES CLÉS &bull; INFRASTRUCTURE &amp; CYBERDÉFENSE
                 </p>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
@@ -346,7 +346,7 @@ export default function PartenairesPage() {
           <Container>
             <FadeUp>
               <div className="text-center mb-16">
-                <p className="text-cyan-600 text-xs tracking-[0.25em] uppercase mb-4 font-semibold">
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                   CATALOGUE DE PARTENAIRES OFFICIELS
                 </p>
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-4">
@@ -418,7 +418,7 @@ export default function PartenairesPage() {
           <Container>
             <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-900 border border-cyan-500/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
               <div>
-                <span className="text-xs font-semibold tracking-widest text-cyan-400 uppercase mb-2 block">
+                <span className="font-mono text-xs tracking-[0.2em] uppercase mb-2 block font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                   MONTÉE EN COMPÉTENCES
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
@@ -431,10 +431,10 @@ export default function PartenairesPage() {
 
               <Link
                 href="/formations"
-                className="shrink-0 px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm flex items-center gap-2 shadow-lg shadow-cyan-500/20 transition-all hover:scale-105"
+                className="shrink-0 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-900 font-bold text-sm flex items-center gap-2 shadow-2xs transition-all hover:scale-105"
               >
                 <span>Voir le catalogue Formations</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-slate-600" />
               </Link>
             </div>
           </Container>

@@ -63,7 +63,7 @@ export function VercelSitePreview({
           </div>
 
           <div className="hidden sm:flex items-center gap-2 pl-2 border-l border-slate-700/60">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-emerald-400" />
             <span className="text-[11px] font-mono font-medium text-emerald-400">
               Live Production
             </span>
@@ -223,7 +223,7 @@ export function VercelSitePreview({
                 {/* Information helper overlay at bottom */}
                 <div className="absolute bottom-3 right-3 px-3 py-1.5 rounded-lg bg-black/85 backdrop-blur-md border border-slate-700 text-[11px] text-slate-300 flex items-center gap-2 shadow-lg">
                   <span className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                     <span>Navigation interactive</span>
                   </span>
                   <a

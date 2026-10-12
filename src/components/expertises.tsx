@@ -102,6 +102,9 @@ export function Expertises({ services = [] }: { services: any[] }) {
       <Container>
         <div className="text-center max-w-4xl mx-auto mb-16 md:mb-20">
           <FadeUp>
+            <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+              SOLUTIONS &bull; PÔLES D&apos;EXPERTISE
+            </p>
             <Heading level={2} className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
               Nous construisons les fondations numériques des leaders de demain.
             </Heading>
