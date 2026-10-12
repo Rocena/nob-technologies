@@ -318,43 +318,47 @@ export function Header() {
           <div className="w-full max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex h-8 sm:h-9 items-center justify-between text-[11px] sm:text-xs">
               {/* Left: HQ Location Link */}
-              <div className="flex items-center text-slate-400">
+              <div className="flex items-center text-slate-400 min-w-0 pr-2">
                 <a
                   href="https://www.google.com/maps/search/?api=1&query=QG3J%2BHP+Dakar"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-cyan-400 transition-colors group flex items-center gap-1.5"
+                  className="hover:text-cyan-400 transition-colors group flex items-center gap-1.5 min-w-0"
                   title="Localisation Google Maps : QG3J+HP Dakar (Route de l'Aéroport)"
                 >
                   <MapPin className="w-3 h-3 text-cyan-400 shrink-0 group-hover:scale-110 transition-transform" />
-                  <span className="hidden sm:inline font-medium text-slate-300 group-hover:text-cyan-300 tracking-tight">
+                  <span className="hidden md:inline font-medium text-slate-300 group-hover:text-cyan-300 tracking-tight whitespace-nowrap">
                     Dakar, Sénégal <span className="text-slate-600">•</span> Route de l&apos;Aéroport LSS
                   </span>
-                  <span className="sm:hidden font-medium text-slate-300 group-hover:text-cyan-300 tracking-tight text-[10.5px]">
-                    Dakar, Sénégal <span className="text-slate-600">•</span> Route de l&apos;Aéroport
+                  <span className="hidden sm:inline md:hidden font-medium text-slate-300 group-hover:text-cyan-300 tracking-tight whitespace-nowrap">
+                    Dakar <span className="text-slate-600">•</span> Route de l&apos;Aéroport
+                  </span>
+                  <span className="sm:hidden font-medium text-slate-300 group-hover:text-cyan-300 tracking-tight text-[10.5px] truncate">
+                    Dakar <span className="text-slate-600">•</span> Route Aéroport
                   </span>
                 </a>
               </div>
 
-              {/* Right: Direct Contacts (Portable, Fixe, Mail) */}
-              <div className="flex items-center gap-3 sm:gap-4 md:gap-5">
-                {/* Portable Direct */}
+              {/* Right: Direct Contacts (Tél Direct, Fixe, Mail) */}
+              <div className="flex items-center gap-2.5 sm:gap-4 md:gap-5 shrink-0">
+                {/* Tél Direct (+221 77 301 08 38) */}
                 <a 
                   href="tel:+221773010838"
                   className="flex items-center gap-1.5 text-slate-300 hover:text-emerald-400 transition-colors group"
-                  title="Ligne directe portable & WhatsApp"
+                  title="Ligne directe mobile & WhatsApp"
                 >
                   <Smartphone className="w-3 h-3 text-emerald-400 shrink-0 group-hover:scale-110 transition-transform" />
-                  <span className="text-slate-400 hidden md:inline font-normal">Portable :</span>
+                  <span className="text-slate-400 hidden md:inline font-normal">Tél :</span>
                   <span className="font-semibold text-slate-200 group-hover:text-emerald-400 whitespace-nowrap text-[10.5px] sm:text-xs">+221 77 301 08 38</span>
                 </a>
 
-                <span className="text-slate-700 select-none" aria-hidden="true">|</span>
+                {/* Séparateur pour écran tablette/desktop */}
+                <span className="text-slate-700 hidden sm:inline select-none" aria-hidden="true">|</span>
 
-                {/* Fixe Dakar */}
+                {/* Fixe Dakar (+221 33 814 04 35) - Visible dès sm: pour laisser toute la place à l'adresse sur mobile */}
                 <a 
                   href="tel:+221338140435"
-                  className="flex items-center gap-1.5 text-slate-300 hover:text-cyan-400 transition-colors group"
+                  className="hidden sm:flex items-center gap-1.5 text-slate-300 hover:text-cyan-400 transition-colors group"
                   title="Téléphone fixe standard Dakar"
                 >
                   <Phone className="w-3 h-3 text-cyan-400 shrink-0 group-hover:scale-110 transition-transform" />
