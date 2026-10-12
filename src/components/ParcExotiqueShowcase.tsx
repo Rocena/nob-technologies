@@ -7,6 +7,7 @@ import { Container, Section } from "@/components/ui/layout";
 import { Heading, Text } from "@/components/ui/typography";
 import { FadeUp } from "@/components/animations";
 import { QuoteRequestButton } from "@/components/QuoteRequestButton";
+import { CorporateMetrics } from "@/components/CorporateMetrics";
 import {
   ExternalLink,
   ArrowRight,
@@ -17,13 +18,6 @@ import {
 } from "lucide-react";
 
 export function ParcExotiqueShowcase({ projects = [] }: { projects?: any[] } = {}) {
-  const kpiStats = [
-    { value: "100%", label: "Satisfaction Client", detail: "Qualité d'intervention & suivi rigoureux" },
-    { value: "15+ Ans", label: "Expérience Fondateur", detail: "Ingénierie, maintenance & systèmes" },
-    { value: "< 1.2s", label: "Performance Web", detail: "Temps de chargement moyen sur mobile" },
-    { value: "24/7", label: "Disponibilité & Support", detail: "Infogérance & réactivité continue" },
-  ];
-
   const keyDeliverables = [
     "Plateforme sur-mesure & réservations directes sans commission",
     "Gestion et animation active des réseaux sociaux (Instagram & Facebook)",
@@ -55,28 +49,9 @@ export function ParcExotiqueShowcase({ projects = [] }: { projects?: any[] } = {
           </FadeUp>
         </div>
 
-        {/* Corporate Metrics Strip */}
+        {/* Corporate Metrics Strip with Count-up Animation & Silicon Valley Styling */}
         <FadeUp delay={0.08}>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-12">
-            {kpiStats.map((kpi, idx) => (
-              <div
-                key={idx}
-                className="bg-white rounded-xl border border-slate-200/90 p-4 sm:p-5 shadow-2xs flex flex-col justify-between"
-              >
-                <div>
-                  <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 mb-1">
-                    {kpi.value}
-                  </div>
-                  <div className="text-xs sm:text-sm font-bold text-cyan-800 mb-1">
-                    {kpi.label}
-                  </div>
-                </div>
-                <div className="text-[11px] sm:text-xs text-slate-500 leading-relaxed pt-2 border-t border-slate-100">
-                  {kpi.detail}
-                </div>
-              </div>
-            ))}
-          </div>
+          <CorporateMetrics />
         </FadeUp>
 
         {/* Master Showcase: Parc Exotique du Sénégal (Clean Silicon Valley / Corporate Style) */}
