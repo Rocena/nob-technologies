@@ -18,11 +18,11 @@ export interface GalleryItem {
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: "g6",
-    title: "Intervention sur baie technique & télécoms GSM-R (SETER / TER Dakar)",
+    title: "Formation pratique & manipulation sur baie GSM-R (SETER / TER Dakar)",
     category: "baies",
     categoryLabel: "Baies & Télécoms",
-    image: "/images/projects/seter-ter-datacenter.jpg",
-    description: "Intervention en salle serveurs et paramétrage sur baie technique pour les équipements de communication ferroviaire GSM-R de la SETER (TER de Dakar).",
+    image: "/images/projects/seter-gsmr-formation-rack.jpg",
+    description: "Ateliers pratiques et formation in-situ dispensés aux techniciens de la SETER sur baie d'équipements GSM-R (BBU, liaisons radio sol-train et jarretières optiques) pour la sûreté d'exploitation du Train Express Régional de Dakar.",
   },
   {
     id: "g1",

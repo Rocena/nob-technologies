@@ -43,7 +43,7 @@ const corporateReferences: ProjectItem[] = [
     sector: "Transport Ferroviaire & Télécoms",
     description: "Programme de formation technique spécialisée sur les architectures sol-train GSM-R, radiocommunications critiques et sûreté opérationnelle.",
     tags: ["SETER", "TER Dakar", "GSM-R", "Télécoms Ferroviaires"],
-    coverImage: "/images/projects/seter-ter-datacenter.jpg",
+    coverImage: "/images/projects/seter-gsmr-formation-rack.jpg",
     clientLogo: "/images/partners/seter-ter-dakar.png",
   },
   {

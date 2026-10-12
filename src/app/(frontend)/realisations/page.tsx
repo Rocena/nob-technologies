@@ -34,7 +34,7 @@ const secondaryProjects: ProjectItem[] = [
     sector: 'Transport Ferroviaire & Télécommunications Critiques',
     description: 'Programme de formation technique spécialisée et ateliers pratiques dispensés aux techniciens de la SETER sur les technologies de radiocommunications ferroviaires GSM-R : architectures sol-train, maintenance du réseau radio, diagnostic et sûreté de fonctionnement pour l’exploitation du Train Express Régional de Dakar.',
     tags: ['SETER', 'TER Dakar', 'Formation GSM-R', 'Télécoms Ferroviaires', 'Radio Sol-Train', 'Maintenance Critique'],
-    coverImage: '/images/projects/seter-ter-datacenter.jpg',
+    coverImage: '/images/projects/seter-gsmr-formation-rack.jpg',
     clientLogo: '/images/partners/seter-ter-dakar.png',
   },
   {
