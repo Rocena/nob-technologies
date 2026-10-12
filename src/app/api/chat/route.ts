@@ -179,13 +179,14 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
   }
 
   // 20. Expérience, Ancienneté, Fondateur, Création 2020 & Taux de satisfaction
-  if (/(exp[eé]rience|anciennet[eé]|fondat|fond[eé]|cr[eé][eé]|historique|qui [eê]tes|satisfaction|avis client|depuis quand)/i.test(q)) {
+  if (/(exp[eé]rience|anciennet[eé]|fondat|fond[eé]|cr[eé][eé]|historique|qui [eê]tes|satisfaction|avis client|avis|t[eé]moignage|depuis quand)/i.test(q)) {
     return "NOB TECHNOLOGIES est une société d'ingénierie informatique de référence basée à Dakar 🇸🇳 :\n\n" +
       "• **Création** : Fondée en 2020, avec aujourd'hui **6 ans d'expérience** d'entreprise et de déploiements terrain réussis.\n" +
       "• **Expertise du fondateur** : Plus de **15 ans d'expérience** métier dans les infrastructures réseaux critiques, les télécoms et la cybersécurité.\n" +
-      "• **Satisfaction** : **100% de nos clients** sont pleinement satisfaits de la qualité de nos réalisations !\n" +
-      "• **Références emblématiques** : Délégation de l'Union Européenne à Dakar, SETER (TER Dakar), Hôtel du Parc Exotique (plateforme web & gestion complète de leurs réseaux Instagram/Facebook), Polyclinique P2A, Dolima, Simplon.\n\n" +
-      "Vous avez un projet ou une question sur nos expertises ?";
+      "• **Satisfaction** : **100% de nos clients** sont pleinement satisfaits !\n" +
+      "• **Avis client certifié** : *« Excellent travail franchement, très professionnel et surtout très réactif. Je ne pourrais pas trouver mieux ailleurs. »* — **Saad Diakhité**, DGA de l'Hôtel du Parc.\n" +
+      "• **Références majeures** : Délégation de l'Union Européenne à Dakar, SETER (TER Dakar), Hôtel du Parc Exotique (plateforme web & réseaux sociaux), Polyclinique P2A, Dolima, Simplon.\n\n" +
+      "Avez-vous un projet d'infrastructure, de sécurité ou de plateforme dont vous aimeriez nous parler ?";
   }
 
   // 21. Clients & Réalisations ("Ils nous font confiance", Références)

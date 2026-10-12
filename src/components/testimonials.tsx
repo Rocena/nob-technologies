@@ -6,22 +6,28 @@ import { FadeUp } from "@/components/animations";
 
 const fallbackTestimonials = [
   {
-    id: "fallback-1",
-    content: "Très satisfait, travail excellent.",
-    authorName: "Mbaye Diop",
-    authorRole: "Logistique Union européenne"
-  },
-  {
-    id: "fallback-2",
-    content: "Travail très propre, équipes très professionnel.",
-    authorName: "Orcel Mouanda",
-    authorRole: "Logistique Union européenne"
+    id: "testimonial-saad-diakhite",
+    content: "Excellent travail franchement, très professionnel et surtout très réactif. Je ne pourrais pas trouver mieux ailleurs.",
+    authorName: "Saad Diakhité",
+    authorRole: "DGA, Hôtel du Parc"
   },
   {
     id: "fallback-3",
     content: "Travail de pro, très bonne réactivité, good job.",
     authorName: "Abdourakhmane Ly",
     authorRole: "Responsable Informatique, Union européenne"
+  },
+  {
+    id: "fallback-2",
+    content: "Travail très propre, équipes très professionnelles.",
+    authorName: "Orcel Mouanda",
+    authorRole: "Logistique, Union européenne"
+  },
+  {
+    id: "fallback-1",
+    content: "Très satisfait, travail excellent.",
+    authorName: "Mbaye Diop",
+    authorRole: "Logistique, Union européenne"
   }
 ];
 
@@ -48,7 +54,7 @@ export function Testimonials({ testimonials = [] }: { testimonials: any[] }) {
           </FadeUp>
         </div>
         
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {displayTestimonials.map((t, idx) => (
             <FadeUp key={t.id || idx} delay={0.1 * idx} className="flex">
               {/* Ultra-minimalist B2B Card - Brighter */}

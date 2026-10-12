@@ -227,7 +227,10 @@ export default async function ProjectsPage() {
                     <span className="text-amber-500 text-[11px]">★★★★★</span>
                   </div>
                   <p className="text-xs text-slate-600 italic mt-0.5">
-                    &laquo; Une plateforme vitrine moderne et fluide qui valorise nos chambres d&apos;hôtel et facilite les réservations directes des visiteurs, renforcée par une gestion active de nos réseaux Instagram et Facebook. &raquo;
+                    &laquo; Excellent travail franchement, très professionnel et surtout très réactif. Je ne pourrais pas trouver mieux ailleurs. &raquo;
+                  </p>
+                  <p className="text-[11px] font-semibold text-cyan-700 mt-1">
+                    &mdash; Saad Diakhité, DGA Hôtel du Parc
                   </p>
                 </div>
               </div>
