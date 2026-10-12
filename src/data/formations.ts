@@ -105,22 +105,22 @@ export const DEFAULT_FORMATION_OFFERINGS: FormationOffering[] = [
 ];
 
 export const FORMATIONS_DATA: Record<string, Formation> = {
-  // 1. INITIATION A LA CYBERSECURITE
+  // 1. CYBERSECURITE FONDAMENTALE & CERTIFICAT INTERNATIONAL CISCO
   "initiation-cybersecurite": {
     slug: "initiation-cybersecurite",
-    title: "Initiation à la Cybersécurité & Fondamentaux",
-    badge: "FONDAMENTAUX &bull; 4 SEMAINES",
+    title: "Cybersécurité Fondamentale & Certificat International Cisco",
+    badge: "CERTIFICAT INTERNATIONAL CISCO &bull; 4 SEMAINES",
     category: "Cybersécurité",
     shortDesc:
-      "Maîtrisez les bases indispensables de la sécurité informatique : comprendre les menaces courantes, sécuriser les postes de travail, les mots de passe et les réseaux d'entreprise.",
-    heroHeadline: "Initiez-vous aux fondamentaux de la sécurité des systèmes d'information",
+      "Maîtrisez les fondamentaux de la sécurité informatique et validez vos compétences par le test officiel sanctionné par le Certificat International Cisco en Cybersécurité (au lieu d'une simple attestation locale).",
+    heroHeadline: "Passez le test officiel et obtenez le Certificat International Cisco en Cybersécurité",
     heroDescription:
-      "Conçue pour les professionnels, techniciens et débutants, cette formation pratique pose les bases indispensables de la cyber-hygiène, de la protection des données et de la détection des menaces du quotidien.",
+      "Formation pratique préparant directement à l'examen officiel Cisco Networking Academy. À l'issue des tests d'évaluation pratiques et théoriques, vous recevez le Certificat International Cisco en Cybersécurité ainsi que le badge officiel vérifiable mondialement.",
     targetAudience: [
       "Techniciens support et informaticiens généralistes",
       "Collaborateurs manipulant des données sensibles (RH, comptabilité, finances)",
       "Gestionnaires de parcs informatiques de PME et structures publiques",
-      "Étudiants et professionnels en reconversion vers les métiers de l'IT",
+      "Étudiants et professionnels en reconversion vers les métiers de la cybersécurité",
     ],
     prerequisites: [
       "Utilisation courante d'un ordinateur (Windows, macOS ou Linux)",
@@ -131,25 +131,25 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
     hours: "24 heures de pratique (6h / semaine)",
     pace: "Max 6h / semaine (cours du soir ou samedi matin)",
     offerings: DEFAULT_FORMATION_OFFERINGS,
-    format: "Présentiel dans nos Labs à Dakar + Accès plateforme cloud",
+    format: "Présentiel dans nos Labs à Dakar + Plateforme d'examen officiel Cisco",
     partnerLogos: [
-      { name: "Sophos", logo: "/images/partners/sophos.svg" },
+      { name: "Cisco", logo: "/images/partners/cisco.png" },
       { name: "Fortinet", logo: "/images/partners/fortinet.svg" },
+      { name: "Sophos", logo: "/images/partners/sophos.svg" },
       { name: "Microsoft", logo: "/images/partners/microsoft.svg" },
-      { name: "Kaspersky", logo: "/images/partners/kaspersky.svg" },
     ],
     targetCertifications: [
       {
-        title: "Attestation Officielle NOB TECHNOLOGIES - Cyber Fondamentaux",
-        organization: "NOB TECHNOLOGIES",
-        level: "Certificat Professionnel",
-        desc: "Validation pratique des compétences fondamentales en hygiène cyber et durcissement des postes de travail.",
+        title: "Certificat International Cisco en Cybersécurité",
+        organization: "Cisco Networking Academy",
+        level: "Certification Internationale Officielle",
+        desc: "Passage du test d'évaluation officiel Cisco à la fin du cursus. Délivrance du certificat international et du badge numérique officiel vérifiable en ligne (au lieu d'une simple attestation locale).",
       },
       {
-        title: "CompTIA Security+ Foundations (Préparation)",
-        organization: "CompTIA",
+        title: "Cisco Cybersecurity Essentials (Accréditation Officielle)",
+        organization: "Cisco Systems",
         level: "Standard International",
-        desc: "Introduction aux concepts clés exigés pour le passage ultérieur des examens internationaux CompTIA.",
+        desc: "Validation formelle des compétences en défense de réseau, contrôle des accès et intégrité des systèmes d'information.",
       },
     ],
     months: [
@@ -194,23 +194,23 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       },
       {
         month: 4,
-        title: "Module 4 : Réseau Sans-Fil, Télétravail & Réflexes d'Alerte",
+        title: "Module 4 : Réseau Sans-Fil, Télétravail & Passage du Test Cisco",
         duration: "Semaine 4 (6h)",
-        objectives: "Sécuriser les connexions Wi-Fi, utiliser un VPN et savoir réagir immédiatement en cas de suspicion d'attaque.",
+        objectives: "Sécuriser les connexions Wi-Fi, utiliser un VPN et réussir le test d'évaluation officiel Cisco Networking Academy.",
         topics: [
           "Dangers des Wi-Fi publics et configuration sécurisée des box d'entreprise (WPA3)",
           "Usage sécurisé des VPN pour le travail à distance",
-          "Procédure de signalement interne et réflexes d'isolation immédiate",
+          "Préparation intensive aux questions de l'examen officiel Cisco",
         ],
-        practicalLab: "Simulation d'une alerte de sécurité : isolation réseau d'une machine et rédaction de la notification DSI.",
-        deliverable: "Guide de réflexes d'urgence cyber pour les collaborateurs.",
+        practicalLab: "Simulation d'alerte, révisions pratiques guidées et passage du test officiel sur la plateforme Cisco.",
+        deliverable: "Réussite du test officiel et obtention du Certificat International Cisco en Cybersécurité.",
       },
     ],
     keyOutcomes: [
       "Compréhension claire des risques et techniques utilisées par les cybercriminels",
       "Capacité à sécuriser ses postes de travail et ses accès professionnels avec le MFA",
       "Maîtrise des protocoles de sauvegarde 3-2-1 pour se prémunir des ransomwares",
-      "Attestation de compétences délivrée par NOB TECHNOLOGIES",
+      "Passage du test officiel et obtention du Certificat International Cisco en Cybersécurité (au lieu d'une simple attestation locale)",
     ],
     career: {
       targetRoles: [
@@ -1250,6 +1250,134 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
         intermediate: "1 000 000 à 1 800 000 FCFA / mois",
         senior: "1 900 000 à 3 000 000+ FCFA / mois",
         context: "L'expertise en Ethical Hacking est l'une des compétences les plus valorisées et respectées dans le domaine de la tech en Afrique.",
+      },
+    },
+  },
+
+  // 11. POWER BI POUR LA CYBERSECURITE & SOC ANALYTICS
+  "power-bi-cybersecurite": {
+    slug: "power-bi-cybersecurite",
+    title: "Power BI pour la Cybersécurité & SOC Analytics",
+    badge: "ANALYTIQUE & SOC &bull; 4 SEMAINES",
+    category: "Cybersécurité & Data",
+    shortDesc:
+      "Transformez vos journaux de sécurité (logs firewalls, SIEM, antivirus, alertes d'intrusion) en tableaux de bord Power BI dynamiques pour piloter les risques et accélérer la prise de décision.",
+    heroHeadline: "Visualisez les cyberattaques et pilotez la sécurité avec Microsoft Power BI",
+    heroDescription:
+      "Formation pratique intensive pour analystes de sécurité, auditeurs, RSSI et ingénieurs IT. Apprenez à ingérer les logs d'événements, modéliser avec DAX et concevoir des dashboards interactifs pour le SOC et la direction.",
+    targetAudience: [
+      "Analystes SOC, administrateurs réseaux et auditeurs de sécurité",
+      "RSSI, DSI et responsables informatiques souhaitant automatiser leurs KPIs sécurité",
+      "Data analysts et consultants IT souhaitant se spécialiser dans l'analytique cyber",
+      "Équipes conformité et gestion des risques (ISO 27001, RGPD)",
+    ],
+    prerequisites: [
+      "Utilisation courante d'un ordinateur et manipulation de tableaux de données (Excel)",
+      "Notions de base en réseau et compréhension générale des incidents de sécurité",
+      "Aucune connaissance préalable en langage DAX ou en Power BI requise",
+    ],
+    duration: "4 Semaines",
+    hours: "24 heures de pratique (6h / semaine)",
+    pace: "Max 6h / semaine (cours du soir ou samedi matin)",
+    offerings: DEFAULT_FORMATION_OFFERINGS,
+    format: "Présentiel dans nos Labs à Dakar + Accès plateforme cloud & datasets réels",
+    partnerLogos: [
+      { name: "Microsoft Power BI", logo: "/images/partners/microsoft.svg" },
+      { name: "Fortinet", logo: "/images/partners/fortinet.svg" },
+      { name: "Sophos", logo: "/images/partners/sophos.svg" },
+      { name: "Cisco", logo: "/images/partners/cisco.png" },
+    ],
+    targetCertifications: [
+      {
+        title: "Microsoft Power BI Data Analyst (PL-300 / Préparation)",
+        organization: "Microsoft",
+        level: "Certification Internationale Officielle",
+        desc: "Préparation aux compétences clés du certificat officiel Microsoft : transformation des données avec Power Query, modélisation relationnelle et publication sécurisée.",
+      },
+      {
+        title: "Certificat de Spécialisation NOB TECHNOLOGIES - SOC & Cyber Analytics",
+        organization: "NOB TECHNOLOGIES",
+        level: "Certificat Professionnel d'Excellence",
+        desc: "Validation sur projet réel de conception d'un tableau de bord de supervision des cyberattaques et reporting exécutif pour la DSI.",
+      },
+    ],
+    months: [
+      {
+        month: 1,
+        title: "Module 1 : Ingestion & Nettoyage des Logs de Sécurité avec Power Query",
+        duration: "Semaine 1 (6h)",
+        objectives: "Connecter Power BI à diverses sources de logs (Syslog, CSV pare-feu, JSON d'antivirus, Windows Event Logs) et structurer les données brutes.",
+        topics: [
+          "Format des logs de sécurité : Syslog, pare-feux Fortinet/Sophos, Windows Event Viewer",
+          "Techniques avancées de nettoyage et de parsing textuel avec Power Query (M)",
+          "Anonymisation des données sensibles et gestion des volumétries de logs d'audit",
+        ],
+        practicalLab: "Ingestion d'un jeu de 50 000 logs de pare-feu et extraction des IPs sources, ports et types d'attaques.",
+        deliverable: "Modèle Power Query automatisé et documenté pour l'actualisation des données de sécurité.",
+      },
+      {
+        month: 2,
+        title: "Module 2 : Modélisation des Données & Formules DAX de Risque Cyber",
+        duration: "Semaine 2 (6h)",
+        objectives: "Concevoir un schéma en étoile (Star Schema) et créer des mesures DAX précises pour quantifier les menaces et les performances de défense.",
+        topics: [
+          "Architecture du modèle : tables de faits (incidents) et dimensions (utilisateurs, machines, temps)",
+          "Formules DAX fondamentales et avancées : CALCULATE, FILTER, time intelligence",
+          "Calcul des KPIs clés : Taux de blocage, MTTR (temps moyen de réponse), score de sévérité",
+        ],
+        practicalLab: "Création d'une bibliothèque de 15 mesures DAX de cybersécurité pour suivre l'évolution hebdomadaire des menaces.",
+        deliverable: "Dictionnaire des mesures DAX et modèle relationnel optimisé.",
+      },
+      {
+        month: 3,
+        title: "Module 3 : Visualisations Avancées & Dashboard SOC Temps Réel",
+        duration: "Semaine 3 (6h)",
+        objectives: "Bâtir un tableau de bord ergonomique pour les analystes SOC permettant d'isoler rapidement les attaques anormales et les vulnérabilités.",
+        topics: [
+          "Cartographies géographiques des IPs attaquantes et heatmaps horaires des intrusions",
+          "Matrice des vulnérabilités (CVSS) et top 10 des cibles internes les plus visées",
+          "Interactivité poussée : drill-through, tooltips personnalisés et filtres croisés dynamiques",
+        ],
+        practicalLab: "Conception complète du tableau de bord « SOC Threat Intelligence » avec alertes visuelles sur seuils critiques.",
+        deliverable: "Tableau de bord interactif Power BI (.pbix) prêt pour la salle de supervision.",
+      },
+      {
+        month: 4,
+        title: "Module 4 : Gouvernance, Alerting & Reporting pour la DSI / Direction",
+        duration: "Semaine 4 (6h)",
+        objectives: "Automatiser l'actualisation des rapports, configurer la sécurité au niveau des lignes (RLS) et générer des synthèses exécutives.",
+        topics: [
+          "Sécurité des rapports : Row-Level Security (RLS) pour cloisonner les accès selon les rôles",
+          "Publication sur le service Power BI, passerelle locale (Gateway) et actualisation automatique",
+          "Export de rapports exécutifs pour le Comité de Direction et les audits de conformité ISO 27001",
+        ],
+        practicalLab: "Déploiement d'un rapport exécutif avec alertes automatiques par email lors du dépassement d'un seuil de tentatives d'intrusion.",
+        deliverable: "Projet final : Rapport de synthèse cyber exécutif présenté et soutenu devant le jury d'ingénieurs.",
+      },
+    ],
+    keyOutcomes: [
+      "Maîtrise complète de Power Query pour nettoyer et exploiter des flux massifs de logs réseau et sécurité",
+      "Capacité à coder des mesures DAX robustes pour quantifier le niveau de cyber-risque",
+      "Création autonome de dashboards SOC interactifs et percutants pour la surveillance opérationnelle",
+      "Validation du test final et délivrance du Certificat Pratique Power BI pour la Cybersécurité",
+    ],
+    career: {
+      targetRoles: [
+        { title: "Analyste Cyber / SOC Analytics", desc: "Création et supervision des tableaux de bord de détection des cyberattaques et suivi des incidents." },
+        { title: "Data Analyst Sécurité & Risques", desc: "Production d'indicateurs de gouvernance pour la DSI et pilotage des audits de sécurité." },
+        { title: "Consultant Power BI & Sécurité des Données", desc: "Accompagnement des entreprises dans la valorisation et la sécurisation de leurs données d'audit." },
+      ],
+      sectors: [
+        "Banques, Assurances & Établissements financiers",
+        "Opérateurs Télécoms & Centres de supervision SOC",
+        "Grandes entreprises industrielles, minières et de transport",
+        "Cabinets d'audit, de conseil et intégrateurs IT",
+      ],
+      salarySenegal: {
+        junior: "450 000 - 700 000 FCFA",
+        intermediate: "750 000 - 1 300 000 FCFA",
+        senior: "1 400 000 - 2 200 000 FCFA",
+        context: "Profil hybride hautement stratégique sur le marché ouest-africain, alliant la maîtrise décisionnelle Power BI et l'expertise de la cyberdéfense.",
       },
     },
   },

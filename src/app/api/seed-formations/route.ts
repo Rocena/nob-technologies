@@ -19,7 +19,7 @@ export async function GET() {
       }
     }
 
-    // 2. Upsert the 10 official realistic formations
+    // 2. Upsert the 11 official realistic formations
     let seededCount = 0;
     for (const item of Object.values(FORMATIONS_DATA)) {
       const existing = await payload.find({

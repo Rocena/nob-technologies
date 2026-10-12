@@ -32,7 +32,7 @@ Pôles d'expertise clés :
 3. ERP & Digitalisation : ERP 100% sur-mesure développés de bout en bout, et intégration des solutions Odoo et Dolibarr (stocks, facturation, CRM, comptabilité).
 4. Web, Mobile & Réseaux Sociaux : Plateformes web performantes (ex: plateforme officielle de l'Hôtel du Parc / Parc Exotique du Sénégal), applications mobiles Flutter, gestion active de réseaux sociaux (Instagram & Facebook pour l'Hôtel du Parc).
 5. Vente de Matériel & Licences : Serveurs d'entreprise Dell PowerEdge, switchs Cisco, licences officielles Microsoft 365.
-6. Formations de 6 mois & Certifications : Initiation cybersécurité, sensibilisation phishing, IA, Fortinet NSE 4, Sophos, Microsoft 365, Cisco CCNA, Gestion de projet, ISO 27001/NIST, Ethical Hacking.`;
+6. Formations & Certifications : Cybersécurité Fondamentale avec Certificat International Cisco (test officiel sanctionné par Cisco), Power BI pour la Cybersécurité & SOC Analytics, Fortinet NSE 4, Sophos, Microsoft 365, Cisco CCNA, Gestion de projet, ISO 27001/NIST, Ethical Hacking.`;
 
 // Natural conversational human response generator (works 100% offline & without third-party API keys)
 function generateNaturalResponse(userMessage: string, history: ChatMessage[] = []): string {
@@ -138,20 +138,21 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
     return "Oui, tout à fait ! Nous fournissons du matériel informatique d'entreprise garanti constructeur 🖥️ :\n\n• **Serveurs physiques** : Dell Technologies PowerEdge (tours et racks) configurés sur-mesure.\n• **Commutateurs & Routeurs** : Cisco Catalyst, HPE Aruba.\n• **Baies & Câblage** : Baies de brassage 19\" (12U à 42U), bandeaux, onduleurs APC/Eaton, jarretières optiques.\n• **Postes de travail** : PC professionnels et écrans pour équipes tertiaires.\n\nVous avez une référence précise en tête ou souhaitez-vous un conseil de dimensionnement ?";
   }
 
-  // 15. Formations (Catalogue réaliste & intensif)
-  if (/(formation|certif|cours|apprendre|apprenant|ccna|fortinet|nse|sophos|phishing|ethical|hacking|nist|iso 27001|gestion de projet|initiation)/i.test(q) || (isOneWord && ["formation", "certif", "ccna"].includes(words[0]))) {
+  // 15. Formations (Catalogue réaliste & certifications internationales)
+  if (/(formation|certif|cours|apprendre|apprenant|ccna|fortinet|nse|sophos|phishing|ethical|hacking|nist|iso 27001|gestion de projet|initiation|power bi|cisco)/i.test(q) || (isOneWord && ["formation", "certif", "ccna"].includes(words[0]))) {
     return "Nos formations sont axées sur la pratique réelle et la préparation aux certifications internationales 🎓 :\n\n" +
-      "1. **Initiation à la cybersécurité** (4 sem.) : hygiène numérique et sécurisation des postes.\n" +
-      "2. **Sensibilisation au phishing** (2 sem.) : simulations et cas concrets anti-fraude.\n" +
-      "3. **Initiation à l'IA** (4 sem.) : prompt engineering, IA générative et automatisation.\n" +
-      "4. **Préparation Fortinet NSE 4 / FCP** (8 sem.) : maîtrise complète des pare-feux FortiGate.\n" +
-      "5. **Initiation Sophos** (4 sem.) : pare-feux XGS et protection endpoint Intercept X.\n" +
-      "6. **Initiation Microsoft 365** (4 sem.) : gestion de tenant, Teams, Exchange et Entra ID.\n" +
-      "7. **Cisco CCNA 200-301** (10 sem.) : routage, switching et labs pratiques.\n" +
-      "8. **Gestion de projet IT** (4 sem.) : méthodes Agiles, Scrum et gouvernance.\n" +
-      "9. **Normes & Conformité** (6 sem.) : ISO 27001, NIST CSF 2.0, CDP Sénégal.\n" +
-      "10. **Ethical Hacking & Pentest** (8 sem.) : tests d'intrusion éthiques et labs CTF.\n\n" +
-      "Les cours se déroulent en présentiel à Dakar ou à distance, avec formules en soirée ou le samedi. C'est pour vous-même ou pour former votre équipe ?";
+      "1. **Cybersécurité Fondamentale & Certificat International Cisco** (4 sem.) : Test officiel sanctionné par le Certificat International Cisco en cybersécurité (au lieu d'une simple attestation locale).\n" +
+      "2. **Power BI pour la Cybersécurité & SOC Analytics** (4 sem.) : Ingestion de logs firewalls/SIEM, modélisation DAX et création de dashboards de détection cyber.\n" +
+      "3. **Sensibilisation au phishing** (2 sem.) : simulations et cas concrets anti-fraude.\n" +
+      "4. **Initiation à l'IA** (4 sem.) : prompt engineering, IA générative et automatisation.\n" +
+      "5. **Préparation Fortinet NSE 4 / FCP** (8 sem.) : maîtrise complète des pare-feux FortiGate.\n" +
+      "6. **Initiation Sophos** (4 sem.) : pare-feux XGS et protection endpoint Intercept X.\n" +
+      "7. **Initiation Microsoft 365** (4 sem.) : gestion de tenant, Teams, Exchange et Entra ID.\n" +
+      "8. **Cisco CCNA 200-301** (10 sem.) : routage, switching et labs pratiques.\n" +
+      "9. **Gestion de projet IT** (4 sem.) : méthodes Agiles, Scrum et gouvernance.\n" +
+      "10. **Normes & Conformité** (6 sem.) : ISO 27001, NIST CSF 2.0, CDP Sénégal.\n" +
+      "11. **Ethical Hacking & Pentest** (8 sem.) : tests d'intrusion éthiques et labs CTF.\n\n" +
+      "Les cours se déroulent en présentiel dans nos Labs à Dakar ou à distance, avec formules en soirée ou le samedi. C'est pour vous-même ou pour former votre équipe ?";
   }
 
   // 16. ERP & Logiciels de gestion (Sur-mesure, Odoo, Dolibarr)

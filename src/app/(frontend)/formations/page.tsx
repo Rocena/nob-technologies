@@ -50,7 +50,7 @@ export default async function FormationsCatalogPage() {
             </TextReveal>
             <FadeUp delay={0.2}>
               <p className="text-slate-300 text-base sm:text-lg md:text-xl font-normal max-w-3xl mx-auto leading-relaxed">
-                Des programmes concrets et réalistes animés par nos ingénieurs à Dakar : initiations ciblées, sensibilisation au phishing, préparation aux certifications mondiales (Cisco CCNA, Fortinet, Sophos) et cadres de conformité (NIST, ISO 27001).
+                Des programmes concrets et réalistes animés par nos ingénieurs à Dakar : Certificat International Cisco en cybersécurité, Power BI appliqué à la sécurité &amp; SOC, certifications officielles (Cisco CCNA, Fortinet, Sophos) et cadres de conformité (NIST, ISO 27001).
               </p>
             </FadeUp>
 
@@ -59,7 +59,7 @@ export default async function FormationsCatalogPage() {
               <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
                 <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
                   <GraduationCap className="w-4 h-4 text-cyan-400" />
-                  10 Formations &amp; Modules Pratiques
+                  11 Formations &amp; Modules Pratiques
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-950/40 border border-cyan-500/30 text-xs text-cyan-300">
                   <Clock className="w-4 h-4 text-cyan-400" />
