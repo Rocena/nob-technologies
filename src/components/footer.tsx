@@ -21,7 +21,6 @@ export async function Footer() {
   const desc = settings?.general?.siteDescription || "Solutions & Services Informatiques. Votre sécurité, notre priorité. Solutions complètes de cybersécurité & services managés.";
   const phone = settings?.contact?.phone || "+221 77 301 08 38 / +221 33 814 04 35";
   const email = settings?.contact?.email || "contact@nobtech.fr";
-  const address = settings?.contact?.address || "Route de l'Aéroport LSS lot N° 79, Dakar Sénégal";
 
   return (
     <footer data-cursor-binary="true" className="relative bg-[#020617] text-white pt-12 pb-8 md:pt-16 md:pb-10 lg:pt-24 lg:pb-12 overflow-hidden border-t border-white/10">
@@ -57,29 +56,17 @@ export async function Footer() {
             </div>
 
             {/* Contact quick links */}
-            <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center gap-4">
               <a href={`mailto:${email}`} title="Nous écrire par email" className="w-10 h-10 rounded-sm border border-white/10 flex items-center justify-center bg-white/5 hover:bg-accent hover:border-accent hover:text-[#020617] transition-all hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(0,212,255,0.4)]">
                 <Mail className="w-4 h-4" />
               </a>
               <a href={`tel:${phone.split('/')[0].trim().replace(/\s+/g, '')}`} title="Nous appeler" className="w-10 h-10 rounded-sm border border-white/10 flex items-center justify-center bg-white/5 hover:bg-accent hover:border-accent hover:text-[#020617] transition-all hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(0,212,255,0.4)]">
                 <Phone className="w-4 h-4" />
               </a>
-              <a href="https://www.google.com/maps/search/?api=1&query=QG3J%2BHP+Dakar" target="_blank" rel="noopener noreferrer" title="Localisation Google Maps : QG3J+HP Dakar" className="w-10 h-10 rounded-sm border border-white/10 flex items-center justify-center bg-white/5 hover:bg-accent hover:border-accent hover:text-[#020617] transition-all hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(0,212,255,0.4)]">
+              <a href="https://www.google.com/maps/search/?api=1&query=QG3J%2BHP+Dakar" target="_blank" rel="noopener noreferrer" title="Localisation Google Maps : QG3J+HP Dakar (Route de l'Aéroport)" className="w-10 h-10 rounded-sm border border-white/10 flex items-center justify-center bg-white/5 hover:bg-accent hover:border-accent hover:text-[#020617] transition-all hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(0,212,255,0.4)]">
                 <MapPin className="w-4 h-4" />
               </a>
             </div>
-
-            {/* Address text linking directly to Google Maps */}
-            <a 
-              href="https://www.google.com/maps/search/?api=1&query=QG3J%2BHP+Dakar" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="group flex items-start gap-2.5 text-xs text-slate-400 hover:text-cyan-400 transition-colors max-w-sm"
-              title="Ouvrir l'adresse sur Google Maps (QG3J+HP Dakar)"
-            >
-              <MapPin className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-              <span className="leading-relaxed underline-offset-2 group-hover:underline">{address}</span>
-            </a>
           </div>
 
           <div className="lg:col-span-2 lg:col-start-6">
