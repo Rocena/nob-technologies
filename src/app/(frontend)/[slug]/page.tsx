@@ -1,5 +1,4 @@
-import React from 'react';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getPayloadClient } from '@/lib/payload';
 import { Header } from '@/components/header';
@@ -19,6 +18,9 @@ export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+  if (['admin', 'backoffice', 'back-office', 'bakoffice', 'bak-office', 'dashboard', 'login'].includes(slug)) {
+    return { title: 'Administration | NOB TECHNOLOGIES' };
+  }
   try {
     const payload = await getPayloadClient();
     const res = await payload.find({
@@ -41,6 +43,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function DynamicCMSPage({ params }: PageProps) {
   const { slug } = await params;
+
+  if (['admin', 'backoffice', 'back-office', 'bakoffice', 'bak-office', 'dashboard', 'login'].includes(slug)) {
+    redirect(slug === 'login' ? '/login' : '/admin');
+  }
   let page: any = null;
 
   try {

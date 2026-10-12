@@ -128,8 +128,15 @@ export default async function ProjectsPage() {
           <Container>
             <FadeUp>
               <div className="mb-10 text-center max-w-3xl mx-auto">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-50 text-cyan-800 border border-cyan-200 text-xs font-semibold mb-3">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Conçu et déployé par Nob Technologies
+                <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white text-xs font-semibold text-slate-800 mb-4 border border-slate-200 shadow-sm relative overflow-hidden group">
+                  <span className="flex h-2 w-2 rounded-full bg-[#10E760] animate-pulse shrink-0" />
+                  <span className="font-mono text-[11px] uppercase tracking-wider font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00B4D8] to-[#10E760]">
+                    Retours Clients &bull; Projet Livré
+                  </span>
+                  <span className="text-slate-300">&bull;</span>
+                  <span className="text-slate-700 font-medium">
+                    Conçu &amp; déployé par NOB TECHNOLOGIES
+                  </span>
                 </div>
                 <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
                   Parc Exotique du Sénégal &mdash; Plateforme Web Officielle
@@ -203,6 +210,27 @@ export default async function ProjectsPage() {
                 </a>
               </div>
             </div>
+
+            {/* Client Feedback Card */}
+            <div className="mt-6 p-5 rounded-2xl bg-gradient-to-r from-cyan-50/70 via-slate-50 to-emerald-50/70 border border-slate-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xs">
+              <div className="flex items-center gap-3.5">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00D4FF] via-[#00F0FF] to-[#10E760] flex items-center justify-center text-[#020617] font-black text-sm shrink-0 shadow-sm">
+                  ★
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-slate-900 flex items-center gap-2">
+                    <span>Retours &amp; Satisfaction Client &bull; Parc Exotique du Sénégal</span>
+                    <span className="text-amber-500 text-[11px]">★★★★★</span>
+                  </div>
+                  <p className="text-xs text-slate-600 italic mt-0.5">
+                    &laquo; Une plateforme vitrine moderne et fluide qui valorise nos chambres d&apos;hôtel et facilite les réservations directes des visiteurs. &raquo;
+                  </p>
+                </div>
+              </div>
+              <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-emerald-100/80 text-emerald-800 border border-emerald-200 shrink-0">
+                100% En Production
+              </span>
+            </div>
           </Container>
         </Section>
 
@@ -225,9 +253,15 @@ export default async function ProjectsPage() {
                   />
                 </div>
 
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/15 text-cyan-300 border border-blue-500/30 text-xs font-semibold mb-4">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  Référence Diplomatique &bull; Bureau de Dakar (12, Av. Hassan II)
+                <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-950/80 text-xs font-semibold text-white mb-4 border border-cyan-500/40 shadow-[0_0_20px_rgba(0,212,255,0.15)]">
+                  <span className="flex h-2 w-2 rounded-full bg-[#10E760] animate-pulse shrink-0" />
+                  <span className="font-mono text-[11px] uppercase tracking-wider font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                    Retours Clients &bull; Recette Diplomatique Conforme
+                  </span>
+                  <span className="text-slate-500">&bull;</span>
+                  <span className="text-slate-300 font-medium">
+                    Délégation de l’Union Européenne &bull; Dakar (12, Av. Hassan II)
+                  </span>
                 </div>
 
                 <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
@@ -382,6 +416,27 @@ export default async function ProjectsPage() {
                   </Link>
                 </div>
               </div>
+            </div>
+
+            {/* Client Feedback Card EU */}
+            <div className="mt-6 p-5 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-cyan-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
+              <div className="flex items-center gap-3.5">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00D4FF] via-[#00F0FF] to-[#10E760] flex items-center justify-center text-[#020617] font-black text-sm shrink-0 shadow-sm">
+                  ✓
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-white flex items-center gap-2">
+                    <span>Validation &amp; Recette Client &bull; Délégation de l&apos;Union Européenne à Dakar</span>
+                    <span className="text-emerald-400 font-mono text-[11px] font-bold">Certification Fluke PASS 100%</span>
+                  </div>
+                  <p className="text-xs text-slate-300 italic mt-0.5">
+                    &laquo; Câblage structuré Cat 6A et baies 42U livrés conformément aux exigences diplomatiques et aux normes européennes ISO/IEC 11801. &raquo;
+                  </p>
+                </div>
+              </div>
+              <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-cyan-950 text-cyan-300 border border-cyan-800 shrink-0">
+                Audit Réseau Validé
+              </span>
             </div>
           </Container>
         </Section>

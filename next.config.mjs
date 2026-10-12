@@ -11,6 +11,11 @@ const nextConfig = {
     return [
       { source: '/admin/login', destination: '/login', permanent: false },
       { source: '/admin/create-first-user', destination: '/create-first-user', permanent: false },
+      { source: '/backoffice', destination: '/admin', permanent: false },
+      { source: '/back-office', destination: '/admin', permanent: false },
+      { source: '/bakoffice', destination: '/admin', permanent: false },
+      { source: '/bak-office', destination: '/admin', permanent: false },
+      { source: '/dashboard', destination: '/admin', permanent: false },
     ]
   },
 };

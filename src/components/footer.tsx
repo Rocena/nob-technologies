@@ -132,16 +132,16 @@ export async function Footer() {
           <div className="flex items-center gap-6 relative z-10 flex-wrap">
             <Link href="/mentions-legales" className="text-sm text-slate-500 hover:text-white transition-colors">Mentions légales</Link>
             <Link href="/confidentialite" className="text-sm text-slate-500 hover:text-white transition-colors">Confidentialité</Link>
-            <Link
+            <a
               href="/admin"
-              className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-[#00D4FF] px-2.5 py-1 rounded bg-white/[0.03] hover:bg-[#00D4FF]/10 border border-white/5 hover:border-[#00D4FF]/30 transition-all"
+              className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-[#00D4FF] px-2.5 py-1 rounded bg-white/[0.03] hover:bg-[#00D4FF]/10 border border-white/5 hover:border-[#00D4FF]/30 transition-all cursor-pointer"
               title="Accès Espace Administration & Back-Office"
             >
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
               Connexion Back-Office
-            </Link>
+            </a>
           </div>
         </div>
 
