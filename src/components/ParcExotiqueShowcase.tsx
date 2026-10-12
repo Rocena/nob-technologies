@@ -18,6 +18,7 @@ import {
   Smartphone,
   CalendarCheck,
   Layers,
+  Share2,
 } from "lucide-react";
 
 export function ParcExotiqueShowcase({ projects = [] }: { projects?: any[] }) {
@@ -31,16 +32,16 @@ export function ParcExotiqueShowcase({ projects = [] }: { projects?: any[] }) {
         "Module de réservation intuitif pour les chambres d'hôtel et visites guidées, réduisant la dépendance aux plateformes tierces.",
     },
     {
+      icon: Share2,
+      title: "Gestion Réseaux Sociaux (Instagram & Facebook)",
+      description:
+        "Community management complet et animation active des pages officielles de l'hôtel pour générer des réservations et fidéliser.",
+    },
+    {
       icon: Zap,
       title: "Temps de chargement < 1.2s sur mobile",
       description:
         "Architecture ultra-légère conçue pour les réseaux 4G/5G, assurant une navigation fluide pour les touristes et visiteurs sur place.",
-    },
-    {
-      icon: Smartphone,
-      title: "Expérience immersive & catalogue animalier",
-      description:
-        "Présentation interactive du restaurant La Plume, des hébergements et du parc zoologique de plus de 90 espèces d'oiseaux et mammifères.",
     },
     {
       icon: ShieldCheck,
@@ -52,6 +53,7 @@ export function ParcExotiqueShowcase({ projects = [] }: { projects?: any[] }) {
 
   const techBadges = [
     "Next.js & React",
+    "Community Management (Insta & FB)",
     "UX Mobile-First",
     "Cloud Haute Disponibilité",
     "SEO & Référencement Google",
@@ -170,7 +172,7 @@ export function ParcExotiqueShowcase({ projects = [] }: { projects?: any[] }) {
                   </h3>
 
                   <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6">
-                    Pour l&apos;Hôtel du Parc à Somone (chambres climatisées, restaurant La Plume, piscine et réserve naturelle), nous avons créé une vitrine numérique haut de gamme, pensée pour transformer chaque visiteur en client direct.
+                    Pour l&apos;Hôtel du Parc à Somone (chambres climatisées, restaurant La Plume, piscine et réserve naturelle), nous avons créé une vitrine numérique haut de gamme pour booster les réservations directes, tout en assurant la gestion et l&apos;animation complète de leurs réseaux sociaux officiels (Instagram et Facebook).
                   </p>
 
                   {/* Highlights Grid */}

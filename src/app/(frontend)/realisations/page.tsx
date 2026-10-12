@@ -142,7 +142,7 @@ export default async function ProjectsPage() {
                   Parc Exotique du Sénégal &mdash; Plateforme Web Officielle
                 </h2>
                 <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                  Développement et mise en production de la vitrine numérique complète de l’Hôtel du Parc, du restaurant La Plume et du parc animalier à Somone.
+                  Développement et mise en production de la vitrine numérique complète de l’Hôtel du Parc, du restaurant La Plume et du parc animalier à Somone, ainsi que la gestion et l’animation continue de leurs réseaux sociaux (Instagram et Facebook).
                 </p>
               </div>
             </FadeUp>
@@ -164,7 +164,7 @@ export default async function ProjectsPage() {
                   01. Contexte & Objectifs
                 </h4>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  L’établissement avait besoin d'une plateforme moderne pour valoriser ses 12 chambres d'hôtel, son restaurant et son parc animalier (90+ espèces), avec un système de réservation directe accessible sur mobile et un référencement Google optimisé.
+                  L’établissement avait besoin d'une plateforme moderne pour valoriser ses 12 chambres d'hôtel, son restaurant et son parc animalier (90+ espèces), avec un système de réservation directe accessible sur mobile, un référencement Google optimisé et une animation dynamique de ses réseaux sociaux.
                 </p>
               </div>
 
@@ -184,6 +184,10 @@ export default async function ProjectsPage() {
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                     <span>Catalogue interactif des espèces et galeries photos.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Gestion des réseaux sociaux : Community management Instagram &amp; Facebook.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -223,13 +227,18 @@ export default async function ProjectsPage() {
                     <span className="text-amber-500 text-[11px]">★★★★★</span>
                   </div>
                   <p className="text-xs text-slate-600 italic mt-0.5">
-                    &laquo; Une plateforme vitrine moderne et fluide qui valorise nos chambres d&apos;hôtel et facilite les réservations directes des visiteurs. &raquo;
+                    &laquo; Une plateforme vitrine moderne et fluide qui valorise nos chambres d&apos;hôtel et facilite les réservations directes des visiteurs, renforcée par une gestion active de nos réseaux Instagram et Facebook. &raquo;
                   </p>
                 </div>
               </div>
-              <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-emerald-100/80 text-emerald-800 border border-emerald-200 shrink-0">
-                100% En Production
-              </span>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-cyan-100/80 text-cyan-800 border border-cyan-200">
+                  Satisfaction 100% Client
+                </span>
+                <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-emerald-100/80 text-emerald-800 border border-emerald-200">
+                  100% En Production
+                </span>
+              </div>
             </div>
           </Container>
         </Section>

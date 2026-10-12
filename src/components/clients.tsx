@@ -162,13 +162,14 @@ export const featuredClientReferences = [
     logoWidth: 150,
     logoHeight: 55,
     href: "/realisations#parc-exotique",
-    scope: "Plateforme web officielle & déploiement ERP de gestion",
+    scope: "Plateforme web officielle, réseaux sociaux (Instagram & Facebook) & ERP",
     missions: [
-      "Conception et mise en production de la vitrine numérique complète",
-      "Système de réservation en ligne pour les chambres et restaurant",
+      "Conception et mise en production de la vitrine numérique complète (parcexotique.sn)",
+      "Système de réservation en ligne pour les chambres et le restaurant La Plume",
+      "Gestion et animation active des réseaux sociaux officiels (Instagram & Facebook)",
       "Installation et intégration de l'ERP de gestion d'établissement",
     ],
-    techTags: ["Plateforme Web", "ERP Gestion", "Réservation Directe", "Mobile First"],
+    techTags: ["Plateforme Web", "Gestion Instagram & Facebook", "ERP Gestion", "Réservation Directe"],
   },
   {
     id: "polyclinique-p2a",

@@ -49,7 +49,7 @@ export default async function AboutPage() {
               
               <FadeUp delay={0.2}>
                 <p className="text-slate-300 text-base sm:text-lg md:text-xl font-normal max-w-3xl leading-relaxed">
-                  NOB TECHNOLOGIES est une société d&apos;ingénierie informatique basée à Dakar. Forts de plus de 15 ans d&apos;expertise terrain, nous concevons, sécurisons et infogérons les écosystèmes informatiques des entreprises, institutions et organisations en Afrique de l&apos;Ouest.
+                  NOB TECHNOLOGIES est une société d&apos;ingénierie informatique basée à Dakar, créée en 2020. Forte de 6 ans d&apos;expérience d&apos;entreprise et portée par plus de 15 ans d&apos;expertise métier de son fondateur, nous concevons, sécurisons et infogérons les écosystèmes informatiques des entreprises, institutions et organisations au Sénégal et en Afrique de l&apos;Ouest.
                 </p>
               </FadeUp>
             </div>
@@ -61,10 +61,10 @@ export default async function AboutPage() {
           <Container>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {[
-                { value: 15, suffix: '+', label: "Années d'expérience", sub: 'Depuis notre fondation' },
-                { value: 200, suffix: '+', label: 'Projets réalisés', sub: 'Déploiements réussis' },
-                { value: 98, suffix: '%', label: 'Clients satisfaits', sub: 'Taux de satisfaction' },
-                { value: 50, suffix: '+', label: 'Entreprises clientes', sub: 'PME, grandes structures' },
+                { value: 6, suffix: ' ans', label: "D'expérience d'entreprise", sub: 'Créée en 2020 à Dakar' },
+                { value: 15, suffix: '+', label: "Ans d'expertise fondateur", sub: 'Réseaux & Cybersécurité' },
+                { value: 100, suffix: '%', label: 'Satisfaction clients', sub: 'Clients 100% satisfaits' },
+                { value: 200, suffix: '+', label: 'Projets réalisés', sub: 'Déploiements & audits réussis' },
               ].map((stat, i) => (
                 <FadeUp key={stat.label} delay={i * 0.1}>
                   <div className="flex flex-col items-center text-center p-6 rounded-xl border border-white/10 bg-white/[0.03] hover:border-[#00D4FF]/30 hover:bg-[#00D4FF]/[0.04] transition-all duration-300 group">

@@ -18,6 +18,9 @@ Ton identité & ton style :
 - Si l'utilisateur est dans l'urgence ou en panne, sois réactif et donne immédiatement le numéro d'astreinte : +221 77 301 08 38.
 
 Coordonnées officielles de NOB TECHNOLOGIES :
+- Création & Historique : Société d'ingénierie créée en 2020 à Dakar (6 ans d'expérience en tant qu'entreprise).
+- Fondateur : Plus de 15 ans d'expérience métier terrain en réseaux, télécoms et cybersécurité.
+- Satisfaction client : 100% de clients satisfaits.
 - Siège : Route de l’Aéroport LSS lot N° 79, Dakar, Sénégal (repère Google Maps : QG3J+HP Dakar).
 - Téléphone & WhatsApp : +221 77 301 08 38 / Fixe : +221 33 814 04 35
 - Email officiel : contact@nobtech.fr
@@ -27,7 +30,7 @@ Pôles d'expertise clés :
 1. Cybersécurité : Pare-feux Sophos XGS, Fortinet FortiGate, sauvegardes anti-ransomware Acronis, gestion PAM Wallix, tests d'intrusion (pentest).
 2. Réseaux & Câblage : Câblage Cat 6A/7, baies de brassage 42U certifiées Fluke (ex: déploiement pour la Délégation de l'Union Européenne à Dakar), switchs Cisco, Wi-Fi d'entreprise.
 3. ERP & Digitalisation : ERP 100% sur-mesure développés de bout en bout, et intégration des solutions Odoo et Dolibarr (stocks, facturation, CRM, comptabilité).
-4. Web & Mobile : Plateformes web performantes (ex: plateforme officielle de l'Hôtel du Parc / Parc Exotique du Sénégal), applications mobiles Flutter.
+4. Web, Mobile & Réseaux Sociaux : Plateformes web performantes (ex: plateforme officielle de l'Hôtel du Parc / Parc Exotique du Sénégal), applications mobiles Flutter, gestion active de réseaux sociaux (Instagram & Facebook pour l'Hôtel du Parc).
 5. Vente de Matériel & Licences : Serveurs d'entreprise Dell PowerEdge, switchs Cisco, licences officielles Microsoft 365.
 6. Formations de 6 mois & Certifications : Initiation cybersécurité, sensibilisation phishing, IA, Fortinet NSE 4, Sophos, Microsoft 365, Cisco CCNA, Gestion de projet, ISO 27001/NIST, Ethical Hacking.`;
 
@@ -159,9 +162,9 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
       "Nous assurons également l'hébergement sécurisé, la migration de vos anciens fichiers Excel et la formation de votre personnel. Quelle est votre activité ?";
   }
 
-  // 17. Développement Web & Mobile, Plateformes
-  if (/(site web|site internet|site|application|mobile|flutter|d[eé]velopp|vitrine|e-commerce|boutique)/i.test(q)) {
-    return "Nous concevons des sites web et applications mobiles (iOS/Android) ultra-performants, modernes et sécurisés 💻📱 !\n\nNous avons par exemple réalisé la plateforme officielle de l'Hôtel du Parc (Parc Exotique du Sénégal à Somone) avec module de réservation en ligne rapide et optimisé mobile.\n\nQuel type de site ou d'application souhaitez-vous lancer ?";
+  // 17. Développement Web, Mobile & Réseaux Sociaux
+  if (/(site web|site internet|site|application|mobile|flutter|d[eé]velopp|vitrine|e-commerce|boutique|instagram|facebook|reseaux sociaux|community)/i.test(q)) {
+    return "Nous concevons des sites web, applications mobiles et pilotons la présence digitale des entreprises 💻📱 !\n\n• **Exemple phare** : Nous avons développé la plateforme web officielle de l'Hôtel du Parc (Parc Exotique du Sénégal à Somone) et nous gérons également leurs réseaux sociaux officiels (**Instagram** et **Facebook**) pour booster leurs réservations directes.\n• **Technologies** : Next.js, React, Flutter, solutions Cloud sécurisées.\n\nQuel type de site, application ou stratégie digitale souhaitez-vous lancer ?";
   }
 
   // 18. Cybersécurité, Pare-feu, Sécurité informatique
@@ -174,12 +177,22 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
     return "Pour vos réseaux d'entreprise, nous réalisons des installations physiques aux normes internationales 🌐 :\n\n• Pose et certification de câblage cuivre Cat 6A / 7 et rocade fibre optique.\n• Montage et peignage de baies de brassage 42U (notamment notre réalisation pour le bureau de l'Union Européenne à Dakar).\n• Commutation d'entreprise Cisco Catalyst et HPE Aruba.\n• Recette technique avec testeur de certification Fluke Networks.\n\nCombien de prises réseau ou de bureaux devez-vous équiper ?";
   }
 
-  // 20. Clients & Réalisations ("Ils nous font confiance", Références)
+  // 20. Expérience, Ancienneté, Fondateur, Création 2020 & Taux de satisfaction
+  if (/(exp[eé]rience|anciennet[eé]|fondat|fond[eé]|cr[eé][eé]|historique|qui [eê]tes|satisfaction|avis client|depuis quand)/i.test(q)) {
+    return "NOB TECHNOLOGIES est une société d'ingénierie informatique de référence basée à Dakar 🇸🇳 :\n\n" +
+      "• **Création** : Fondée en 2020, avec aujourd'hui **6 ans d'expérience** d'entreprise et de déploiements terrain réussis.\n" +
+      "• **Expertise du fondateur** : Plus de **15 ans d'expérience** métier dans les infrastructures réseaux critiques, les télécoms et la cybersécurité.\n" +
+      "• **Satisfaction** : **100% de nos clients** sont pleinement satisfaits de la qualité de nos réalisations !\n" +
+      "• **Références emblématiques** : Délégation de l'Union Européenne à Dakar, SETER (TER Dakar), Hôtel du Parc Exotique (plateforme web & gestion complète de leurs réseaux Instagram/Facebook), Polyclinique P2A, Dolima, Simplon.\n\n" +
+      "Vous avez un projet ou une question sur nos expertises ?";
+  }
+
+  // 21. Clients & Réalisations ("Ils nous font confiance", Références)
   if (/(client|confiance|r[eé]f[eé]rence|projet|r[eé]alisation|seter|ter|polyclinique|p2a|dolima|simplon|parc exotique|union europ[eé]enne|ue)/i.test(q) || (isOneWord && ["references", "clients"].includes(words[0]))) {
     return "De grandes institutions et entreprises nous font confiance au Sénégal 🏆 :\n\n" +
       "1. **Délégation de l'Union Européenne à Dakar** : Câblage réseau structuré blindé Cat 6A et baies 42U.\n" +
       "2. **SETER (TER de Dakar)** : Formation spécialisée des techniciens aux télécommunications ferroviaires GSM-R.\n" +
-      "3. **Hôtel du Parc Exotique du Sénégal** : Plateforme web officielle de réservation et ERP d'établissement.\n" +
+      "3. **Hôtel du Parc Exotique du Sénégal** : Plateforme web officielle, système de réservations directes et gestion de leurs réseaux Instagram & Facebook.\n" +
       "4. **Polyclinique P2A (Dakar)** : Baies réseau, serveurs virtualisés VMware, téléphonie Yeastar et pare-feu FortiGate.\n" +
       "5. **Dolima (Laiterie du Berger)** : Infrastructure réseau d'entreprise et connectivité industrielle.\n" +
       "6. **Simplon Sénégal** : Formation pratique des apprenants aux infrastructures et à la cybersécurité.\n\n" +
