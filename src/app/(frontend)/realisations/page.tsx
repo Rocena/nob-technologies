@@ -57,11 +57,11 @@ const secondaryProjects: ProjectItem[] = [
   },
   {
     id: 'simplon-senegal',
-    title: 'Simplon Sénégal — Formation Professionnelle & Accompagnement Apprenants',
-    sector: 'Formation & Éducation Numérique',
-    description: 'Animation de modules intensifs et ateliers pratiques pour les apprenants de Simplon : architectures réseaux d’entreprise, administration système Linux/Windows, cybersécurité et préparation aux certifications.',
-    tags: ['Simplon', 'Dakar', 'Formation Apprenants', 'Réseaux & Systèmes', 'Cybersécurité'],
-    coverImage: '/images/projects/simplon-formation-lab.jpg',
+    title: 'Formation des Apprenants aux Réseaux Informatiques & Systèmes',
+    sector: 'Formation Professionnelle & Éducation Numérique',
+    description: 'Animation de modules intensifs, cours magistraux et ateliers pratiques pour les apprenants : architectures réseaux d’entreprise, protocoles de routage/commutation, administration système Linux/Windows, câblage et préparation aux certifications.',
+    tags: ['Formation Réseaux', 'Apprenants IT', 'Câblage & Labs', 'Cisco & Linux', 'Simplon'],
+    coverImage: '/images/projects/formation-reseaux-apprenants-classe.jpg',
     clientLogo: '/images/partners/simplon.svg',
   },
   {
