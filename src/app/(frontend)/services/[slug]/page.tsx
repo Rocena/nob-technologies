@@ -422,8 +422,8 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
               <div className="lg:col-span-4 sticky top-28">
                 <FadeUp delay={0.2}>
                   <div className="bg-slate-900 text-white rounded-2xl p-7 md:p-8 border border-slate-800 shadow-xl">
-                    <span className="text-[10px] font-mono text-cyan-400 font-bold tracking-widest uppercase block mb-2">
-                      &gt;_ DEVIS RAPIDE & ACCOMPAGNEMENT
+                    <span className="text-[11px] text-cyan-400 font-semibold tracking-wider uppercase block mb-2">
+                      DEVIS RAPIDE &amp; ACCOMPAGNEMENT
                     </span>
                     <h3 className="text-xl font-bold mb-3">
                       Besoin d’un devis pour ce service ?

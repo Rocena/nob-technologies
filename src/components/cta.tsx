@@ -94,8 +94,8 @@ export function CTA() {
       <Container className="relative z-10">
         <div className="text-center max-w-3xl mx-auto">
           <FadeUp>
-            <p className="font-mono text-accent text-xs md:text-sm tracking-[0.25em] uppercase mb-6 font-bold opacity-80">
-              &gt;_ PASSEZ A L'ACTION
+            <p className="text-cyan-400 text-xs md:text-sm tracking-[0.25em] uppercase mb-4 sm:mb-6 font-semibold">
+              Passez à l&apos;action
             </p>
             <Heading level={2} className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
               Passez à la vitesse supérieure avec nos{" "}

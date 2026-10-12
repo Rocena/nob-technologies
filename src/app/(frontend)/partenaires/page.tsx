@@ -272,8 +272,8 @@ export default function PartenairesPage() {
           <Container className="relative z-10">
             <FadeUp>
               <div className="text-center mb-12">
-                <p className="font-mono text-cyan-400 text-xs tracking-[0.3em] uppercase mb-3 font-bold">
-                  &gt;_ ALLIANCES CLÉS &bull; INFRASTRUCTURE &amp; CYBERDÉFENSE
+                <p className="text-cyan-400 text-xs tracking-[0.25em] uppercase mb-3 font-semibold">
+                  ALLIANCES CLÉS &bull; INFRASTRUCTURE &amp; CYBERDÉFENSE
                 </p>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
                   Alliances Technologiques Stratégiques
@@ -346,8 +346,8 @@ export default function PartenairesPage() {
           <Container>
             <FadeUp>
               <div className="text-center mb-16">
-                <p className="font-mono text-cyan-600 text-xs tracking-[0.3em] uppercase mb-4 font-bold">
-                  &gt;_ CATALOGUE DE PARTENAIRES OFFICIELS
+                <p className="text-cyan-600 text-xs tracking-[0.25em] uppercase mb-4 font-semibold">
+                  CATALOGUE DE PARTENAIRES OFFICIELS
                 </p>
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-4">
                   Un écosystème technologique d&apos;élite
@@ -418,8 +418,8 @@ export default function PartenairesPage() {
           <Container>
             <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-900 border border-cyan-500/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
               <div>
-                <span className="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase mb-2 block">
-                  &gt;_ MONTÉE EN COMPÉTENCES
+                <span className="text-xs font-semibold tracking-widest text-cyan-400 uppercase mb-2 block">
+                  MONTÉE EN COMPÉTENCES
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
                   Découvrez nos Formations Certifiantes sur 6 Mois

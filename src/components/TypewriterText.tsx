@@ -45,8 +45,7 @@ export function TypewriterText({ text = SLOGAN }: { text?: string }) {
       </motion.div>
 
       {/* Letters — each fades in when beam passes */}
-      <div className="relative z-10 font-mono text-accent text-sm md:text-base tracking-[0.25em] uppercase flex items-center gap-0">
-        <span className="mr-2 text-accent/50 text-xs select-none">&gt;_</span>
+      <div className="relative z-10 text-accent text-sm md:text-base font-semibold tracking-[0.25em] uppercase flex items-center gap-0">
         {letters.map((char, i) => {
           const delay = 0.5 + (i / letters.length) * 1.5;
           return (

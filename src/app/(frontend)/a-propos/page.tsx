@@ -112,8 +112,8 @@ export default async function AboutPage() {
               
               <div className="space-y-12">
                 <FadeUp>
-                  <p className="font-mono text-cyan-600 text-xs tracking-[0.25em] uppercase mb-2 font-bold">
-                    &gt;_ L&apos;Ingénierie à l&apos;état pur
+                  <p className="text-cyan-600 text-xs tracking-[0.25em] uppercase mb-2 font-semibold">
+                    L&apos;Ingénierie à l&apos;état pur
                   </p>
                   <h3 className="text-3xl font-extrabold tracking-tight text-slate-900 mb-4">
                     Nous construisons les fondations numériques des leaders de demain.
@@ -177,7 +177,7 @@ export default async function AboutPage() {
                 {/* Services list */}
                 <FadeUp delay={0.2}>
                   <div className="rounded-sm border border-slate-200 bg-white p-5 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="font-mono text-accent font-bold text-xs tracking-widest mb-6">&gt;_ NOS DOMAINES D'EXPERTISE</div>
+                    <div className="text-cyan-600 font-bold text-xs tracking-widest uppercase mb-6">Nos Domaines d&apos;Expertise</div>
                     <div className="grid grid-cols-1 gap-4">
                       {[
                         { cat: 'Réseau', items: ['Câblage structuré', 'Téléphonie IP (VoIP)', 'Virtualisation'] },

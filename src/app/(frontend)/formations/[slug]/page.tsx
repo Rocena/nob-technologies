@@ -431,8 +431,8 @@ export default async function FormationDetailPage({ params }: Props) {
         <Section className="py-16 bg-slate-900 border-t border-white/10">
           <Container>
             <div className="text-center max-w-2xl mx-auto mb-10">
-              <p className="font-mono text-cyan-400 text-xs tracking-[0.25em] uppercase mb-2 font-bold">
-                &gt;_ DÉCOUVRIR LES AUTRES PARCOURS
+              <p className="text-cyan-400 text-xs tracking-[0.25em] uppercase mb-2 font-semibold">
+                DÉCOUVRIR LES AUTRES PARCOURS
               </p>
               <h2 className="text-2xl font-extrabold text-white">
                 Autres Formations &amp; Préparations Certifiantes

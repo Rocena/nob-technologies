@@ -10,8 +10,8 @@ export function ValueProposition() {
       <Container>
         <div className="max-w-4xl mx-auto text-center flex flex-col items-center mb-10 md:mb-16 lg:mb-24">
           <FadeUp>
-            <p className="font-mono text-accent text-sm md:text-base tracking-[0.25em] uppercase mb-6 opacity-90 font-bold">
-              &gt;_ L'Ingénierie à l'état pur
+            <p className="text-cyan-600 text-xs md:text-sm tracking-[0.25em] uppercase mb-4 sm:mb-6 font-semibold">
+              L&apos;Ingénierie à l&apos;état pur
             </p>
             <h3 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-8 tracking-tight leading-[1.15]">
               Nous construisons les fondations numériques des leaders de demain.

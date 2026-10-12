@@ -36,8 +36,8 @@ export default async function DevisPage({ params }: { params: Promise<{ plan: st
             <div className="max-w-3xl mx-auto">
               <FadeUp>
                 <div className="text-center mb-12">
-                  <p className="font-mono text-accent text-xs tracking-[0.3em] uppercase mb-6 font-bold">
-                    &gt;_ DEVIS PERSONNALISÉ
+                  <p className="text-cyan-400 text-xs tracking-[0.25em] uppercase mb-4 sm:mb-6 font-semibold">
+                    Devis Personnalisé
                   </p>
                   <TextReveal>
                     <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight mb-6">

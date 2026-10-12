@@ -263,8 +263,8 @@ export function Clients({ clients = [] }: { clients: any[] }) {
         {/* Section Header: Constructeurs & Éditeurs Partenaires */}
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
           <FadeUp>
-            <p className="font-mono text-cyan-600 text-sm md:text-base tracking-[0.25em] uppercase mb-4 font-bold">
-              &gt;_ ÉCOSYSTÈME TECHNOLOGIQUE INTERNATIONAL
+            <p className="text-cyan-600 text-xs sm:text-sm tracking-[0.25em] uppercase mb-3 font-semibold">
+              ÉCOSYSTÈME TECHNOLOGIQUE INTERNATIONAL
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
               Partenaires Technologiques &amp; Constructeurs
@@ -321,8 +321,8 @@ export function Clients({ clients = [] }: { clients: any[] }) {
         <div className="pt-10 border-t border-slate-200/90">
           <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
             <FadeUp>
-              <p className="font-mono text-cyan-600 text-sm md:text-base tracking-[0.25em] uppercase mb-4 font-bold">
-                &gt;_ RÉFÉRENCES CLIENTS &amp; DÉPLOIEMENTS MAJEURS
+              <p className="text-cyan-600 text-xs sm:text-sm tracking-[0.25em] uppercase mb-3 font-semibold">
+                RÉFÉRENCES CLIENTS &amp; DÉPLOIEMENTS MAJEURS
               </p>
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
                 Ils Nous Font Confiance
