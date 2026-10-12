@@ -129,7 +129,7 @@ export default async function ProjectsPage() {
             <FadeUp>
               <div className="mb-10 text-center max-w-3xl mx-auto">
                 <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white text-xs font-semibold text-slate-800 mb-4 border border-slate-200 shadow-sm relative overflow-hidden group">
-                  <span className="flex h-2 w-2 rounded-full bg-[#10E760] animate-pulse shrink-0" />
+                  <span className="flex h-2 w-2 rounded-full bg-[#10E760] shrink-0" />
                   <span className="font-mono text-[11px] uppercase tracking-wider font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00B4D8] to-[#10E760]">
                     Retours Clients &bull; Projet Livré
                   </span>
@@ -266,7 +266,7 @@ export default async function ProjectsPage() {
                 </div>
 
                 <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-950/80 text-xs font-semibold text-white mb-4 border border-cyan-500/40 shadow-[0_0_20px_rgba(0,212,255,0.15)]">
-                  <span className="flex h-2 w-2 rounded-full bg-[#10E760] animate-pulse shrink-0" />
+                  <span className="flex h-2 w-2 rounded-full bg-[#10E760] shrink-0" />
                   <span className="font-mono text-[11px] uppercase tracking-wider font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                     Retours Clients &bull; Recette Diplomatique Conforme
                   </span>

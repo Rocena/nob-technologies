@@ -539,7 +539,7 @@ export function Header() {
                                       <span className="inline-block text-[9.5px] font-mono font-bold uppercase tracking-wider text-cyan-300 bg-cyan-950/80 border border-cyan-700/60 px-2 py-0.5 rounded-md shadow-xs">
                                         {spotlight.badge}
                                       </span>
-                                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                                     </div>
 
                                     <h5 className="text-[13.5px] font-bold text-white mt-3 leading-snug group-hover/spotlight:text-cyan-200 transition-colors">
@@ -571,7 +571,7 @@ export function Header() {
                             <div className="mt-4 pt-3 border-t border-slate-100/90 -mx-5 -mb-5 sm:-mx-6 sm:-mb-6 px-5 sm:px-6 py-2.5 bg-slate-50/80 rounded-b-2xl flex items-center justify-between text-xs text-slate-600">
                               <span className="flex items-center gap-2">
                                 <span className="inline-flex items-center gap-1.5 font-semibold text-slate-800">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                                   Support Dakar 24/7
                                 </span>
                                 <span className="text-slate-400">&bull;</span>
@@ -613,7 +613,7 @@ export function Header() {
                                 </h5>
                               </div>
                               <span className="inline-flex items-center gap-1.5 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200">
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                                 Support 24/7
                               </span>
                             </div>

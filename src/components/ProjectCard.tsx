@@ -75,7 +75,7 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
 
         {/* Status Badge */}
         <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-slate-950/80 backdrop-blur-md text-white text-[10.5px] font-medium border border-slate-800 flex items-center gap-1.5 shadow-md">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
           <span>Infrastructure Active</span>
         </div>
 
