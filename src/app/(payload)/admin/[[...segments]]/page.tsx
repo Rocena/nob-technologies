@@ -6,6 +6,8 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getPayloadClient } from '@/lib/payload'
 
+export const dynamic = 'force-dynamic'
+
 type Args = { 
   params: Promise<{ segments: string[] }>
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -19,19 +21,22 @@ export default async function Page({ params, searchParams }: Args) {
   const isLogoutRoute = segments[0] === 'logout'
 
   if (!token && !isLogoutRoute) {
+    let hasUser = false
     try {
       const payload = await getPayloadClient()
       const { totalDocs } = await payload.count({ collection: 'users' })
-      if (totalDocs === 0) {
-        redirect('/create-first-user')
-      }
+      hasUser = totalDocs > 0
     } catch {
-      redirect('/create-first-user')
+      hasUser = false
     }
 
-    const currentPath = segments.length > 0 ? `/admin/${segments.join('/')}` : ''
-    const redirectParam = currentPath ? `?redirect=${encodeURIComponent(currentPath)}` : ''
-    redirect(`/login${redirectParam}`)
+    if (!hasUser) {
+      redirect('/create-first-user')
+    } else {
+      const currentPath = segments.length > 0 ? `/admin/${segments.join('/')}` : ''
+      const redirectParam = currentPath ? `?redirect=${encodeURIComponent(currentPath)}` : ''
+      redirect(`/login${redirectParam}`)
+    }
   }
 
   // @ts-expect-error - Payload RC / Next 15 bindings mismatch

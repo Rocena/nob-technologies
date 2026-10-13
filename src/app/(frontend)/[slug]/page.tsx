@@ -16,9 +16,22 @@ interface PageProps {
 
 export const dynamic = 'force-dynamic';
 
+const RESERVED_AUTH_SLUGS = [
+  'admin',
+  'login',
+  'create-first-user',
+  'backoffice',
+  'back-office',
+  'bakoffice',
+  'bak-office',
+  'dashboard',
+  'api',
+  'graphql',
+];
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  if (['admin', 'backoffice', 'back-office', 'bakoffice', 'bak-office', 'dashboard', 'login'].includes(slug)) {
+  if (RESERVED_AUTH_SLUGS.includes(slug)) {
     return { title: 'Administration | NOB TECHNOLOGIES' };
   }
   try {
@@ -44,8 +57,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function DynamicCMSPage({ params }: PageProps) {
   const { slug } = await params;
 
-  if (['admin', 'backoffice', 'back-office', 'bakoffice', 'bak-office', 'dashboard', 'login'].includes(slug)) {
-    redirect(slug === 'login' ? '/login' : '/admin');
+  if (RESERVED_AUTH_SLUGS.includes(slug)) {
+    if (slug === 'login') redirect('/login');
+    if (slug === 'create-first-user') redirect('/create-first-user');
+    redirect('/admin');
   }
   let page: any = null;
 
