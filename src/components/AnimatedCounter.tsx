@@ -24,27 +24,34 @@ export function AnimatedCounter({
   const ref = useRef<HTMLSpanElement>(null);
   const rafRef = useRef<number | null>(null);
 
+  const startedRef = useRef(false);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
+    const run = () => {
+      if (startedRef.current) return;
+      startedRef.current = true;
+      setStarted(true);
+      const startTime = performance.now();
+
+      const tick = (now: number) => {
+        const elapsed = Math.max(0, now - startTime);
+        const progress = Math.min(elapsed / duration, 1);
+        setDisplay(Math.round(easeOutCubic(progress) * value));
+        if (progress < 1) {
+          rafRef.current = requestAnimationFrame(tick);
+        }
+      };
+
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !started) {
-          setStarted(true);
-          const startTime = performance.now();
-
-          const tick = (now: number) => {
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = easeOutCubic(progress);
-            setDisplay(Math.round(eased * value));
-            if (progress < 1) {
-              rafRef.current = requestAnimationFrame(tick);
-            }
-          };
-
-          rafRef.current = requestAnimationFrame(tick);
+        if (entry.isIntersecting) {
+          run();
           observer.disconnect();
         }
       },
@@ -56,7 +63,8 @@ export function AnimatedCounter({
       observer.disconnect();
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
-  }, [value, duration, started]);
+  }, [value, duration]);
+
 
   return (
     <span ref={ref} className={className}>

@@ -94,7 +94,7 @@ const DEFAULT_NAV: NavItem[] = [
       { name: 'ERP & Digitalisation', href: '/services/erp-digitalisation', desc: 'Intégration Dolibarr & Odoo, automatisation et workflows métiers', tag: 'Dolibarr • Odoo' },
       { name: 'Développement Web & Mobile', href: '/services/developpement-web-mobile', desc: 'Portails d’entreprise, applications sur-mesure & plateformes SaaS', tag: 'SaaS • Web & Mobile' },
       { name: 'Téléphonie IP & VoIP', href: '/services/telephone-ip', desc: 'Autocommutateurs IPBX Yeastar, communications unifiées & SIP', tag: 'Yeastar • IPBX & SIP' },
-      { name: 'Matériel & Licences IT', href: '/services/materiel-licences', desc: 'Serveurs Dell EMC, baies de serveurs et licences Microsoft 365', tag: 'Dell EMC • Microsoft 365' },
+      { name: 'Matériel & Licences IT', href: '/services/vente-materiels-licences', desc: 'Serveurs Dell EMC, baies de serveurs et licences Microsoft 365', tag: 'Dell EMC • Microsoft 365' },
     ]
   },
   { 
@@ -105,9 +105,9 @@ const DEFAULT_NAV: NavItem[] = [
     order: 2,
     children: [
       { name: 'Catalogue Formations (6 Mois)', href: '/formations', desc: 'Cursus d’excellence et ateliers pratiques à Dakar (max 6h/sem)', tag: 'Immersion • 6 Mois' },
-      { name: 'Préparation Certifications IT', href: '/formations/preparation-certifications-it', desc: 'Préparation officielle Cisco CCNA, Fortinet NSE, Sophos & CompTIA', tag: 'CCNA • NSE 4 • Sophos' },
-      { name: 'Cybersécurité & Audit SOC', href: '/formations/cybersecurite-audit-soc', desc: 'Gouvernance ISO 27001, surveillance SOC et techniques de pentest', tag: 'ISO 27001 • Pentest' },
-      { name: 'Automatisation & IA', href: '/formations/automatisation-ia', desc: 'Workflows Make, scripting Python, agents IA et productivité', tag: 'Make • Python • IA' },
+      { name: 'Préparation Certifications IT', href: '/formations/cisco-ccna', desc: 'Préparation officielle Cisco CCNA, Fortinet NSE, Sophos & CompTIA', tag: 'CCNA • NSE 4 • Sophos' },
+      { name: 'Cybersécurité & Audit SOC', href: '/formations/power-bi-cybersecurite', desc: 'Gouvernance ISO 27001, surveillance SOC et techniques de pentest', tag: 'ISO 27001 • Pentest' },
+      { name: 'Automatisation & IA', href: '/formations/initiation-intelligence-artificielle', desc: 'Workflows Make, scripting Python, agents IA et productivité', tag: 'Make • Python • IA' },
     ]
   },
   { 
@@ -140,7 +140,7 @@ const DEFAULT_NAV: NavItem[] = [
     order: 5,
     children: [
       { name: 'À Propos de Nobtech', href: '/a-propos', desc: 'Notre histoire, nos valeurs et nos standards d’excellence à Dakar', tag: 'Cabinet Dakar' },
-      { name: 'Actualités & Blog', href: '/actualites', desc: 'Veille technologique, cyberdéfense, bonnes pratiques et annonces', tag: 'Veille & Sécurité' },
+      { name: 'Actualités & Blog', href: '/articles', desc: 'Veille technologique, cyberdéfense, bonnes pratiques et annonces', tag: 'Veille & Sécurité' },
       { name: 'Foire Aux Questions (FAQ)', href: '/faq', desc: 'Réponses à vos questions sur les délais, contrats et garanties SLA', tag: 'SLA & Garanties' },
       { name: 'Carrières & Recrutement', href: '/carrieres', desc: 'Rejoindre notre équipe d’ingénieurs réseaux et consultants IT', tag: 'Rejoindre l’Équipe' },
     ]
