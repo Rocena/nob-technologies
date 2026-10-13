@@ -87,9 +87,27 @@ export default async function FormationDetailPage({ params }: Props) {
                 {formation.title}
               </h1>
 
-              <p className="text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed mb-8">
+              <p className="text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed mb-6">
                 {formation.heroDescription}
               </p>
+
+              {/* Actions rapides d'inscription */}
+              <div className="flex flex-wrap items-center gap-3.5 mb-8">
+                <a
+                  href="#candidature"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-sm shadow-[0_0_24px_rgba(0,212,255,0.3)] hover:shadow-[0_0_36px_rgba(0,212,255,0.45)] hover:scale-[1.02] active:scale-[0.98] transition-all"
+                >
+                  <span>S&apos;inscrire à cette formation</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                <a
+                  href="#candidature"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/5 border border-white/15 text-white font-semibold text-sm hover:bg-white/10 hover:border-cyan-400/40 transition-all"
+                >
+                  <Award className="w-4 h-4 text-cyan-400" />
+                  <span>Demander le syllabus officiel</span>
+                </a>
+              </div>
 
               {/* Quick Info Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
@@ -144,25 +162,45 @@ export default async function FormationDetailPage({ params }: Props) {
             </FadeUp>
 
             {/* Target Certification Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
               {formation.targetCertifications.map((cert, i) => (
-                <div
+                <a
                   key={i}
-                  className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-500/50 transition-all duration-300 flex flex-col justify-between"
+                  href="#candidature"
+                  className="group p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-400 hover:bg-white/[0.08] hover:shadow-[0_14px_36px_-10px_rgba(0,212,255,0.3)] transition-all duration-300 flex flex-col justify-between block cursor-pointer"
+                  title={`Cliquer pour vous inscrire à la certification ${cert.title}`}
                 >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-3">
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950/60 border border-cyan-800/60 text-cyan-400 font-bold">
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950/60 border border-cyan-800/60 text-cyan-400 font-bold group-hover:bg-cyan-500/20 group-hover:border-cyan-400/50 transition-colors">
                         {cert.level}
                       </span>
-                      <ShieldCheck className="w-4 h-4 text-cyan-400" />
+                      <ShieldCheck className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
                     </div>
-                    <h3 className="text-base font-bold text-white mb-1.5">{cert.title}</h3>
-                    <p className="text-xs text-slate-400 mb-3">{cert.organization}</p>
-                    <p className="text-xs text-slate-300 leading-relaxed">{cert.desc}</p>
+                    <h3 className="text-base font-bold text-white mb-1.5 group-hover:text-cyan-300 transition-colors leading-snug">
+                      {cert.title}
+                    </h3>
+                    <p className="text-xs text-slate-400 mb-2 font-medium">{cert.organization}</p>
+                    <p className="text-xs text-slate-300 leading-relaxed mb-4">{cert.desc}</p>
                   </div>
-                </div>
+
+                  <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-semibold text-cyan-400 group-hover:text-white transition-colors">
+                    <span>S&apos;inscrire à cet examen</span>
+                    <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1.5 transition-transform" />
+                  </div>
+                </a>
               ))}
+            </div>
+
+            {/* Bouton stratégique d'inscription directe */}
+            <div className="text-center mb-12">
+              <a
+                href="#candidature"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-sm shadow-[0_0_24px_rgba(0,212,255,0.3)] hover:shadow-[0_0_36px_rgba(0,212,255,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all"
+              >
+                <span>S&apos;inscrire à la préparation de ces certifications</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
             </div>
 
             {/* Partner Logos */}

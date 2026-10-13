@@ -127,12 +127,14 @@ export default async function FormationsCatalogPage() {
                           </p>
                           <div className="flex flex-wrap gap-1.5">
                             {track.targetCertifications.map((cert, i) => (
-                              <span
+                              <Link
                                 key={i}
-                                className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[11px] font-medium text-slate-300"
+                                href={`/formations/${track.slug}#candidature`}
+                                title={`S'inscrire à la certification ${cert.title}`}
+                                className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[11px] font-medium text-slate-300 hover:text-cyan-300 hover:border-cyan-400/50 hover:bg-cyan-500/10 transition-all cursor-pointer"
                               >
                                 {cert.title}
-                              </span>
+                              </Link>
                             ))}
                           </div>
                         </div>
