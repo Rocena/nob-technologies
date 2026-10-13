@@ -46,6 +46,7 @@ export async function GET() {
       database: envDetected,
       usersCount,
       queryError,
+      actionRequired: queryError ? 'Rendez-vous sur /api/db-init pour synchroniser le schéma et créer les tables PostgreSQL.' : null,
     });
   } catch (initError: any) {
     return NextResponse.json(

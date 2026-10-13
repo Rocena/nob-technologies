@@ -14,16 +14,13 @@ export async function POST(request: Request) {
       totalDocs = result.totalDocs;
     } catch (countError: any) {
       console.warn('Could not count users (schema may need initialization):', countError?.message);
-      if (payload.db?.migrate && typeof payload.db.migrate === 'function') {
-        try {
-          await payload.db.migrate({ migrations: migrations as any });
-          const retryCount = await payload.count({ collection: 'users' });
-          totalDocs = retryCount.totalDocs;
-        } catch (migErr) {
-          console.warn('Migration attempt warning:', migErr);
-          totalDocs = 0;
-        }
-      } else {
+      try {
+        const { ensureDatabaseSchema } = await import('@/lib/ensureSchema');
+        await ensureDatabaseSchema(payload);
+        const retryCount = await payload.count({ collection: 'users' });
+        totalDocs = retryCount.totalDocs;
+      } catch (schemaErr) {
+        console.warn('Auto schema sync warning during user count:', schemaErr);
         totalDocs = 0;
       }
     }
@@ -67,21 +64,19 @@ export async function POST(request: Request) {
         overrideAccess: true,
       });
     } catch (createError: any) {
-      if (payload.db?.migrate && typeof payload.db.migrate === 'function') {
-        await payload.db.migrate({ migrations: migrations as any });
-        user = await payload.create({
-          collection: 'users',
-          data: {
-            email,
-            password,
-            role: 'super_admin',
-            name: fullName,
-          },
-          overrideAccess: true,
-        });
-      } else {
-        throw createError;
-      }
+      console.warn('Initial user create failed, attempting schema sync:', createError?.message);
+      const { ensureDatabaseSchema } = await import('@/lib/ensureSchema');
+      await ensureDatabaseSchema(payload);
+      user = await payload.create({
+        collection: 'users',
+        data: {
+          email,
+          password,
+          role: 'super_admin',
+          name: fullName,
+        },
+        overrideAccess: true,
+      });
     }
 
     // Auto-login immédiat pour configurer la session et générer le token JWT

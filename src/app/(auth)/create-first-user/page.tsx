@@ -39,17 +39,17 @@ export default async function CreateFirstUserPage() {
       if (isRedirectError(countError)) {
         throw countError;
       }
-      // Si la table n'existe pas ou erreur schema, tenter d'exécuter les migrations en silence
-      if (payload.db?.migrate && typeof payload.db.migrate === 'function') {
-        try {
-          await payload.db.migrate({ migrations: migrations as any });
-          const { totalDocs } = await payload.count({ collection: 'users' });
-          if (totalDocs > 0) {
-            redirect('/login');
-          }
-        } catch (migErr) {
-          if (isRedirectError(migErr)) throw migErr;
+      // Si la table n'existe pas ou erreur schema, synchroniser le schéma Drizzle
+      try {
+        const { ensureDatabaseSchema } = await import('@/lib/ensureSchema');
+        await ensureDatabaseSchema(payload);
+        const { totalDocs } = await payload.count({ collection: 'users' });
+        if (totalDocs > 0) {
+          redirect('/login');
         }
+      } catch (schemaErr) {
+        if (isRedirectError(schemaErr)) throw schemaErr;
+        console.warn('Auto schema sync attempt warning:', schemaErr);
       }
     }
   } catch (error) {
