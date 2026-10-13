@@ -39,6 +39,7 @@ export default async function CreateFirstUserPage() {
       if (isRedirectError(countError)) {
         throw countError;
       }
+      // Si la table n'existe pas ou erreur schema, tenter d'exécuter les migrations en silence
       if (payload.db?.migrate && typeof payload.db.migrate === 'function') {
         try {
           await payload.db.migrate({ migrations: migrations as any });
@@ -55,6 +56,8 @@ export default async function CreateFirstUserPage() {
     if (isRedirectError(error)) {
       throw error;
     }
+    // Erreur de connexion DB ou table manquante : on affiche la page de création sans bloquer en 500
+    console.error('Initial user check error on server:', error);
   }
 
   return <CustomCreateFirstUser />;

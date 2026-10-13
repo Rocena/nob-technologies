@@ -37,8 +37,8 @@ export default async function LoginPage() {
     if (isRedirectError(error)) {
       throw error;
     }
-    // Si la table n'existe pas encore ou erreur DB, on redirige vers la création initiale
-    redirect('/create-first-user');
+    // Erreur de connexion DB ou vérification : afficher CustomLogin plutôt que de boucler
+    console.error('Login user check error:', error);
   }
 
   return <CustomLogin />;
