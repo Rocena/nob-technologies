@@ -73,8 +73,10 @@ export async function Footer() {
             <h4 className="font-semibold text-xs tracking-[0.2em] uppercase text-slate-100 mb-6">Solutions</h4>
             <ul className="space-y-4">
               <li><Link href="/services" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Nos Services</Link></li>
+              <li><Link href="/reserver-audit" className="text-sm text-cyan-400 hover:text-white hover:translate-x-1 transition-all inline-block font-semibold">Réserver un audit</Link></li>
               <li><Link href="/secteurs" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Secteurs d'activité</Link></li>
               <li><Link href="/realisations" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Réalisations</Link></li>
+              <li><Link href="/etudes-de-cas" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Études de cas</Link></li>
               <li>
                 <QuoteRequestButton className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block cursor-pointer text-left">
                   Demander un devis
@@ -87,11 +89,13 @@ export async function Footer() {
             <h4 className="font-semibold text-xs tracking-[0.2em] uppercase text-slate-100 mb-6">Entreprise</h4>
             <ul className="space-y-4">
               <li><Link href="/a-propos" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">À propos</Link></li>
+              <li><Link href="/centre-de-confiance" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Centre de confiance</Link></li>
+              <li><Link href="/statut" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Statut des systèmes</Link></li>
+              <li><Link href="/ressources" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Ressources & Livres Blancs</Link></li>
               <li><Link href="/partenaires" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Partenaires Constructeurs</Link></li>
               <li><Link href="/formations" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Formations & Certifications</Link></li>
               <li><Link href="/carrieres" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Carrières</Link></li>
-              <li><Link href="/actualites" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Actualités</Link></li>
-              <li><Link href="/articles" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Blog</Link></li>
+              <li><Link href="/articles" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Blog & Actualités</Link></li>
               <li><Link href="/faq" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">FAQ</Link></li>
             </ul>
           </div>

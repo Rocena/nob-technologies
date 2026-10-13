@@ -5,7 +5,7 @@ import Link from "next/link";
 import { 
   Menu, X, ArrowRight, Phone, Mail, Layers, Globe, Star, Info, ChevronDown, Camera,
   ShieldCheck, Network, Cpu, Code2, PhoneCall, Server, GraduationCap, Award, ShieldAlert, Sparkles,
-  Building2, Newspaper, HelpCircle, Users, Smartphone, MapPin
+  Building2, Newspaper, HelpCircle, Users, Smartphone, MapPin, FileText, Activity, Lock
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AnimatedLogo } from "./AnimatedLogo";
@@ -40,12 +40,12 @@ interface SpotlightInfo {
 
 const SPOTLIGHTS: Record<string, SpotlightInfo> = {
   solutions: {
-    badge: "RÉFÉRENCE MAJEURE",
-    title: "Délégation de l'Union Européenne",
-    desc: "Câblage structuré cat 6A/7, baie 42U et sécurisation du LAN à Dakar.",
-    linkText: "Voir l'étude de cas",
-    href: "/realisations",
-    tag: "Dakar • En production",
+    badge: "AUDIT SUR SITE",
+    title: "Diagnostic Réseau & Sécurité",
+    desc: "Évaluation de vos baies, pare-feux et conformité réglementaire CDP sous 24h à 48h.",
+    linkText: "Réserver un audit",
+    href: "/reserver-audit",
+    tag: "Dakar & Régions",
   },
   formations: {
     badge: "PROGRAMMES 2025",
@@ -64,20 +64,20 @@ const SPOTLIGHTS: Record<string, SpotlightInfo> = {
     tag: "Support & Matériel Garanti",
   },
   realisations: {
-    badge: "PROJETS EN PRODUCTION",
-    title: "Infrastructures Clés en Main",
-    desc: "Union Européenne, SETER (TER Dakar), Polyclinique P2A, Parc Exotique, Simplon & Dolima.",
-    linkText: "Explorer la galerie",
-    href: "/galerie",
-    tag: "100% Photos Réelles",
+    badge: "RETOURS D'EXPÉRIENCE",
+    title: "Études de Cas & Chiffres Clés",
+    desc: "Analyses complètes : Union Européenne, SETER (TER), Polyclinique P2A, Parc Exotique.",
+    linkText: "Consulter les études de cas",
+    href: "/etudes-de-cas",
+    tag: "100% Résultats Prouvés",
   },
   'a-propos': {
-    badge: "INGÉNIERIE SÉNÉGAL",
-    title: "Cabinet Nob Technologies",
-    desc: "Équipe d'ingénieurs réseaux, télécoms et cybersécurité sur la Route de l'Aéroport.",
-    linkText: "Notre vision & équipe",
-    href: "/a-propos",
-    tag: "Intervention sous 24h",
+    badge: "CONFORMITÉ & SÉCURITÉ",
+    title: "Centre de Confiance",
+    desc: "Gouvernance ISO 27001, certification Fluke, conformité CDP et statut des services en direct.",
+    linkText: "Accéder au centre de confiance",
+    href: "/centre-de-confiance",
+    tag: "SLA 99.9% Garanti",
   },
 };
 
@@ -91,6 +91,7 @@ const DEFAULT_NAV: NavItem[] = [
     children: [
       { name: 'Cybersécurité & Firewalls', href: '/services/cybersecurite', desc: 'Protection périmétrique Sophos & Fortinet, audits et SOC managé', tag: 'Sophos • Fortinet' },
       { name: 'Réseaux & Câblage', href: '/services/reseaux-telecoms', desc: 'Câblage structuré cat 6A/7, fibre optique, Cisco & HPE Aruba', tag: 'Cat 6A • Fibre • Cisco' },
+      { name: 'Réserver un Audit Réseau', href: '/reserver-audit', desc: 'Diagnostic complet sur site : baies, règles de filtrage et rapport de conformité', tag: 'Intervention 24h' },
       { name: 'ERP & Digitalisation', href: '/services/erp-digitalisation', desc: 'Intégration Dolibarr & Odoo, automatisation et workflows métiers', tag: 'Dolibarr • Odoo' },
       { name: 'Développement Web & Mobile', href: '/services/developpement-web-mobile', desc: 'Portails d’entreprise, applications sur-mesure & plateformes SaaS', tag: 'SaaS • Web & Mobile' },
       { name: 'Téléphonie IP & VoIP', href: '/services/telephone-ip', desc: 'Autocommutateurs IPBX Yeastar, communications unifiées & SIP', tag: 'Yeastar • IPBX & SIP' },
@@ -128,21 +129,25 @@ const DEFAULT_NAV: NavItem[] = [
     desc: 'Déploiements d’infrastructures critiques et plateformes web en production',
     order: 4,
     children: [
-      { name: 'Projets & Déploiements', href: '/realisations', desc: 'Études de cas concrètes : Union Européenne, SETER, P2A, Parc Exotique', tag: 'Projets & Déploiements' },
-      { name: 'Galerie d’Installations', href: '/galerie', desc: 'Photos réelles de baies de brassage, salles serveurs et câblage', tag: '100% Photos Terrain' },
+      { name: 'Études de Cas & Résultats', href: '/etudes-de-cas', desc: 'Analyses détaillées : défis, architectures déployées et métriques chiffrées', tag: 'Cas Clients Chiffrés' },
+      { name: 'Projets & Déploiements', href: '/realisations', desc: 'Présentation des chantiers : Union Européenne, SETER, P2A, Parc Exotique', tag: 'Références Terrain' },
+      { name: 'Galerie d’Installations', href: '/galerie', desc: 'Photos réelles de baies de brassage, salles serveurs et câblage', tag: '100% Photos Réelles' },
     ]
   },
   { 
     id: 'a-propos',
     name: 'Entreprise', 
     href: '/a-propos', 
-    desc: 'Présentation de Nob Technologies, notre équipe d’ingénieurs et actualités',
+    desc: 'Présentation de Nob Technologies, notre équipe d’ingénieurs et centre de confiance',
     order: 5,
     children: [
       { name: 'À Propos de Nobtech', href: '/a-propos', desc: 'Notre histoire, nos valeurs et nos standards d’excellence à Dakar', tag: 'Cabinet Dakar' },
+      { name: 'Centre de Confiance & Conformité', href: '/centre-de-confiance', desc: 'Engagements ISO/IEC, certification Fluke, conformité CDP et SLA', tag: 'Gouvernance & SLA' },
+      { name: 'Statut des Systèmes', href: '/statut', desc: 'Disponibilité en direct des infrastructures et plateformes managées', tag: 'Live 99.9%' },
+      { name: 'Ressources & Livres Blancs', href: '/ressources', desc: 'Guides pratiques de cybersécurité et fiches techniques pour DSI', tag: 'Guides DSI' },
       { name: 'Actualités & Blog', href: '/articles', desc: 'Veille technologique, cyberdéfense, bonnes pratiques et annonces', tag: 'Veille & Sécurité' },
       { name: 'Foire Aux Questions (FAQ)', href: '/faq', desc: 'Réponses à vos questions sur les délais, contrats et garanties SLA', tag: 'SLA & Garanties' },
-      { name: 'Carrières & Recrutement', href: '/carrieres', desc: 'Rejoindre notre équipe d’ingénieurs réseaux et consultants IT', tag: 'Rejoindre l’Équipe' },
+      { name: 'Carrières & Recrutement', href: '/carrieres', desc: 'Rejoindre notre équipe d’ingénieurs réseaux et consultants IT', tag: 'Recrutement' },
     ]
   },
   { 
@@ -177,6 +182,10 @@ const getHeaderCategoryLabel = (idOrName: string) => {
 
 const getSubItemIcon = (name: string, href: string = "") => {
   const n = (name + " " + href).toLowerCase();
+  if (n.includes('centre-de-confiance') || n.includes('confiance') || n.includes('conformit')) return Lock;
+  if (n.includes('statut') || n.includes('santé') || n.includes('uptime')) return Activity;
+  if (n.includes('ressource') || n.includes('livre') || n.includes('guide')) return FileText;
+  if (n.includes('audit') || n.includes('soc')) return ShieldAlert;
   if (n.includes('cyber') || n.includes('firewall')) return ShieldCheck;
   if (n.includes('réseau') || n.includes('reseau') || n.includes('câblage') || n.includes('telecom')) return Network;
   if (n.includes('erp') || n.includes('digitalis')) return Cpu;
@@ -184,13 +193,12 @@ const getSubItemIcon = (name: string, href: string = "") => {
   if (n.includes('téléphon') || n.includes('telephon') || n.includes('voip')) return PhoneCall;
   if (n.includes('matériel') || n.includes('materiel') || n.includes('serveur') || n.includes('licence')) return Server;
   if (n.includes('certif')) return Award;
-  if (n.includes('soc') || n.includes('audit')) return ShieldAlert;
   if (n.includes('ia') || n.includes('auto')) return Sparkles;
   if (n.includes('format')) return GraduationCap;
   if (n.includes('constructeur') || n.includes('partenaire')) return Building2;
   if (n.includes('secteur')) return Globe;
   if (n.includes('galerie')) return Camera;
-  if (n.includes('projet') || n.includes('déploiement') || n.includes('realis')) return Layers;
+  if (n.includes('étude') || n.includes('etude') || n.includes('cas') || n.includes('projet') || n.includes('déploiement') || n.includes('realis')) return Layers;
   if (n.includes('actualit') || n.includes('blog')) return Newspaper;
   if (n.includes('faq') || n.includes('question')) return HelpCircle;
   if (n.includes('carrière') || n.includes('carriere') || n.includes('recrut')) return Users;
@@ -199,9 +207,10 @@ const getSubItemIcon = (name: string, href: string = "") => {
 };
 
 const getDropdownWidth = (item: NavItem) => {
-  if (item.id === 'solutions') return "w-[800px] xl:w-[860px]";
-  if (item.id === 'formations' || item.id === 'a-propos') return "w-[760px] xl:w-[820px]";
-  if (item.id === 'partenaires' || item.id === 'realisations') return "w-[720px] xl:w-[760px]";
+  if (item.id === 'solutions') return "w-[820px] xl:w-[880px]";
+  if (item.id === 'formations') return "w-[760px] xl:w-[820px]";
+  if (item.id === 'a-propos') return "w-[820px] xl:w-[880px]";
+  if (item.id === 'partenaires' || item.id === 'realisations') return "w-[740px] xl:w-[780px]";
   if (item.id === 'contact') return "w-[380px]";
   return item.children && item.children.length > 2 ? "w-[760px]" : "w-[540px]";
 };

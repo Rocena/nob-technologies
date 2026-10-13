@@ -39,24 +39,28 @@ export default function NotFound() {
           </h1>
 
           {/* Terminal line */}
-          <p className="font-mono text-sm sm:text-base text-accent/70 bg-white/5 border border-white/10 rounded px-4 py-3 mb-10 text-left max-w-md mx-auto">
+          <p className="font-mono text-sm sm:text-base text-accent/70 bg-white/5 border border-white/10 rounded-xl px-4 py-3 mb-8 text-left max-w-md mx-auto">
             <span className="text-accent">{'>'}</span>{' '}
-            <span className="text-white/60">ERROR:</span> Page not found at path{' '}
-            <span className="text-red-400">/???</span>
-            <span className="inline-block w-2 h-4 bg-accent/70 ml-1 align-middle animate-pulse" />
+            <span className="text-white/60">STATUS:</span> 404_PAGE_NOT_FOUND{' '}
+            <span className="text-red-400">[Route introuvable]</span>
           </p>
+
+          {/* Quick links */}
+          <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-slate-400 mb-8 max-w-md mx-auto">
+            <Link href="/services" className="hover:text-cyan-400 underline underline-offset-4">Nos Services</Link>
+            <span>&bull;</span>
+            <Link href="/reserver-audit" className="hover:text-cyan-400 underline underline-offset-4">Réserver un audit</Link>
+            <span>&bull;</span>
+            <Link href="/centre-de-confiance" className="hover:text-cyan-400 underline underline-offset-4">Centre de confiance</Link>
+            <span>&bull;</span>
+            <Link href="/contact" className="hover:text-cyan-400 underline underline-offset-4">Contact</Link>
+          </div>
 
           {/* CTA */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <GlowButton href="/">
               Retourner à l&apos;accueil
             </GlowButton>
-            <Link
-              href="/services"
-              className="text-sm font-medium text-white/60 hover:text-accent transition-colors underline underline-offset-4"
-            >
-              Voir nos services
-            </Link>
           </div>
         </div>
 
