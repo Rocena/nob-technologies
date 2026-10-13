@@ -103,7 +103,7 @@ export default function StatutPage() {
 
               {/* Status Global Banner */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950/80 border border-emerald-700 text-emerald-400 text-xs font-mono font-bold uppercase tracking-wider mb-6">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
                 <span>Tous les systèmes sont pleinement opérationnels</span>
               </div>
 

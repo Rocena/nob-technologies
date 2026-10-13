@@ -492,7 +492,7 @@ export function Clients({ clients = [] }: { clients: any[] }) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.15 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 lg:gap-4 xl:gap-4 mb-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-4 sm:gap-5 mb-8"
           >
             <AnimatePresence mode="popLayout">
               {filteredClients.map((client) => (
