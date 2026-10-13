@@ -126,13 +126,13 @@ export const SiteSettings: GlobalConfig = {
         },
         {
           name: 'chatbot',
-          label: 'Assistant Virtuel (Chatbot AI Knowledge Base)',
+          label: 'Assistant Virtuel Koffi (Chatbot AI Knowledge Base)',
           fields: [
             {
               name: 'botGreeting',
               type: 'text',
-              label: 'Message de bienvenue de l\'assistant',
-              defaultValue: "Bonjour ! Je suis l'assistant de NOB TECHNOLOGIES. Comment puis-je vous aider aujourd'hui ? 👋",
+              label: "Message de bienvenue de l'assistant (Koffi)",
+              defaultValue: "Bonjour ! Je m'appelle Koffi, l'assistant virtuel de NOB TECHNOLOGIES. Comment puis-je vous aider aujourd'hui ? 😊",
             },
             {
               name: 'knowledgeBase',

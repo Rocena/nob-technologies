@@ -6,7 +6,7 @@ interface ChatMessage {
 }
 
 // System prompt grounding any AI assistant on NOB TECHNOLOGIES
-const SYSTEM_PROMPT = `Tu es l'assistant de NOB TECHNOLOGIES (nobtech.fr), société sénégalaise et ouest-africaine de référence en solutions informatiques, réseaux et cybersécurité à Dakar.
+const SYSTEM_PROMPT = `Tu t'appelles Koffi. Tu es l'assistant virtuel officiel et bienveillant de NOB TECHNOLOGIES (nobtech.fr), société sénégalaise et ouest-africaine de référence en solutions informatiques, réseaux et cybersécurité à Dakar.
 
 Ton identité & ton style :
 - Tu parles comme un humain chaleureux, dynamique, poli, compétent et très naturel.
@@ -72,7 +72,7 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
     /(t['\s]?es qui|qui es-?tu|qui [eê]tes-?vous|c['\s]?est qui|es-?tu (une |un )?ia|tu es un robot|qui parle|pr[eé]sente-?toi|pr[eé]sentez-?vous)/i.test(q) ||
     (isOneWord && words[0] === "qui")
   ) {
-    return "Je suis l'assistant digital de NOB TECHNOLOGIES ! 🤖\n\nMon rôle, c'est de vous renseigner 24h/24 en direct comme le ferait un collègue au bureau : vous expliquer nos solutions (cybersécurité, réseaux, ERP, formations certifiantes) et vous mettre en relation avec nos vrais ingénieurs à Dakar.\n\nEt vous, qui êtes-vous ou quel projet vous amène ?";
+    return "Je m'appelle Koffi, l'assistant virtuel de NOB TECHNOLOGIES ! 😊\n\nMon rôle, c'est de vous renseigner 24h/24 avec le sourire comme un collègue au bureau : vous expliquer nos solutions (cybersécurité, réseaux, ERP, formations certifiantes) et vous mettre en relation avec nos ingénieurs à Dakar.\n\nEt vous, quel projet ou besoin vous amène ?";
   }
 
   // 4. Questions "Hors du cadre" (Humour, nourriture, vie perso, blagues, météo)
@@ -220,6 +220,76 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
     "Dites-moi simplement en quelques mots ce que vous aimeriez réaliser ou le problème que vous rencontrez, et je vous orienterai avec grand plaisir ! Vous pouvez aussi joindre directement un de nos ingénieurs au +221 77 301 08 38.";
 }
 
+// Génère des choix interactifs de rebond pour aider l'utilisateur
+export function computeSuggestions(userMessage: string, botReply: string = ""): string[] {
+  const text = (userMessage + " " + botReply).toLowerCase();
+
+  if (/devis|prix|tarif|combien|factur|cout|budget/i.test(text)) {
+    return [
+      "Demander un devis gratuit",
+      "Échanger avec un ingénieur",
+      "Délai d'intervention",
+      "Moyens de paiement"
+    ];
+  }
+  if (/cyber|securite|firewall|sophos|fortinet|pare-feu|ransomware|hack/i.test(text)) {
+    return [
+      "Audit & Test d'intrusion (Pentest)",
+      "Déploiement Pare-feu Sophos/Fortinet",
+      "Sauvegardes anti-ransomware",
+      "Demander un devis cyber"
+    ];
+  }
+  if (/formation|certif|ccna|cisco|cours|apprendre|stage|eleve|etudiant/i.test(text)) {
+    return [
+      "Certificat International Cisco",
+      "Formation Cisco CCNA 200-301",
+      "Power BI & SOC Analytics",
+      "Programme Fortinet NSE 4"
+    ];
+  }
+  if (/erp|odoo|dolibarr|logiciel|gestion|facturation|stock|crm/i.test(text)) {
+    return [
+      "ERP 100% sur-mesure",
+      "Intégration Odoo",
+      "Intégration Dolibarr",
+      "Développement Web & Mobile"
+    ];
+  }
+  if (/reseau|wifi|cablage|fibre|baie|switch|routeur|borne/i.test(text)) {
+    return [
+      "Câblage structuré & Baies 42U",
+      "Wi-Fi professionnel haute densité",
+      "Téléphonie IP & Standard VoIP",
+      "Vente de serveurs Dell"
+    ];
+  }
+  if (/urgence|panne|bloque|sos|aide|lent|crash|incident/i.test(text)) {
+    return [
+      "Appeler l'astreinte (+221 77 301 08 38)",
+      "Envoyer un message WhatsApp",
+      "Diagnostic à distance",
+      "Contrat d'infogérance 24/7"
+    ];
+  }
+  if (/contact|adresse|telephone|whatsapp|localisation|dakar/i.test(text)) {
+    return [
+      "Écrire sur WhatsApp (+221 77 301 08 38)",
+      "Localiser sur Google Maps",
+      "Prendre rendez-vous",
+      "Demander un devis"
+    ];
+  }
+
+  // Suggestions polyvalentes par défaut
+  return [
+    "Cybersécurité & Firewalls",
+    "Réseaux, Câblage & Baies",
+    "Formations certifiantes",
+    "Demander un devis gratuit"
+  ];
+}
+
 // Handler for the /api/chat route
 export async function POST(req: NextRequest) {
   try {
@@ -264,7 +334,11 @@ export async function POST(req: NextRequest) {
           const geminiData = await geminiRes.json();
           const replyText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
           if (replyText) {
-            return NextResponse.json({ reply: replyText, model: "gemini-2.5-flash" });
+            return NextResponse.json({
+              reply: replyText,
+              suggestions: computeSuggestions(message, replyText),
+              model: "gemini-2.5-flash",
+            });
           }
         }
       } catch {
@@ -298,7 +372,11 @@ export async function POST(req: NextRequest) {
         if (ollamaRes.ok) {
           const data = await ollamaRes.json();
           if (data.message?.content) {
-            return NextResponse.json({ reply: data.message.content, model: "ollama-local" });
+            return NextResponse.json({
+              reply: data.message.content,
+              suggestions: computeSuggestions(message, data.message.content),
+              model: "ollama-local",
+            });
           }
         }
       } catch {
@@ -350,7 +428,11 @@ export async function POST(req: NextRequest) {
           const data = await response.json();
           const replyText = data.choices?.[0]?.message?.content;
           if (replyText) {
-            return NextResponse.json({ reply: replyText, model });
+            return NextResponse.json({
+              reply: replyText,
+              suggestions: computeSuggestions(message, replyText),
+              model,
+            });
           }
         }
       } catch {
@@ -360,7 +442,11 @@ export async function POST(req: NextRequest) {
 
     // Provider 4: Built-in Human Conversational Intelligence (100% reliable, zero license fee, immediate)
     const naturalReply = generateNaturalResponse(message, history);
-    return NextResponse.json({ reply: naturalReply, model: "natural-human-engine" });
+    return NextResponse.json({
+      reply: naturalReply,
+      suggestions: computeSuggestions(message, naturalReply),
+      model: "natural-human-engine",
+    });
   } catch {
     return NextResponse.json(
       {

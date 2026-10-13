@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Bot } from 'lucide-react';
+import { X, Send } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface Message {
@@ -9,6 +9,7 @@ interface Message {
   role: 'bot' | 'user';
   text: string;
   time: string;
+  suggestions?: string[];
 }
 
 interface KnowledgeItem {
@@ -19,6 +20,55 @@ interface KnowledgeItem {
 function getTime() {
   return new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 }
+
+export function KoffiAvatar({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="Visage souriant de Koffi">
+      <defs>
+        <linearGradient id="koffi-head-grad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#00D4FF" />
+          <stop offset="100%" stopColor="#0077B6" />
+        </linearGradient>
+        <linearGradient id="koffi-glow" x1="18" y1="0" x2="18" y2="36" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.4" />
+          <stop offset="100%" stopColor="#000000" stopOpacity="0.1" />
+        </linearGradient>
+      </defs>
+
+      {/* Antenne & voyant connecté */}
+      <line x1="18" y1="2" x2="18" y2="6.5" stroke="#00D4FF" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="18" cy="2.5" r="2" fill="#10E760" />
+
+      {/* Oreillettes stylisées */}
+      <rect x="2" y="14" width="3" height="8" rx="1.5" fill="#00D4FF" />
+      <rect x="31" y="14" width="3" height="8" rx="1.5" fill="#00D4FF" />
+
+      {/* Tête souriante */}
+      <rect x="5" y="7" width="26" height="23" rx="11" fill="url(#koffi-head-grad)" stroke="#FFFFFF" strokeOpacity="0.3" strokeWidth="1" />
+      <rect x="5" y="7" width="26" height="23" rx="11" fill="url(#koffi-glow)" />
+
+      {/* Yeux expressifs souriants */}
+      <path d="M 10.5 16.5 Q 13.5 13.5 16.5 16.5" stroke="#020617" strokeWidth="2.4" strokeLinecap="round" fill="none" />
+      <path d="M 19.5 16.5 Q 22.5 13.5 25.5 16.5" stroke="#020617" strokeWidth="2.4" strokeLinecap="round" fill="none" />
+      <circle cx="13.5" cy="14" r="0.8" fill="#FFFFFF" />
+      <circle cx="22.5" cy="14" r="0.8" fill="#FFFFFF" />
+
+      {/* Pommettes conviviales */}
+      <ellipse cx="9" cy="20.5" rx="2" ry="1.2" fill="#FFFFFF" fillOpacity="0.35" />
+      <ellipse cx="27" cy="20.5" rx="2" ry="1.2" fill="#FFFFFF" fillOpacity="0.35" />
+
+      {/* Grand sourire amical */}
+      <path d="M 12 21 Q 18 27.5 24 21" stroke="#020617" strokeWidth="2.4" strokeLinecap="round" fill="none" />
+    </svg>
+  );
+}
+
+const INITIAL_SUGGESTIONS: string[] = [
+  "Cybersécurité & Firewalls",
+  "Réseaux & Câblage",
+  "Formations certifiantes",
+  "Demander un devis gratuit",
+];
 
 const DEFAULT_KNOWLEDGE_BASE: KnowledgeItem[] = [
   {
@@ -47,13 +97,33 @@ const DEFAULT_KNOWLEDGE_BASE: KnowledgeItem[] = [
   },
   {
     keywords: ["bonjour", "salut", "hello", "bonsoir", "bjr", "coucou", "yo"],
-    response: "Bonjour et bienvenue chez NOB TECHNOLOGIES ! 👋 Comment puis-je vous aider aujourd'hui ? Je peux vous renseigner sur nos services de cybersécurité, réseaux, ERP, formations de 6 mois ou vous orienter pour un devis gratuit."
+    response: "Bonjour et bienvenue chez NOB TECHNOLOGIES ! 👋 Je m'appelle Koffi. Comment puis-je vous aider aujourd'hui ? Je peux vous renseigner sur nos services de cybersécurité, réseaux, ERP, formations certifiantes ou vous orienter pour un devis gratuit."
   },
   {
     keywords: ["merci", "thanks", "parfait", "super", "excellent", "top"],
     response: "Avec grand plaisir ! N'hésitez pas si vous avez d'autres questions. L'équipe NOB TECHNOLOGIES reste à votre entière disposition au +221 77 301 08 38. 🙌"
   }
 ];
+
+function fallbackSuggestions(text: string): string[] {
+  const lower = text.toLowerCase();
+  if (/devis|prix|tarif|combien|cout/i.test(lower)) {
+    return ["Demander un devis gratuit", "Échanger avec un ingénieur", "Délai d'intervention"];
+  }
+  if (/cyber|securite|firewall|sophos|fortinet/i.test(lower)) {
+    return ["Audit & Test d'intrusion", "Pare-feu Sophos / Fortinet", "Demander un devis cyber"];
+  }
+  if (/formation|certif|ccna|cisco/i.test(lower)) {
+    return ["Certificat Cisco Cyber", "Formation Cisco CCNA", "Power BI & SOC Analytics"];
+  }
+  if (/erp|odoo|dolibarr|gestion/i.test(lower)) {
+    return ["ERP 100% sur-mesure", "Intégration Odoo", "Intégration Dolibarr"];
+  }
+  if (/reseau|wifi|cablage|baie/i.test(lower)) {
+    return ["Câblage structuré & Baies 42U", "Wi-Fi professionnel", "Standard VoIP"];
+  }
+  return ["Cybersécurité & Firewalls", "Réseaux, Câblage & Baies", "Formations certifiantes", "Demander un devis gratuit"];
+}
 
 function getBotResponse(input: string, knowledge: KnowledgeItem[]): string {
   const lower = input.toLowerCase().trim();
@@ -63,15 +133,14 @@ function getBotResponse(input: string, knowledge: KnowledgeItem[]): string {
     return "Je vous écoute ! Dites-moi tout : comment puis-je vous aider aujourd'hui ? 😊";
   }
 
-  // Quick human checks for off-topic, humor or single words
   if (/pizza|burger|nourriture|faim|manger/i.test(lower)) {
     return "Haha, pas du tout ! 😄 Nous ne livrons pas de pizzas, mais nous sécurisons vos réseaux d'entreprise, installons des pare-feux et concevons des ERP sur-mesure. Si vous avez un besoin informatique, là vous pouvez compter sur nous !";
   }
   if (/blague|humour|marrant/i.test(lower)) {
     return "Pourquoi les administrateurs réseaux et les développeurs détestent-ils la nature ? Parce qu'il y a trop de bugs et aucun Ctrl+Z ! 🐛💻 Comment se porte votre système informatique aujourd'hui ?";
   }
-  if (/t['\s]?es qui|qui es-?tu|es-?tu (une |un )?ia|qui parle/i.test(lower) || (words.length === 1 && words[0] === "qui")) {
-    return "Je suis l'assistant digital de NOB TECHNOLOGIES ! 🤖 Je suis là pour vous renseigner en direct et vous mettre en relation avec nos ingénieurs à Dakar. Et vous, quel projet ou besoin vous amène ?";
+  if (/t['\s]?es qui|qui es-?tu|es-?tu (une |un )?ia|qui parle|koffi/i.test(lower) || (words.length === 1 && words[0] === "qui")) {
+    return "Je m'appelle Koffi, l'assistant virtuel de NOB TECHNOLOGIES ! 😊 Mon rôle est de vous renseigner 24h/24 avec le sourire comme un collègue au bureau : vous expliquer nos expertises et vous mettre en relation directe avec nos ingénieurs à Dakar.";
   }
   if (/stage|recrutement|emploi|cv|job/i.test(lower)) {
     return "Vous souhaitez rejoindre NOB TECHNOLOGIES ? 💼 C'est un plaisir ! Envoyez votre CV et lettre de motivation directement à contact@nobtech.fr avec en objet « Candidature Stage / Emploi ». Notre équipe RH l'étudiera avec attention !";
@@ -105,10 +174,9 @@ function getBotResponse(input: string, knowledge: KnowledgeItem[]): string {
     return bestMatch.response;
   }
 
-  return "Je vous écoute ! Chez NOB TECHNOLOGIES, nous intervenons en cybersécurité (Sophos, Fortinet), réseaux physiques & Wi-Fi, ERP sur-mesure (Odoo, Dolibarr), développement web et formations certifiantes à Dakar.\n\nDites-moi simplement en quelques mots ce que vous aimeriez réaliser ou joignez directement notre équipe au +221 77 301 08 38 !";
+  return "Je vous écoute ! Chez NOB TECHNOLOGIES, nous intervenons en cybersécurité (Sophos, Fortinet), réseaux physiques & Wi-Fi, ERP sur-mesure (Odoo, Dolibarr), développement web et formations certifiantes à Dakar.\n\nDites-moi simplement ce que vous aimeriez réaliser ou joignez notre équipe au +221 77 301 08 38 !";
 }
 
-// Render simple markdown links
 function renderText(text: string) {
   const parts = text.split(/(\[.*?\]\(.*?\))/g);
   return parts.map((part, i) => {
@@ -131,8 +199,9 @@ export function ChatBot() {
     {
       id: 'init',
       role: 'bot',
-      text: "Bonjour ! Je suis l'assistant de NOB TECHNOLOGIES. Comment puis-je vous aider aujourd'hui ? 👋",
+      text: "Bonjour ! Je m'appelle Koffi, l'assistant virtuel de NOB TECHNOLOGIES. Comment puis-je vous aider aujourd'hui ? 😊",
       time: getTime(),
+      suggestions: INITIAL_SUGGESTIONS,
     }
   ]);
   const [input, setInput] = useState('');
@@ -152,15 +221,15 @@ export function ChatBot() {
               role: 'bot',
               text: data.greeting,
               time: getTime(),
+              suggestions: INITIAL_SUGGESTIONS,
             }
           ]);
         }
         if (data?.knowledgeBase && Array.isArray(data.knowledgeBase) && data.knowledgeBase.length > 0) {
-          // Fusionne la base CMS avec la base par défaut (les réponses CMS sont prioritaires)
           setKnowledge([...data.knowledgeBase, ...DEFAULT_KNOWLEDGE_BASE]);
         }
       })
-      .catch(() => { /* conserve les réglages locaux */ });
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -171,8 +240,8 @@ export function ChatBot() {
     if (open) setTimeout(() => inputRef.current?.focus(), 300);
   }, [open]);
 
-  const send = async () => {
-    const trimmed = input.trim();
+  const sendMessage = async (textToSend: string) => {
+    const trimmed = textToSend.trim();
     if (!trimmed || isTyping) return;
 
     const userMsg: Message = {
@@ -203,28 +272,37 @@ export function ChatBot() {
       if (res.ok) {
         const data = await res.json();
         const replyText = data.reply || getBotResponse(trimmed, knowledge);
+        const suggestions = Array.isArray(data.suggestions) && data.suggestions.length > 0
+          ? data.suggestions
+          : fallbackSuggestions(replyText);
+
         const botMsg: Message = {
           id: `bot-${Date.now()}`,
           role: 'bot',
           text: replyText,
           time: getTime(),
+          suggestions,
         };
         setMessages((prev) => [...prev, botMsg]);
       } else {
+        const replyText = getBotResponse(trimmed, knowledge);
         const botMsg: Message = {
           id: `bot-${Date.now()}`,
           role: 'bot',
-          text: getBotResponse(trimmed, knowledge),
+          text: replyText,
           time: getTime(),
+          suggestions: fallbackSuggestions(replyText),
         };
         setMessages((prev) => [...prev, botMsg]);
       }
     } catch {
+      const replyText = getBotResponse(trimmed, knowledge);
       const botMsg: Message = {
         id: `bot-${Date.now()}`,
         role: 'bot',
-        text: getBotResponse(trimmed, knowledge),
+        text: replyText,
         time: getTime(),
+        suggestions: fallbackSuggestions(replyText),
       };
       setMessages((prev) => [...prev, botMsg]);
     } finally {
@@ -233,7 +311,10 @@ export function ChatBot() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage(input);
+    }
   };
 
   return (
@@ -241,21 +322,24 @@ export function ChatBot() {
       {/* Floating button */}
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? 'Fermer le chat' : 'Ouvrir le chat'}
+        aria-label={open ? 'Fermer la discussion avec Koffi' : 'Discuter avec Koffi'}
         className={cn(
-          'fixed bottom-6 right-4 sm:bottom-8 sm:right-8 z-[150] flex items-center gap-2 rounded-full px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_8px_32px_rgba(0,212,255,0.3)] transition-all duration-300 hover:scale-105 active:scale-95',
+          'fixed bottom-6 right-4 sm:bottom-8 sm:right-8 z-[150] flex items-center gap-2.5 rounded-full px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_8px_32px_rgba(0,212,255,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 group',
           open
             ? 'bg-[#020617] border border-[#00D4FF]/40 text-[#00D4FF]'
             : 'bg-[#00D4FF] text-[#020617]'
         )}
       >
-        {open ? <X className="w-5 h-5" /> : <MessageCircle className="w-5 h-5" />}
-        {!open && (
+        {open ? (
+          <X className="w-5 h-5" />
+        ) : (
           <>
-            <span className="text-sm font-bold hidden sm:inline">Chat IA</span>
-            <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-green-400 text-[9px] font-bold text-white">
-              IA
-            </span>
+            <KoffiAvatar className="w-6 h-6 shrink-0 transition-transform duration-300 group-hover:rotate-6" />
+            <div className="flex flex-col text-left leading-none">
+              <span className="text-xs font-black tracking-tight text-[#020617]">Koffi</span>
+              <span className="text-[10px] font-semibold opacity-80 hidden sm:inline">En ligne</span>
+            </div>
+            <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-emerald-500 ring-2 ring-[#020617]" />
           </>
         )}
       </button>
@@ -263,108 +347,137 @@ export function ChatBot() {
       {/* Chat window */}
       <div
         className={cn(
-          'fixed bottom-20 right-3 sm:bottom-24 sm:right-8 z-[140] w-[calc(100vw-24px)] max-w-[380px] sm:w-[380px] rounded-2xl border border-white/10 shadow-[0_24px_64px_rgba(0,0,0,0.5)] backdrop-blur-xl bg-[#020617]/95 flex flex-col overflow-hidden transition-all duration-300 origin-bottom-right',
+          'fixed bottom-20 right-3 sm:bottom-24 sm:right-8 z-[140] w-[calc(100vw-24px)] max-w-[400px] sm:w-[400px] rounded-2xl border border-white/10 shadow-[0_24px_64px_rgba(0,0,0,0.6)] backdrop-blur-xl bg-[#020617]/95 flex flex-col overflow-hidden transition-all duration-300 origin-bottom-right',
           open
             ? 'opacity-100 scale-100 pointer-events-auto translate-y-0'
             : 'opacity-0 scale-95 pointer-events-none translate-y-4'
         )}
-        style={{ height: '450px' }}
+        style={{ height: '520px', maxHeight: '82vh' }}
         role="dialog"
-        aria-label="Assistant NOB TECH"
+        aria-label="Discussion avec Koffi, assistant virtuel NOB TECHNOLOGIES"
         aria-modal="false"
       >
         {/* Header */}
         <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10 bg-white/[0.03] shrink-0">
           <div className="relative">
-            <div className="w-9 h-9 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/30 flex items-center justify-center">
-              <Bot className="w-4 h-4 text-[#00D4FF]" />
+            <div className="w-10 h-10 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/30 flex items-center justify-center p-1">
+              <KoffiAvatar className="w-7 h-7" />
             </div>
-            <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-green-400 border-2 border-[#020617]" />
+            <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#020617]" />
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-sm font-semibold text-white leading-tight">Assistant NOB TECH</div>
-            <div className="text-[10px] text-[#00D4FF]/80 font-mono flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-bold text-white leading-tight">Koffi</span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#00D4FF]/10 text-[#00D4FF] font-medium border border-[#00D4FF]/20">
+                Assistant NOB TECH
+              </span>
+            </div>
+            <div className="text-[11px] text-slate-400 font-sans flex items-center gap-1.5 mt-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              Assistant Virtuel · En ligne
+              Souriant &amp; disponible pour vous guider
             </div>
           </div>
           <button
             onClick={() => setOpen(false)}
-            className="text-slate-500 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/10"
+            className="text-slate-500 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/10"
             aria-label="Fermer le chat"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 scrollbar-thin scrollbar-thumb-white/10">
-          {messages.map((msg) => (
+        {/* Messages list */}
+        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3.5 scrollbar-thin scrollbar-thumb-white/10">
+          {messages.map((msg, i) => (
             <div
               key={msg.id}
               className={cn(
-                'flex gap-2',
+                'flex gap-2.5',
                 msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'
               )}
             >
               {msg.role === 'bot' && (
-                <div className="w-7 h-7 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/20 flex items-center justify-center shrink-0 mt-auto">
-                  <Bot className="w-3 h-3 text-[#00D4FF]" />
+                <div className="w-7 h-7 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/25 flex items-center justify-center shrink-0 mt-auto p-0.5">
+                  <KoffiAvatar className="w-5 h-5" />
                 </div>
               )}
               <div
                 className={cn(
-                  'max-w-[78%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed',
+                  'max-w-[82%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed',
                   msg.role === 'user'
-                    ? 'bg-[#00D4FF] text-[#020617] rounded-tr-sm font-medium'
-                    : 'bg-white/[0.07] text-slate-200 rounded-tl-sm border border-white/5'
+                    ? 'bg-[#00D4FF] text-[#020617] rounded-tr-sm font-medium shadow-sm'
+                    : 'bg-white/[0.06] text-slate-200 rounded-tl-sm border border-white/10'
                 )}
               >
-                <p>{renderText(msg.text)}</p>
-                <p className={cn(
-                  'text-[10px] mt-1',
-                  msg.role === 'user' ? 'text-[#020617]/60 text-right' : 'text-slate-500'
+                <div className="whitespace-pre-line">{renderText(msg.text)}</div>
+                
+                {/* Suggestions interactives sous la dernière réponse de Koffi */}
+                {msg.role === 'bot' && msg.suggestions && msg.suggestions.length > 0 && i === messages.length - 1 && (
+                  <div className="mt-3 pt-2.5 border-t border-white/10">
+                    <p className="text-[10.5px] uppercase tracking-wider text-[#00D4FF] font-semibold mb-1.5">
+                      Suggestions rapides :
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {msg.suggestions.map((sug, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => sendMessage(sug)}
+                          disabled={isTyping}
+                          className="text-xs px-2.5 py-1 rounded-full bg-[#00D4FF]/10 hover:bg-[#00D4FF] text-[#00D4FF] hover:text-[#020617] border border-[#00D4FF]/30 hover:border-[#00D4FF] transition-all duration-200 font-medium active:scale-95 text-left disabled:opacity-50"
+                        >
+                          {sug}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className={cn(
+                  'text-[9.5px] mt-1.5 font-mono',
+                  msg.role === 'user' ? 'text-[#020617]/70 text-right' : 'text-slate-400'
                 )}>
                   {msg.time}
-                </p>
+                </div>
               </div>
             </div>
           ))}
 
           {/* Typing indicator */}
           {isTyping && (
-            <div className="flex gap-2 items-end">
-              <div className="w-7 h-7 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/20 flex items-center justify-center shrink-0">
-                <Bot className="w-3 h-3 text-[#00D4FF]" />
+            <div className="flex gap-2.5 items-end">
+              <div className="w-7 h-7 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/25 flex items-center justify-center shrink-0 p-0.5">
+                <KoffiAvatar className="w-5 h-5" />
               </div>
-              <div className="bg-white/[0.07] border border-white/5 rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce [animation-delay:0ms]" />
-                <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce [animation-delay:150ms]" />
-                <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce [animation-delay:300ms]" />
+              <div className="bg-white/[0.06] border border-white/10 rounded-2xl rounded-tl-sm px-3.5 py-2.5 flex items-center gap-1.5">
+                <span className="text-xs text-slate-400 mr-1">Koffi réfléchit...</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF] animate-bounce [animation-delay:0ms]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF] animate-bounce [animation-delay:150ms]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF] animate-bounce [animation-delay:300ms]" />
               </div>
             </div>
           )}
           <div ref={bottomRef} />
         </div>
 
-        {/* Input */}
-        <div className="px-3 py-3 border-t border-white/10 bg-white/[0.02] shrink-0">
-          <div className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-3 py-2 focus-within:border-[#00D4FF]/40 transition-colors">
+        {/* Input box */}
+        <div className="px-3.5 py-3 border-t border-white/10 bg-white/[0.02] shrink-0">
+          <div className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-3 py-2 focus-within:border-[#00D4FF]/50 transition-colors">
             <input
               ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Posez votre question..."
+              placeholder="Écrivez à Koffi ou choisissez ci-dessus..."
               className="flex-1 bg-transparent text-sm text-white placeholder-slate-500 outline-none"
-              aria-label="Message"
+              aria-label="Message pour Koffi"
               maxLength={500}
             />
             <button
-              onClick={send}
+              onClick={() => sendMessage(input)}
               disabled={!input.trim() || isTyping}
-              aria-label="Envoyer"
+              aria-label="Envoyer à Koffi"
               className={cn(
                 'w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 shrink-0',
                 input.trim() && !isTyping
@@ -374,6 +487,10 @@ export function ChatBot() {
             >
               <Send className="w-3.5 h-3.5" />
             </button>
+          </div>
+          <div className="flex items-center justify-between text-[10px] text-slate-500 px-1 mt-1.5">
+            <span>Koffi · Assistant NOB TECHNOLOGIES</span>
+            <span>Entrée pour envoyer</span>
           </div>
         </div>
       </div>
