@@ -8,6 +8,7 @@ import StickyCallout from "@/components/StickyCallout";
 import { ChatBot } from "@/components/ChatBot";
 import { CommandPaletteProvider } from "@/components/CommandPaletteProvider";
 import { EngineerModalProvider } from "@/components/EngineerModalContext";
+import { SubtleGridGuides } from "@/components/SubtleGridGuides";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -63,6 +64,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground overflow-x-hidden">
         <CommandPaletteProvider>
           <EngineerModalProvider>
+            <SubtleGridGuides />
             <ScrollProgress />
             {children}
             <BackToTop />
