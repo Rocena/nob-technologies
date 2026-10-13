@@ -21,44 +21,90 @@ function getTime() {
   return new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 }
 
-export function KoffiAvatar({ className = "w-6 h-6" }: { className?: string }) {
+// Illustration d'un jeune homme africain souriant avec des lunettes (moderne, pro, corporate)
+export function AssistantAvatar({ className = "w-6 h-6" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="Visage souriant de Koffi">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="Conseiller digital NOB TECHNOLOGIES">
       <defs>
-        <linearGradient id="koffi-head-grad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#00D4FF" />
-          <stop offset="100%" stopColor="#0077B6" />
+        {/* Dégradé peau riche et naturelle */}
+        <linearGradient id="skin-grad" x1="32" y1="14" x2="32" y2="44" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#8A5A36" />
+          <stop offset="100%" stopColor="#5E381E" />
         </linearGradient>
-        <linearGradient id="koffi-glow" x1="18" y1="0" x2="18" y2="36" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#000000" stopOpacity="0.1" />
+        {/* Dégradé ombre sous mâchoire */}
+        <linearGradient id="neck-shadow" x1="32" y1="40" x2="32" y2="56" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#482A14" />
+          <stop offset="100%" stopColor="#693F22" />
+        </linearGradient>
+        {/* Reflet verres de lunettes */}
+        <linearGradient id="glass-glare" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#00D4FF" stopOpacity="0.3" />
+          <stop offset="60%" stopColor="#FFFFFF" stopOpacity="0.08" />
+          <stop offset="100%" stopColor="#00D4FF" stopOpacity="0" />
+        </linearGradient>
+        {/* Vêtement polo corporate */}
+        <linearGradient id="shirt-grad" x1="32" y1="48" x2="32" y2="64" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#0F172A" />
+          <stop offset="100%" stopColor="#020617" />
         </linearGradient>
       </defs>
 
-      {/* Antenne & voyant connecté */}
-      <line x1="18" y1="2" x2="18" y2="6.5" stroke="#00D4FF" strokeWidth="2" strokeLinecap="round" />
-      <circle cx="18" cy="2.5" r="2" fill="#10E760" />
+      {/* Fond circulaire corporate */}
+      <circle cx="32" cy="32" r="31" fill="#020617" stroke="#00D4FF" strokeWidth="1.5" strokeOpacity="0.4" />
 
-      {/* Oreillettes stylisées */}
-      <rect x="2" y="14" width="3" height="8" rx="1.5" fill="#00D4FF" />
-      <rect x="31" y="14" width="3" height="8" rx="1.5" fill="#00D4FF" />
+      {/* Épaules & Vêtement */}
+      <path d="M12 64 C12 52 20 48 32 48 C44 48 52 52 52 64 Z" fill="url(#shirt-grad)" />
+      {/* Col du polo / veste moderne avec liseré cyan */}
+      <path d="M24 50 L32 58 L40 50" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M28 51 L32 55 L36 51" fill="#FFFFFF" fillOpacity="0.15" />
 
-      {/* Tête souriante */}
-      <rect x="5" y="7" width="26" height="23" rx="11" fill="url(#koffi-head-grad)" stroke="#FFFFFF" strokeOpacity="0.3" strokeWidth="1" />
-      <rect x="5" y="7" width="26" height="23" rx="11" fill="url(#koffi-glow)" />
+      {/* Cou */}
+      <path d="M25 40 H39 V51 C39 53 37 54 32 54 C27 54 25 53 25 51 Z" fill="url(#neck-shadow)" />
 
-      {/* Yeux expressifs souriants */}
-      <path d="M 10.5 16.5 Q 13.5 13.5 16.5 16.5" stroke="#020617" strokeWidth="2.4" strokeLinecap="round" fill="none" />
-      <path d="M 19.5 16.5 Q 22.5 13.5 25.5 16.5" stroke="#020617" strokeWidth="2.4" strokeLinecap="round" fill="none" />
-      <circle cx="13.5" cy="14" r="0.8" fill="#FFFFFF" />
-      <circle cx="22.5" cy="14" r="0.8" fill="#FFFFFF" />
+      {/* Oreilles */}
+      <ellipse cx="17.5" cy="31" rx="3.5" ry="5.5" fill="#693F22" />
+      <ellipse cx="17.5" cy="31" rx="2" ry="3.5" fill="#482A14" />
+      <ellipse cx="46.5" cy="31" rx="3.5" ry="5.5" fill="#693F22" />
+      <ellipse cx="46.5" cy="31" rx="2" ry="3.5" fill="#482A14" />
 
-      {/* Pommettes conviviales */}
-      <ellipse cx="9" cy="20.5" rx="2" ry="1.2" fill="#FFFFFF" fillOpacity="0.35" />
-      <ellipse cx="27" cy="20.5" rx="2" ry="1.2" fill="#FFFFFF" fillOpacity="0.35" />
+      {/* Visage / Mâchoire */}
+      <path d="M19 25 C19 16 23 13 32 13 C41 13 45 16 45 25 C45 35 41 44 32 44 C23 44 19 35 19 25 Z" fill="url(#skin-grad)" />
 
-      {/* Grand sourire amical */}
-      <path d="M 12 21 Q 18 27.5 24 21" stroke="#020617" strokeWidth="2.4" strokeLinecap="round" fill="none" />
+      {/* Cheveux : coupe courte noire très soignée */}
+      <path d="M18.5 24 C18 19 20 10 32 10 C44 10 46 19 45.5 24 C44 16 42 12 32 12 C22 12 20 16 18.5 24 Z" fill="#141416" />
+      <path d="M19.5 16 C22 11.5 27 10 32 10 C37 10 42 11.5 44.5 16 C43 13 39 11 32 11 C25 11 21 13 19.5 16 Z" fill="#202024" />
+
+      {/* Sourcils soignés */}
+      <path d="M22 23 C24 21.5 27 21.5 29 23" stroke="#1A1A1E" strokeWidth="2" strokeLinecap="round" />
+      <path d="M35 23 C37 21.5 40 21.5 42 23" stroke="#1A1A1E" strokeWidth="2" strokeLinecap="round" />
+
+      {/* Yeux souriants & expressifs */}
+      <ellipse cx="25.5" cy="27" rx="2.5" ry="2" fill="#181310" />
+      <circle cx="26.2" cy="26.3" r="0.8" fill="#FFFFFF" />
+      <ellipse cx="38.5" cy="27" rx="2.5" ry="2" fill="#181310" />
+      <circle cx="39.2" cy="26.3" r="0.8" fill="#FFFFFF" />
+
+      {/* Lunettes élégantes et modernes */}
+      <rect x="21" y="22.5" width="9.5" height="8.5" rx="3.5" fill="url(#glass-glare)" stroke="#0F172A" strokeWidth="1.8" />
+      <rect x="33.5" y="22.5" width="9.5" height="8.5" rx="3.5" fill="url(#glass-glare)" stroke="#0F172A" strokeWidth="1.8" />
+      <path d="M30.5 25.5 C31.5 24.5 32.5 24.5 33.5 25.5" stroke="#0F172A" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M21 25.5 L17.5 26" stroke="#0F172A" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M43 25.5 L46.5 26" stroke="#0F172A" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M23 24 L27 24" stroke="#FFFFFF" strokeWidth="1" strokeLinecap="round" strokeOpacity="0.7" />
+      <path d="M35.5 24 L39.5 24" stroke="#FFFFFF" strokeWidth="1" strokeLinecap="round" strokeOpacity="0.7" />
+
+      {/* Nez */}
+      <path d="M32 28.5 V32 C31 33 33 33 32 33" stroke="#482A14" strokeWidth="1.4" strokeLinecap="round" />
+      <path d="M30 33 C31 33.5 33 33.5 34 33" stroke="#482A14" strokeWidth="1.4" strokeLinecap="round" />
+
+      {/* Pommettes souriantes */}
+      <ellipse cx="20.5" cy="33" rx="2.2" ry="1.2" fill="#99583D" fillOpacity="0.4" />
+      <ellipse cx="43.5" cy="33" rx="2.2" ry="1.2" fill="#99583D" fillOpacity="0.4" />
+
+      {/* Grand sourire franc & chaleureux avec dents visibles */}
+      <path d="M26 36.5 C26 36.5 28 41 32 41 C36 41 38 36.5 38 36.5 Z" fill="#4A1818" />
+      <path d="M27 37 C28.5 38.5 35.5 38.5 37 37 C36 36.5 28 36.5 27 37 Z" fill="#FFFFFF" />
+      <path d="M25 36.5 C28 40.5 36 40.5 39 36.5" stroke="#381E10" strokeWidth="1.5" strokeLinecap="round" fill="none" />
     </svg>
   );
 }
@@ -97,7 +143,7 @@ const DEFAULT_KNOWLEDGE_BASE: KnowledgeItem[] = [
   },
   {
     keywords: ["bonjour", "salut", "hello", "bonsoir", "bjr", "coucou", "yo"],
-    response: "Bonjour et bienvenue chez NOB TECHNOLOGIES ! 👋 Je m'appelle Koffi. Comment puis-je vous aider aujourd'hui ? Je peux vous renseigner sur nos services de cybersécurité, réseaux, ERP, formations certifiantes ou vous orienter pour un devis gratuit."
+    response: "Bonjour et bienvenue chez NOB TECHNOLOGIES ! 👋 Comment puis-je vous aider aujourd'hui ? Je peux vous renseigner sur nos services de cybersécurité, réseaux, ERP, formations certifiantes ou vous orienter pour un devis gratuit."
   },
   {
     keywords: ["merci", "thanks", "parfait", "super", "excellent", "top"],
@@ -139,8 +185,8 @@ function getBotResponse(input: string, knowledge: KnowledgeItem[]): string {
   if (/blague|humour|marrant/i.test(lower)) {
     return "Pourquoi les administrateurs réseaux et les développeurs détestent-ils la nature ? Parce qu'il y a trop de bugs et aucun Ctrl+Z ! 🐛💻 Comment se porte votre système informatique aujourd'hui ?";
   }
-  if (/t['\s]?es qui|qui es-?tu|es-?tu (une |un )?ia|qui parle|koffi/i.test(lower) || (words.length === 1 && words[0] === "qui")) {
-    return "Je m'appelle Koffi, l'assistant virtuel de NOB TECHNOLOGIES ! 😊 Mon rôle est de vous renseigner 24h/24 avec le sourire comme un collègue au bureau : vous expliquer nos expertises et vous mettre en relation directe avec nos ingénieurs à Dakar.";
+  if (/t['\s]?es qui|qui es-?tu|es-?tu (une |un )?ia|qui parle/i.test(lower) || (words.length === 1 && words[0] === "qui")) {
+    return "Je suis votre conseiller digital chez NOB TECHNOLOGIES ! 😊 Mon rôle est de vous renseigner 24h/24 avec le sourire comme un collègue au bureau : vous expliquer nos expertises et vous mettre en relation directe avec nos ingénieurs à Dakar.";
   }
   if (/stage|recrutement|emploi|cv|job/i.test(lower)) {
     return "Vous souhaitez rejoindre NOB TECHNOLOGIES ? 💼 C'est un plaisir ! Envoyez votre CV et lettre de motivation directement à contact@nobtech.fr avec en objet « Candidature Stage / Emploi ». Notre équipe RH l'étudiera avec attention !";
@@ -199,7 +245,7 @@ export function ChatBot() {
     {
       id: 'init',
       role: 'bot',
-      text: "Bonjour ! Je m'appelle Koffi, l'assistant virtuel de NOB TECHNOLOGIES. Comment puis-je vous aider aujourd'hui ? 😊",
+      text: "Bonjour ! Je suis l'assistant virtuel de NOB TECHNOLOGIES. Comment puis-je vous aider aujourd'hui ? 😊",
       time: getTime(),
       suggestions: INITIAL_SUGGESTIONS,
     }
@@ -322,7 +368,7 @@ export function ChatBot() {
       {/* Floating button */}
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? 'Fermer la discussion avec Koffi' : 'Discuter avec Koffi'}
+        aria-label={open ? 'Fermer le chat' : 'Ouvrir le chat avec notre assistant'}
         className={cn(
           'fixed bottom-6 right-4 sm:bottom-8 sm:right-8 z-[150] flex items-center gap-2.5 rounded-full px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_8px_32px_rgba(0,212,255,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 group',
           open
@@ -334,10 +380,10 @@ export function ChatBot() {
           <X className="w-5 h-5" />
         ) : (
           <>
-            <KoffiAvatar className="w-6 h-6 shrink-0 transition-transform duration-300 group-hover:rotate-6" />
+            <AssistantAvatar className="w-7 h-7 shrink-0 transition-transform duration-300 group-hover:scale-110" />
             <div className="flex flex-col text-left leading-none">
-              <span className="text-xs font-black tracking-tight text-[#020617]">Koffi</span>
-              <span className="text-[10px] font-semibold opacity-80 hidden sm:inline">En ligne</span>
+              <span className="text-xs font-black tracking-tight text-[#020617]">Assistant</span>
+              <span className="text-[10px] font-semibold opacity-85 hidden sm:inline">En ligne</span>
             </div>
             <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-emerald-500 ring-2 ring-[#020617]" />
           </>
@@ -354,22 +400,22 @@ export function ChatBot() {
         )}
         style={{ height: '520px', maxHeight: '82vh' }}
         role="dialog"
-        aria-label="Discussion avec Koffi, assistant virtuel NOB TECHNOLOGIES"
+        aria-label="Discussion avec l'assistant virtuel NOB TECHNOLOGIES"
         aria-modal="false"
       >
         {/* Header */}
         <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10 bg-white/[0.03] shrink-0">
           <div className="relative">
-            <div className="w-10 h-10 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/30 flex items-center justify-center p-1">
-              <KoffiAvatar className="w-7 h-7" />
+            <div className="w-10 h-10 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/30 flex items-center justify-center p-0.5">
+              <AssistantAvatar className="w-8 h-8" />
             </div>
             <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#020617]" />
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-bold text-white leading-tight">Koffi</span>
+              <span className="text-sm font-bold text-white leading-tight">Conseiller Virtuel</span>
               <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#00D4FF]/10 text-[#00D4FF] font-medium border border-[#00D4FF]/20">
-                Assistant NOB TECH
+                NOB TECH
               </span>
             </div>
             <div className="text-[11px] text-slate-400 font-sans flex items-center gap-1.5 mt-0.5">
@@ -398,7 +444,7 @@ export function ChatBot() {
             >
               {msg.role === 'bot' && (
                 <div className="w-7 h-7 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/25 flex items-center justify-center shrink-0 mt-auto p-0.5">
-                  <KoffiAvatar className="w-5 h-5" />
+                  <AssistantAvatar className="w-6 h-6" />
                 </div>
               )}
               <div
@@ -411,7 +457,7 @@ export function ChatBot() {
               >
                 <div className="whitespace-pre-line">{renderText(msg.text)}</div>
                 
-                {/* Suggestions interactives sous la dernière réponse de Koffi */}
+                {/* Suggestions interactives sous la dernière réponse */}
                 {msg.role === 'bot' && msg.suggestions && msg.suggestions.length > 0 && i === messages.length - 1 && (
                   <div className="mt-3 pt-2.5 border-t border-white/10">
                     <p className="text-[10.5px] uppercase tracking-wider text-[#00D4FF] font-semibold mb-1.5">
@@ -447,10 +493,10 @@ export function ChatBot() {
           {isTyping && (
             <div className="flex gap-2.5 items-end">
               <div className="w-7 h-7 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/25 flex items-center justify-center shrink-0 p-0.5">
-                <KoffiAvatar className="w-5 h-5" />
+                <AssistantAvatar className="w-6 h-6" />
               </div>
               <div className="bg-white/[0.06] border border-white/10 rounded-2xl rounded-tl-sm px-3.5 py-2.5 flex items-center gap-1.5">
-                <span className="text-xs text-slate-400 mr-1">Koffi réfléchit...</span>
+                <span className="text-xs text-slate-400 mr-1">En cours de rédaction...</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF] animate-bounce [animation-delay:0ms]" />
                 <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF] animate-bounce [animation-delay:150ms]" />
                 <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF] animate-bounce [animation-delay:300ms]" />
@@ -469,15 +515,15 @@ export function ChatBot() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Écrivez à Koffi ou choisissez ci-dessus..."
+              placeholder="Posez votre question ou choisissez ci-dessus..."
               className="flex-1 bg-transparent text-sm text-white placeholder-slate-500 outline-none"
-              aria-label="Message pour Koffi"
+              aria-label="Votre message"
               maxLength={500}
             />
             <button
               onClick={() => sendMessage(input)}
               disabled={!input.trim() || isTyping}
-              aria-label="Envoyer à Koffi"
+              aria-label="Envoyer"
               className={cn(
                 'w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 shrink-0',
                 input.trim() && !isTyping
@@ -489,7 +535,7 @@ export function ChatBot() {
             </button>
           </div>
           <div className="flex items-center justify-between text-[10px] text-slate-500 px-1 mt-1.5">
-            <span>Koffi · Assistant NOB TECHNOLOGIES</span>
+            <span>Assistant Virtuel · NOB TECHNOLOGIES</span>
             <span>Entrée pour envoyer</span>
           </div>
         </div>

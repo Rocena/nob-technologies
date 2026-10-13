@@ -6,7 +6,7 @@ interface ChatMessage {
 }
 
 // System prompt grounding any AI assistant on NOB TECHNOLOGIES
-const SYSTEM_PROMPT = `Tu t'appelles Koffi. Tu es l'assistant virtuel officiel et bienveillant de NOB TECHNOLOGIES (nobtech.fr), société sénégalaise et ouest-africaine de référence en solutions informatiques, réseaux et cybersécurité à Dakar.
+const SYSTEM_PROMPT = `Tu es l'assistant virtuel officiel et bienveillant de NOB TECHNOLOGIES (nobtech.fr), société sénégalaise et ouest-africaine de référence en solutions informatiques, réseaux et cybersécurité à Dakar.
 
 Ton identité & ton style :
 - Tu parles comme un humain chaleureux, dynamique, poli, compétent et très naturel.
@@ -72,7 +72,7 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
     /(t['\s]?es qui|qui es-?tu|qui [eê]tes-?vous|c['\s]?est qui|es-?tu (une |un )?ia|tu es un robot|qui parle|pr[eé]sente-?toi|pr[eé]sentez-?vous)/i.test(q) ||
     (isOneWord && words[0] === "qui")
   ) {
-    return "Je m'appelle Koffi, l'assistant virtuel de NOB TECHNOLOGIES ! 😊\n\nMon rôle, c'est de vous renseigner 24h/24 avec le sourire comme un collègue au bureau : vous expliquer nos solutions (cybersécurité, réseaux, ERP, formations certifiantes) et vous mettre en relation avec nos ingénieurs à Dakar.\n\nEt vous, quel projet ou besoin vous amène ?";
+    return "Je suis votre conseiller digital chez NOB TECHNOLOGIES ! 😊\n\nMon rôle, c'est de vous renseigner 24h/24 avec le sourire comme un collègue au bureau : vous expliquer nos solutions (cybersécurité, réseaux, ERP, formations certifiantes) et vous mettre en relation avec nos ingénieurs à Dakar.\n\nEt vous, quel projet ou besoin vous amène ?";
   }
 
   // 4. Questions "Hors du cadre" (Humour, nourriture, vie perso, blagues, météo)
