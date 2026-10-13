@@ -1,6 +1,6 @@
 import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres';
 
-const statements: string[] = [
+export const statements: string[] = [
   "CREATE TYPE \"public\".\"enum_articles_category\" AS ENUM('Cybersécurité & Audit', 'Infrastructure & Réseaux', 'Cloud & DevOps', 'Intelligence Artificielle & ERP', 'Culture Tech & Innovation');",
   "CREATE TYPE \"public\".\"enum_articles_status\" AS ENUM('draft', 'review', 'published', 'archived');",
   "CREATE TYPE \"public\".\"enum_contact_messages_status\" AS ENUM('new', 'read', 'replied', 'archived');",
