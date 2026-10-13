@@ -44,13 +44,13 @@ export default async function FormationsCatalogPage() {
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6 text-balance">
                 Formations Professionnelles :{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-                  Pratiques, Réalistes &amp; Certifiantes
+                  Expertise Pratique &amp; Certifications Internationales
                 </span>
               </h1>
             </TextReveal>
             <FadeUp delay={0.2}>
               <p className="text-slate-300 text-base sm:text-lg md:text-xl font-normal max-w-3xl mx-auto leading-relaxed">
-                Des programmes concrets et réalistes animés par nos ingénieurs à Dakar : Certificat International Cisco en cybersécurité, Power BI appliqué à la sécurité &amp; SOC, certifications officielles (Cisco CCNA, Fortinet, Sophos) et cadres de conformité (NIST, ISO 27001).
+                Des cursus d&apos;ingénierie et de certification animés par nos experts en production à Dakar : Certificat International Cisco en cybersécurité, Power BI appliqué à la sécurité &amp; SOC, certifications officielles (Cisco CCNA, Fortinet, Sophos) et cadres de conformité (NIST, ISO 27001).
               </p>
             </FadeUp>
 
