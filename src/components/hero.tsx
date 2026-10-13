@@ -12,17 +12,17 @@ export function Hero() {
   return (
     <Section data-cursor-binary="true" className="relative overflow-hidden bg-[#020617] pt-32 sm:pt-36 pb-28 sm:pb-40 min-h-[90vh] flex items-center justify-center">
       {/* Silicon Valley Style Backgrounds with Logo Color Harmonization */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] bg-gradient-to-tr from-[#00D4FF]/12 via-[#00F0FF]/10 to-[#10E760]/10 rounded-full blur-[140px] pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] lg:w-[1400px] h-[600px] lg:h-[750px] bg-gradient-to-tr from-[#00D4FF]/12 via-[#00F0FF]/10 to-[#10E760]/10 rounded-full blur-[140px] pointer-events-none"></div>
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:32px_32px]"></div>
       
       <Container className="relative z-10 w-full">
-        <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
+        <div className="max-w-5xl mx-auto text-center flex flex-col items-center">
           <FadeUp delay={0.1}>
             <AnimatedHeroText />
           </FadeUp>
 
           <FadeUp delay={0.2}>
-            <p className="mt-4 mb-10 text-base sm:text-lg md:text-xl text-slate-300 font-normal max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-4 mb-10 text-base sm:text-lg md:text-xl text-slate-300 font-normal max-w-3xl mx-auto leading-relaxed">
               Nous concevons, déployons et sécurisons des infrastructures informatiques et télécoms de niveau entreprise pour accélérer votre transformation digitale.
             </p>
           </FadeUp>

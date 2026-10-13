@@ -89,10 +89,10 @@ export function CTA() {
 
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/80 via-transparent to-[#020617]/80 pointer-events-none"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-to-tr from-[#00D4FF]/10 via-[#00F0FF]/8 to-[#10E760]/8 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] lg:w-[1200px] h-[450px] lg:h-[600px] bg-gradient-to-tr from-[#00D4FF]/10 via-[#00F0FF]/8 to-[#10E760]/8 rounded-full blur-[130px] pointer-events-none"></div>
 
       <Container className="relative z-10">
-        <div className="text-center max-w-3xl mx-auto">
+        <div className="text-center max-w-4xl mx-auto">
           <FadeUp>
             <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-4 sm:mb-6 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
               ACCÉLÉRATION DIGITALE &bull; PASSEZ À L&apos;ACTION

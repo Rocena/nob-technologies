@@ -26,7 +26,7 @@ export async function Footer() {
     <footer data-cursor-binary="true" className="relative bg-[#020617] text-white pt-12 pb-8 md:pt-16 md:pb-10 lg:pt-24 lg:pb-12 overflow-hidden border-t border-white/10">
       {/* Tech grid and glows */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:32px_32px]"></div>
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-accent/10 rounded-[100%] blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] lg:w-[1300px] h-[350px] lg:h-[450px] bg-accent/10 rounded-[100%] blur-[140px] pointer-events-none"></div>
 
       <Container className="relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-6 mb-10 md:mb-14 lg:mb-20">

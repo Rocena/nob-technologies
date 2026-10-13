@@ -37,10 +37,10 @@ export function Testimonials({ testimonials = [] }: { testimonials: any[] }) {
   return (
     <Section className="bg-[#020617] py-16 md:py-24 lg:py-32 relative overflow-hidden">
       {/* Subtle ambient light */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] lg:w-[1300px] h-[450px] lg:h-[600px] bg-accent/5 rounded-full blur-[140px] pointer-events-none"></div>
       
       <Container className="relative z-10">
-        <div className="text-center max-w-2xl mx-auto mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <FadeUp>
             <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
               RETOURS CLIENTS &bull; TÉMOIGNAGES

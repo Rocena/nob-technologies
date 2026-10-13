@@ -48,7 +48,7 @@ export default function StickyCallout() {
           : 'opacity-0 translate-y-full pointer-events-none',
       ].join(' ')}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-6">
+      <div className="max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-6">
         <div className="text-center sm:text-left">
           <p className="text-sm sm:text-base font-medium text-white">
             Besoin d&apos;une solution informatique sur mesure&nbsp;?
