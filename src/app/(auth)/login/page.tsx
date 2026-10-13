@@ -26,18 +26,26 @@ export default async function LoginPage() {
       }
     }
 
-    const { totalDocs } = await payload.count({
-      collection: 'users',
-    });
+    let userCount = 0;
+    try {
+      const { totalDocs } = await payload.count({
+        collection: 'users',
+      });
+      userCount = totalDocs;
+    } catch (countError) {
+      if (isRedirectError(countError)) throw countError;
+      // Si la table users n'existe pas encore ou erreur schema : aucun utilisateur n'a été créé
+      console.warn('Users table count warning on login (no users yet):', countError);
+      redirect('/create-first-user');
+    }
 
-    if (totalDocs === 0) {
+    if (userCount === 0) {
       redirect('/create-first-user');
     }
   } catch (error) {
     if (isRedirectError(error)) {
       throw error;
     }
-    // Erreur de connexion DB ou vérification : afficher CustomLogin plutôt que de boucler
     console.error('Login user check error:', error);
   }
 

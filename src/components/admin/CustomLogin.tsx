@@ -1,10 +1,11 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { NobLogo } from '../NobLogo';
 import { TechConstellation } from './TechConstellation';
-import { Eye, EyeOff, ShieldCheck, Database, Cloud, Cpu, Network, Code, Lock, ArrowLeft, CheckCircle2, Mail } from 'lucide-react';
+import { Eye, EyeOff, ShieldCheck, Database, Cloud, Cpu, Network, Code, Lock, ArrowLeft, ArrowRight, CheckCircle2, Mail } from 'lucide-react';
 
 type View = 'LOGIN' | 'AUTHENTICATING' | 'SUCCESS' | 'FORGOT' | 'FORGOT_SENDING' | 'FORGOT_SENT';
 
@@ -139,6 +140,17 @@ export const CustomLogin: React.FC = () => {
                 {errorBox}
                 <button type="submit" className={primaryBtn}>Se connecter</button>
               </form>
+
+              <div className="mt-8 pt-6 border-t border-slate-800/80 text-center">
+                <p className="text-xs text-slate-500 mb-2">Premier démarrage ou compte non initialisé ?</p>
+                <Link
+                  href="/create-first-user"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#00D4FF] hover:text-[#00F0FF] hover:underline transition-all"
+                >
+                  <span>Initialiser le compte Super-Admin</span>
+                  <ArrowRight size={13} />
+                </Link>
+              </div>
             </div>
           )}
 
