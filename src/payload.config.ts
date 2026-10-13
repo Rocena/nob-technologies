@@ -132,9 +132,12 @@ export default buildConfig({
       (process.env.DATABASE_URI?.startsWith('postgres') ? process.env.DATABASE_URI : null);
 
     if (postgresUri) {
+      const isLocal = postgresUri.includes('localhost') || postgresUri.includes('127.0.0.1');
       return postgresAdapter({
         pool: {
           connectionString: postgresUri,
+          ssl: isLocal ? false : { rejectUnauthorized: false },
+          max: 10,
         },
         push: true,
       });
