@@ -26,7 +26,7 @@ import { Quotes } from './collections/Quotes';
 import { Invoices } from './collections/Invoices';
 import { Formations } from './collections/Formations';
 import { SiteSettings } from './globals/SiteSettings';
-import { migrations } from './migrations';
+import { migrations, postgresMigrations } from './migrations';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -139,7 +139,8 @@ export default buildConfig({
           ssl: isLocal ? false : { rejectUnauthorized: false },
           max: 10,
         },
-        push: true,
+        prodMigrations: postgresMigrations,
+        push: false,
       });
     }
 
