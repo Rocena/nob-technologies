@@ -29,10 +29,7 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
     "/images/gallery/galerie-1-baie-brassage.jpg";
 
   return (
-    <div className="group relative flex flex-col bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-[0_20px_45px_-12px_rgba(0,212,255,0.25)] hover:border-cyan-400/80 hover:-translate-y-2 transition-all duration-300 overflow-hidden">
-      {/* Top Gradient Beam on hover */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
-
+    <div className="group flex flex-col bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-slate-300 transition-all duration-300 overflow-hidden">
       {/* Top Corporate Metadata Bar */}
       <div className="px-5 py-3.5 bg-slate-50/80 border-b border-slate-100 flex items-center justify-between gap-3">
         <span className="text-[11px] font-semibold tracking-wide uppercase text-slate-700 bg-white px-2.5 py-1 rounded-md border border-slate-200/80 shadow-2xs">
