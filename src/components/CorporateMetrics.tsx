@@ -69,10 +69,9 @@ const METRICS: MetricData[] = [
   },
 ];
 
-function MetricCard({
+function MetricItem({
   metric,
   isVisible,
-  index,
 }: {
   metric: MetricData;
   isVisible: boolean;
@@ -87,13 +86,12 @@ function MetricCard({
 
     let startTime: number | null = null;
     let frameId: number;
-    const duration = 1500; // 1.5s smooth duration
+    const duration = 1500;
 
     const step = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // Courbe d'accélération puis amortissement progressif (cubic ease-out)
       const ease = 1 - Math.pow(1 - progress, 3);
       setVal(metric.target * ease);
 
@@ -117,53 +115,39 @@ function MetricCard({
     : metric.target.toString();
 
   return (
-    <div
-      className="group relative bg-white rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-[0_2px_12px_-4px_rgba(15,23,42,0.04)] hover:shadow-[0_16px_32px_-12px_rgba(15,23,42,0.1)] hover:border-cyan-300/80 transition-all duration-300 flex flex-col justify-between overflow-hidden"
-      style={{
-        animationDelay: `${index * 0.1}s`,
-      }}
-    >
-      {/* Top corporate accent border */}
-      <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-[#00D4FF] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-      {/* Top Header inside Card */}
-      <div>
-        <div className="flex items-center justify-between gap-3 mb-4">
-          <div
-            className={`w-9 h-9 rounded-xl flex items-center justify-center border ${metric.iconBg} ${metric.iconColor} transition-transform duration-300 group-hover:scale-105`}
-          >
-            <metric.Icon size={18} />
-          </div>
-          <span className="text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-md bg-slate-100/90 text-slate-600 border border-slate-200/60">
-            {metric.badge}
-          </span>
-        </div>
-
-        {/* Big Number & Accents */}
-        <div className="flex items-baseline gap-0.5 mb-2">
-          {metric.prefix && (
-            <span className="text-xl sm:text-2xl font-extrabold text-[#00D4FF] tracking-tight mr-1">
-              {metric.prefix}
-            </span>
-          )}
-          <span className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 tabular-nums">
-            {displayNum}
-          </span>
-          <span className="text-xl sm:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] ml-1">
-            {metric.suffix}
-          </span>
-        </div>
-
-        {/* Corporate Label */}
-        <h4 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight mb-1">
-          {metric.label}
-        </h4>
+    <div className="flex flex-col justify-start px-2 sm:px-4 lg:px-6 py-4 sm:py-2">
+      {/* Surtitre & Badge discret */}
+      <div className="flex items-center gap-2 mb-2">
+        <metric.Icon size={15} className={metric.iconColor} />
+        <span className="text-[11px] font-semibold tracking-wider uppercase text-slate-500">
+          {metric.badge}
+        </span>
       </div>
 
-      {/* Detail / Subtitle */}
-      <div className="text-[11px] sm:text-xs text-slate-500 font-medium leading-relaxed pt-3 mt-3 border-t border-slate-100">
+      {/* Grand Chiffre Percutant */}
+      <div className="flex items-baseline gap-1 my-1">
+        {metric.prefix && (
+          <span className="text-2xl sm:text-3xl font-extrabold text-[#00D4FF] tracking-tight">
+            {metric.prefix}
+          </span>
+        )}
+        <span className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 tabular-nums">
+          {displayNum}
+        </span>
+        <span className="text-xl sm:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+          {metric.suffix}
+        </span>
+      </div>
+
+      {/* Titre Principal */}
+      <h4 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight mt-1 mb-1">
+        {metric.label}
+      </h4>
+
+      {/* Sous-texte / Détail */}
+      <p className="text-xs text-slate-500 font-normal leading-relaxed">
         {metric.detail}
-      </div>
+      </p>
     </div>
   );
 }
@@ -197,16 +181,18 @@ export function CorporateMetrics() {
   return (
     <div
       ref={containerRef}
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-14"
+      className="mb-14 pt-2 pb-6 border-y border-slate-200/80"
     >
-      {METRICS.map((metric, idx) => (
-        <MetricCard
-          key={metric.id}
-          metric={metric}
-          isVisible={isVisible}
-          index={idx}
-        />
-      ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-200/70">
+        {METRICS.map((metric, idx) => (
+          <MetricItem
+            key={metric.id}
+            metric={metric}
+            isVisible={isVisible}
+            index={idx}
+          />
+        ))}
+      </div>
     </div>
   );
 }
