@@ -2,9 +2,6 @@ import configPromise from '@/payload.config'
 import { RootPage } from '@payloadcms/next/views'
 import React from 'react'
 import { importMap } from '../importMap.js'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
-import { getPayloadClient } from '@/lib/payload'
 
 export const dynamic = 'force-dynamic'
 
@@ -14,32 +11,6 @@ type Args = {
 }
 
 export default async function Page({ params, searchParams }: Args) {
-  const cookieStore = await cookies()
-  const token = cookieStore.get('payload-token')?.value
-  const resolvedParams = await params
-  const segments = resolvedParams?.segments || []
-  const isLogoutRoute = segments[0] === 'logout'
-
-  if (!token && !isLogoutRoute) {
-    let hasUser = false
-    try {
-      const payload = await getPayloadClient()
-      const { totalDocs } = await payload.count({ collection: 'users' })
-      hasUser = totalDocs > 0
-    } catch {
-      hasUser = false
-    }
-
-    if (!hasUser) {
-      redirect('/create-first-user')
-    } else {
-      const currentPath = segments.length > 0 ? `/admin/${segments.join('/')}` : ''
-      const redirectParam = currentPath ? `?redirect=${encodeURIComponent(currentPath)}` : ''
-      redirect(`/login${redirectParam}`)
-    }
-  }
-
-  // @ts-expect-error - Payload RC / Next 15 bindings mismatch
-  return <RootPage config={configPromise} params={params} searchParams={searchParams} importMap={importMap} />
+  return RootPage({ config: configPromise, params, searchParams: searchParams as any, importMap })
 }
 
