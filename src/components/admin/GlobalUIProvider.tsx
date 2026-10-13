@@ -1,10 +1,11 @@
-﻿'use client'
+'use client'
 
 import React, { useLayoutEffect, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { CustomNav } from './CustomNav';
 import { AdminDock } from './AdminDock';
 import { AdminTopBar } from './AdminTopBar';
+import { InactivityGuard } from './InactivityGuard';
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
@@ -65,6 +66,7 @@ export const GlobalUIProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     <>
       {children}
       <CustomNav />
+      <InactivityGuard />
       <AdminTopBar darkWallpaper={darkWallpaper} />
       <AdminDock darkWallpaper={darkWallpaper} />
     </>

@@ -1,9 +1,9 @@
+import { requireSuperAdmin } from '@/lib/requireAdmin'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 import { getPayloadClient } from '@/lib/payload'
 
 // Secret key to protect the seed endpoint
-const SEED_SECRET = 'nob-seed-2024'
 
 const services = [
   {
@@ -185,12 +185,9 @@ const services = [
 ]
 
 export async function GET(request: NextRequest) {
+  const denied = await requireSuperAdmin()
+  if (denied) return denied
   const { searchParams } = new URL(request.url)
-  const secret = searchParams.get('secret')
-
-  if (secret !== SEED_SECRET) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
 
   try {
     const payload = await getPayloadClient()

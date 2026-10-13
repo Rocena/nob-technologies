@@ -21,7 +21,15 @@ export const Users: CollectionConfig = {
     useAsTitle: 'name',
     defaultColumns: ['name', 'email', 'avatar', 'role', 'updatedAt'],
   },
-  auth: true, 
+  auth: {
+    tokenExpiration: 60 * 60 * 2, // session JWT : 2 h (renouvelée tant que l'utilisateur est actif)
+    maxLoginAttempts: 5, // verrouillage anti brute-force
+    lockTime: 10 * 60 * 1000, // 10 min
+    cookies: {
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Lax',
+    },
+  },
   access: {
     read: isAdminOrSelf, 
     create: async ({ req }) => {
@@ -30,7 +38,7 @@ export const Users: CollectionConfig = {
         const { totalDocs } = await req.payload.count({ collection: 'users' });
         return totalDocs === 0;
       } catch {
-        return true;
+        return false;
       }
     },
     update: isAdminOrSelf,
@@ -47,7 +55,7 @@ export const Users: CollectionConfig = {
               data.role = 'super_admin';
             }
           } catch {
-            data.role = 'super_admin';
+            data.role = 'editor';
           }
         }
         return data;

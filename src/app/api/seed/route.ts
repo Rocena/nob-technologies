@@ -1,7 +1,10 @@
+import { requireSuperAdmin } from '@/lib/requireAdmin'
 import { NextResponse } from 'next/server';
 import { getPayloadClient } from '@/lib/payload';
 
 export async function GET() {
+  const denied = await requireSuperAdmin()
+  if (denied) return denied
   const payload = await getPayloadClient();
   
   // Seed Pages

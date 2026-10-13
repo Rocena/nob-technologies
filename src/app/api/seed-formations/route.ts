@@ -1,8 +1,11 @@
+import { requireSuperAdmin } from '@/lib/requireAdmin'
 import { NextResponse } from 'next/server';
 import { getPayloadClient } from '@/lib/payload';
 import { FORMATIONS_DATA } from '@/data/formations';
 
 export async function GET() {
+  const denied = await requireSuperAdmin()
+  if (denied) return denied
   try {
     const payload = await getPayloadClient();
 
