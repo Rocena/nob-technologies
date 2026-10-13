@@ -21,90 +21,127 @@ function getTime() {
   return new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 }
 
-// Illustration d'un jeune homme africain souriant avec des lunettes (moderne, pro, corporate)
+// Illustration d'un jeune homme africain souriant avec coupe afro soignée, lunettes modernes et fond cyan radieux
 export function AssistantAvatar({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="Conseiller digital NOB TECHNOLOGIES">
       <defs>
-        {/* Dégradé peau riche et naturelle */}
-        <linearGradient id="skin-grad" x1="32" y1="14" x2="32" y2="44" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#8A5A36" />
-          <stop offset="100%" stopColor="#5E381E" />
+        {/* Fond cyan radieux à fort contraste (évite le fond noir) */}
+        <radialGradient id="nob-avatar-bg" cx="32" cy="24" r="32" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#38BDF8" />
+          <stop offset="55%" stopColor="#0284C7" />
+          <stop offset="100%" stopColor="#0369A1" />
+        </radialGradient>
+        {/* Halo doux intérieur pour détacher l'afro */}
+        <radialGradient id="nob-afro-halo" cx="32" cy="20" r="24" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#BAE6FD" stopOpacity="0.45" />
+          <stop offset="100%" stopColor="#0284C7" stopOpacity="0" />
+        </radialGradient>
+        {/* Teinte de peau riche, chaude et bien éclairée */}
+        <linearGradient id="nob-skin-grad" x1="32" y1="18" x2="32" y2="45" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#A86E45" />
+          <stop offset="60%" stopColor="#8E532B" />
+          <stop offset="100%" stopColor="#6E3C1B" />
         </linearGradient>
-        {/* Dégradé ombre sous mâchoire */}
-        <linearGradient id="neck-shadow" x1="32" y1="40" x2="32" y2="56" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#482A14" />
-          <stop offset="100%" stopColor="#693F22" />
+        {/* Ombre sous le menton */}
+        <linearGradient id="nob-neck-grad" x1="32" y1="41" x2="32" y2="53" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#552C12" />
+          <stop offset="100%" stopColor="#7B421E" />
         </linearGradient>
         {/* Reflet verres de lunettes */}
-        <linearGradient id="glass-glare" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#00D4FF" stopOpacity="0.3" />
-          <stop offset="60%" stopColor="#FFFFFF" stopOpacity="0.08" />
-          <stop offset="100%" stopColor="#00D4FF" stopOpacity="0" />
+        <linearGradient id="nob-glass-glare" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.4" />
+          <stop offset="45%" stopColor="#00D4FF" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.08" />
         </linearGradient>
-        {/* Vêtement polo corporate */}
-        <linearGradient id="shirt-grad" x1="32" y1="48" x2="32" y2="64" gradientUnits="userSpaceOnUse">
+        {/* Vêtement corporate sombre avec contraste */}
+        <linearGradient id="nob-suit-grad" x1="32" y1="48" x2="32" y2="64" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#0F172A" />
           <stop offset="100%" stopColor="#020617" />
         </linearGradient>
       </defs>
 
-      {/* Fond circulaire corporate */}
-      <circle cx="32" cy="32" r="31" fill="#020617" stroke="#00D4FF" strokeWidth="1.5" strokeOpacity="0.4" />
+      {/* Fond circulaire cyan lumineux (contraste maximal) */}
+      <circle cx="32" cy="32" r="31" fill="url(#nob-avatar-bg)" stroke="#BAE6FD" strokeWidth="1.5" />
+      <circle cx="32" cy="22" r="22" fill="url(#nob-afro-halo)" />
 
-      {/* Épaules & Vêtement */}
-      <path d="M12 64 C12 52 20 48 32 48 C44 48 52 52 52 64 Z" fill="url(#shirt-grad)" />
-      {/* Col du polo / veste moderne avec liseré cyan */}
-      <path d="M24 50 L32 58 L40 50" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M28 51 L32 55 L36 51" fill="#FFFFFF" fillOpacity="0.15" />
+      {/* Épaules & Veste corporate */}
+      <path d="M10 64 C10 52 19 47 32 47 C45 47 54 52 54 64 Z" fill="url(#nob-suit-grad)" />
+
+      {/* Col de chemise blanc net (très visible et corporate) */}
+      <path d="M24 48 L32 58 L40 48 L36 47 L32 53 L28 47 Z" fill="#FFFFFF" />
+      {/* Cravate / liseré cyan NOB TECH */}
+      <path d="M30.5 53 L32 64 L33.5 53 Z" fill="#00D4FF" />
+      <path d="M23 49 L32 59 L41 49" stroke="#E2E8F0" strokeWidth="1" fill="none" strokeLinecap="round" />
 
       {/* Cou */}
-      <path d="M25 40 H39 V51 C39 53 37 54 32 54 C27 54 25 53 25 51 Z" fill="url(#neck-shadow)" />
+      <path d="M25 39 H39 V50 C39 52.5 36.5 54 32 54 C27.5 54 25 52.5 25 50 Z" fill="url(#nob-neck-grad)" />
+
+      {/* COUPE AFRO : Volume généreux et silhouette arrondie naturelle */}
+      {/* Base dense afro */}
+      <path d="M14 31 C11 25 12 17 17 11 C22 5 32 4 42 7 C48 10 53 17 53 25 C53 29 51 33 48 35 C49 27 47 18 42 15 C36 12 28 12 22 15 C17 18 15 26 16 35 C14.5 34 14 32.5 14 31 Z" fill="#141417" />
+      <circle cx="21" cy="18" r="9" fill="#18181C" />
+      <circle cx="32" cy="13" r="10.5" fill="#18181C" />
+      <circle cx="43" cy="18" r="9" fill="#18181C" />
+      <circle cx="16" cy="27" r="6.5" fill="#18181C" />
+      <circle cx="48" cy="27" r="6.5" fill="#18181C" />
+      <circle cx="26" cy="14" r="8.5" fill="#18181C" />
+      <circle cx="38" cy="14" r="8.5" fill="#18181C" />
+
+      {/* Textures / reflets de boucles afro en relief */}
+      <path d="M28 8 C30 7 34 7 36 8" stroke="#383842" strokeWidth="2" strokeLinecap="round" />
+      <path d="M19 13 C21 11 24 11 26 12" stroke="#383842" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M38 12 C40 11 43 11 45 13" stroke="#383842" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M14 22 C14 20 16 19 18 20" stroke="#383842" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M46 20 C48 19 50 20 50 22" stroke="#383842" strokeWidth="1.6" strokeLinecap="round" />
 
       {/* Oreilles */}
-      <ellipse cx="17.5" cy="31" rx="3.5" ry="5.5" fill="#693F22" />
-      <ellipse cx="17.5" cy="31" rx="2" ry="3.5" fill="#482A14" />
-      <ellipse cx="46.5" cy="31" rx="3.5" ry="5.5" fill="#693F22" />
-      <ellipse cx="46.5" cy="31" rx="2" ry="3.5" fill="#482A14" />
+      <ellipse cx="17.5" cy="32" rx="3.5" ry="5.5" fill="#8E532B" />
+      <ellipse cx="17.5" cy="32" rx="2" ry="3.5" fill="#5E351A" />
+      <ellipse cx="46.5" cy="32" rx="3.5" ry="5.5" fill="#8E532B" />
+      <ellipse cx="46.5" cy="32" rx="2" ry="3.5" fill="#5E351A" />
 
-      {/* Visage / Mâchoire */}
-      <path d="M19 25 C19 16 23 13 32 13 C41 13 45 16 45 25 C45 35 41 44 32 44 C23 44 19 35 19 25 Z" fill="url(#skin-grad)" />
+      {/* Visage / Mâchoire jeune et souriant */}
+      <path d="M19 26 C19 19 23 16 32 16 C41 16 45 19 45 26 C45 35.5 41 43.5 32 43.5 C23 43.5 19 35.5 19 26 Z" fill="url(#nob-skin-grad)" />
 
-      {/* Cheveux : coupe courte noire très soignée */}
-      <path d="M18.5 24 C18 19 20 10 32 10 C44 10 46 19 45.5 24 C44 16 42 12 32 12 C22 12 20 16 18.5 24 Z" fill="#141416" />
-      <path d="M19.5 16 C22 11.5 27 10 32 10 C37 10 42 11.5 44.5 16 C43 13 39 11 32 11 C25 11 21 13 19.5 16 Z" fill="#202024" />
+      {/* Ligne de coupe frontale nette (Barber line-up) */}
+      <path d="M19 24 C23 20.5 28 20 32 20 C36 20 41 20.5 45 24 C43 21 38 19.5 32 19.5 C26 19.5 21 21 19 24 Z" fill="#141417" />
 
-      {/* Sourcils soignés */}
-      <path d="M22 23 C24 21.5 27 21.5 29 23" stroke="#1A1A1E" strokeWidth="2" strokeLinecap="round" />
-      <path d="M35 23 C37 21.5 40 21.5 42 23" stroke="#1A1A1E" strokeWidth="2" strokeLinecap="round" />
+      {/* Sourcils expressifs et soignés */}
+      <path d="M22 24 C24.5 22.5 28 22.8 29.5 24" stroke="#121214" strokeWidth="2.2" strokeLinecap="round" />
+      <path d="M34.5 24 C36 22.8 39.5 22.5 42 24" stroke="#121214" strokeWidth="2.2" strokeLinecap="round" />
 
-      {/* Yeux souriants & expressifs */}
-      <ellipse cx="25.5" cy="27" rx="2.5" ry="2" fill="#181310" />
-      <circle cx="26.2" cy="26.3" r="0.8" fill="#FFFFFF" />
-      <ellipse cx="38.5" cy="27" rx="2.5" ry="2" fill="#181310" />
-      <circle cx="39.2" cy="26.3" r="0.8" fill="#FFFFFF" />
+      {/* Yeux vifs et souriants */}
+      <ellipse cx="25.5" cy="28" rx="2.5" ry="2.2" fill="#141416" />
+      <circle cx="26.3" cy="27.3" r="0.9" fill="#FFFFFF" />
+      <ellipse cx="38.5" cy="28" rx="2.5" ry="2.2" fill="#141416" />
+      <circle cx="39.3" cy="27.3" r="0.9" fill="#FFFFFF" />
 
-      {/* Lunettes élégantes et modernes */}
-      <rect x="21" y="22.5" width="9.5" height="8.5" rx="3.5" fill="url(#glass-glare)" stroke="#0F172A" strokeWidth="1.8" />
-      <rect x="33.5" y="22.5" width="9.5" height="8.5" rx="3.5" fill="url(#glass-glare)" stroke="#0F172A" strokeWidth="1.8" />
-      <path d="M30.5 25.5 C31.5 24.5 32.5 24.5 33.5 25.5" stroke="#0F172A" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M21 25.5 L17.5 26" stroke="#0F172A" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M43 25.5 L46.5 26" stroke="#0F172A" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M23 24 L27 24" stroke="#FFFFFF" strokeWidth="1" strokeLinecap="round" strokeOpacity="0.7" />
-      <path d="M35.5 24 L39.5 24" stroke="#FFFFFF" strokeWidth="1" strokeLinecap="round" strokeOpacity="0.7" />
+      {/* Lunettes modernes bien définies */}
+      <rect x="20.5" y="23.5" width="10" height="9" rx="3.5" fill="url(#nob-glass-glare)" stroke="#090D16" strokeWidth="2" />
+      <rect x="33.5" y="23.5" width="10" height="9" rx="3.5" fill="url(#nob-glass-glare)" stroke="#090D16" strokeWidth="2" />
+      {/* Pont de lunettes avec accent cyan NOB TECH */}
+      <path d="M30.5 26.5 C31.5 25.5 32.5 25.5 33.5 26.5" stroke="#090D16" strokeWidth="2" strokeLinecap="round" />
+      <path d="M30.5 26.5 C31.5 25.5 32.5 25.5 33.5 26.5" stroke="#38BDF8" strokeWidth="0.8" strokeLinecap="round" />
+      {/* Branches */}
+      <path d="M20.5 26.5 L17 27" stroke="#090D16" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M43.5 26.5 L47 27" stroke="#090D16" strokeWidth="1.8" strokeLinecap="round" />
+      {/* Reflets blancs nets sur les verres */}
+      <path d="M22.5 25 L27 25" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" strokeOpacity="0.85" />
+      <path d="M35.5 25 L40 25" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" strokeOpacity="0.85" />
 
-      {/* Nez */}
-      <path d="M32 28.5 V32 C31 33 33 33 32 33" stroke="#482A14" strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M30 33 C31 33.5 33 33.5 34 33" stroke="#482A14" strokeWidth="1.4" strokeLinecap="round" />
+      {/* Nez net */}
+      <path d="M32 29.5 V33 C31.2 33.8 32.8 33.8 32 33.8" stroke="#5A2E12" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M30 33.8 C31 34.4 33 34.4 34 33.8" stroke="#5A2E12" strokeWidth="1.5" strokeLinecap="round" />
 
       {/* Pommettes souriantes */}
-      <ellipse cx="20.5" cy="33" rx="2.2" ry="1.2" fill="#99583D" fillOpacity="0.4" />
-      <ellipse cx="43.5" cy="33" rx="2.2" ry="1.2" fill="#99583D" fillOpacity="0.4" />
+      <ellipse cx="20.5" cy="34" rx="2.5" ry="1.5" fill="#BA7040" fillOpacity="0.35" />
+      <ellipse cx="43.5" cy="34" rx="2.5" ry="1.5" fill="#BA7040" fillOpacity="0.35" />
 
-      {/* Grand sourire franc & chaleureux avec dents visibles */}
-      <path d="M26 36.5 C26 36.5 28 41 32 41 C36 41 38 36.5 38 36.5 Z" fill="#4A1818" />
-      <path d="M27 37 C28.5 38.5 35.5 38.5 37 37 C36 36.5 28 36.5 27 37 Z" fill="#FFFFFF" />
-      <path d="M25 36.5 C28 40.5 36 40.5 39 36.5" stroke="#381E10" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+      {/* Grand sourire chaleureux avec dents blanches visibles */}
+      <path d="M25.5 36.5 C25.5 36.5 28 42 32 42 C36 42 38.5 36.5 38.5 36.5 Z" fill="#4C1518" />
+      <path d="M26.2 37 C27.8 39 36.2 39 37.8 37 C36.5 36.3 27.5 36.3 26.2 37 Z" fill="#FFFFFF" />
+      <path d="M24.5 36.5 C27.5 41.5 36.5 41.5 39.5 36.5" stroke="#3D1A06" strokeWidth="1.6" strokeLinecap="round" fill="none" />
     </svg>
   );
 }
@@ -380,7 +417,7 @@ export function ChatBot() {
           <X className="w-5 h-5" />
         ) : (
           <>
-            <AssistantAvatar className="w-7 h-7 shrink-0 transition-transform duration-300 group-hover:scale-110" />
+            <AssistantAvatar className="w-8 h-8 shrink-0 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_2px_8px_rgba(0,0,0,0.25)]" />
             <div className="flex flex-col text-left leading-none">
               <span className="text-xs font-black tracking-tight text-[#020617]">Assistant</span>
               <span className="text-[10px] font-semibold opacity-85 hidden sm:inline">En ligne</span>
@@ -406,10 +443,10 @@ export function ChatBot() {
         {/* Header */}
         <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10 bg-white/[0.03] shrink-0">
           <div className="relative">
-            <div className="w-10 h-10 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/30 flex items-center justify-center p-0.5">
-              <AssistantAvatar className="w-8 h-8" />
+            <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#00D4FF]/25 to-[#0284c7]/35 border border-[#00D4FF]/50 flex items-center justify-center p-0.5 shadow-md">
+              <AssistantAvatar className="w-9 h-9" />
             </div>
-            <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#020617]" />
+            <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#020617]" />
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
@@ -420,7 +457,7 @@ export function ChatBot() {
             </div>
             <div className="text-[11px] text-slate-400 font-sans flex items-center gap-1.5 mt-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              Souriant &amp; disponible pour vous guider
+              En ligne
             </div>
           </div>
           <button
@@ -443,8 +480,8 @@ export function ChatBot() {
               )}
             >
               {msg.role === 'bot' && (
-                <div className="w-7 h-7 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/25 flex items-center justify-center shrink-0 mt-auto p-0.5">
-                  <AssistantAvatar className="w-6 h-6" />
+                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#00D4FF]/25 to-[#0284c7]/35 border border-[#00D4FF]/40 flex items-center justify-center shrink-0 mt-auto p-0.5 shadow-sm">
+                  <AssistantAvatar className="w-7 h-7" />
                 </div>
               )}
               <div
@@ -492,8 +529,8 @@ export function ChatBot() {
           {/* Typing indicator */}
           {isTyping && (
             <div className="flex gap-2.5 items-end">
-              <div className="w-7 h-7 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/25 flex items-center justify-center shrink-0 p-0.5">
-                <AssistantAvatar className="w-6 h-6" />
+              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#00D4FF]/25 to-[#0284c7]/35 border border-[#00D4FF]/40 flex items-center justify-center shrink-0 p-0.5 shadow-sm">
+                <AssistantAvatar className="w-7 h-7" />
               </div>
               <div className="bg-white/[0.06] border border-white/10 rounded-2xl rounded-tl-sm px-3.5 py-2.5 flex items-center gap-1.5">
                 <span className="text-xs text-slate-400 mr-1">En cours de rédaction...</span>
