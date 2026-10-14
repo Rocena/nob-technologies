@@ -266,10 +266,10 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
               </div>
             </FadeUp>
 
-            {/* Executive Quote with Accent Gradient Dashed Border */}
+            {/* Executive Quote with Accent Gradient Continuous Border */}
             <FadeUp delay={0.35}>
               <div className="relative p-6 sm:p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm overflow-hidden mt-6">
-                {/* SVG Dashed Border in Signature Accent Gradient */}
+                {/* SVG Continuous Border in Signature Accent Gradient */}
                 <svg
                   className="absolute inset-0 w-full h-full pointer-events-none"
                   preserveAspectRatio="none"
@@ -277,10 +277,10 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <defs>
-                    <linearGradient id="quote-gradient-dash" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#00D4FF" />
-                      <stop offset="50%" stopColor="#00F0FF" />
-                      <stop offset="100%" stopColor="#10E760" />
+                    <linearGradient id="quote-gradient-border" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#00D4FF" stopOpacity="0.85" />
+                      <stop offset="50%" stopColor="#00F0FF" stopOpacity="0.95" />
+                      <stop offset="100%" stopColor="#10E760" stopOpacity="0.85" />
                     </linearGradient>
                   </defs>
                   <rect
@@ -292,9 +292,8 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
                     ry="5"
                     vectorEffect="non-scaling-stroke"
                     fill="none"
-                    stroke="url(#quote-gradient-dash)"
+                    stroke="url(#quote-gradient-border)"
                     strokeWidth="1.5"
-                    strokeDasharray="5 5"
                   />
                 </svg>
 
@@ -307,9 +306,9 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
                   </div>
                   <div className="flex-1">
                     <blockquote className="text-white font-bold text-lg sm:text-xl lg:text-2xl leading-snug">
-                      « La technologie ne doit pas seulement accompagner l&apos;évolution des entreprises. Elle doit leur donner les moyens d&apos;
+                      « La technologie ne doit pas simplement accompagner l&apos;évolution des entreprises : elle doit propulser leur ambition, sécuriser leur croissance et leur donner{" "}
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-                        aller plus loin
+                        un temps d&apos;avance
                       </span>. »
                     </blockquote>
                     <div className="mt-5 pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
