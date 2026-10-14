@@ -266,14 +266,12 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
               </div>
             </FadeUp>
 
-            {/* Executive Quote with Accent Gradient Dashed Border */}
+            {/* Executive Quote with Accent Gradient Dashed Border matching button shape */}
             <FadeUp delay={0.35}>
-              <div className="relative p-6 sm:p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm overflow-hidden mt-6">
-                {/* SVG Dashed Border in Signature Accent Gradient */}
+              <div className="relative p-6 sm:p-8 rounded-xl bg-slate-900/40 backdrop-blur-sm overflow-hidden mt-6">
+                {/* SVG Dashed Border in Signature Accent Gradient matching rounded-xl buttons */}
                 <svg
-                  className="absolute inset-0 w-full h-full pointer-events-none"
-                  preserveAspectRatio="none"
-                  viewBox="0 0 100 100"
+                  className="absolute inset-0 w-full h-full pointer-events-none rounded-xl"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <defs>
@@ -284,17 +282,15 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
                     </linearGradient>
                   </defs>
                   <rect
-                    x="0.6"
-                    y="0.6"
-                    width="98.8"
-                    height="98.8"
-                    rx="5"
-                    ry="5"
-                    vectorEffect="non-scaling-stroke"
+                    x="1"
+                    y="1"
+                    rx="12"
+                    ry="12"
+                    style={{ width: "calc(100% - 2px)", height: "calc(100% - 2px)" }}
                     fill="none"
                     stroke="url(#quote-gradient-dash)"
                     strokeWidth="1.5"
-                    strokeDasharray="5 5"
+                    strokeDasharray="6 6"
                   />
                 </svg>
 
@@ -302,7 +298,7 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
                 <div className="absolute top-0 right-0 w-44 h-44 bg-gradient-to-br from-[#00D4FF]/10 to-[#10E760]/5 rounded-full blur-2xl pointer-events-none" />
                 
                 <div className="flex items-start gap-4 sm:gap-5 relative z-10">
-                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-cyan-500/15 to-emerald-500/15 border border-cyan-400/30 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(0,212,255,0.15)] mt-0.5">
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-cyan-500/15 to-emerald-500/15 border border-cyan-400/30 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(0,212,255,0.15)] mt-0.5">
                     <Quote className="w-5 h-5 sm:w-6 sm:h-6 text-[#00D4FF]" />
                   </div>
                   <div className="flex-1">
