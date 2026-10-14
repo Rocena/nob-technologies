@@ -162,44 +162,44 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
               </div>
             </FadeUp>
 
-            {/* 3 Core Fields of Action (Bento Cards) */}
+            {/* Executive Quote with Accent Gradient Dashed Border */}
             <FadeUp delay={0.35}>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2">
-                <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-                  <div className="w-8 h-8 rounded-lg bg-[#00D4FF]/10 text-[#00D4FF] flex items-center justify-center mb-2.5 font-bold">
-                    01
-                  </div>
-                  <h4 className="text-sm font-bold text-white mb-1">Réseaux &amp; Télécoms</h4>
-                  <p className="text-xs text-slate-400 leading-normal">Infrastructures physiques, fibre optique et liaisons sécurisées.</p>
-                </div>
+              <div className="relative p-6 sm:p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm overflow-hidden mt-6">
+                {/* SVG Dashed Border in Signature Accent Gradient */}
+                <svg
+                  className="absolute inset-0 w-full h-full pointer-events-none"
+                  preserveAspectRatio="none"
+                  viewBox="0 0 100 100"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <linearGradient id="quote-gradient-dash" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#00D4FF" />
+                      <stop offset="50%" stopColor="#00F0FF" />
+                      <stop offset="100%" stopColor="#10E760" />
+                    </linearGradient>
+                  </defs>
+                  <rect
+                    x="0.6"
+                    y="0.6"
+                    width="98.8"
+                    height="98.8"
+                    rx="5"
+                    ry="5"
+                    vectorEffect="non-scaling-stroke"
+                    fill="none"
+                    stroke="url(#quote-gradient-dash)"
+                    strokeWidth="1.5"
+                    strokeDasharray="5 5"
+                  />
+                </svg>
 
-                <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-                  <div className="w-8 h-8 rounded-lg bg-cyan-400/10 text-cyan-400 flex items-center justify-center mb-2.5 font-bold">
-                    02
-                  </div>
-                  <h4 className="text-sm font-bold text-white mb-1">Cybersécurité</h4>
-                  <p className="text-xs text-slate-400 leading-normal">Protection des données, pare-feu et audits préventifs continus.</p>
-                </div>
-
-                <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-                  <div className="w-8 h-8 rounded-lg bg-[#10E760]/10 text-[#10E760] flex items-center justify-center mb-2.5 font-bold">
-                    03
-                  </div>
-                  <h4 className="text-sm font-bold text-white mb-1">Systèmes &amp; Cloud</h4>
-                  <p className="text-xs text-slate-400 leading-normal">Serveurs, infogérance proactive et disponibilité 24/7.</p>
-                </div>
-              </div>
-            </FadeUp>
-
-            {/* Premium Quote Card with Gradient Accent */}
-            <FadeUp delay={0.4}>
-              <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 border border-cyan-500/30 relative overflow-hidden shadow-2xl">
-                {/* Radiant top-right corner glow */}
-                <div className="absolute top-0 right-0 w-44 h-44 bg-gradient-to-br from-[#00D4FF]/15 to-[#10E760]/10 rounded-full blur-2xl pointer-events-none" />
+                {/* Subtle Ambient Glow */}
+                <div className="absolute top-0 right-0 w-44 h-44 bg-gradient-to-br from-[#00D4FF]/10 to-[#10E760]/5 rounded-full blur-2xl pointer-events-none" />
                 
                 <div className="flex items-start gap-4 sm:gap-5 relative z-10">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-emerald-500/20 border border-cyan-400/40 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(0,212,255,0.2)]">
-                    <Quote className="w-6 h-6 text-[#00D4FF]" />
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-cyan-500/15 to-emerald-500/15 border border-cyan-400/30 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(0,212,255,0.15)] mt-0.5">
+                    <Quote className="w-5 h-5 sm:w-6 sm:h-6 text-[#00D4FF]" />
                   </div>
                   <div className="flex-1">
                     <blockquote className="text-white font-bold text-lg sm:text-xl lg:text-2xl leading-snug">
@@ -208,7 +208,7 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
                         aller plus loin
                       </span>. »
                     </blockquote>
-                    <div className="mt-5 pt-4 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <div className="mt-5 pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                       <span className="text-base text-white font-extrabold font-sans">
                         Ozias B. Nzongo
                       </span>
