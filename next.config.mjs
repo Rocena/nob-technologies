@@ -22,6 +22,8 @@ const nextConfig = {
       { protocol: 'https', hostname: 'www.hp.com' },
       { protocol: 'https', hostname: 'dolima.sn' },
       { protocol: 'https', hostname: 'simplon.co' },
+      { protocol: 'https', hostname: 'img.youtube.com' },
+      { protocol: 'https', hostname: 'i.ytimg.com' },
     ],
   },
   async headers() {

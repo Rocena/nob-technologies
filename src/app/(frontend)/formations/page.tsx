@@ -20,6 +20,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { FormationOfferingsSection } from "@/components/formations/FormationOfferingsSection";
+import { FormationVideoSection } from "@/components/formations/FormationVideoSection";
 
 export const metadata: Metadata = {
   title: "Formations Professionnelles & Préparation aux Certifications | NOB TECHNOLOGIES",
@@ -189,6 +190,14 @@ export default async function FormationsCatalogPage() {
           </Container>
         </Section>
  
+        {/* Live Video Session Showcase */}
+        <Section className="py-20 md:py-28 bg-[#020617] border-b border-white/10 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+          <Container className="relative z-10">
+            <FormationVideoSection videoId="lx105w1dLLU" />
+          </Container>
+        </Section>
+
         {/* Formats d'Accompagnement : Entreprises, Bootcamps, Particuliers */}
         <Section className="py-20 md:py-28 bg-[#020617] border-b border-white/10 relative overflow-hidden">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
