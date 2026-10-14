@@ -16,6 +16,7 @@ import {
   Calendar,
   Users,
   Award,
+  Banknote,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -165,6 +166,19 @@ export default async function FormationsCatalogPage() {
                           </div>
                         </div>
                       )}
+
+                      {/* Grille de rémunération estimée au Sénégal */}
+                      {track.career?.salarySenegal && (
+                        <div className="mb-4 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-emerald-500/40 transition-colors flex items-center justify-between text-xs font-mono">
+                          <span className="text-slate-400 text-[11px] flex items-center gap-1.5">
+                            <Banknote className="w-3.5 h-3.5 text-[#10E760]" />
+                            <span className="text-slate-300">Salaire Sénégal :</span>
+                          </span>
+                          <span className="text-emerald-400 font-bold text-[11px]">
+                            {track.career.salarySenegal.junior.split('à')[0].replace('FCFA / mois', '').replace('FCFA', '').replace('-', '').trim()} à {track.career.salarySenegal.senior.replace('+', '').trim()}
+                          </span>
+                        </div>
+                      )}
                     </div>
 
                     <div className="pt-5 border-t border-white/10 space-y-2 mt-auto">
@@ -260,6 +274,97 @@ export default async function FormationsCatalogPage() {
                 </p>
               </div>
             </div>
+          </Container>
+        </Section>
+
+        {/* Grille Comparative des Rémunérations Estimées au Sénégal */}
+        <Section className="py-20 md:py-28 bg-[#020617] border-t border-white/10 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-emerald-500/10 rounded-full blur-[150px] pointer-events-none" />
+
+          <Container className="relative z-10">
+            <FadeUp>
+              <div className="text-center max-w-3xl mx-auto mb-14 md:mb-16">
+                <div className="inline-flex items-center justify-center gap-2 font-mono text-xs sm:text-sm tracking-[0.2em] uppercase font-extrabold mb-3">
+                  <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">
+                    &gt;<span className="text-[#10E760] animate-pulse">_</span>
+                  </span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                    BAROMÈTRE SALARIAL &bull; SÉNÉGAL &amp; DAKAR
+                  </span>
+                </div>
+
+                <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+                  Grille des Rémunérations Estimées :{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                    Métiers de l&apos;IT
+                  </span>
+                </h2>
+
+                <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+                  Fourchettes indicatives des salaires mensuels nets constatés sur le marché sénégalais (Dakar) pour des profils certifiés constructeurs et immédiatement opérationnels.
+                </p>
+              </div>
+            </FadeUp>
+
+            {/* Table / Cards Showcase */}
+            <FadeUp delay={0.15}>
+              <div className="rounded-2xl border border-white/10 bg-slate-950/80 backdrop-blur-xl overflow-hidden shadow-2xl">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="border-b border-white/10 bg-white/[0.03] text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                        <th className="py-4 px-6 font-bold text-white">Filière &amp; Formation Ciblée</th>
+                        <th className="py-4 px-4 font-bold text-slate-300">Junior (0 - 2 ans)</th>
+                        <th className="py-4 px-4 font-bold text-cyan-400">Confirmé (2 - 5 ans)</th>
+                        <th className="py-4 px-4 font-bold text-emerald-400">Senior / Lead (5+ ans)</th>
+                        <th className="py-4 px-6 font-bold text-right">Détail</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-white/5 text-xs font-mono">
+                      {formations.map((f) => (
+                        <tr key={f.slug} className="hover:bg-white/[0.02] transition-colors group">
+                          <td className="py-4 px-6 font-sans">
+                            <span className="font-bold text-white group-hover:text-cyan-300 transition-colors block text-sm">
+                              {f.title}
+                            </span>
+                            <span className="text-slate-500 text-[11px] font-mono">
+                              {f.badge.replace(/&bull;/g, '•')} &bull; {f.duration}
+                            </span>
+                          </td>
+                          <td className="py-4 px-4 text-slate-300">
+                            {f.career?.salarySenegal?.junior || "350 000 à 550 000 FCFA"}
+                          </td>
+                          <td className="py-4 px-4 text-cyan-300 font-bold">
+                            {f.career?.salarySenegal?.intermediate || "700 000 à 1 200 000 FCFA"}
+                          </td>
+                          <td className="py-4 px-4 text-emerald-400 font-bold">
+                            {f.career?.salarySenegal?.senior || "1 500 000+ FCFA"}
+                          </td>
+                          <td className="py-4 px-6 text-right">
+                            <Link
+                              href={`/formations/${f.slug}#opportunites`}
+                              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-cyan-400 hover:text-white border border-white/10 transition-all text-[11px] font-sans font-semibold"
+                            >
+                              <span>Voir débouchés</span>
+                              <ArrowRight className="w-3 h-3" />
+                            </Link>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="p-4 sm:p-6 bg-slate-900/90 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+                  <div className="flex items-center gap-2">
+                    <Banknote className="w-4 h-4 text-[#10E760] shrink-0" />
+                    <span>Données indicatives calculées sur la base des recrutements bancaires, télécoms, DSI et cabinets de conseil à Dakar.</span>
+                  </div>
+                  <span className="font-mono text-cyan-400 shrink-0">Devise : FCFA Net / Mois</span>
+                </div>
+              </div>
+            </FadeUp>
           </Container>
         </Section>
 
