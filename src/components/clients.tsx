@@ -264,8 +264,11 @@ export function Clients({ clients = [] }: { clients: any[] }) {
         {/* Section Header: Constructeurs & Éditeurs Partenaires */}
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
           <FadeUp>
-            <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-              ÉCOSYSTÈME TECHNOLOGIQUE INTERNATIONAL
+            <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold flex items-center justify-center gap-2 flex-wrap">
+              <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base">&gt;</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                ÉCOSYSTÈME TECHNOLOGIQUE INTERNATIONAL
+              </span>
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
               Partenaires Technologiques &amp; Constructeurs
@@ -322,8 +325,11 @@ export function Clients({ clients = [] }: { clients: any[] }) {
         <div className="pt-10 border-t border-slate-200/90">
           <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
             <FadeUp>
-              <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-                RÉFÉRENCES CLIENTS &amp; DÉPLOIEMENTS MAJEURS
+              <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold flex items-center justify-center gap-2 flex-wrap">
+                <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base">&gt;</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                  RÉFÉRENCES CLIENTS &amp; DÉPLOIEMENTS MAJEURS
+                </span>
               </p>
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
                 Ils Nous Font Confiance

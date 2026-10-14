@@ -94,8 +94,11 @@ export function CTA() {
       <Container className="relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           <FadeUp>
-            <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-4 sm:mb-6 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-              ACCÉLÉRATION DIGITALE &bull; PASSEZ À L&apos;ACTION
+            <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-4 sm:mb-6 font-extrabold flex items-center justify-center gap-2 flex-wrap">
+              <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base">&gt;</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                ACCÉLÉRATION DIGITALE &bull; PASSEZ À L&apos;ACTION
+              </span>
             </p>
             <Heading level={2} className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
               Passez à la vitesse supérieure avec nos{" "}
