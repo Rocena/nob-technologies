@@ -105,9 +105,9 @@ export default async function AboutPage() {
                 },
               ].map((stat, i) => (
                 <FadeUp key={stat.label} delay={i * 0.1}>
-                  <div className={`flex flex-col text-left ${i > 0 ? "pt-8 sm:pt-0 sm:pl-6 lg:pl-8" : ""}`}>
+                  <div className={`flex flex-col items-center text-center sm:items-start sm:text-left ${i > 0 ? "pt-8 sm:pt-0 sm:pl-6 lg:pl-8" : ""}`}>
                     {/* Badge Surtitre discret avec icône */}
-                    <div className="flex items-center gap-2 mb-3">
+                    <div className="flex items-center justify-center sm:justify-start gap-2 mb-3">
                       <stat.Icon className={`w-4 h-4 ${stat.iconColor} shrink-0`} />
                       <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-slate-400">
                         {stat.badge}
@@ -115,7 +115,7 @@ export default async function AboutPage() {
                     </div>
 
                     {/* Grand chiffre avec Dégradé Accent Signature */}
-                    <div className="my-1">
+                    <div className="my-1 flex justify-center sm:justify-start">
                       <span className="text-4xl sm:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] tracking-tight tabular-nums inline-block">
                         <AnimatedCounter
                           prefix={stat.prefix}
@@ -133,7 +133,7 @@ export default async function AboutPage() {
                     </h3>
 
                     {/* Détail Explicatif Simple */}
-                    <p className="text-xs sm:text-sm text-slate-400 font-normal leading-relaxed max-w-xs">
+                    <p className="text-xs sm:text-sm text-slate-400 font-normal leading-relaxed max-w-xs mx-auto sm:mx-0">
                       {stat.detail}
                     </p>
                   </div>
@@ -182,19 +182,19 @@ export default async function AboutPage() {
               
               <div className="space-y-12">
                 <FadeUp>
-                  <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold flex items-center gap-2 flex-wrap">
+                  <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold flex items-center justify-center lg:justify-start gap-2 flex-wrap">
                     <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">&gt;<span className="text-[#10E760] animate-pulse">_</span></span>
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                       L&apos;Ingénierie à l&apos;état pur
                     </span>
                   </p>
-                  <h3 className="text-3xl font-extrabold tracking-tight text-slate-900 mb-4">
+                  <h3 className="text-3xl font-extrabold tracking-tight text-slate-900 mb-4 text-center lg:text-left">
                     Nous construisons les fondations numériques des leaders de demain.
                   </h3>
-                  <p className="text-base sm:text-lg text-slate-800 md:text-slate-700 font-medium sm:font-normal leading-relaxed mb-4">
+                  <p className="text-base sm:text-lg text-slate-800 md:text-slate-700 font-medium sm:font-normal leading-relaxed mb-4 text-center lg:text-left">
                     Chez <strong className="text-slate-900 font-bold">NOBTECH</strong>, nous ne nous contentons pas de fournir des services IT. Nous architecturons des écosystèmes complets, résilients et évolutifs. Face à la complexité croissante des réseaux et à l&apos;évolution des cybermenaces, notre mission est de vous offrir un socle technologique infaillible.
                   </p>
-                  <p className="text-sm sm:text-base text-slate-700 md:text-slate-600 leading-relaxed">
+                  <p className="text-sm sm:text-base text-slate-700 md:text-slate-600 leading-relaxed text-center lg:text-left">
                     Nous croyons fermement qu&apos;une infrastructure technologique performante ne devrait pas être un luxe réservé aux multinationales. Notre but est de démocratiser l&apos;accès à une informatique de pointe, robuste et sécurisée pour l&apos;ensemble de nos clients.
                   </p>
                 </FadeUp>
@@ -203,7 +203,7 @@ export default async function AboutPage() {
                   <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-full blur-[50px] -translate-y-1/2 translate-x-1/2"></div>
                   
                   <FadeUp delay={0.1}>
-                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 group">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4 sm:gap-6 group">
                       <MagneticElement>
                         <div className="w-14 h-14 rounded-sm bg-gradient-to-br from-white/5 to-white/10 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-accent/50 transition-colors duration-500">
                           <Target className="w-6 h-6 text-accent" />
@@ -216,7 +216,7 @@ export default async function AboutPage() {
                     </div>
                   </FadeUp>
                   <FadeUp delay={0.2}>
-                    <div className="flex gap-6 group">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4 sm:gap-6 group">
                       <MagneticElement>
                         <div className="w-14 h-14 rounded-sm bg-gradient-to-br from-white/5 to-white/10 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-accent/50 transition-colors duration-500">
                           <Globe className="w-6 h-6 text-accent" />
@@ -229,7 +229,7 @@ export default async function AboutPage() {
                     </div>
                   </FadeUp>
                   <FadeUp delay={0.3}>
-                    <div className="flex gap-6 group">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4 sm:gap-6 group">
                       <MagneticElement>
                         <div className="w-14 h-14 rounded-sm bg-gradient-to-br from-white/5 to-white/10 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-accent/50 transition-colors duration-500">
                           <Award className="w-6 h-6 text-accent" />
@@ -250,7 +250,7 @@ export default async function AboutPage() {
                 {/* Services list */}
                 <FadeUp delay={0.2}>
                   <div className="rounded-sm border border-slate-200 bg-white p-5 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="text-cyan-600 font-bold text-xs tracking-widest uppercase mb-6">Nos Domaines d&apos;Expertise</div>
+                    <div className="text-cyan-600 font-bold text-xs tracking-widest uppercase mb-6 text-center sm:text-left">Nos Domaines d&apos;Expertise</div>
                     <div className="grid grid-cols-1 gap-4">
                       {[
                         { cat: 'Réseau', items: ['Câblage structuré', 'Téléphonie IP (VoIP)', 'Virtualisation'] },

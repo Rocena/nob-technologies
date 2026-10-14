@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Container, Section } from '@/components/ui/layout';
 import { FadeUp } from '@/components/animations';
 import { Network, Lock, Quote, Award, ArrowRight } from 'lucide-react';
@@ -12,25 +11,8 @@ interface FounderBioSectionProps {
   photoSrc?: string;
 }
 
-const rotatingRoles = [
-  "Infrastructures Réseaux Critiques",
-  "Cybersécurité & Pare-feu Avancé",
-  "Haute Disponibilité & Cloud 24/7",
-  "Systèmes d’Information & Télécoms",
-];
-
-const titleWords = ["L’Ingénieur", "&", "Visionnaire", "derrière"];
-
 export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
   const photo = photoSrc || "/images/founder/ozias-nzongo.jpg";
-  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentRoleIndex((prev) => (prev + 1) % rotatingRoles.length);
-    }, 2800);
-    return () => clearInterval(timer);
-  }, []);
 
   return (
     <Section id="fondateur" className="py-20 md:py-28 lg:py-32 bg-[#020617] text-white relative overflow-hidden border-t border-b border-slate-800/80">
@@ -39,113 +21,32 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] lg:w-[1000px] h-[400px] bg-gradient-to-r from-[#00D4FF]/12 via-[#00F0FF]/6 to-[#10E760]/12 rounded-full blur-[140px] pointer-events-none" />
 
       <Container className="relative z-10">
-        {/* Section Header: Dynamic Pro Animation */}
+        {/* Section Header: Clean, Authoritative & Perfectly Centered */}
         <div className="text-center max-w-3xl mx-auto mb-14 md:mb-20">
-          
-          {/* Eyebrow Pill with Live Terminal Prompt */}
-          <motion.div
-            initial={{ opacity: 0, y: -16, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 shadow-[0_0_25px_rgba(0,212,255,0.18)] backdrop-blur-md mb-5"
-          >
-            <span className="text-[#00D4FF] font-black select-none text-xs sm:text-sm font-mono tracking-tighter inline-flex items-center">
-              &gt;<span className="text-[#10E760] animate-pulse">_</span>
-            </span>
-            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-              DIRECTION &amp; LEADERSHIP TECHNIQUE
-            </span>
-          </motion.div>
-
-          {/* Staggered Kinetic Word Reveal Title */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight mb-4 flex flex-wrap items-center justify-center gap-x-2.5 sm:gap-x-3.5">
-            {titleWords.map((word, idx) => (
-              <span key={word} className="inline-block overflow-hidden py-1">
-                <motion.span
-                  initial={{ y: "110%", opacity: 0, rotateZ: 2 }}
-                  whileInView={{ y: 0, opacity: 1, rotateZ: 0 }}
-                  viewport={{ once: true, margin: "-10%" }}
-                  transition={{
-                    duration: 0.7,
-                    delay: 0.08 * idx,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="inline-block"
-                >
-                  {word}
-                </motion.span>
+          <FadeUp>
+            {/* Open Eyebrow without pill container */}
+            <div className="inline-flex items-center justify-center gap-2 font-mono text-xs sm:text-sm tracking-[0.2em] uppercase font-extrabold mb-4">
+              <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">
+                &gt;<span className="text-[#10E760] animate-pulse">_</span>
               </span>
-            ))}
-            
-            {/* Animated Brand Name: Continuous Shimmer Gradient */}
-            <span className="inline-block overflow-hidden py-1">
-              <motion.span
-                initial={{ y: "110%", opacity: 0, scale: 0.9 }}
-                whileInView={{ y: 0, opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.35,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="relative inline-block font-black tracking-tight"
-              >
-                <motion.span
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  style={{ backgroundSize: "200% 200%" }}
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] drop-shadow-[0_0_28px_rgba(0,212,255,0.45)] inline-block"
-                >
-                  NOBTECH
-                </motion.span>
-              </motion.span>
-            </span>
-          </h2>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.45, ease: "easeOut" }}
-            className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mt-2"
-          >
-            Une technologie solide, pensée avec rigueur pour durer et faire grandir les entreprises.
-          </motion.p>
-
-          {/* Live Dynamic Ticker: Rotating Core Competency */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex items-center justify-center gap-2 mt-5 text-xs sm:text-sm font-mono"
-          >
-            <span className="text-slate-500 hidden sm:inline">Pôle d&apos;expertise :</span>
-            <div className="h-8 overflow-hidden relative inline-flex items-center">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={currentRoleIndex}
-                  initial={{ y: 16, opacity: 0, filter: "blur(4px)" }}
-                  animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-                  exit={{ y: -16, opacity: 0, filter: "blur(4px)" }}
-                  transition={{ duration: 0.35, ease: "easeInOut" }}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-950/50 border border-cyan-500/40 text-cyan-300 font-bold shadow-[0_0_15px_rgba(0,212,255,0.15)]"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#10E760] animate-pulse" />
-                  {rotatingRoles[currentRoleIndex]}
-                </motion.span>
-              </AnimatePresence>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                DIRECTION &amp; LEADERSHIP TECHNIQUE
+              </span>
             </div>
-          </motion.div>
 
+            {/* Clean, Simple & Impactful Title */}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white leading-tight mb-4 text-center">
+              L’Ingénieur &amp; Visionnaire derrière{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                NOBTECH
+              </span>
+            </h2>
+
+            {/* Subtitle */}
+            <p className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed text-center">
+              Une technologie solide, pensée avec rigueur pour durer et faire grandir les entreprises.
+            </p>
+          </FadeUp>
         </div>
 
         {/* Bento Grid Layout: Portrait Card (Left) & High-End Story Panel (Right) */}
@@ -234,7 +135,7 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
             
             {/* Executive Statement (No Card) */}
             <FadeUp delay={0.2}>
-              <div className="pb-3 border-b border-white/10">
+              <div className="pb-3 border-b border-white/10 text-center lg:text-left">
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug">
                   Mettre l’informatique au service de la{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
@@ -247,7 +148,7 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
 
             {/* Clear, Impactful Story (Simple Words) */}
             <FadeUp delay={0.3}>
-              <div className="space-y-4 text-slate-300 text-base leading-relaxed">
+              <div className="space-y-4 text-slate-300 text-base leading-relaxed text-center lg:text-left">
                 <p>
                   Fort de plus de <strong className="text-white font-bold">14 ans d’expérience</strong> dans les technologies de l’information, <strong className="text-white font-bold">Ozias B. Nzongo</strong> a construit son parcours autour d’une ambition simple : faire de l&apos;outil informatique un levier fiable qui propulse les entreprises au lieu de les ralentir.
                 </p>
@@ -297,7 +198,7 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
                 {/* Subtle Ambient Glow */}
                 <div className="absolute top-0 right-0 w-44 h-44 bg-gradient-to-br from-[#00D4FF]/10 to-[#10E760]/5 rounded-full blur-2xl pointer-events-none" />
                 
-                <div className="flex items-start gap-4 sm:gap-5 relative z-10">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4 sm:gap-5 relative z-10">
                   <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-cyan-500/15 to-emerald-500/15 border border-cyan-400/30 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(0,212,255,0.15)] mt-0.5">
                     <Quote className="w-5 h-5 sm:w-6 sm:h-6 text-[#00D4FF]" />
                   </div>
@@ -308,7 +209,7 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
                         aller plus loin
                       </span>. »
                     </blockquote>
-                    <div className="mt-5 pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <div className="mt-5 pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-center sm:items-center justify-center sm:justify-between text-center sm:text-left gap-1">
                       <span className="text-base text-white font-extrabold font-sans">
                         Ozias B. Nzongo
                       </span>
