@@ -346,7 +346,9 @@ export default async function FormationDetailPage({ params }: Props) {
                         {formation.career.salarySenegal.junior}
                       </p>
                       <p className="text-[11px] text-slate-400 mt-2 leading-relaxed">
-                        Titulaire d&apos;une certification constructeur officielle (ex. CCNA, NSE4, ISO 27001).
+                        {formation.targetCertifications?.[0]
+                          ? `Titulaire d'une certification reconnue (ex. ${formation.targetCertifications[0].title}).`
+                          : "Première expérience avec attestation de compétences ou certification reconnue."}
                       </p>
                     </div>
 
