@@ -72,12 +72,12 @@ const SPOTLIGHTS: Record<string, SpotlightInfo> = {
     tag: "100% Résultats Prouvés",
   },
   'a-propos': {
-    badge: "CONFORMITÉ & SÉCURITÉ",
-    title: "Centre de Confiance",
-    desc: "Gouvernance ISO 27001, certification Fluke, conformité CDP et statut des services en direct.",
-    linkText: "Accéder au centre de confiance",
-    href: "/centre-de-confiance",
-    tag: "SLA 99.9% Garanti",
+    badge: "CABINET D'INGÉNIERIE",
+    title: "À Propos de Nobtech",
+    desc: "Notre histoire, nos ingénieurs certifiés et nos standards d’excellence à Dakar.",
+    linkText: "Découvrir notre entreprise",
+    href: "/a-propos",
+    tag: "Excellence & Proximité",
   },
 };
 
@@ -107,7 +107,7 @@ const DEFAULT_NAV: NavItem[] = [
     children: [
       { name: 'Catalogue Formations (6 Mois)', href: '/formations', desc: 'Cursus d’excellence et ateliers pratiques à Dakar (max 6h/sem)', tag: 'Immersion • 6 Mois' },
       { name: 'Préparation Certifications IT', href: '/formations/cisco-ccna', desc: 'Préparation officielle Cisco CCNA, Fortinet NSE, Sophos & CompTIA', tag: 'CCNA • NSE 4 • Sophos' },
-      { name: 'Cybersécurité & Audit SOC', href: '/formations/power-bi-cybersecurite', desc: 'Gouvernance ISO 27001, surveillance SOC et techniques de pentest', tag: 'ISO 27001 • Pentest' },
+      { name: 'Business Intelligence & Power BI', href: '/formations/power-bi', desc: 'Modélisation DAX, tableaux de bord interactifs et reporting décisionnel', tag: 'Power BI • DAX' },
       { name: 'Automatisation & IA', href: '/formations/initiation-intelligence-artificielle', desc: 'Workflows Make, scripting Python, agents IA et productivité', tag: 'Make • Python • IA' },
     ]
   },
@@ -138,14 +138,11 @@ const DEFAULT_NAV: NavItem[] = [
     id: 'a-propos',
     name: 'Entreprise', 
     href: '/a-propos', 
-    desc: 'Présentation de Nob Technologies, notre équipe d’ingénieurs et centre de confiance',
+    desc: 'Présentation de Nob Technologies et de notre équipe d’ingénieurs',
     order: 5,
     children: [
       { name: 'À Propos de Nobtech', href: '/a-propos', desc: 'Notre histoire, nos valeurs et nos standards d’excellence à Dakar', tag: 'Cabinet Dakar' },
-      { name: 'Centre de Confiance & Conformité', href: '/centre-de-confiance', desc: 'Engagements ISO/IEC, certification Fluke, conformité CDP et SLA', tag: 'Gouvernance & SLA' },
-      { name: 'Statut des Systèmes', href: '/statut', desc: 'Disponibilité en direct des infrastructures et plateformes managées', tag: 'Live 99.9%' },
-      { name: 'Ressources & Livres Blancs', href: '/ressources', desc: 'Guides pratiques de cybersécurité et fiches techniques pour DSI', tag: 'Guides DSI' },
-      { name: 'Actualités & Blog', href: '/articles', desc: 'Veille technologique, cyberdéfense, bonnes pratiques et annonces', tag: 'Veille & Sécurité' },
+      { name: 'Actualités & Blog', href: '/articles', desc: 'Veille technologique, bonnes pratiques et annonces', tag: 'Veille & Actualités' },
       { name: 'Foire Aux Questions (FAQ)', href: '/faq', desc: 'Réponses à vos questions sur les délais, contrats et garanties SLA', tag: 'SLA & Garanties' },
       { name: 'Carrières & Recrutement', href: '/carrieres', desc: 'Rejoindre notre équipe d’ingénieurs réseaux et consultants IT', tag: 'Recrutement' },
     ]
@@ -182,9 +179,8 @@ const getHeaderCategoryLabel = (idOrName: string) => {
 
 const getSubItemIcon = (name: string, href: string = "") => {
   const n = (name + " " + href).toLowerCase();
-  if (n.includes('centre-de-confiance') || n.includes('confiance') || n.includes('conformit')) return Lock;
-  if (n.includes('statut') || n.includes('santé') || n.includes('uptime')) return Activity;
-  if (n.includes('ressource') || n.includes('livre') || n.includes('guide')) return FileText;
+  if (n.includes('power bi') || n.includes('business intelligence') || n.includes('data')) return Activity;
+  if (n.includes('conformit') || n.includes('norme')) return Lock;
   if (n.includes('audit') || n.includes('soc')) return ShieldAlert;
   if (n.includes('cyber') || n.includes('firewall')) return ShieldCheck;
   if (n.includes('réseau') || n.includes('reseau') || n.includes('câblage') || n.includes('telecom')) return Network;

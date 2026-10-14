@@ -197,7 +197,7 @@ function fallbackSuggestions(text: string): string[] {
     return ["Audit & Test d'intrusion", "Pare-feu Sophos / Fortinet", "Demander un devis cyber"];
   }
   if (/formation|certif|ccna|cisco/i.test(lower)) {
-    return ["Certificat Cisco Cyber", "Formation Cisco CCNA", "Power BI & SOC Analytics"];
+    return ["Certificat Cisco Cyber", "Formation Cisco CCNA", "Microsoft Power BI"];
   }
   if (/erp|odoo|dolibarr|gestion/i.test(lower)) {
     return ["ERP 100% sur-mesure", "Intégration Odoo", "Intégration Dolibarr"];

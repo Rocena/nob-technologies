@@ -50,7 +50,7 @@ export default async function FormationsCatalogPage() {
             </TextReveal>
             <FadeUp delay={0.2}>
               <p className="text-slate-300 text-base sm:text-lg md:text-xl font-normal max-w-3xl mx-auto leading-relaxed">
-                Des cursus d&apos;ingénierie et de certification animés par nos experts en production à Dakar : Certificat International Cisco en cybersécurité, Power BI appliqué à la sécurité &amp; SOC, certifications officielles (Cisco CCNA, Fortinet, Sophos) et cadres de conformité (NIST, ISO 27001).
+                Des cursus d&apos;ingénierie et de certification animés par nos experts en production à Dakar : Certificat International Cisco en cybersécurité, Microsoft Power BI &amp; Business Intelligence, certifications officielles (Cisco CCNA, Fortinet, Sophos) et cadres de conformité (NIST, ISO 27001).
               </p>
             </FadeUp>
 

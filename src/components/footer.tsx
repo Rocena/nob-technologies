@@ -89,9 +89,6 @@ export async function Footer() {
             <h4 className="font-semibold text-xs tracking-[0.2em] uppercase text-slate-100 mb-6">Entreprise</h4>
             <ul className="space-y-4">
               <li><Link href="/a-propos" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">À propos</Link></li>
-              <li><Link href="/centre-de-confiance" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Centre de confiance</Link></li>
-              <li><Link href="/statut" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Statut des systèmes</Link></li>
-              <li><Link href="/ressources" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Ressources & Livres Blancs</Link></li>
               <li><Link href="/partenaires" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Partenaires Constructeurs</Link></li>
               <li><Link href="/formations" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Formations & Certifications</Link></li>
               <li><Link href="/carrieres" className="text-sm text-slate-400 hover:text-accent hover:translate-x-1 transition-all inline-block">Carrières</Link></li>

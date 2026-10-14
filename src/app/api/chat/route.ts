@@ -32,7 +32,7 @@ Pôles d'expertise clés :
 3. ERP & Digitalisation : ERP 100% sur-mesure développés de bout en bout, et intégration des solutions Odoo et Dolibarr (stocks, facturation, CRM, comptabilité).
 4. Web, Mobile & Réseaux Sociaux : Plateformes web performantes (ex: plateforme officielle de l'Hôtel du Parc / Parc Exotique du Sénégal), applications mobiles Flutter, gestion active de réseaux sociaux (Instagram & Facebook pour l'Hôtel du Parc).
 5. Vente de Matériel & Licences : Serveurs d'entreprise Dell PowerEdge, switchs Cisco, licences officielles Microsoft 365.
-6. Formations & Certifications : Cybersécurité Fondamentale avec Certificat International Cisco (test officiel sanctionné par Cisco), Power BI pour la Cybersécurité & SOC Analytics, Fortinet NSE 4, Sophos, Microsoft 365, Cisco CCNA, Gestion de projet, ISO 27001/NIST, Ethical Hacking.`;
+6. Formations & Certifications : Cybersécurité Fondamentale avec Certificat International Cisco (test officiel sanctionné par Cisco), Microsoft Power BI & Business Intelligence, Fortinet NSE 4, Sophos, Microsoft 365, Cisco CCNA, Gestion de projet, ISO 27001/NIST, Ethical Hacking.`;
 
 // Natural conversational human response generator (works 100% offline & without third-party API keys)
 function generateNaturalResponse(userMessage: string, history: ChatMessage[] = []): string {
@@ -142,7 +142,7 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
   if (/(formation|certif|cours|apprendre|apprenant|ccna|fortinet|nse|sophos|phishing|ethical|hacking|nist|iso 27001|gestion de projet|initiation|power bi|cisco)/i.test(q) || (isOneWord && ["formation", "certif", "ccna"].includes(words[0]))) {
     return "Nos formations sont axées sur la pratique réelle et la préparation aux certifications internationales 🎓 :\n\n" +
       "1. **Cybersécurité Fondamentale & Certificat International Cisco** (4 sem.) : Test officiel sanctionné par le Certificat International Cisco en cybersécurité (au lieu d'une simple attestation locale).\n" +
-      "2. **Power BI pour la Cybersécurité & SOC Analytics** (4 sem.) : Ingestion de logs firewalls/SIEM, modélisation DAX et création de dashboards de détection cyber.\n" +
+      "2. **Microsoft Power BI & Business Intelligence** (4 sem.) : Ingestion multi-sources (Excel, SQL, ERP), modélisation DAX et création de dashboards décisionnels interactifs.\n" +
       "3. **Sensibilisation au phishing** (2 sem.) : simulations et cas concrets anti-fraude.\n" +
       "4. **Initiation à l'IA** (4 sem.) : prompt engineering, IA générative et automatisation.\n" +
       "5. **Préparation Fortinet NSE 4 / FCP** (8 sem.) : maîtrise complète des pare-feux FortiGate.\n" +
@@ -244,7 +244,7 @@ export function computeSuggestions(userMessage: string, botReply: string = ""): 
     return [
       "Certificat International Cisco",
       "Formation Cisco CCNA 200-301",
-      "Power BI & SOC Analytics",
+      "Microsoft Power BI & BI",
       "Programme Fortinet NSE 4"
     ];
   }

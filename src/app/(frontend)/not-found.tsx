@@ -51,7 +51,7 @@ export default function NotFound() {
             <span>&bull;</span>
             <Link href="/reserver-audit" className="hover:text-cyan-400 underline underline-offset-4">Réserver un audit</Link>
             <span>&bull;</span>
-            <Link href="/centre-de-confiance" className="hover:text-cyan-400 underline underline-offset-4">Centre de confiance</Link>
+            <Link href="/a-propos" className="hover:text-cyan-400 underline underline-offset-4">À propos</Link>
             <span>&bull;</span>
             <Link href="/contact" className="hover:text-cyan-400 underline underline-offset-4">Contact</Link>
           </div>
