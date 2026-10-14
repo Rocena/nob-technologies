@@ -11,6 +11,7 @@ import { getAllFormations, getFormationBySlug } from "@/lib/formations";
 import { FormationInquiryForm } from "./FormationInquiryForm";
 import { CurriculumSyllabus } from "@/components/formations/CurriculumSyllabus";
 import { FormationOfferingsSection } from "@/components/formations/FormationOfferingsSection";
+import { FormationVideoSection } from "@/components/formations/FormationVideoSection";
 import {
   Calendar,
   Clock,
@@ -229,6 +230,23 @@ export default async function FormationDetailPage({ params }: Props) {
             </div>
           </Container>
         </Section>
+
+        {/* Live Training Video Excerpt for Phishing Course */}
+        {slug === "sensibilisation-phishing-cas-pratiques" && (
+          <Section className="py-20 bg-[#020617] border-t border-white/10 relative overflow-hidden">
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+            <Container className="relative z-10">
+              <FormationVideoSection
+                videoId="lx105w1dLLU"
+                eyebrow="IMMERSION EN DIRECT • EXTRAIT DE COURS"
+                title="Aperçu d'une session : Détection du Phishing"
+                subtitle="Visualisez un cas réel traité en direct lors de nos ateliers : comment reconnaître les signes précurseurs d'un faux email et sécuriser les échanges d'entreprise."
+                ctaLink="#candidature"
+                ctaText="S'inscrire à cet atelier"
+              />
+            </Container>
+          </Section>
+        )}
 
         {/* 3 Formats adaptés : Entreprises, Bootcamps, Particuliers */}
         <Section className="py-20 bg-slate-900 border-t border-white/10">

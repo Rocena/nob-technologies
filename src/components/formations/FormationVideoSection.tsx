@@ -3,19 +3,25 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Play, Sparkles, CheckCircle2, ArrowRight, ShieldCheck, Terminal, Users } from "lucide-react";
+import { Play, CheckCircle2, ArrowRight, ShieldCheck, Terminal, Users, AlertTriangle } from "lucide-react";
 import { FadeUp } from "@/components/animations";
 
 interface FormationVideoSectionProps {
   videoId?: string;
+  eyebrow?: string;
   title?: string;
   subtitle?: string;
+  ctaLink?: string;
+  ctaText?: string;
 }
 
 export function FormationVideoSection({
   videoId = "lx105w1dLLU",
-  title = "Regardez nos sessions de formation en action",
-  subtitle = "Découvrez la réalité de nos formations en direct : immersion pratique, manipulation sur équipements réels et transmission opérationnelle par nos ingénieurs.",
+  eyebrow = "ATELIER PRATIQUE • SENSIBILISATION AU PHISHING",
+  title = "Sensibilisation au Phishing : la formation en action",
+  subtitle = "Découvrez un extrait en direct de nos ateliers de cybersécurité : décryptage des techniques d'hameçonnage (phishing), analyse des faux courriels et réflexes de défense face aux cyber-escroqueries.",
+  ctaLink = "/formations/sensibilisation-phishing-cas-pratiques",
+  ctaText = "Découvrir le programme Phishing",
 }: FormationVideoSectionProps) {
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -29,15 +35,21 @@ export function FormationVideoSection({
               &gt;<span className="text-[#10E760] animate-pulse">_</span>
             </span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-              IMMERSION EN DIRECT &bull; NOS ATELIERS
+              {eyebrow}
             </span>
           </div>
 
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-white leading-tight mb-4 text-center">
-            Une Pédagogie de Terrain :{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-              en action
-            </span>
+            {title.includes(":") ? (
+              <>
+                {title.split(":")[0]} :{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                  {title.split(":")[1]}
+                </span>
+              </>
+            ) : (
+              title
+            )}
           </h2>
 
           <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed text-center">
@@ -60,12 +72,12 @@ export function FormationVideoSection({
                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 inline-block" />
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
                 <span className="ml-2 text-slate-400 hidden sm:inline-block">
-                  session_live_nobtech.mp4
+                  session_phishing_cybersecurite.mp4
                 </span>
               </div>
               <div className="flex items-center gap-2 text-cyan-400 font-medium">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block" />
-                <span>Cas Réels &bull; Ingénierie Réseau</span>
+                <span>Cas Réels &bull; Prévention Phishing</span>
               </div>
             </div>
 
@@ -76,7 +88,7 @@ export function FormationVideoSection({
                   {/* YouTube HQ Thumbnail */}
                   <Image
                     src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
-                    alt="Aperçu session de formation NOBTECH"
+                    alt="Session de sensibilisation au phishing NOBTECH"
                     fill
                     unoptimized
                     className="object-cover opacity-85 transition-transform duration-700 hover:scale-105"
@@ -88,20 +100,20 @@ export function FormationVideoSection({
 
                   {/* Corner Badges */}
                   <div className="absolute top-4 left-4 z-10 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/85 backdrop-blur-md border border-white/10 text-xs text-slate-200">
-                    <Terminal className="w-3.5 h-3.5 text-[#00D4FF]" />
-                    <span>Démonstration Réseau &bull; Dakar</span>
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#00D4FF]" />
+                    <span>Sensibilisation Phishing &bull; Dakar</span>
                   </div>
 
                   <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-600/90 backdrop-blur-md text-white text-xs font-bold tracking-wide">
                     <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                    <span>EXTRAIT VIDÉO</span>
+                    <span>EXTRAIT VIDÉO EN DIRECT</span>
                   </div>
 
                   {/* Central Interactive Play Button */}
                   <button
                     onClick={() => setIsPlaying(true)}
                     className="group relative z-20 flex flex-col items-center gap-4 transition-transform active:scale-95"
-                    aria-label="Lancer la vidéo de formation"
+                    aria-label="Lancer la vidéo sur le phishing"
                   >
                     <div className="relative flex items-center justify-center">
                       {/* Pulse rings */}
@@ -115,14 +127,14 @@ export function FormationVideoSection({
                     </div>
 
                     <span className="px-4 py-1.5 rounded-full bg-slate-900/90 backdrop-blur-md border border-white/10 text-white text-xs sm:text-sm font-semibold tracking-wide shadow-lg group-hover:border-[#00D4FF]/40 transition-colors">
-                      Lancer la vidéo de formation
+                      Regarder l&apos;extrait de formation Phishing
                     </span>
                   </button>
                 </>
               ) : (
                 <iframe
                   src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`}
-                  title="Session de formation en ingénierie réseaux NOBTECH"
+                  title="Session de formation et sensibilisation au phishing NOBTECH"
                   className="w-full h-full border-0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -137,27 +149,27 @@ export function FormationVideoSection({
                   <CheckCircle2 className="w-4 h-4 text-[#00D4FF]" />
                 </div>
                 <div>
-                  <span className="text-white font-bold block">100% Pratique &amp; Labs</span>
-                  <span className="text-slate-400">Travaux dirigés sur matériel physique</span>
+                  <span className="text-white font-bold block">Décryptage des Pièges</span>
+                  <span className="text-slate-400">Anatomie de faux e-mails &amp; usurpations</span>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
-                  <Users className="w-4 h-4 text-[#10E760]" />
+                  <ShieldCheck className="w-4 h-4 text-[#10E760]" />
                 </div>
                 <div>
-                  <span className="text-white font-bold block">Transmission Directe</span>
-                  <span className="text-slate-400">Interaction continue avec l&apos;instructeur</span>
+                  <span className="text-white font-bold block">Réflexes de Cyber-Vigilance</span>
+                  <span className="text-slate-400">Sensibilisation active des collaborateurs</span>
                 </div>
               </div>
 
               <div className="flex items-center justify-start sm:justify-end">
                 <Link
-                  href="/contact"
+                  href={ctaLink}
                   className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#00D4FF]/40 text-white font-semibold transition-all group w-full sm:w-auto text-center"
                 >
-                  <span>Rejoindre la prochaine session</span>
+                  <span>{ctaText}</span>
                   <ArrowRight className="w-3.5 h-3.5 text-[#00D4FF] transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
