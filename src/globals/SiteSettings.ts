@@ -131,8 +131,8 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'botGreeting',
               type: 'text',
-              label: "Message de bienvenue de l'assistant",
-              defaultValue: "Bonjour ! Je suis l'assistant virtuel de NOB TECHNOLOGIES. Comment puis-je vous aider aujourd'hui ? 😊",
+              label: "Message de bienvenue de l'assistant (Koffi)",
+              defaultValue: "Bonjour ! Je m'appelle Koffi, votre conseiller chez NOBTECH. Comment puis-je vous aider aujourd'hui ? 😊",
             },
             {
               name: 'knowledgeBase',

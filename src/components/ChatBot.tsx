@@ -24,7 +24,7 @@ function getTime() {
 // Illustration d'un jeune homme africain souriant avec coupe afro soignée, lunettes modernes et fond cyan radieux
 export function AssistantAvatar({ className = "w-6 h-6" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="Conseiller digital NOB TECHNOLOGIES">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="Koffi, Conseiller digital NOBTECH">
       <defs>
         {/* Fond cyan radieux à fort contraste (évite le fond noir) */}
         <radialGradient id="nob-avatar-bg" cx="32" cy="24" r="32" gradientUnits="userSpaceOnUse">
@@ -147,65 +147,71 @@ export function AssistantAvatar({ className = "w-6 h-6" }: { className?: string 
 }
 
 const INITIAL_SUGGESTIONS: string[] = [
+  "Demander un devis gratuit",
   "Cybersécurité & Firewalls",
   "Réseaux & Câblage",
   "Formations certifiantes",
-  "Demander un devis gratuit",
 ];
 
 const DEFAULT_KNOWLEDGE_BASE: KnowledgeItem[] = [
   {
-    keywords: ["prix", "tarif", "devis", "coût", "cout", "forfait", "abonnement", "chiffrer", "commander"],
-    response: "Nos devis sont 100% personnalisés et gratuits ! Cliquez sur « Demander un devis » sur le site pour nous faire part de vos besoins, ou contactez directement nos ingénieurs. Nous vous répondons sous 24h ouvrées. 📋"
+    keywords: ["prix", "tarif", "devis", "coût", "cout", "forfait", "abonnement", "chiffrer", "remplir"],
+    response: "Avec grand plaisir ! Chez **NOBTECH**, nos devis sont **100% gratuits, sur-mesure et sans engagement** sous 24h ouvrées. 📋\n\nPour aller au plus vite, 3 possibilités s'offrent à vous :\n\n1️⃣ **Remplir notre formulaire guidé en 1 minute** :\n👉 [Ouvrir le formulaire de devis en ligne](/contact)\n\n2️⃣ **M'en dire deux mots ici** :\nDites-moi simplement quel est votre projet (cybersécurité & pare-feu, câblage réseau, ERP, matériel, formation) et le nombre de postes ou locaux concernés. Je note tout pour nos ingénieurs !\n\n3️⃣ **Échanger directement sur WhatsApp** avec notre équipe technique :\n📲 [Discuter sur WhatsApp (+221 77 301 08 38)](https://wa.me/221773010838?text=Bonjour%20Koffi,%20je%20souhaite%20obtenir%20un%20devis)\n\nQuel domaine vous intéresse en priorité ?"
   },
   {
     keywords: ["sécurité", "securite", "cyber", "cybersécurité", "firewall", "vpn", "protection", "hack", "virus", "sophos", "fortinet"],
-    response: "La cybersécurité est le cœur de métier de NOB TECHNOLOGIES ! Nous déployons des pare-feux nouvelle génération Sophos & Fortinet, des sauvegardes anti-ransomware Acronis, et assurons la gouvernance IAM avec Wallix. 🔐"
+    response: "La cybersécurité est le cœur de métier de **NOBTECH** ! 🛡️ Nous déployons des pare-feux nouvelle génération Sophos XGS & Fortinet FortiGate, des sauvegardes anti-ransomware Acronis, et assurons la gouvernance IAM avec Wallix. Avez-vous un réseau ou des postes à protéger ?"
   },
   {
     keywords: ["contact", "appel", "téléphone", "telephone", "email", "joindre", "rappel", "adresse", "dakar", "sénégal", "senegal", "localiser", "localisation"],
-    response: "NOB TECHNOLOGIES est situé à Dakar (Route de l’Aéroport LSS lot N° 79, repère Google Maps : QG3J+HP Dakar). Vous pouvez nous appeler au +221 77 301 08 38 / +221 33 814 04 35 ou nous écrire à contact@nobtech.fr. 📍📞"
+    response: "**NOBTECH** est situé à Dakar (Route de l’Aéroport LSS lot N° 79, repère Google Maps : QG3J+HP Dakar). 📍\n\nVous pouvez nous appeler directement au **+221 77 301 08 38** ou nous écrire à **contact@nobtech.fr**."
   },
   {
     keywords: ["réseau", "reseau", "wifi", "câblage", "cablage", "voip", "téléphonie", "cloud", "infogérance", "serveur", "informatique", "infrastructure"],
-    response: "Nous réalisons le câblage structuré cuivre & fibre, l'aménagement de baies de brassage, la téléphonie IP Yeastar & Cisco, et le déploiement de serveurs Dell et réseaux haute disponibilité. 🌐"
+    response: "Pour vos infrastructures, **NOBTECH** réalise le câblage structuré cuivre & fibre optique, l'aménagement de baies 42U certifiées Fluke, le Wi-Fi d'entreprise haute densité et la téléphonie IP d'entreprise. 🌐"
   },
   {
-    keywords: ["formation", "formations", "certifications", "certification", "ccna", "ccnp", "nse", "comptia", "programme", "6 mois"],
-    response: "Nous proposons des programmes d'immersion de 6 mois pour préparer vos équipes aux certifications d'élite : Cisco (CCNA/CCNP), Fortinet (NSE), CompTIA Security+, ainsi que des cursus en Audit Cybersécurité et Automatisation/IA. Découvrez notre page [Formations](/formations) ! 🎓"
+    keywords: ["formation", "formations", "certifications", "certification", "ccna", "ccnp", "nse", "power bi", "cisco"],
+    response: "Nous proposons des programmes d'excellence axés sur la pratique réelle et les certifications internationales : Cisco (CCNA & Certificat International Cisco), Microsoft Power BI, Fortinet NSE 4, Sophos et ISO 27001. Découvrez notre page [Formations](/formations) ! 🎓"
   },
   {
     keywords: ["erp", "odoo", "dolibarr", "gestion", "logiciel", "web", "mobile", "sur-mesure", "progiciel"],
-    response: "Nous concevons des ERP sur-mesure développés selon vos processus métiers spécifiques, et nous intégrons également les solutions de référence comme Dolibarr et Odoo. Nous développons aussi vos applications web & mobiles sur-mesure. 🚀"
+    response: "Nous concevons des ERP 100% sur-mesure adaptés à vos processus métiers uniques, et intégrons les leaders Odoo et Dolibarr (ventes, stocks, facturation conforme, RH). Nous développons aussi vos plateformes web & applications mobiles. 🚀"
   },
   {
     keywords: ["bonjour", "salut", "hello", "bonsoir", "bjr", "coucou", "yo"],
-    response: "Bonjour et bienvenue chez NOB TECHNOLOGIES ! 👋 Comment puis-je vous aider aujourd'hui ? Je peux vous renseigner sur nos services de cybersécurité, réseaux, ERP, formations certifiantes ou vous orienter pour un devis gratuit."
+    response: "Bonjour et bienvenue chez **NOBTECH** ! 👋 Je m'appelle **Koffi**. Comment puis-je vous aider aujourd'hui ? Dites-moi tout sur votre projet informatique ou posez-moi vos questions !"
   },
   {
     keywords: ["merci", "thanks", "parfait", "super", "excellent", "top"],
-    response: "Avec grand plaisir ! N'hésitez pas si vous avez d'autres questions. L'équipe NOB TECHNOLOGIES reste à votre entière disposition au +221 77 301 08 38. 🙌"
+    response: "Avec grand plaisir ! 😊 N'hésitez surtout pas si vous avez d'autres questions. Toute l'équipe **NOBTECH** reste à votre disposition au **+221 77 301 08 38** !"
   }
 ];
 
 function fallbackSuggestions(text: string): string[] {
   const lower = text.toLowerCase();
-  if (/devis|prix|tarif|combien|cout/i.test(lower)) {
-    return ["Demander un devis gratuit", "Échanger avec un ingénieur", "Délai d'intervention"];
+  if (/devis|prix|tarif|combien|cout|remplir|chiffrer/i.test(lower)) {
+    return [
+      "Devis Cybersécurité & Pare-feu",
+      "Devis Câblage & Réseau",
+      "Devis ERP sur-mesure",
+      "Ouvrir le formulaire devis",
+      "Échanger sur WhatsApp"
+    ];
   }
   if (/cyber|securite|firewall|sophos|fortinet/i.test(lower)) {
-    return ["Audit & Test d'intrusion", "Pare-feu Sophos / Fortinet", "Demander un devis cyber"];
+    return ["Audit & Test d'intrusion", "Pare-feu Sophos / Fortinet", "Sauvegardes anti-ransomware", "Devis Cybersécurité"];
   }
-  if (/formation|certif|ccna|cisco/i.test(lower)) {
-    return ["Certificat Cisco Cyber", "Formation Cisco CCNA", "Microsoft Power BI"];
+  if (/formation|certif|ccna|cisco|power bi/i.test(lower)) {
+    return ["Certificat International Cisco", "Formation Cisco CCNA", "Formation Power BI"];
   }
   if (/erp|odoo|dolibarr|gestion/i.test(lower)) {
-    return ["ERP 100% sur-mesure", "Intégration Odoo", "Intégration Dolibarr"];
+    return ["ERP 100% sur-mesure", "Intégration Odoo", "Intégration Dolibarr", "Devis ERP sur-mesure"];
   }
   if (/reseau|wifi|cablage|baie/i.test(lower)) {
-    return ["Câblage structuré & Baies 42U", "Wi-Fi professionnel", "Standard VoIP"];
+    return ["Câblage structuré & Baies 42U", "Wi-Fi d'entreprise", "Standard VoIP", "Devis Câblage & Réseau"];
   }
-  return ["Cybersécurité & Firewalls", "Réseaux, Câblage & Baies", "Formations certifiantes", "Demander un devis gratuit"];
+  return ["Demander un devis gratuit", "Cybersécurité & Firewalls", "Réseaux & Câblage", "Formations certifiantes"];
 }
 
 function getBotResponse(input: string, knowledge: KnowledgeItem[]): string {
@@ -217,22 +223,25 @@ function getBotResponse(input: string, knowledge: KnowledgeItem[]): string {
   }
 
   if (/pizza|burger|nourriture|faim|manger/i.test(lower)) {
-    return "Haha, pas du tout ! 😄 Nous ne livrons pas de pizzas, mais nous sécurisons vos réseaux d'entreprise, installons des pare-feux et concevons des ERP sur-mesure. Si vous avez un besoin informatique, là vous pouvez compter sur nous !";
+    return "Haha, pas du tout ! 😄 Notre truc chez **NOBTECH**, c'est plutôt les pare-feux, les baies 42U et les logiciels de gestion que les pizzas ! Par contre, si votre entreprise ou restaurant a besoin d'un réseau fiable, d'un site web ou d'un ERP de stock, comptez sur nous !";
   }
   if (/blague|humour|marrant/i.test(lower)) {
     return "Pourquoi les administrateurs réseaux et les développeurs détestent-ils la nature ? Parce qu'il y a trop de bugs et aucun Ctrl+Z ! 🐛💻 Comment se porte votre système informatique aujourd'hui ?";
   }
-  if (/t['\s]?es qui|qui es-?tu|es-?tu (une |un )?ia|qui parle/i.test(lower) || (words.length === 1 && words[0] === "qui")) {
-    return "Je suis votre conseiller digital chez NOB TECHNOLOGIES ! 😊 Mon rôle est de vous renseigner 24h/24 avec le sourire comme un collègue au bureau : vous expliquer nos expertises et vous mettre en relation directe avec nos ingénieurs à Dakar.";
+  if (/t['\s]?es qui|qui es-?tu|qui [eê]tes-?vous|es-?tu (une |un )?ia|qui parle|comment tu t['\s]?appelles/i.test(lower) || (words.length === 1 && words[0] === "qui")) {
+    return "Je m'appelle **Koffi**, conseiller digital chez **NOBTECH** ! 😊\n\nMon rôle est de vous renseigner 24h/24 avec le sourire comme un collègue au bureau : vous conseiller sur nos expertises (cybersécurité, réseaux, baies 42U, ERP, formations) et vous mettre en relation directe avec nos ingénieurs à Dakar.\n\nQuel projet ou besoin vous amène aujourd'hui ?";
   }
   if (/stage|recrutement|emploi|cv|job/i.test(lower)) {
-    return "Vous souhaitez rejoindre NOB TECHNOLOGIES ? 💼 C'est un plaisir ! Envoyez votre CV et lettre de motivation directement à contact@nobtech.fr avec en objet « Candidature Stage / Emploi ». Notre équipe RH l'étudiera avec attention !";
+    return "Vous souhaitez rejoindre l'équipe **NOBTECH** ? 💼 C'est un plaisir ! Envoyez votre CV et lettre de motivation directement à **contact@nobtech.fr** avec en objet « Candidature Stage / Emploi ». Notre équipe RH l'étudiera avec attention !";
   }
   if (/urgent|urgence|sos|panne|bloqu/i.test(lower)) {
-    return "Je suis là ! 🚨 S'il s'agit d'une panne bloquante ou d'un incident critique, appelez directement nos ingénieurs au +221 77 301 08 38 pour une prise en charge immédiate. Sinon, décrivez-moi le problème ici !";
+    return "Je suis là ! 🚨 S'il s'agit d'une panne bloquante ou d'un incident critique, appelez directement nos ingénieurs au **+221 77 301 08 38** pour une prise en charge immédiate. Sinon, décrivez-moi le problème ici !";
   }
   if (/whatsapp/i.test(lower)) {
-    return "Vous pouvez nous écrire directement sur WhatsApp au +221 77 301 08 38 📲 ! Nos ingénieurs vous répondent très rapidement.";
+    return "Vous pouvez nous écrire directement sur WhatsApp au **+221 77 301 08 38** 📲 ! [Cliquez ici pour démarrer la discussion](https://wa.me/221773010838?text=Bonjour%20Koffi,%20je%20souhaite%20obtenir%20des%20informations). Nos ingénieurs vous répondent très rapidement.";
+  }
+  if (/remplir un devis|demander un devis|devis gratuit|obtenir un devis|faire un devis|devis/i.test(lower)) {
+    return "Avec grand plaisir ! Chez **NOBTECH**, nos devis sont **100% gratuits, personnalisés et sans engagement** sous 24h ouvrées. 📋\n\nPour aller au plus vite, 3 possibilités s'offrent à vous :\n\n1️⃣ **Remplir notre formulaire guidé en 1 minute** :\n👉 [Ouvrir le formulaire de devis en ligne](/contact)\n\n2️⃣ **M'en dire deux mots ici** :\nDites-moi simplement quel est votre projet (cybersécurité & pare-feu, câblage réseau, ERP, matériel, formation) et le nombre de postes ou locaux concernés. Je note tout pour nos ingénieurs !\n\n3️⃣ **Échanger directement sur WhatsApp** avec notre équipe technique :\n📲 [Discuter sur WhatsApp (+221 77 301 08 38)](https://wa.me/221773010838?text=Bonjour%20Koffi,%20je%20souhaite%20obtenir%20un%20devis)\n\nQuel domaine vous intéresse en priorité ?";
   }
 
   let bestMatch: KnowledgeItem | null = null;
@@ -257,7 +266,21 @@ function getBotResponse(input: string, knowledge: KnowledgeItem[]): string {
     return bestMatch.response;
   }
 
-  return "Je vous écoute ! Chez NOB TECHNOLOGIES, nous intervenons en cybersécurité (Sophos, Fortinet), réseaux physiques & Wi-Fi, ERP sur-mesure (Odoo, Dolibarr), développement web et formations certifiantes à Dakar.\n\nDites-moi simplement ce que vous aimeriez réaliser ou joignez notre équipe au +221 77 301 08 38 !";
+  return "Je suis à votre écoute ! Chez **NOBTECH**, nous intervenons en cybersécurité (Sophos, Fortinet), réseaux & câblage certifié, ERP sur-mesure (Odoo, Dolibarr), développement web et formations certifiantes à Dakar.\n\nDites-moi simplement ce que vous aimeriez réaliser ou joignez notre équipe au **+221 77 301 08 38** !";
+}
+
+function renderFormattedChunk(chunk: string, keyPrefix: string) {
+  const subParts = chunk.split(/(\*\*.*?\*\*)/g);
+  return subParts.map((sub, j) => {
+    if (sub.startsWith('**') && sub.endsWith('**') && sub.length >= 4) {
+      return (
+        <strong key={`${keyPrefix}-${j}`} className="font-semibold text-white">
+          {sub.slice(2, -2)}
+        </strong>
+      );
+    }
+    return <span key={`${keyPrefix}-${j}`}>{sub}</span>;
+  });
 }
 
 function renderText(text: string) {
@@ -265,13 +288,22 @@ function renderText(text: string) {
   return parts.map((part, i) => {
     const match = part.match(/\[(.*?)\]\((.*?)\)/);
     if (match) {
+      const label = match[1];
+      const href = match[2];
+      const isExternal = href.startsWith('http') || href.startsWith('tel:') || href.startsWith('mailto:');
       return (
-        <a key={i} href={match[2]} className="underline text-[#00D4FF] hover:text-[#00D4FF]/80 transition-colors">
-          {match[1]}
+        <a
+          key={i}
+          href={href}
+          target={isExternal ? '_blank' : undefined}
+          rel={isExternal ? 'noopener noreferrer' : undefined}
+          className="inline-flex items-center gap-1 font-semibold text-[#00D4FF] hover:text-white underline underline-offset-2 transition-colors decoration-[#00D4FF]/40 hover:decoration-white"
+        >
+          {label}
         </a>
       );
     }
-    return <span key={i}>{part}</span>;
+    return <span key={i}>{renderFormattedChunk(part, `p-${i}`)}</span>;
   });
 }
 
@@ -282,7 +314,7 @@ export function ChatBot() {
     {
       id: 'init',
       role: 'bot',
-      text: "Bonjour ! Je suis l'assistant virtuel de NOB TECHNOLOGIES. Comment puis-je vous aider aujourd'hui ? 😊",
+      text: "Bonjour ! Je m'appelle **Koffi**, votre conseiller chez **NOBTECH** 👋\n\nQue ce soit pour sécuriser vos réseaux, installer un pare-feu, concevoir un ERP ou estimer un devis gratuit sous 24h, je suis là pour vous accompagner avec grand plaisir !\n\nComment puis-je vous aider aujourd'hui ? 😊",
       time: getTime(),
       suggestions: INITIAL_SUGGESTIONS,
     }
@@ -405,7 +437,7 @@ export function ChatBot() {
       {/* Floating button */}
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? 'Fermer le chat' : 'Ouvrir le chat avec notre assistant'}
+        aria-label={open ? 'Fermer le chat' : 'Ouvrir le chat avec Koffi, conseiller NOBTECH'}
         className={cn(
           'fixed bottom-6 right-4 sm:bottom-8 sm:right-8 z-[150] flex items-center gap-2.5 rounded-full px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_8px_32px_rgba(0,212,255,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 group',
           open
@@ -419,8 +451,8 @@ export function ChatBot() {
           <>
             <AssistantAvatar className="w-8 h-8 shrink-0 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_2px_8px_rgba(0,0,0,0.25)]" />
             <div className="flex flex-col text-left leading-none">
-              <span className="text-xs font-black tracking-tight text-[#020617]">Assistant</span>
-              <span className="text-[10px] font-semibold opacity-85 hidden sm:inline">En ligne</span>
+              <span className="text-xs font-black tracking-tight text-[#020617]">Koffi</span>
+              <span className="text-[10px] font-semibold opacity-85 hidden sm:inline">Conseiller NOBTECH</span>
             </div>
             <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-emerald-500 ring-2 ring-[#020617]" />
           </>
@@ -437,7 +469,7 @@ export function ChatBot() {
         )}
         style={{ height: '520px', maxHeight: '82vh' }}
         role="dialog"
-        aria-label="Discussion avec l'assistant virtuel NOB TECHNOLOGIES"
+        aria-label="Discussion avec Koffi, conseiller digital NOBTECH"
         aria-modal="false"
       >
         {/* Header */}
@@ -450,14 +482,14 @@ export function ChatBot() {
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-bold text-white leading-tight">Conseiller Virtuel</span>
+              <span className="text-sm font-bold text-white leading-tight">Koffi</span>
               <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#00D4FF]/10 text-[#00D4FF] font-medium border border-[#00D4FF]/20">
-                NOB TECH
+                NOBTECH
               </span>
             </div>
             <div className="text-[11px] text-slate-400 font-sans flex items-center gap-1.5 mt-0.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              En ligne
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Conseiller en ligne · Répond sous 1s
             </div>
           </div>
           <button
@@ -572,7 +604,7 @@ export function ChatBot() {
             </button>
           </div>
           <div className="flex items-center justify-between text-[10px] text-slate-500 px-1 mt-1.5">
-            <span>Assistant Virtuel · NOB TECHNOLOGIES</span>
+            <span>Koffi · Conseiller NOBTECH</span>
             <span>Entrée pour envoyer</span>
           </div>
         </div>
