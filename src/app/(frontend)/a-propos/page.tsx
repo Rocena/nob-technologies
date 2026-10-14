@@ -8,6 +8,7 @@ import { Shield, Network, Zap, Target, Cpu, Globe, CheckCircle2, Award, ShieldCh
 import { Clients } from '@/components/clients'
 import { FadeUp, TextReveal, MagneticElement } from '@/components/animations'
 import { AnimatedCounter } from '@/components/AnimatedCounter'
+import { FounderBioSection } from '@/components/FounderBioSection'
 
 export const dynamic = 'force-dynamic'
 
@@ -137,7 +138,8 @@ export default async function AboutPage() {
           </Container>
         </Section>
 
-        <Clients clients={clientsDocs} />
+        {/* Founder Biography: Ozias B. Nzongo */}
+        <FounderBioSection />
 
         {/* What we do */}
         <Section className="py-12 md:py-20 lg:py-32 bg-white relative overflow-hidden">
@@ -147,8 +149,11 @@ export default async function AboutPage() {
           <Container className="relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <FadeUp>
-                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-                  NOTRE MISSION &bull; PÉRIMÈTRE D&apos;INTERVENTION
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold flex items-center justify-center gap-2 flex-wrap">
+                  <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base">&gt;</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                    NOTRE MISSION &bull; PÉRIMÈTRE D&apos;INTERVENTION
+                  </span>
                 </p>
                 <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight mb-8">
                   Concrètement, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">qu'est-ce qu'on fait ?</span>
@@ -172,8 +177,11 @@ export default async function AboutPage() {
               
               <div className="space-y-12">
                 <FadeUp>
-                  <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-                    L&apos;Ingénierie à l&apos;état pur
+                  <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold flex items-center gap-2 flex-wrap">
+                    <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base">&gt;</span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                      L&apos;Ingénierie à l&apos;état pur
+                    </span>
                   </p>
                   <h3 className="text-3xl font-extrabold tracking-tight text-slate-900 mb-4">
                     Nous construisons les fondations numériques des leaders de demain.
@@ -261,6 +269,9 @@ export default async function AboutPage() {
             </div>
           </Container>
         </Section>
+
+        {/* Partenaires Constructeurs & Références Clients */}
+        <Clients clients={clientsDocs} />
 
         <CTA />
       </main>
