@@ -219,7 +219,7 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
                       href="/contact"
                       className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#00D4FF]/40 transition-all group/btn"
                     >
-                      <span>Échanger avec Ozias</span>
+                      <span>Échanger avec M. Nzongo</span>
                       <ArrowRight className="w-3.5 h-3.5 text-[#00D4FF] transition-transform group-hover/btn:translate-x-1" />
                     </Link>
                   </div>
