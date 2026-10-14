@@ -57,10 +57,13 @@ export default async function AboutPage() {
           </Container>
         </Section>
 
-        {/* Animated Stats / Corporate Metrics */}
-        <Section className="py-12 md:py-16 bg-[#020617] border-t border-white/5">
-          <Container>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        {/* Animated Stats / Corporate Metrics - Open Architectural Row (No Cards) */}
+        <Section className="py-14 md:py-20 bg-[#020617] border-y border-white/10 relative overflow-hidden">
+          {/* Subtle Ambient Glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-32 bg-[#00D4FF]/5 rounded-full blur-[100px] pointer-events-none" />
+
+          <Container className="relative z-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-8 lg:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
               {[
                 {
                   badge: "Garantie de Service",
@@ -102,33 +105,35 @@ export default async function AboutPage() {
                 },
               ].map((stat, i) => (
                 <FadeUp key={stat.label} delay={i * 0.1}>
-                  <div className="flex flex-col items-center text-center p-6 rounded-2xl border border-white/10 bg-white/[0.03] hover:border-[#00D4FF]/30 hover:bg-[#00D4FF]/[0.04] transition-all duration-300 group h-full justify-between">
-                    {/* Badge discret & icône */}
+                  <div className={`flex flex-col text-left ${i > 0 ? "pt-8 sm:pt-0 sm:pl-6 lg:pl-8" : ""}`}>
+                    {/* Badge Surtitre discret avec icône */}
                     <div className="flex items-center gap-2 mb-3">
-                      <stat.Icon className={`w-4 h-4 ${stat.iconColor}`} />
-                      <span className="text-[11px] font-semibold tracking-wider uppercase text-slate-400 font-mono">
+                      <stat.Icon className={`w-4 h-4 ${stat.iconColor} shrink-0`} />
+                      <span className="text-[11px] font-mono font-bold tracking-widest uppercase text-slate-400">
                         {stat.badge}
                       </span>
                     </div>
 
-                    {/* Grand chiffre animé */}
-                    <div className="text-4xl md:text-5xl font-black text-white tracking-tight my-2 group-hover:text-[#00D4FF] transition-colors duration-300 tabular-nums">
-                      <AnimatedCounter
-                        prefix={stat.prefix}
-                        value={stat.value}
-                        decimals={stat.decimals}
-                        suffix={stat.suffix}
-                        duration={2000}
-                      />
+                    {/* Grand chiffre avec Dégradé Accent Signature */}
+                    <div className="my-1">
+                      <span className="text-4xl sm:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] tracking-tight tabular-nums inline-block">
+                        <AnimatedCounter
+                          prefix={stat.prefix}
+                          value={stat.value}
+                          decimals={stat.decimals}
+                          suffix={stat.suffix}
+                          duration={2000}
+                        />
+                      </span>
                     </div>
 
-                    {/* Label principal */}
-                    <div className="text-sm font-bold text-slate-100 mt-1 mb-1">
+                    {/* Titre Principal */}
+                    <h3 className="text-base sm:text-lg font-bold text-white tracking-tight mt-1 mb-1.5">
                       {stat.label}
-                    </div>
+                    </h3>
 
-                    {/* Détail explicatif */}
-                    <p className="text-xs text-slate-400 font-normal leading-relaxed">
+                    {/* Détail Explicatif Simple */}
+                    <p className="text-xs sm:text-sm text-slate-400 font-normal leading-relaxed max-w-xs">
                       {stat.detail}
                     </p>
                   </div>
