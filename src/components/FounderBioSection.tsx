@@ -1,47 +1,151 @@
-import React from 'react';
+"use client";
+
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Container, Section } from '@/components/ui/layout';
 import { FadeUp } from '@/components/animations';
-import { Network, Lock, Quote, Award, ArrowRight } from 'lucide-react';
+import { Network, Lock, Quote, Award, ArrowRight, ShieldCheck, Terminal, Cpu } from 'lucide-react';
 import Link from 'next/link';
 
 interface FounderBioSectionProps {
   photoSrc?: string;
 }
 
+const rotatingRoles = [
+  "Infrastructures Réseaux Critiques",
+  "Cybersécurité & Pare-feu Avancé",
+  "Haute Disponibilité & Cloud 24/7",
+  "Systèmes d’Information & Télécoms",
+];
+
+const titleWords = ["L’Ingénieur", "&", "Visionnaire", "derrière"];
+
 export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
   const photo = photoSrc || "/images/founder/ozias-nzongo.jpg";
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentRoleIndex((prev) => (prev + 1) % rotatingRoles.length);
+    }, 2800);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <Section id="fondateur" className="py-20 md:py-28 lg:py-32 bg-[#020617] text-white relative overflow-hidden border-t border-b border-slate-800/80">
       {/* Background Silicon Valley Tech Grid & Radiant Glows */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] lg:w-[1000px] h-[400px] bg-gradient-to-r from-[#00D4FF]/10 via-[#00F0FF]/5 to-[#10E760]/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] lg:w-[1000px] h-[400px] bg-gradient-to-r from-[#00D4FF]/12 via-[#00F0FF]/6 to-[#10E760]/12 rounded-full blur-[140px] pointer-events-none" />
 
       <Container className="relative z-10">
-        {/* Section Header: Silicon Valley / Corporate Eyebrow & Title */}
+        {/* Section Header: Dynamic Pro Animation */}
         <div className="text-center max-w-3xl mx-auto mb-14 md:mb-20">
-          <FadeUp>
-            <div className="inline-flex items-center justify-center gap-2 mb-4 font-mono text-xs sm:text-sm tracking-[0.2em] uppercase font-extrabold">
-              <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">
-                &gt;<span className="text-[#10E760] animate-pulse">_</span>
+          
+          {/* Eyebrow Pill with Live Terminal Prompt */}
+          <motion.div
+            initial={{ opacity: 0, y: -16, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 shadow-[0_0_25px_rgba(0,212,255,0.18)] backdrop-blur-md mb-5"
+          >
+            <span className="text-[#00D4FF] font-black select-none text-xs sm:text-sm font-mono tracking-tighter inline-flex items-center">
+              &gt;<span className="text-[#10E760] animate-pulse">_</span>
+            </span>
+            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+              DIRECTION &amp; LEADERSHIP TECHNIQUE
+            </span>
+          </motion.div>
+
+          {/* Staggered Kinetic Word Reveal Title */}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight mb-4 flex flex-wrap items-center justify-center gap-x-2.5 sm:gap-x-3.5">
+            {titleWords.map((word, idx) => (
+              <span key={word} className="inline-block overflow-hidden py-1">
+                <motion.span
+                  initial={{ y: "110%", opacity: 0, rotateZ: 2 }}
+                  whileInView={{ y: 0, opacity: 1, rotateZ: 0 }}
+                  viewport={{ once: true, margin: "-10%" }}
+                  transition={{
+                    duration: 0.7,
+                    delay: 0.08 * idx,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="inline-block"
+                >
+                  {word}
+                </motion.span>
               </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-                DIRECTION &amp; LEADERSHIP TECHNIQUE
-              </span>
+            ))}
+            
+            {/* Animated Brand Name: Continuous Shimmer Gradient */}
+            <span className="inline-block overflow-hidden py-1">
+              <motion.span
+                initial={{ y: "110%", opacity: 0, scale: 0.9 }}
+                whileInView={{ y: 0, opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.35,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="relative inline-block font-black tracking-tight"
+              >
+                <motion.span
+                  animate={{
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  style={{ backgroundSize: "200% 200%" }}
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] drop-shadow-[0_0_28px_rgba(0,212,255,0.45)] inline-block"
+                >
+                  NOBTECH
+                </motion.span>
+              </motion.span>
+            </span>
+          </h2>
+
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.45, ease: "easeOut" }}
+            className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mt-2"
+          >
+            Une technologie solide, pensée avec rigueur pour durer et faire grandir les entreprises.
+          </motion.p>
+
+          {/* Live Dynamic Ticker: Rotating Core Competency */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex items-center justify-center gap-2 mt-5 text-xs sm:text-sm font-mono"
+          >
+            <span className="text-slate-500 hidden sm:inline">Pôle d&apos;expertise :</span>
+            <div className="h-8 overflow-hidden relative inline-flex items-center">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={currentRoleIndex}
+                  initial={{ y: 16, opacity: 0, filter: "blur(4px)" }}
+                  animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                  exit={{ y: -16, opacity: 0, filter: "blur(4px)" }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-950/50 border border-cyan-500/40 text-cyan-300 font-bold shadow-[0_0_15px_rgba(0,212,255,0.15)]"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#10E760] animate-pulse" />
+                  {rotatingRoles[currentRoleIndex]}
+                </motion.span>
+              </AnimatePresence>
             </div>
+          </motion.div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white leading-tight mb-4">
-              L’Ingénieur &amp; Visionnaire derrière{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-                NOBTECH
-              </span>
-            </h2>
-
-            <p className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-              Une technologie solide, pensée avec rigueur pour durer et faire grandir les entreprises.
-            </p>
-          </FadeUp>
         </div>
 
         {/* Bento Grid Layout: Portrait Card (Left) & High-End Story Panel (Right) */}
