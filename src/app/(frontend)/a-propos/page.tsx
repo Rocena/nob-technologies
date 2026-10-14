@@ -50,7 +50,7 @@ export default async function AboutPage() {
               
               <FadeUp delay={0.2}>
                 <p className="text-slate-300 text-base sm:text-lg md:text-xl font-normal max-w-3xl leading-relaxed">
-                  NOB TECHNOLOGIES est une société d&apos;ingénierie informatique basée à Dakar, créée en 2020. Forte de 6 ans d&apos;expérience d&apos;entreprise et portée par plus de 15 ans d&apos;expertise métier de son fondateur, nous concevons, sécurisons et infogérons les écosystèmes informatiques des entreprises, institutions et organisations au Sénégal et en Afrique de l&apos;Ouest.
+                  <strong className="text-white font-bold">NOBTECH</strong> est une société d&apos;ingénierie informatique basée à Dakar, créée en 2020. Forte de 6 ans d&apos;expérience d&apos;entreprise et portée par plus de 15 ans d&apos;expertise métier de son fondateur, nous concevons, sécurisons et infogérons les écosystèmes informatiques des entreprises, institutions et organisations au Sénégal et en Afrique de l&apos;Ouest.
                 </p>
               </FadeUp>
             </div>
@@ -150,7 +150,7 @@ export default async function AboutPage() {
             <div className="max-w-4xl mx-auto text-center">
               <FadeUp>
                 <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold flex items-center justify-center gap-2 flex-wrap">
-                  <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base">&gt;</span>
+                  <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">&gt;<span className="text-[#10E760] animate-pulse">_</span></span>
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                     NOTRE MISSION &bull; PÉRIMÈTRE D&apos;INTERVENTION
                   </span>
@@ -178,7 +178,7 @@ export default async function AboutPage() {
               <div className="space-y-12">
                 <FadeUp>
                   <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold flex items-center gap-2 flex-wrap">
-                    <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base">&gt;</span>
+                    <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">&gt;<span className="text-[#10E760] animate-pulse">_</span></span>
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                       L&apos;Ingénierie à l&apos;état pur
                     </span>
@@ -187,7 +187,7 @@ export default async function AboutPage() {
                     Nous construisons les fondations numériques des leaders de demain.
                   </h3>
                   <p className="text-base sm:text-lg text-slate-800 md:text-slate-700 font-medium sm:font-normal leading-relaxed mb-4">
-                    Chez NOB TECHNOLOGIES, nous ne nous contentons pas de fournir des services IT. Nous architecturons des écosystèmes complets, résilients et évolutifs. Face à la complexité croissante des réseaux et à l&apos;évolution des cybermenaces, notre mission est de vous offrir un socle technologique infaillible.
+                    Chez <strong className="text-slate-900 font-bold">NOBTECH</strong>, nous ne nous contentons pas de fournir des services IT. Nous architecturons des écosystèmes complets, résilients et évolutifs. Face à la complexité croissante des réseaux et à l&apos;évolution des cybermenaces, notre mission est de vous offrir un socle technologique infaillible.
                   </p>
                   <p className="text-sm sm:text-base text-slate-700 md:text-slate-600 leading-relaxed">
                     Nous croyons fermement qu&apos;une infrastructure technologique performante ne devrait pas être un luxe réservé aux multinationales. Notre but est de démocratiser l&apos;accès à une informatique de pointe, robuste et sécurisée pour l&apos;ensemble de nos clients.

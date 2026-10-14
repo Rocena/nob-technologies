@@ -2,7 +2,8 @@ import React from 'react';
 import Image from 'next/image';
 import { Container, Section } from '@/components/ui/layout';
 import { FadeUp } from '@/components/animations';
-import { ShieldCheck, Network, Cpu, Lock, Quote, Award, Sparkles, UserCheck } from 'lucide-react';
+import { ShieldCheck, Network, Cpu, Lock, Quote, Award, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 interface FounderBioSectionProps {
   photoSrc?: string;
@@ -12,87 +13,117 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
   const photo = photoSrc || "/images/founder/ozias-nzongo.jpg";
 
   return (
-    <Section id="fondateur" className="py-16 md:py-24 lg:py-28 bg-[#030712] text-white relative overflow-hidden border-t border-b border-slate-800/80">
-      {/* Anthracite Ambient Glows & Tech Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
-      <div className="absolute -top-40 -left-40 w-96 h-96 bg-[#00D4FF]/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-[#10E760]/10 rounded-full blur-[140px] pointer-events-none" />
+    <Section id="fondateur" className="py-20 md:py-28 lg:py-32 bg-[#020617] text-white relative overflow-hidden border-t border-b border-slate-800/80">
+      {/* Background Silicon Valley Tech Grid & Radiant Glows */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] lg:w-[1000px] h-[400px] bg-gradient-to-r from-[#00D4FF]/10 via-[#00F0FF]/5 to-[#10E760]/10 rounded-full blur-[140px] pointer-events-none" />
 
       <Container className="relative z-10">
-        {/* Section Surtitle */}
-        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        {/* Section Header: Silicon Valley / Corporate Eyebrow & Title */}
+        <div className="text-center max-w-3xl mx-auto mb-14 md:mb-20">
           <FadeUp>
-            <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold flex items-center justify-center gap-2 flex-wrap">
-              <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base">&gt;</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-                DIRECTION &amp; VISION TECHNIQUE
+            <div className="inline-flex items-center justify-center gap-2 mb-4 font-mono text-xs sm:text-sm tracking-[0.2em] uppercase font-extrabold">
+              <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">
+                &gt;<span className="text-[#10E760] animate-pulse">_</span>
               </span>
-            </p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-4">
-              Le Fondateur
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                DIRECTION &amp; LEADERSHIP TECHNIQUE
+              </span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white leading-tight mb-4">
+              L’Ingénieur &amp; Visionnaire derrière{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                NOBTECH
+              </span>
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">
-              L’expertise d’ingénierie et la rigueur méthodologique au service de la souveraineté numérique de nos clients.
+
+            <p className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+              Une technologie solide, pensée avec rigueur pour durer et faire grandir les entreprises.
             </p>
           </FadeUp>
         </div>
 
-        {/* Main Grid: Portrait Card (Left) & Detailed Biography (Right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start max-w-6xl mx-auto">
+        {/* Bento Grid Layout: Portrait Card (Left) & High-End Story Panel (Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start max-w-6xl mx-auto">
           
-          {/* Left Column: Portrait & Executive Card */}
-          <div className="lg:col-span-5 flex flex-col items-center">
+          {/* Left Column: Executive Studio Portrait Card */}
+          <div className="lg:col-span-5 flex flex-col items-center w-full">
             <FadeUp delay={0.1}>
-              <div className="relative w-full max-w-sm mx-auto group">
-                {/* Glow Border effect */}
-                <div className="absolute -inset-0.5 bg-gradient-to-tr from-[#00D4FF] via-cyan-500/40 to-[#10E760] rounded-3xl blur-md opacity-40 group-hover:opacity-75 transition-opacity duration-500" />
+              <div className="relative w-full max-w-md mx-auto group">
+                {/* Subtle Ambient Border Glow */}
+                <div className="absolute -inset-0.5 bg-gradient-to-b from-[#00D4FF]/30 via-slate-800/40 to-[#10E760]/30 rounded-3xl blur-md opacity-40 group-hover:opacity-75 transition-opacity duration-500" />
                 
-                {/* Card Container in Deep Anthracite */}
-                <div className="relative bg-[#0B132B]/90 backdrop-blur-xl border border-slate-700/80 rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden flex flex-col items-center text-center">
+                {/* Anthracite Executive Card */}
+                <div className="relative bg-slate-900/80 backdrop-blur-xl border border-slate-700/70 rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden flex flex-col items-center">
                   
-                  {/* Photo / Portrait Frame */}
-                  <div className="relative w-56 h-72 sm:w-64 sm:h-80 rounded-2xl overflow-hidden bg-gradient-to-b from-slate-800 to-slate-950 border border-slate-700 shadow-2xl flex flex-col items-center justify-center mb-6 group/img">
+                  {/* Photo Frame with subtle lighting */}
+                  <div className="relative w-full aspect-[4/5] max-w-[280px] sm:max-w-[300px] rounded-2xl overflow-hidden bg-slate-950 border border-slate-700/80 shadow-2xl mb-6 group/img">
                     <Image
                       src={photo}
-                      alt="Ozias B. Nzongo - Fondateur de NOB Technologies"
+                      alt="Ozias B. Nzongo - Fondateur de NOBTECH"
                       fill
                       priority
-                      className="object-cover object-top transition-transform duration-500 group-hover/img:scale-105"
-                      sizes="(max-width: 640px) 224px, 256px"
+                      className="object-cover object-top transition-transform duration-700 group-hover/img:scale-105"
+                      sizes="(max-width: 640px) 280px, 300px"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B132B]/80 via-transparent to-transparent opacity-60 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-50 pointer-events-none" />
 
-                    {/* Badge officiel de confiance */}
-                    <div className="absolute top-3 right-3 z-20 bg-slate-900/90 backdrop-blur-md border border-cyan-500/40 text-[#00D4FF] px-2.5 py-1 rounded-full text-[10px] font-mono font-bold flex items-center gap-1 shadow-md">
-                      <UserCheck className="w-3 h-3 text-[#10E760]" />
-                      <span>FONDÉ EN 2020</span>
+                    {/* Live Status Pill */}
+                    <div className="absolute top-3 left-3 z-20 bg-slate-950/85 backdrop-blur-md border border-emerald-500/30 px-3 py-1 rounded-full text-[10px] font-mono font-bold flex items-center gap-1.5 shadow-lg">
+                      <span className="w-2 h-2 rounded-full bg-[#10E760] animate-pulse" />
+                      <span className="text-slate-200 uppercase tracking-wider">Actif &bull; Projets &amp; Audits</span>
                     </div>
                   </div>
 
-                  {/* Name & Title */}
-                  <h3 className="text-2xl font-black text-white tracking-tight mb-1">
-                    Ozias B. Nzongo
-                  </h3>
-                  <p className="text-xs sm:text-sm font-semibold text-cyan-400 font-mono tracking-wide mb-4">
-                    Fondateur de NOB Technologies
-                  </p>
+                  {/* Identity Block */}
+                  <div className="text-center w-full">
+                    <h3 className="text-2xl font-black text-white tracking-tight">
+                      Ozias B. Nzongo
+                    </h3>
+                    <p className="text-xs sm:text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] to-[#10E760] font-mono tracking-wide mt-1 mb-4">
+                      Fondateur &amp; Lead Architecte IT
+                    </p>
 
-                  <div className="w-12 h-0.5 bg-gradient-to-r from-[#00D4FF] to-[#10E760] mb-5 rounded-full" />
+                    <div className="w-16 h-0.5 bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] mx-auto mb-5 rounded-full" />
+                  </div>
 
-                  {/* Core Attributes Pills */}
+                  {/* 3 Key Credentials Pills */}
                   <div className="w-full space-y-2.5 text-left text-xs font-mono">
-                    <div className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-white/[0.04] border border-white/5 text-slate-300">
+                    <div className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-slate-300 hover:border-[#00D4FF]/30 transition-colors">
                       <Award className="w-4 h-4 text-[#00D4FF] shrink-0" />
-                      <span>14+ Ans d&apos;Expérience IT &amp; Réseaux</span>
+                      <div>
+                        <span className="text-white font-bold">14+ Ans d&apos;Expérience</span>
+                        <span className="text-slate-400 block text-[11px]">Infrastructures &amp; Systèmes</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-white/[0.04] border border-white/5 text-slate-300">
+
+                    <div className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-slate-300 hover:border-[#10E760]/30 transition-colors">
                       <Network className="w-4 h-4 text-[#10E760] shrink-0" />
-                      <span>Ingénieur Réseaux &amp; Télécoms</span>
+                      <div>
+                        <span className="text-white font-bold">Ingénieur Réseaux &amp; Télécoms</span>
+                        <span className="text-slate-400 block text-[11px]">Architecture matérielle &amp; Cloud</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-white/[0.04] border border-white/5 text-slate-300">
+
+                    <div className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-slate-300 hover:border-cyan-400/30 transition-colors">
                       <Lock className="w-4 h-4 text-cyan-400 shrink-0" />
-                      <span>Expert Systèmes, Cloud &amp; Sécurité</span>
+                      <div>
+                        <span className="text-white font-bold">Cybersécurité &amp; Sauvegardes</span>
+                        <span className="text-slate-400 block text-[11px]">Protection des données d&apos;entreprise</span>
+                      </div>
                     </div>
+                  </div>
+
+                  {/* Action Link to Contact / Audit */}
+                  <div className="w-full mt-6 pt-4 border-t border-slate-800">
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#00D4FF]/40 transition-all group/btn"
+                    >
+                      <span>Échanger avec Ozias</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-[#00D4FF] transition-transform group-hover/btn:translate-x-1" />
+                    </Link>
                   </div>
 
                 </div>
@@ -100,64 +131,102 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
             </FadeUp>
           </div>
 
-          {/* Right Column: Full Narrative Biography */}
-          <div className="lg:col-span-7 space-y-6">
+          {/* Right Column: Premium Narrative & Pillars */}
+          <div className="lg:col-span-7 space-y-8">
+            
+            {/* Top Vision Banner */}
             <FadeUp delay={0.2}>
-              {/* Executive Headline Badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-mono text-xs font-semibold mb-2">
-                <Sparkles className="w-3.5 h-3.5 text-[#00D4FF]" />
-                <span>Expert en infrastructures IT, réseaux et cybersécurité</span>
+              <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 relative overflow-hidden backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#00D4FF] uppercase tracking-wider mb-2">
+                  <Sparkles className="w-4 h-4 text-[#00D4FF]" />
+                  <span>Expert en infrastructures IT, réseaux et cybersécurité</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-snug">
+                  Mettre l’informatique au service de la{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                    performance réelle
+                  </span>{" "}
+                  et de la sérénité des organisations.
+                </h3>
               </div>
-
-              {/* Founder Presentation Title */}
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug">
-                Bâtir des infrastructures infaillibles au service de la performance durable des entreprises.
-              </h3>
             </FadeUp>
 
-            {/* Paragraphs */}
+            {/* Clear, Impactful Story (Simple Words) */}
             <FadeUp delay={0.3}>
-              <div className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
+              <div className="space-y-4 text-slate-300 text-base leading-relaxed">
                 <p>
-                  Fort de plus de 14 ans d’expérience dans les technologies de l’information, <strong className="text-white font-semibold">Ozias B. Nzongo</strong> a construit son parcours autour d’une ambition : mettre la technologie au service de la performance, de la sécurité et du développement des organisations.
+                  Fort de plus de <strong className="text-white font-bold">14 ans d’expérience</strong> dans les technologies de l’information, <strong className="text-white font-bold">Ozias B. Nzongo</strong> a construit son parcours autour d’une ambition simple : faire de l&apos;outil informatique un levier fiable qui propulse les entreprises au lieu de les ralentir.
                 </p>
 
                 <p>
-                  Ingénieur en réseaux et télécommunications, il possède une expertise approfondie en architecture des infrastructures informatiques, administration des systèmes, cybersécurité, virtualisation et gestion de projets IT. Son expérience l’a conduit à intervenir sur des projets d’envergure auprès d’organisations issues de secteurs variés, notamment la santé, les télécommunications, l’industrie et les institutions.
+                  Ingénieur en réseaux et télécommunications, il conçoit et supervise des architectures informatiques complètes : câblage d&apos;entreprise, serveurs, cybersécurité, virtualisation et continuité de service. Son expertise l&apos;a conduit à piloter des projets d&apos;envergure auprès d&apos;institutions diplomatiques, de groupes industriels, de cliniques médicales et d&apos;opérateurs télécoms.
                 </p>
 
                 <p>
-                  Au fil de sa carrière, il a développé une approche alliant maîtrise technique, vision stratégique et compréhension des enjeux opérationnels des entreprises. De la conception d’infrastructures réseau à la sécurisation des systèmes d’information, en passant par l’accompagnement des équipes et le pilotage de projets complexes, il place la fiabilité, l’innovation et la qualité de service au cœur de ses priorités.
+                  Au fil des années, il a forgé une méthode pragmatique : allier la rigueur technique du terrain à une vraie compréhension des impératifs économiques. De la sécurisation des données sensibles au soutien des équipes, il privilégie toujours trois valeurs : la <span className="text-cyan-300 font-semibold">fiabilité des installations</span>, la <span className="text-emerald-300 font-semibold">simplicité d&apos;usage</span> et la <span className="text-white font-semibold">qualité de service</span>.
                 </p>
 
                 <p>
-                  À travers NOB Technologies, il porte une vision de la transformation numérique fondée sur des solutions technologiques adaptées, évolutives et sécurisées. Sa démarche repose sur une conviction forte : la technologie ne doit pas seulement répondre aux besoins d’aujourd’hui, elle doit également préparer les organisations aux défis de demain.
+                  À travers <strong className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] to-[#10E760] font-black">NOBTECH</strong>, il porte une vision de la transformation numérique fondée sur des solutions adaptées, solides et évolutives. Sa conviction : une bonne infrastructure ne doit pas seulement répondre aux besoins d’aujourd’hui, elle doit préparer votre entreprise aux réussites de demain.
                 </p>
               </div>
             </FadeUp>
 
-            {/* Callout Quote: Citation officielle du fondateur */}
+            {/* 3 Core Fields of Action (Bento Cards) */}
+            <FadeUp delay={0.35}>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2">
+                <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                  <div className="w-8 h-8 rounded-lg bg-[#00D4FF]/10 text-[#00D4FF] flex items-center justify-center mb-2.5 font-bold">
+                    01
+                  </div>
+                  <h4 className="text-sm font-bold text-white mb-1">Réseaux &amp; Télécoms</h4>
+                  <p className="text-xs text-slate-400 leading-normal">Infrastructures physiques, fibre optique et liaisons sécurisées.</p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                  <div className="w-8 h-8 rounded-lg bg-cyan-400/10 text-cyan-400 flex items-center justify-center mb-2.5 font-bold">
+                    02
+                  </div>
+                  <h4 className="text-sm font-bold text-white mb-1">Cybersécurité</h4>
+                  <p className="text-xs text-slate-400 leading-normal">Protection des données, pare-feu et audits préventifs continus.</p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                  <div className="w-8 h-8 rounded-lg bg-[#10E760]/10 text-[#10E760] flex items-center justify-center mb-2.5 font-bold">
+                    03
+                  </div>
+                  <h4 className="text-sm font-bold text-white mb-1">Systèmes &amp; Cloud</h4>
+                  <p className="text-xs text-slate-400 leading-normal">Serveurs, infogérance proactive et disponibilité 24/7.</p>
+                </div>
+              </div>
+            </FadeUp>
+
+            {/* Premium Quote Card with Gradient Accent */}
             <FadeUp delay={0.4}>
-              <div className="mt-8 p-6 sm:p-7 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900/60 to-emerald-950/30 border border-cyan-500/30 relative overflow-hidden shadow-xl">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#00D4FF]/10 rounded-full blur-2xl pointer-events-none" />
+              <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 border border-cyan-500/30 relative overflow-hidden shadow-2xl">
+                {/* Radiant top-right corner glow */}
+                <div className="absolute top-0 right-0 w-44 h-44 bg-gradient-to-br from-[#00D4FF]/15 to-[#10E760]/10 rounded-full blur-2xl pointer-events-none" />
                 
-                <div className="flex items-start gap-4 relative z-10">
-                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0 mt-0.5">
-                    <Quote className="w-5 h-5 text-[#00D4FF]" />
+                <div className="flex items-start gap-4 sm:gap-5 relative z-10">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-emerald-500/20 border border-cyan-400/40 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(0,212,255,0.2)]">
+                    <Quote className="w-6 h-6 text-[#00D4FF]" />
                   </div>
                   <div className="flex-1">
-                    <div className="font-mono text-xs uppercase tracking-wider text-[#00D4FF] font-extrabold mb-1.5">
-                      Citation
+                    <div className="font-mono text-xs uppercase tracking-wider text-[#00D4FF] font-extrabold mb-2">
+                      Citation du Fondateur
                     </div>
-                    <blockquote className="text-white font-bold text-base sm:text-lg lg:text-xl italic leading-relaxed">
-                      « La technologie ne doit pas seulement accompagner l&apos;évolution des entreprises. Elle doit leur donner les moyens d&apos;aller plus loin. »
+                    <blockquote className="text-white font-bold text-lg sm:text-xl lg:text-2xl leading-snug">
+                      « La technologie ne doit pas seulement accompagner l&apos;évolution des entreprises. Elle doit leur donner les moyens d&apos;
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                        aller plus loin
+                      </span>. »
                     </blockquote>
-                    <div className="mt-4 pt-3 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                      <span className="text-sm text-white font-extrabold font-sans">
+                    <div className="mt-5 pt-4 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                      <span className="text-base text-white font-extrabold font-sans">
                         Ozias B. Nzongo
                       </span>
                       <span className="text-xs text-cyan-400 font-mono">
-                        Expert en infrastructures IT, réseaux et cybersécurité
+                        Fondateur de NOBTECH &bull; Ingénieur Réseaux &amp; Télécoms
                       </span>
                     </div>
                   </div>

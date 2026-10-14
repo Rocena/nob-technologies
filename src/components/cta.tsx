@@ -95,7 +95,7 @@ export function CTA() {
         <div className="text-center max-w-4xl mx-auto">
           <FadeUp>
             <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-4 sm:mb-6 font-extrabold flex items-center justify-center gap-2 flex-wrap">
-              <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base">&gt;</span>
+              <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">&gt;<span className="text-[#10E760] animate-pulse">_</span></span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                 ACCÉLÉRATION DIGITALE &bull; PASSEZ À L&apos;ACTION
               </span>
