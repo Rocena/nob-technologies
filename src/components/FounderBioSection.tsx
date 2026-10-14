@@ -51,27 +51,19 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
                 <div className="relative bg-[#0B132B]/90 backdrop-blur-xl border border-slate-700/80 rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden flex flex-col items-center text-center">
                   
                   {/* Photo / Portrait Frame */}
-                  <div className="relative w-56 h-64 sm:w-64 sm:h-72 rounded-2xl overflow-hidden bg-gradient-to-b from-slate-800 to-slate-950 border border-slate-700 shadow-inner flex flex-col items-center justify-center mb-6">
-                    {/* Placeholder Stylisé en attendant la photo officielle */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-950/90 to-[#020617] flex flex-col items-center justify-center p-6 text-center">
-                      <div className="relative w-24 h-24 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-emerald-500/20 border border-cyan-400/40 flex items-center justify-center mb-4 shadow-[0_0_25px_rgba(0,212,255,0.25)]">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img 
-                          src="/images/nobtech-shield.png" 
-                          alt="NOBTECH Shield" 
-                          className="w-14 h-14 object-contain opacity-90"
-                        />
-                      </div>
-                      <span className="font-mono text-lg font-black text-white tracking-wider">
-                        OZIAS B. NZONGO
-                      </span>
-                      <span className="text-[11px] font-mono tracking-wider uppercase text-cyan-400 mt-1 font-semibold">
-                        Fondateur &amp; Ingénieur
-                      </span>
-                    </div>
+                  <div className="relative w-56 h-72 sm:w-64 sm:h-80 rounded-2xl overflow-hidden bg-gradient-to-b from-slate-800 to-slate-950 border border-slate-700 shadow-2xl flex flex-col items-center justify-center mb-6 group/img">
+                    <Image
+                      src={photo}
+                      alt="Ozias B. Nzongo - Fondateur de NOB Technologies"
+                      fill
+                      priority
+                      className="object-cover object-top transition-transform duration-500 group-hover/img:scale-105"
+                      sizes="(max-width: 640px) 224px, 256px"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B132B]/80 via-transparent to-transparent opacity-60 pointer-events-none" />
 
                     {/* Badge officiel de confiance */}
-                    <div className="absolute top-3 right-3 z-20 bg-slate-900/90 border border-cyan-500/40 text-[#00D4FF] px-2.5 py-1 rounded-full text-[10px] font-mono font-bold flex items-center gap-1 shadow-md">
+                    <div className="absolute top-3 right-3 z-20 bg-slate-900/90 backdrop-blur-md border border-cyan-500/40 text-[#00D4FF] px-2.5 py-1 rounded-full text-[10px] font-mono font-bold flex items-center gap-1 shadow-md">
                       <UserCheck className="w-3 h-3 text-[#10E760]" />
                       <span>FONDÉ EN 2020</span>
                     </div>
@@ -144,25 +136,30 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
               </div>
             </FadeUp>
 
-            {/* Callout Quote: Sa Vision */}
+            {/* Callout Quote: Citation officielle du fondateur */}
             <FadeUp delay={0.4}>
               <div className="mt-8 p-6 sm:p-7 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900/60 to-emerald-950/30 border border-cyan-500/30 relative overflow-hidden shadow-xl">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#00D4FF]/10 rounded-full blur-2xl pointer-events-none" />
                 
                 <div className="flex items-start gap-4 relative z-10">
-                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0 mt-0.5">
                     <Quote className="w-5 h-5 text-[#00D4FF]" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <div className="font-mono text-xs uppercase tracking-wider text-[#00D4FF] font-extrabold mb-1.5">
-                      Sa vision
+                      Citation
                     </div>
-                    <blockquote className="text-white font-semibold text-base sm:text-lg italic leading-relaxed">
-                      « Faire de la technologie un véritable levier de croissance, de confiance et de compétitivité pour les entreprises. »
+                    <blockquote className="text-white font-bold text-base sm:text-lg lg:text-xl italic leading-relaxed">
+                      « La technologie ne doit pas seulement accompagner l&apos;évolution des entreprises. Elle doit leur donner les moyens d&apos;aller plus loin. »
                     </blockquote>
-                    <p className="text-xs text-slate-400 font-mono mt-2">
-                      — Ozias B. Nzongo, Fondateur de NOB Technologies
-                    </p>
+                    <div className="mt-4 pt-3 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                      <span className="text-sm text-white font-extrabold font-sans">
+                        Ozias B. Nzongo
+                      </span>
+                      <span className="text-xs text-cyan-400 font-mono">
+                        Expert en infrastructures IT, réseaux et cybersécurité
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
