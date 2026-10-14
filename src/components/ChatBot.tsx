@@ -229,7 +229,7 @@ function getBotResponse(input: string, knowledge: KnowledgeItem[]): string {
     return "Pourquoi les administrateurs réseaux et les développeurs détestent-ils la nature ? Parce qu'il y a trop de bugs et aucun Ctrl+Z ! 🐛💻 Comment se porte votre système informatique aujourd'hui ?";
   }
   if (/t['\s]?es qui|qui es-?tu|qui [eê]tes-?vous|es-?tu (une |un )?ia|qui parle|comment tu t['\s]?appelles/i.test(lower) || (words.length === 1 && words[0] === "qui")) {
-    return "Je m'appelle **Koffi**, conseiller digital chez **NOBTECH** ! 😊\n\nMon rôle est de vous renseigner 24h/24 avec le sourire comme un collègue au bureau : vous conseiller sur nos expertises (cybersécurité, réseaux, baies 42U, ERP, formations) et vous mettre en relation directe avec nos ingénieurs à Dakar.\n\nQuel projet ou besoin vous amène aujourd'hui ?";
+    return "Je m'appelle **Koffi**, conseiller virtuel chez **NOBTECH** ! 😊\n\nMon rôle est de vous renseigner 24h/24 avec le sourire comme un collègue au bureau : vous conseiller sur nos expertises (cybersécurité, réseaux, baies 42U, ERP, formations) et vous mettre en relation directe avec nos ingénieurs à Dakar.\n\nQuel projet ou besoin vous amène aujourd'hui ?";
   }
   if (/stage|recrutement|emploi|cv|job/i.test(lower)) {
     return "Vous souhaitez rejoindre l'équipe **NOBTECH** ? 💼 C'est un plaisir ! Envoyez votre CV et lettre de motivation directement à **contact@nobtech.fr** avec en objet « Candidature Stage / Emploi ». Notre équipe RH l'étudiera avec attention !";
@@ -314,7 +314,7 @@ export function ChatBot() {
     {
       id: 'init',
       role: 'bot',
-      text: "Bonjour ! Je m'appelle **Koffi**, votre conseiller chez **NOBTECH** 👋\n\nQue ce soit pour sécuriser vos réseaux, installer un pare-feu, concevoir un ERP ou estimer un devis gratuit sous 24h, je suis là pour vous accompagner avec grand plaisir !\n\nComment puis-je vous aider aujourd'hui ? 😊",
+      text: "Bonjour ! Je m'appelle **Koffi**, votre conseiller virtuel chez **NOBTECH** 👋\n\nQue ce soit pour sécuriser vos réseaux, installer un pare-feu, concevoir un ERP ou estimer un devis gratuit sous 24h, je suis là pour vous accompagner avec grand plaisir !\n\nComment puis-je vous aider aujourd'hui ? 😊",
       time: getTime(),
       suggestions: INITIAL_SUGGESTIONS,
     }
@@ -437,7 +437,7 @@ export function ChatBot() {
       {/* Floating button */}
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? 'Fermer le chat' : 'Ouvrir le chat avec Koffi, conseiller NOBTECH'}
+        aria-label={open ? 'Fermer le chat' : 'Ouvrir le chat avec Koffi, conseiller virtuel NOBTECH'}
         className={cn(
           'fixed bottom-6 right-4 sm:bottom-8 sm:right-8 z-[150] flex items-center gap-2.5 rounded-full px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_8px_32px_rgba(0,212,255,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 group',
           open
@@ -452,7 +452,7 @@ export function ChatBot() {
             <AssistantAvatar className="w-8 h-8 shrink-0 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_2px_8px_rgba(0,0,0,0.25)]" />
             <div className="flex flex-col text-left leading-none">
               <span className="text-xs font-black tracking-tight text-[#020617]">Koffi</span>
-              <span className="text-[10px] font-semibold opacity-85 hidden sm:inline">Conseiller NOBTECH</span>
+              <span className="text-[10px] font-semibold opacity-85 hidden sm:inline">Conseiller virtuel NOBTECH</span>
             </div>
             <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-emerald-500 ring-2 ring-[#020617]" />
           </>
@@ -469,7 +469,7 @@ export function ChatBot() {
         )}
         style={{ height: '520px', maxHeight: '82vh' }}
         role="dialog"
-        aria-label="Discussion avec Koffi, conseiller digital NOBTECH"
+        aria-label="Discussion avec Koffi, conseiller virtuel NOBTECH"
         aria-modal="false"
       >
         {/* Header */}
@@ -489,7 +489,7 @@ export function ChatBot() {
             </div>
             <div className="text-[11px] text-slate-400 font-sans flex items-center gap-1.5 mt-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Conseiller en ligne · Répond sous 1s
+              Conseiller virtuel en ligne · Répond sous 1s
             </div>
           </div>
           <button
@@ -604,7 +604,7 @@ export function ChatBot() {
             </button>
           </div>
           <div className="flex items-center justify-between text-[10px] text-slate-500 px-1 mt-1.5">
-            <span>Koffi · Conseiller NOBTECH</span>
+            <span>Koffi · Conseiller virtuel NOBTECH</span>
             <span>Entrée pour envoyer</span>
           </div>
         </div>

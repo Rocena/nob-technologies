@@ -50,15 +50,15 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
   // 1. Wolof & Salutations sénégalaises
   if (/^(nanga def|salaam|assalam|salam|mangi fi|ba beneen|na rekk|jerejef)/i.test(q)) {
     if (/nanga def/i.test(q)) {
-      return "Mangi fi rekk, alhamdoulilah ! 👋 Je m'appelle Koffi, votre conseiller chez NOBTECH. Comment allez-vous ? Dites-moi comment je peux vous être utile pour vos projets informatiques ou réseau !";
+      return "Mangi fi rekk, alhamdoulilah ! 👋 Je m'appelle Koffi, votre conseiller virtuel chez NOBTECH. Comment allez-vous ? Dites-moi comment je peux vous être utile pour vos projets informatiques ou réseau !";
     }
     if (/salaam|assalam|salam/i.test(q)) {
-      return "Wa aleikoum salam ! 🙏 Bienvenue chez NOBTECH à Dakar. Je m'appelle Koffi, comment puis-je vous accompagner aujourd'hui ?";
+      return "Wa aleikoum salam ! 🙏 Bienvenue chez NOBTECH à Dakar. Je m'appelle Koffi, votre conseiller virtuel, comment puis-je vous accompagner aujourd'hui ?";
     }
     if (/jerejef/i.test(q)) {
       return "Amul solo ! C'est un réel plaisir d'échanger avec vous. N'hésitez surtout pas si vous avez d'autres questions ! ✨";
     }
-    return "Bienvenue chez NOBTECH à Dakar ! Je m'appelle Koffi, comment pouvons-nous vous aider aujourd'hui ?";
+    return "Bienvenue chez NOBTECH à Dakar ! Je m'appelle Koffi, votre conseiller virtuel, comment pouvons-nous vous aider aujourd'hui ?";
   }
 
   // 2. Salutations informelles ou classiques
@@ -66,9 +66,9 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
     const isEvening = new Date().getHours() >= 18;
     const greetingWord = isEvening ? "Bonsoir" : "Bonjour";
     const greetings = [
-      `${greetingWord} ! Je m'appelle **Koffi**, ravi de vous accueillir chez **NOBTECH** 👋 Comment se passe votre journée ? Que puis-je faire pour vous aujourd'hui ?`,
-      `${greetingWord} ! C'est un plaisir d'échanger avec vous, je suis **Koffi** de **NOBTECH**. Que vous ayez un besoin en cybersécurité, réseau, ERP ou formation, dites-moi tout, je suis là pour vous aider !`,
-      `${greetingWord} et bienvenue chez **NOBTECH** ! Je suis **Koffi**, votre conseiller. Dites-moi tout : comment puis-je vous renseigner aujourd'hui ?`,
+      `${greetingWord} ! Je m'appelle **Koffi**, votre conseiller virtuel chez **NOBTECH** 👋 Comment se passe votre journée ? Que puis-je faire pour vous aujourd'hui ?`,
+      `${greetingWord} ! C'est un plaisir d'échanger avec vous, je suis **Koffi**, votre conseiller virtuel de **NOBTECH**. Que vous ayez un besoin en cybersécurité, réseau, ERP ou formation, dites-moi tout, je suis là pour vous aider !`,
+      `${greetingWord} et bienvenue chez **NOBTECH** ! Je suis **Koffi**, votre conseiller virtuel. Dites-moi tout : comment puis-je vous renseigner aujourd'hui ?`,
     ];
     return greetings[Math.floor(Math.random() * greetings.length)];
   }
@@ -78,7 +78,7 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
     /(t['\s]?es qui|qui es-?tu|qui [eê]tes-?vous|c['\s]?est qui|es-?tu (une |un )?ia|tu es un robot|qui parle|comment tu t['\s]?appelles|ton nom|pr[eé]sente-?toi|pr[eé]sentez-?vous)/i.test(q) ||
     (isOneWord && words[0] === "qui")
   ) {
-    return "Je m'appelle **Koffi**, conseiller digital chez **NOBTECH** ! 😊\n\nMon rôle, c'est de vous renseigner 24h/24 avec le sourire comme un vrai collègue au bureau : vous conseiller sur la cybersécurité, les réseaux d'entreprise, les baies 42U, les ERP et les formations certifiantes, et vous mettre en relation directe avec nos ingénieurs à Dakar.\n\nEt vous, quel projet ou besoin vous amène aujourd'hui ?";
+    return "Je m'appelle **Koffi**, conseiller virtuel chez **NOBTECH** ! 😊\n\nMon rôle, c'est de vous renseigner 24h/24 avec le sourire comme un vrai collègue au bureau : vous conseiller sur la cybersécurité, les réseaux d'entreprise, les baies 42U, les ERP et les formations certifiantes, et vous mettre en relation directe avec nos ingénieurs à Dakar.\n\nEt vous, quel projet ou besoin vous amène aujourd'hui ?";
   }
 
   // 4. Questions "Hors du cadre" (Humour, nourriture, vie perso, blagues, météo)
