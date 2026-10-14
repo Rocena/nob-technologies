@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Container, Section } from '@/components/ui/layout';
 import { FadeUp } from '@/components/animations';
-import { ShieldCheck, Network, Cpu, Lock, Quote, Award, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Network, Lock, Quote, Award, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 interface FounderBioSectionProps {
@@ -68,12 +68,6 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
                       sizes="(max-width: 640px) 280px, 300px"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-50 pointer-events-none" />
-
-                    {/* Live Status Pill */}
-                    <div className="absolute top-3 left-3 z-20 bg-slate-950/85 backdrop-blur-md border border-emerald-500/30 px-3 py-1 rounded-full text-[10px] font-mono font-bold flex items-center gap-1.5 shadow-lg">
-                      <span className="w-2 h-2 rounded-full bg-[#10E760] animate-pulse" />
-                      <span className="text-slate-200 uppercase tracking-wider">Actif &bull; Projets &amp; Audits</span>
-                    </div>
                   </div>
 
                   {/* Identity Block */}
@@ -134,14 +128,10 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
           {/* Right Column: Premium Narrative & Pillars */}
           <div className="lg:col-span-7 space-y-8">
             
-            {/* Top Vision Banner */}
+            {/* Executive Statement (No Card) */}
             <FadeUp delay={0.2}>
-              <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 relative overflow-hidden backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#00D4FF] uppercase tracking-wider mb-2">
-                  <Sparkles className="w-4 h-4 text-[#00D4FF]" />
-                  <span>Expert en infrastructures IT, réseaux et cybersécurité</span>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-snug">
+              <div className="pb-3 border-b border-white/10">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug">
                   Mettre l’informatique au service de la{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                     performance réelle
@@ -212,9 +202,6 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
                     <Quote className="w-6 h-6 text-[#00D4FF]" />
                   </div>
                   <div className="flex-1">
-                    <div className="font-mono text-xs uppercase tracking-wider text-[#00D4FF] font-extrabold mb-2">
-                      Citation du Fondateur
-                    </div>
                     <blockquote className="text-white font-bold text-lg sm:text-xl lg:text-2xl leading-snug">
                       « La technologie ne doit pas seulement accompagner l&apos;évolution des entreprises. Elle doit leur donner les moyens d&apos;
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
