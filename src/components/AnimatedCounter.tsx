@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 
 interface AnimatedCounterProps {
   value: number;
+  prefix?: string;
   suffix?: string;
+  decimals?: number;
   duration?: number;
   className?: string;
 }
@@ -15,7 +17,9 @@ function easeOutCubic(t: number): number {
 
 export function AnimatedCounter({
   value,
+  prefix = '',
   suffix = '',
+  decimals = 0,
   duration = 2000,
   className = '',
 }: AnimatedCounterProps) {
@@ -39,9 +43,11 @@ export function AnimatedCounter({
       const tick = (now: number) => {
         const elapsed = Math.max(0, now - startTime);
         const progress = Math.min(elapsed / duration, 1);
-        setDisplay(Math.round(easeOutCubic(progress) * value));
+        setDisplay(easeOutCubic(progress) * value);
         if (progress < 1) {
           rafRef.current = requestAnimationFrame(tick);
+        } else {
+          setDisplay(value);
         }
       };
 
@@ -66,9 +72,12 @@ export function AnimatedCounter({
   }, [value, duration]);
 
 
+  const formattedNumber =
+    decimals > 0 ? display.toFixed(decimals) : Math.round(display).toString();
+
   return (
     <span ref={ref} className={className}>
-      {display}{suffix}
+      {prefix}{formattedNumber}{suffix}
     </span>
   );
 }

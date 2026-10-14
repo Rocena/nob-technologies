@@ -4,7 +4,7 @@ import { Heading, Text } from '@/components/ui/typography'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { CTA } from '@/components/cta'
-import { Shield, Network, Zap, Target, Cpu, Globe, CheckCircle2, Award } from 'lucide-react'
+import { Shield, Network, Zap, Target, Cpu, Globe, CheckCircle2, Award, ShieldCheck, Briefcase, Clock } from 'lucide-react'
 import { Clients } from '@/components/clients'
 import { FadeUp, TextReveal, MagneticElement } from '@/components/animations'
 import { AnimatedCounter } from '@/components/AnimatedCounter'
@@ -56,23 +56,80 @@ export default async function AboutPage() {
           </Container>
         </Section>
 
-        {/* Animated Stats */}
+        {/* Animated Stats / Corporate Metrics */}
         <Section className="py-12 md:py-16 bg-[#020617] border-t border-white/5">
           <Container>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {[
-                { value: 6, suffix: ' ans', label: "D'expérience d'entreprise", sub: 'Créée en 2020 à Dakar' },
-                { value: 15, suffix: '+', label: "Ans d'expertise fondateur", sub: 'Réseaux & Cybersécurité' },
-                { value: 100, suffix: '%', label: 'Satisfaction clients', sub: 'Clients 100% satisfaits' },
-                { value: 200, suffix: '+', label: 'Projets réalisés', sub: 'Déploiements & audits réussis' },
+                {
+                  badge: "Garantie de Service",
+                  value: 100,
+                  suffix: "%",
+                  label: "Satisfaction Client",
+                  detail: "Qualité d'intervention & suivi rigoureux",
+                  Icon: ShieldCheck,
+                  iconColor: "text-emerald-400",
+                },
+                {
+                  badge: "Expertise Senior",
+                  value: 15,
+                  suffix: "+ Ans",
+                  label: "Expérience Fondateur",
+                  detail: "Ingénierie, maintenance & systèmes",
+                  Icon: Briefcase,
+                  iconColor: "text-[#00D4FF]",
+                },
+                {
+                  badge: "Optimisation Élite",
+                  prefix: "< ",
+                  value: 1.2,
+                  decimals: 1,
+                  suffix: "s",
+                  label: "Performance Web",
+                  detail: "Temps de chargement moyen sur mobile",
+                  Icon: Zap,
+                  iconColor: "text-amber-400",
+                },
+                {
+                  badge: "Haute Disponibilité",
+                  value: 24,
+                  suffix: "/7",
+                  label: "Disponibilité & Support",
+                  detail: "Infogérance & réactivité continue",
+                  Icon: Clock,
+                  iconColor: "text-[#10E760]",
+                },
               ].map((stat, i) => (
                 <FadeUp key={stat.label} delay={i * 0.1}>
-                  <div className="flex flex-col items-center text-center p-6 rounded-xl border border-white/10 bg-white/[0.03] hover:border-[#00D4FF]/30 hover:bg-[#00D4FF]/[0.04] transition-all duration-300 group">
-                    <div className="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-1 group-hover:text-[#00D4FF] transition-colors duration-300">
-                      <AnimatedCounter value={stat.value} suffix={stat.suffix} duration={2000} />
+                  <div className="flex flex-col items-center text-center p-6 rounded-2xl border border-white/10 bg-white/[0.03] hover:border-[#00D4FF]/30 hover:bg-[#00D4FF]/[0.04] transition-all duration-300 group h-full justify-between">
+                    {/* Badge discret & icône */}
+                    <div className="flex items-center gap-2 mb-3">
+                      <stat.Icon className={`w-4 h-4 ${stat.iconColor}`} />
+                      <span className="text-[11px] font-semibold tracking-wider uppercase text-slate-400 font-mono">
+                        {stat.badge}
+                      </span>
                     </div>
-                    <div className="text-sm font-semibold text-slate-200 mb-1">{stat.label}</div>
-                    <div className="text-xs text-slate-500 font-mono">{stat.sub}</div>
+
+                    {/* Grand chiffre animé */}
+                    <div className="text-4xl md:text-5xl font-black text-white tracking-tight my-2 group-hover:text-[#00D4FF] transition-colors duration-300 tabular-nums">
+                      <AnimatedCounter
+                        prefix={stat.prefix}
+                        value={stat.value}
+                        decimals={stat.decimals}
+                        suffix={stat.suffix}
+                        duration={2000}
+                      />
+                    </div>
+
+                    {/* Label principal */}
+                    <div className="text-sm font-bold text-slate-100 mt-1 mb-1">
+                      {stat.label}
+                    </div>
+
+                    {/* Détail explicatif */}
+                    <p className="text-xs text-slate-400 font-normal leading-relaxed">
+                      {stat.detail}
+                    </p>
                   </div>
                 </FadeUp>
               ))}
