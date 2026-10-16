@@ -944,11 +944,6 @@ export function ChatBot() {
         {phase === 'prechat' && (
           <div className="flex-1 overflow-y-auto px-5 py-5 flex flex-col justify-between scrollbar-thin scrollbar-thumb-white/10">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/25 text-[#00D4FF] text-[10px] font-bold uppercase tracking-wider mb-3">
-                <Sparkles className="w-3 h-3" />
-                Ouverture de session directe
-              </div>
-
               <h3 className="text-base font-bold text-white leading-snug">
                 Bienvenue sur le support en direct NOBTECH
               </h3>

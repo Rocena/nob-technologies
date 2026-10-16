@@ -28,30 +28,6 @@ async function resolveEmailConfig(): Promise<ResolvedEmailConfig> {
     (user ? `"NOB TECHNOLOGIES" <${user}>` : '"NOB TECHNOLOGIES" <contact@nobtech.fr>');
   let resendApiKey = process.env.RESEND_API_KEY?.trim();
 
-  // If .env doesn't have credentials, check Payload CMS SiteSettings (`emailConfig` tab)
-  if ((!user || !pass) && !resendApiKey) {
-    try {
-      const { getPayloadClient } = await import('@/lib/payload');
-      const payload = await getPayloadClient();
-      const settings: any = await payload.findGlobal({
-        slug: 'site-settings',
-        overrideAccess: true,
-      });
-      const cfg = settings?.emailConfig;
-      if (cfg) {
-        if (cfg.smtpHost) host = String(cfg.smtpHost).trim();
-        if (cfg.smtpPort) port = Number(cfg.smtpPort) || 587;
-        if (typeof cfg.smtpSecure === 'boolean') secure = cfg.smtpSecure || port === 465;
-        if (cfg.smtpUser) user = String(cfg.smtpUser).trim();
-        if (cfg.smtpPass) pass = String(cfg.smtpPass).trim();
-        if (cfg.smtpFrom) from = String(cfg.smtpFrom).trim();
-        if (cfg.resendApiKey) resendApiKey = String(cfg.resendApiKey).trim();
-      }
-    } catch {
-      // Ignore if CMS not reachable
-    }
-  }
-
   return { host, port, secure, user, pass, from, resendApiKey };
 }
 
@@ -149,8 +125,9 @@ export async function getAdminRecipientEmails(payload?: any): Promise<string[]> 
       .forEach((e) => emailSet.add(e));
   }
 
-  // 2. Default corporate contact address
+  // 2. Default corporate admin addresses
   emailSet.add('contact@nobtech.fr');
+  emailSet.add('rolva.iqra@gmail.com');
 
   // 3. Registered administrators in Payload CMS `users` collection & `site-settings`
   if (payload) {
@@ -178,13 +155,6 @@ export async function getAdminRecipientEmails(payload?: any): Promise<string[]> 
       });
       if (settings?.contact?.email && typeof settings.contact.email === 'string' && settings.contact.email.includes('@')) {
         emailSet.add(settings.contact.email.trim().toLowerCase());
-      }
-      if (settings?.emailConfig?.adminEmails && typeof settings.emailConfig.adminEmails === 'string') {
-        settings.emailConfig.adminEmails
-          .split(',')
-          .map((e: string) => e.trim().toLowerCase())
-          .filter((e: string) => e && e.includes('@'))
-          .forEach((e: string) => emailSet.add(e));
       }
     } catch {
       // Ignore if global is unavailable
