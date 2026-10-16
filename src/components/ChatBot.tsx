@@ -98,6 +98,35 @@ export function AssistantAvatar({ className = "w-6 h-6" }: { className?: string 
           <stop offset="0%" stopColor="#0F172A" />
           <stop offset="100%" stopColor="#020617" />
         </linearGradient>
+        <style>{`
+          @keyframes koffiBlink {
+            0%, 90%, 100% { transform: scaleY(1); }
+            95% { transform: scaleY(0.08); }
+          }
+          @keyframes koffiHeadTilt {
+            0%, 100% { transform: rotate(0deg) translateY(0); }
+            22% { transform: rotate(-2deg) translateY(-0.4px); }
+            48% { transform: rotate(0.4deg) translateY(0.2px); }
+            74% { transform: rotate(2.2deg) translateY(-0.3px); }
+            90% { transform: rotate(-0.5deg) translateY(0.1px); }
+          }
+          @keyframes koffiBrowsLift {
+            0%, 88%, 100% { transform: translateY(0); }
+            94% { transform: translateY(-0.7px); }
+          }
+          .koffi-head-animated {
+            transform-origin: 32px 50px;
+            animation: koffiHeadTilt 5.5s ease-in-out infinite;
+          }
+          .koffi-eyes-blink {
+            transform-origin: 32px 28px;
+            animation: koffiBlink 3.8s ease-in-out infinite;
+          }
+          .koffi-brows-lift {
+            transform-origin: 32px 23px;
+            animation: koffiBrowsLift 3.8s ease-in-out infinite;
+          }
+        `}</style>
       </defs>
 
       <circle cx="32" cy="32" r="31" fill="url(#nob-avatar-bg)" stroke="#BAE6FD" strokeWidth="1.5" />
@@ -107,46 +136,64 @@ export function AssistantAvatar({ className = "w-6 h-6" }: { className?: string 
       <path d="M30.5 53 L32 64 L33.5 53 Z" fill="#00D4FF" />
       <path d="M23 49 L32 59 L41 49" stroke="#E2E8F0" strokeWidth="1" fill="none" strokeLinecap="round" />
       <path d="M25 39 H39 V50 C39 52.5 36.5 54 32 54 C27.5 54 25 52.5 25 50 Z" fill="url(#nob-neck-grad)" />
-      <path d="M14 31 C11 25 12 17 17 11 C22 5 32 4 42 7 C48 10 53 17 53 25 C53 29 51 33 48 35 C49 27 47 18 42 15 C36 12 28 12 22 15 C17 18 15 26 16 35 C14.5 34 14 32.5 14 31 Z" fill="#141417" />
-      <circle cx="21" cy="18" r="9" fill="#18181C" />
-      <circle cx="32" cy="13" r="10.5" fill="#18181C" />
-      <circle cx="43" cy="18" r="9" fill="#18181C" />
-      <circle cx="16" cy="27" r="6.5" fill="#18181C" />
-      <circle cx="48" cy="27" r="6.5" fill="#18181C" />
-      <circle cx="26" cy="14" r="8.5" fill="#18181C" />
-      <circle cx="38" cy="14" r="8.5" fill="#18181C" />
-      <path d="M28 8 C30 7 34 7 36 8" stroke="#383842" strokeWidth="2" strokeLinecap="round" />
-      <path d="M19 13 C21 11 24 11 26 12" stroke="#383842" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M38 12 C40 11 43 11 45 13" stroke="#383842" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M14 22 C14 20 16 19 18 20" stroke="#383842" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M46 20 C48 19 50 20 50 22" stroke="#383842" strokeWidth="1.6" strokeLinecap="round" />
-      <ellipse cx="17.5" cy="32" rx="3.5" ry="5.5" fill="#8E532B" />
-      <ellipse cx="17.5" cy="32" rx="2" ry="3.5" fill="#5E351A" />
-      <ellipse cx="46.5" cy="32" rx="3.5" ry="5.5" fill="#8E532B" />
-      <ellipse cx="46.5" cy="32" rx="2" ry="3.5" fill="#5E351A" />
-      <path d="M19 26 C19 19 23 16 32 16 C41 16 45 19 45 26 C45 35.5 41 43.5 32 43.5 C23 43.5 19 35.5 19 26 Z" fill="url(#nob-skin-grad)" />
-      <path d="M19 24 C23 20.5 28 20 32 20 C36 20 41 20.5 45 24 C43 21 38 19.5 32 19.5 C26 19.5 21 21 19 24 Z" fill="#141417" />
-      <path d="M22 24 C24.5 22.5 28 22.8 29.5 24" stroke="#121214" strokeWidth="2.2" strokeLinecap="round" />
-      <path d="M34.5 24 C36 22.8 39.5 22.5 42 24" stroke="#121214" strokeWidth="2.2" strokeLinecap="round" />
-      <ellipse cx="25.5" cy="28" rx="2.5" ry="2.2" fill="#141416" />
-      <circle cx="26.3" cy="27.3" r="0.9" fill="#FFFFFF" />
-      <ellipse cx="38.5" cy="28" rx="2.5" ry="2.2" fill="#141416" />
-      <circle cx="39.3" cy="27.3" r="0.9" fill="#FFFFFF" />
-      <rect x="20.5" y="23.5" width="10" height="9" rx="3.5" fill="url(#nob-glass-glare)" stroke="#090D16" strokeWidth="2" />
-      <rect x="33.5" y="23.5" width="10" height="9" rx="3.5" fill="url(#nob-glass-glare)" stroke="#090D16" strokeWidth="2" />
-      <path d="M30.5 26.5 C31.5 25.5 32.5 25.5 33.5 26.5" stroke="#090D16" strokeWidth="2" strokeLinecap="round" />
-      <path d="M30.5 26.5 C31.5 25.5 32.5 25.5 33.5 26.5" stroke="#38BDF8" strokeWidth="0.8" strokeLinecap="round" />
-      <path d="M20.5 26.5 L17 27" stroke="#090D16" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M43.5 26.5 L47 27" stroke="#090D16" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M22.5 25 L27 25" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" strokeOpacity="0.85" />
-      <path d="M35.5 25 L40 25" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" strokeOpacity="0.85" />
-      <path d="M32 29.5 V33 C31.2 33.8 32.8 33.8 32 33.8" stroke="#5A2E12" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M30 33.8 C31 34.4 33 34.4 34 33.8" stroke="#5A2E12" strokeWidth="1.5" strokeLinecap="round" />
-      <ellipse cx="20.5" cy="34" rx="2.5" ry="1.5" fill="#BA7040" fillOpacity="0.35" />
-      <ellipse cx="43.5" cy="34" rx="2.5" ry="1.5" fill="#BA7040" fillOpacity="0.35" />
-      <path d="M25.5 36.5 C25.5 36.5 28 42 32 42 C36 42 38.5 36.5 38.5 36.5 Z" fill="#4C1518" />
-      <path d="M26.2 37 C27.8 39 36.2 39 37.8 37 C36.5 36.3 27.5 36.3 26.2 37 Z" fill="#FFFFFF" />
-      <path d="M24.5 36.5 C27.5 41.5 36.5 41.5 39.5 36.5" stroke="#3D1A06" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+
+      {/* Tête vivante de Koffi avec légers mouvements de tête et clignement */}
+      <g className="koffi-head-animated">
+        <path d="M14 31 C11 25 12 17 17 11 C22 5 32 4 42 7 C48 10 53 17 53 25 C53 29 51 33 48 35 C49 27 47 18 42 15 C36 12 28 12 22 15 C17 18 15 26 16 35 C14.5 34 14 32.5 14 31 Z" fill="#141417" />
+        <circle cx="21" cy="18" r="9" fill="#18181C" />
+        <circle cx="32" cy="13" r="10.5" fill="#18181C" />
+        <circle cx="43" cy="18" r="9" fill="#18181C" />
+        <circle cx="16" cy="27" r="6.5" fill="#18181C" />
+        <circle cx="48" cy="27" r="6.5" fill="#18181C" />
+        <circle cx="26" cy="14" r="8.5" fill="#18181C" />
+        <circle cx="38" cy="14" r="8.5" fill="#18181C" />
+        <path d="M28 8 C30 7 34 7 36 8" stroke="#383842" strokeWidth="2" strokeLinecap="round" />
+        <path d="M19 13 C21 11 24 11 26 12" stroke="#383842" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M38 12 C40 11 43 11 45 13" stroke="#383842" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M14 22 C14 20 16 19 18 20" stroke="#383842" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M46 20 C48 19 50 20 50 22" stroke="#383842" strokeWidth="1.6" strokeLinecap="round" />
+        <ellipse cx="17.5" cy="32" rx="3.5" ry="5.5" fill="#8E532B" />
+        <ellipse cx="17.5" cy="32" rx="2" ry="3.5" fill="#5E351A" />
+        <ellipse cx="46.5" cy="32" rx="3.5" ry="5.5" fill="#8E532B" />
+        <ellipse cx="46.5" cy="32" rx="2" ry="3.5" fill="#5E351A" />
+        <path d="M19 26 C19 19 23 16 32 16 C41 16 45 19 45 26 C45 35.5 41 43.5 32 43.5 C23 43.5 19 35.5 19 26 Z" fill="url(#nob-skin-grad)" />
+        <path d="M19 24 C23 20.5 28 20 32 20 C36 20 41 20.5 45 24 C43 21 38 19.5 32 19.5 C26 19.5 21 21 19 24 Z" fill="#141417" />
+        
+        {/* Sourcils expressifs */}
+        <g className="koffi-brows-lift">
+          <path d="M22 24 C24.5 22.5 28 22.8 29.5 24" stroke="#121214" strokeWidth="2.2" strokeLinecap="round" />
+          <path d="M34.5 24 C36 22.8 39.5 22.5 42 24" stroke="#121214" strokeWidth="2.2" strokeLinecap="round" />
+        </g>
+
+        {/* Yeux vivants clignant naturellement */}
+        <g className="koffi-eyes-blink">
+          <ellipse cx="25.5" cy="28" rx="2.5" ry="2.2" fill="#141416" />
+          <circle cx="26.3" cy="27.3" r="0.9" fill="#FFFFFF" />
+          <ellipse cx="38.5" cy="28" rx="2.5" ry="2.2" fill="#141416" />
+          <circle cx="39.3" cy="27.3" r="0.9" fill="#FFFFFF" />
+        </g>
+
+        {/* Lunettes */}
+        <rect x="20.5" y="23.5" width="10" height="9" rx="3.5" fill="url(#nob-glass-glare)" stroke="#090D16" strokeWidth="2" />
+        <rect x="33.5" y="23.5" width="10" height="9" rx="3.5" fill="url(#nob-glass-glare)" stroke="#090D16" strokeWidth="2" />
+        <path d="M30.5 26.5 C31.5 25.5 32.5 25.5 33.5 26.5" stroke="#090D16" strokeWidth="2" strokeLinecap="round" />
+        <path d="M30.5 26.5 C31.5 25.5 32.5 25.5 33.5 26.5" stroke="#38BDF8" strokeWidth="0.8" strokeLinecap="round" />
+        <path d="M20.5 26.5 L17 27" stroke="#090D16" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M43.5 26.5 L47 27" stroke="#090D16" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M22.5 25 L27 25" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" strokeOpacity="0.85" />
+        <path d="M35.5 25 L40 25" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" strokeOpacity="0.85" />
+        
+        {/* Nez & Joues */}
+        <path d="M32 29.5 V33 C31.2 33.8 32.8 33.8 32 33.8" stroke="#5A2E12" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M30 33.8 C31 34.4 33 34.4 34 33.8" stroke="#5A2E12" strokeWidth="1.5" strokeLinecap="round" />
+        <ellipse cx="20.5" cy="34" rx="2.5" ry="1.5" fill="#BA7040" fillOpacity="0.35" />
+        <ellipse cx="43.5" cy="34" rx="2.5" ry="1.5" fill="#BA7040" fillOpacity="0.35" />
+
+        {/* Sourire chaleureux */}
+        <path d="M25.5 36.5 C25.5 36.5 28 42 32 42 C36 42 38.5 36.5 38.5 36.5 Z" fill="#4C1518" />
+        <path d="M26.2 37 C27.8 39 36.2 39 37.8 37 C36.5 36.3 27.5 36.3 26.2 37 Z" fill="#FFFFFF" />
+        <path d="M24.5 36.5 C27.5 41.5 36.5 41.5 39.5 36.5" stroke="#3D1A06" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+      </g>
     </svg>
   );
 }
@@ -315,9 +362,9 @@ function renderText(text: string) {
 function createWelcomeMessage(visitorName?: string, customGreeting?: string): Message {
   const firstName = visitorName ? visitorName.trim().split(/\s+/)[0] : '';
   const defaultGreeting = firstName
-    ? `Bonjour **${firstName}** ! Je m'appelle **Koffi**, votre conseiller virtuel chez **NOBTECH** 👋\n\nVotre session d'assistance est ouverte. Que ce soit pour sécuriser vos réseaux, installer un pare-feu, concevoir un ERP ou estimer un devis gratuit sous 24h, je suis là pour vous accompagner !\n\nComment puis-je vous aider aujourd'hui ? 😊`
+    ? `Bonjour **${firstName}** ! Ravi de vous accueillir chez **NOBTECH** 😊 Je suis **Koffi**, votre conseiller virtuel.\n\nQue vous ayez un projet en cybersécurité, besoin d'un audit, d'un coup de main sur vos réseaux ou envie d'un devis gratuit sous 24h, je suis là pour vous répondre simplement et avec le sourire !\n\nDites-moi tout, comment puis-je vous aider aujourd'hui ?`
     : customGreeting ||
-      "Bonjour ! Je m'appelle **Koffi**, votre conseiller virtuel chez **NOBTECH** 👋\n\nQue ce soit pour sécuriser vos réseaux, installer un pare-feu, concevoir un ERP ou estimer un devis gratuit sous 24h, je suis là pour vous accompagner avec grand plaisir !\n\nComment puis-je vous aider aujourd'hui ? 😊";
+      "Bonjour et bienvenue chez **NOBTECH** ! 😊 Je suis **Koffi**, votre conseiller virtuel.\n\nCybersécurité, câblage réseau, logiciels ERP ou formations certifiantes : dites-moi ce dont vous avez besoin et je vous oriente avec grand plaisir !\n\nPar quoi souhaitez-vous commencer aujourd'hui ?";
 
   return {
     id: 'init',
@@ -828,35 +875,62 @@ export function ChatBot() {
 
   return (
     <>
-      {/* Floating launcher button */}
-      <button
-        onClick={() => setOpen((v) => !v)}
-        aria-label={open ? 'Réduire le chat' : 'Ouvrir le chat avec Koffi, conseiller virtuel NOBTECH'}
-        className={cn(
-          'fixed bottom-6 right-4 sm:bottom-8 sm:right-8 z-[150] flex items-center gap-2.5 rounded-full px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_8px_32px_rgba(0,212,255,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 group',
-          open
-            ? 'bg-[#020617] border border-[#00D4FF]/40 text-[#00D4FF]'
-            : 'bg-[#00D4FF] text-[#020617]'
-        )}
-      >
-        {open ? (
-          <Minus className="w-5 h-5" />
-        ) : (
-          <>
-            <AssistantAvatar className="w-7 h-7 sm:w-8 sm:h-8 shrink-0 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_2px_8px_rgba(0,0,0,0.25)]" />
-            <span className="text-xs font-black tracking-tight text-[#020617] pr-1">
-              {phase === 'active' ? 'Reprendre le chat' : 'Chat Koffi'}
-            </span>
-            {unreadCount > 0 ? (
-              <span className="absolute -top-1.5 -right-1.5 flex h-5 min-w-5 px-1 items-center justify-center rounded-full bg-rose-500 text-[10px] font-bold text-white ring-2 ring-[#020617]">
-                {unreadCount}
+      {/* Floating launcher with thought bubble & living Koffi head */}
+      <div className="fixed bottom-5 right-4 sm:bottom-7 sm:right-7 z-[150] flex flex-col items-end select-none">
+        {/* Bulle de pensée / réflexion "Une question ?" */}
+        {!open && (
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-label="Poser une question à Koffi"
+            className="group relative mb-2 mr-2 cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95 animate-[bounce_4s_infinite_ease-in-out]"
+          >
+            {/* Bulle principale */}
+            <div className="relative rounded-2xl bg-white text-[#020617] px-3.5 py-1.5 shadow-[0_8px_24px_rgba(0,0,0,0.35)] border border-slate-200/90 flex items-center gap-1.5 transition-colors group-hover:bg-[#F0FDF4]">
+              <span className="text-[12px] sm:text-[13px] font-extrabold tracking-tight text-[#0F172A]">
+                Une question ?
               </span>
-            ) : (
-              <span className="absolute -top-1 -right-1 flex h-3 w-3 items-center justify-center rounded-full bg-emerald-500 ring-2 ring-[#020617]" />
-            )}
-          </>
+              <span className="text-amber-500 text-xs">💡</span>
+            </div>
+
+            {/* Cercles de réflexion reliant la bulle à la tête de Koffi */}
+            <span className="absolute -bottom-1.5 right-6 w-2.5 h-2.5 rounded-full bg-white border border-slate-200/90 shadow-sm" />
+            <span className="absolute -bottom-3.5 right-4 w-1.5 h-1.5 rounded-full bg-white border border-slate-200/90 shadow-sm" />
+          </button>
         )}
-      </button>
+
+        {/* Bouton circulaire avec la tête de Koffi */}
+        <button
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? 'Réduire le chat' : 'Discuter avec Koffi, conseiller virtuel NOBTECH'}
+          className={cn(
+            'relative rounded-full transition-all duration-300 hover:scale-105 active:scale-95 group flex items-center justify-center',
+            open
+              ? 'w-12 h-12 bg-[#020617] border border-[#00D4FF]/50 text-[#00D4FF] shadow-[0_8px_24px_rgba(0,0,0,0.5)]'
+              : 'w-14 h-14 sm:w-16 sm:h-16 p-[2px] bg-gradient-to-tr from-[#0284C7] via-[#00D4FF] to-[#38BDF8] shadow-[0_10px_35px_rgba(0,212,255,0.45)] hover:shadow-[0_14px_45px_rgba(0,212,255,0.65)]'
+          )}
+        >
+          {open ? (
+            <X className="w-5 h-5 text-[#00D4FF]" />
+          ) : (
+            <div className="relative w-full h-full rounded-full bg-[#020617] overflow-hidden flex items-center justify-center">
+              <AssistantAvatar className="w-full h-full transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]" />
+              {/* L'unique point vert discret */}
+              <span
+                className="absolute bottom-1 right-1 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-[#020617] shadow-sm"
+                title="Koffi est en ligne"
+              />
+            </div>
+          )}
+
+          {/* Badge messages non-lus si fermé */}
+          {!open && unreadCount > 0 && (
+            <span className="absolute -top-1 -right-1 flex h-5 min-w-5 px-1 items-center justify-center rounded-full bg-rose-500 text-[10px] font-bold text-white ring-2 ring-[#020617] animate-pulse">
+              {unreadCount}
+            </span>
+          )}
+        </button>
+      </div>
 
       {/* Corporate Chat Widget Container */}
       <div
@@ -899,7 +973,7 @@ export function ChatBot() {
                   Session de <strong className="text-slate-200 font-medium">{visitor.name.split(' ')[0]}</strong>
                 </span>
               ) : (
-                <span>Conseiller virtuel en ligne · Répond sous 1s</span>
+                <span>Conseiller virtuel en ligne · À votre écoute !</span>
               )}
             </div>
           </div>
@@ -935,11 +1009,10 @@ export function ChatBot() {
           <div className="flex-1 overflow-y-auto px-5 py-5 flex flex-col justify-between scrollbar-thin scrollbar-thumb-white/10">
             <div>
               <h3 className="text-base font-bold text-white leading-snug">
-                Bienvenue sur le support en direct NOBTECH
+                Hello ! Discutons de votre projet 👋
               </h3>
-              <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Identifiez-vous en quelques secondes pour démarrer votre session avec{' '}
-                <strong className="text-slate-200">Koffi</strong> et recevoir le récapitulatif ou le suivi de nos ingénieurs.
+              <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                Cybersécurité, réseau, devis ou formation... Dites-moi ce dont vous avez besoin ! Laissez-moi vos coordonnées pour qu&apos;on garde le fil de notre échange.
               </p>
 
               <form onSubmit={handleStartSession} className="mt-4 space-y-3">
@@ -1023,7 +1096,7 @@ export function ChatBot() {
                   className="w-full mt-2 py-2.5 px-4 rounded-xl bg-[#00D4FF] hover:bg-[#38BDF8] text-[#020617] font-bold text-xs tracking-wide transition-all duration-200 shadow-[0_6px_20px_rgba(0,212,255,0.3)] hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
                 >
                   <MessageSquare className="w-4 h-4" />
-                  Démarrer la session avec Koffi
+                  C&apos;est parti, on discute ! 👋
                 </button>
               </form>
             </div>
@@ -1031,7 +1104,7 @@ export function ChatBot() {
             <div className="mt-4 pt-3 border-t border-white/10 flex items-start gap-2 text-[10.5px] text-slate-400 leading-snug">
               <ShieldCheck className="w-4 h-4 text-[#00D4FF] shrink-0 mt-0.5" />
               <span>
-                Session chiffrée · Vos coordonnées permettent à nos ingénieurs à Dakar de vous recontacter ou de vous envoyer votre devis sous 24h.
+                Échange confidentiel · Vos coordonnées permettent à nos ingénieurs à Dakar de vous recontacter directement ou d&apos;établir votre devis sous 24h.
               </span>
             </div>
           </div>
