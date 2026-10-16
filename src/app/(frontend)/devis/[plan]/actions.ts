@@ -85,16 +85,23 @@ export async function submitQuoteForm(prevState: any, formData: FormData) {
       },
     });
 
-    // Email notification
+    // Email notification (Client + Tous les Administrateurs)
     try {
-      const { sendEmail, generateClientAcknowledgmentHtml } = await import("@/lib/email");
+      const {
+        sendEmail,
+        generateClientAcknowledgmentHtml,
+        generateAdminNotificationHtml,
+        getAdminRecipientEmails,
+      } = await import("@/lib/email");
 
-      // Accusé de réception professionnel au client
+      const refId = createdMsg?.id ? String(createdMsg.id) : undefined;
+
+      // Accusé de réception professionnel au client avec résumé
       const clientHtml = generateClientAcknowledgmentHtml({
         name: name.trim(),
         subject: `Demande de devis - Plan ${plan}`,
         summary: message.trim(),
-        referenceId: createdMsg?.id ? String(createdMsg.id) : undefined,
+        referenceId: refId,
       });
 
       await sendEmail({
@@ -103,32 +110,28 @@ export async function submitQuoteForm(prevState: any, formData: FormData) {
         html: clientHtml,
       });
 
-      // Notification admin
-      const adminHtml = `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">
-          <h2 style="color: #0A2540; margin-top: 0;">Nouvelle demande de devis reçue : Plan ${plan}</h2>
-          <div style="background-color: #f8fafc; padding: 16px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #00B4D8;">
-            <p style="margin: 4px 0;"><strong>Demandeur :</strong> ${name.trim()}</p>
-            <p style="margin: 4px 0;"><strong>Email :</strong> <a href="mailto:${email.trim()}">${email.trim()}</a></p>
-            <p style="margin: 4px 0;"><strong>Téléphone :</strong> ${phone ? phone.trim() : "Non renseigné"}</p>
-            <p style="margin: 4px 0;"><strong>Entreprise :</strong> ${company ? company.trim() : "Non renseignée"}</p>
-            <p style="margin: 4px 0;"><strong>Employés :</strong> ${employees ? employees.trim() : "Non renseigné"}</p>
-            <p style="margin: 4px 0;"><strong>Délai :</strong> ${deadline ? deadline.trim() : "Non renseigné"}</p>
-          </div>
-          <h3 style="color: #1e293b; margin-bottom: 8px;">Besoins exprimés :</h3>
-          <div style="color: #334155; line-height: 1.6; white-space: pre-wrap; background-color: #f1f5f9; padding: 16px; border-radius: 8px;">
-            ${needs.trim()}
-          </div>
-          <p style="font-size: 12px; color: #94a3b8; margin-top: 24px; text-align: center;">
-            Géré via le back-office NOB TECHNOLOGIES.
-          </p>
-        </div>
-      `;
+      // Notification avec résumé complet à tous les administrateurs
+      const adminEmails = await getAdminRecipientEmails(payload);
+      const adminHtml = generateAdminNotificationHtml({
+        formType: `Demande de Devis — Plan ${plan}`,
+        referenceId: refId,
+        name: name.trim(),
+        email: email.trim(),
+        phone: phone ? phone.trim() : undefined,
+        company: company ? company.trim() : undefined,
+        subject: `Demande de devis - Plan ${plan}`,
+        message: needs.trim(),
+        fields: [
+          { label: "Plan sélectionné", value: plan },
+          { label: "Taille de l'entreprise (Employés)", value: employees },
+          { label: "Délai de mise en œuvre souhaité", value: deadline },
+        ],
+      });
 
       await sendEmail({
-        to: process.env.ADMIN_NOTIFY_EMAIL || "contact@nobtech.fr",
+        to: adminEmails.join(", "),
         replyTo: email.trim(),
-        subject: `[Devis] Nouvelle demande de devis : ${plan} (${company || name})`,
+        subject: `[Devis - Plan ${plan}] Nouvelle demande — ${company ? company.trim() : name.trim()}`,
         html: adminHtml,
       });
     } catch (emailError) {

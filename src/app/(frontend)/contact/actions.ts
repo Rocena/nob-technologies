@@ -18,25 +18,27 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     const phone = formData.get("phone") as string;
     const company = formData.get("company") as string;
     const subject = formData.get("subject") as string;
-    let message = formData.get("message") as string;
+    const rawUserMessage = (formData.get("message") as string) || "";
+    let message = rawUserMessage;
 
     // Extract dynamic contextual fields
+    const rawType = formData.get("type") as string;
     const budget = formData.get("budget") as string;
     const deadline = formData.get("deadline") as string;
     const services = formData.getAll("services").join(", ");
     const infrastructure_size = formData.get("infrastructure_size") as string;
     const technologies = formData.get("technologies") as string;
 
-    // Append dynamic fields to the main message
+    // Append dynamic fields to the main message stored in CMS
     const extraDetails = [];
     if (budget) extraDetails.push(`Budget estimé : ${budget}`);
     if (deadline) extraDetails.push(`Délai souhaité : ${deadline}`);
     if (services) extraDetails.push(`Services concernés : ${services}`);
-    if (infrastructure_size) extraDetails.push(`Taille de l'infrastructure : ${infrastructure_size}`);
+    if (infrastructure_size) extraDetails.push(`Taille de l'infrastructure / Format : ${infrastructure_size}`);
     if (technologies) extraDetails.push(`Technologies utilisées : ${technologies}`);
     
     if (extraDetails.length > 0) {
-      message = "--- Détails du projet ---\n" + extraDetails.join("\n") + "\n\n--- Message ---\n" + message;
+      message = "--- Détails du projet ---\n" + extraDetails.join("\n") + "\n\n--- Message ---\n" + rawUserMessage;
     }
     
     // 2. Honeypot check (hidden field to trap bots)
@@ -109,16 +111,35 @@ export async function submitContactForm(prevState: any, formData: FormData) {
       },
     });
 
-    // 6. Envoyer les emails réels via Nodemailer
+    // 6. Envoyer les emails réels via Nodemailer (Client + Tous les Administrateurs)
     try {
-      const { sendEmail, generateClientAcknowledgmentHtml } = await import("@/lib/email");
+      const {
+        sendEmail,
+        generateClientAcknowledgmentHtml,
+        generateAdminNotificationHtml,
+        getAdminRecipientEmails,
+      } = await import("@/lib/email");
 
-      // 6.1 Accusé de réception professionnel envoyé au client/prospect
+      const refId = createdMsg?.id ? String(createdMsg.id) : undefined;
+
+      // Déterminer le type de formulaire pour le badge admin
+      let formTypeLabel = "Formulaire de Contact";
+      if (rawType === "quote") {
+        formTypeLabel = "Demande de Devis Sur-Mesure";
+      } else if (rawType === "engineer") {
+        formTypeLabel = "Consultation Ingénieur Expert";
+      } else if (subject.trim().toLowerCase().startsWith("formation")) {
+        formTypeLabel = "Candidature / Formation";
+      } else if (subject.trim().toLowerCase().includes("audit")) {
+        formTypeLabel = "Réservation d'Audit Gratuit";
+      }
+
+      // 6.1 Accusé de réception professionnel envoyé au client/prospect avec résumé
       const clientHtml = generateClientAcknowledgmentHtml({
         name: name.trim(),
         subject: subject.trim(),
         summary: message.trim(),
-        referenceId: createdMsg?.id ? String(createdMsg.id) : undefined,
+        referenceId: refId,
       });
 
       await sendEmail({
@@ -127,30 +148,30 @@ export async function submitContactForm(prevState: any, formData: FormData) {
         html: clientHtml,
       });
 
-      // 6.2 Notification à l'équipe interne NOB TECHNOLOGIES
-      const adminHtml = `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">
-          <h2 style="color: #0A2540; margin-top: 0;">Nouveau message de contact reçu</h2>
-          <div style="background-color: #f8fafc; padding: 16px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #00B4D8;">
-            <p style="margin: 4px 0;"><strong>Expéditeur :</strong> ${name.trim()}</p>
-            <p style="margin: 4px 0;"><strong>Email :</strong> <a href="mailto:${email.trim()}">${email.trim()}</a></p>
-            <p style="margin: 4px 0;"><strong>Téléphone :</strong> ${phone ? phone.trim() : "Non renseigné"}</p>
-            <p style="margin: 4px 0;"><strong>Entreprise :</strong> ${company ? company.trim() : "Non renseignée"}</p>
-          </div>
-          <h3 style="color: #1e293b; margin-bottom: 8px;">Objet : ${subject.trim()}</h3>
-          <div style="color: #334155; line-height: 1.6; white-space: pre-wrap; background-color: #f1f5f9; padding: 16px; border-radius: 8px;">
-            ${message.trim()}
-          </div>
-          <p style="font-size: 12px; color: #94a3b8; margin-top: 24px; text-align: center;">
-            Géré via le back-office NOB TECHNOLOGIES. Répondez directement depuis le back-office ou depuis votre messagerie.
-          </p>
-        </div>
-      `;
+      // 6.2 Résumé complet envoyé à tous les administrateurs
+      const adminEmails = await getAdminRecipientEmails(payload);
+      const adminHtml = generateAdminNotificationHtml({
+        formType: formTypeLabel,
+        referenceId: refId,
+        name: name.trim(),
+        email: email.trim(),
+        phone: phone ? phone.trim() : undefined,
+        company: company ? company.trim() : undefined,
+        subject: subject.trim(),
+        message: rawUserMessage.trim() || message.trim(),
+        fields: [
+          { label: "Services concernés", value: services },
+          { label: "Budget estimé", value: budget },
+          { label: "Délai / Disponibilité", value: deadline },
+          { label: "Taille infra / Format", value: infrastructure_size },
+          { label: "Technologies actuelles", value: technologies },
+        ],
+      });
 
       await sendEmail({
-        to: process.env.ADMIN_NOTIFY_EMAIL || "contact@nobtech.fr",
+        to: adminEmails.join(", "),
         replyTo: email.trim(),
-        subject: `[Site Web] Nouveau message : ${subject.trim()}`,
+        subject: `[${formTypeLabel}] ${subject.trim()} — ${company ? company.trim() : name.trim()}`,
         html: adminHtml,
       });
     } catch (emailError) {

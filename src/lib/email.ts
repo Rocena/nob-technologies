@@ -66,6 +66,60 @@ export async function sendEmail({ to, subject, html, replyTo }: SendEmailOptions
 }
 
 /**
+ * Resolve all administrator email addresses dynamically from Payload CMS `users` collection,
+ * `SiteSettings` global, and `ADMIN_NOTIFY_EMAIL` environment variable.
+ */
+export async function getAdminRecipientEmails(payload?: any): Promise<string[]> {
+  const emailSet = new Set<string>();
+
+  // 1. Environment variable (supports comma-separated list)
+  if (process.env.ADMIN_NOTIFY_EMAIL) {
+    process.env.ADMIN_NOTIFY_EMAIL.split(',')
+      .map((e) => e.trim().toLowerCase())
+      .filter((e) => e && e.includes('@'))
+      .forEach((e) => emailSet.add(e));
+  }
+
+  // 2. Default corporate contact address
+  emailSet.add('contact@nobtech.fr');
+
+  // 3. Registered administrators in Payload CMS `users` collection
+  if (payload) {
+    try {
+      const usersResult = await payload.find({
+        collection: 'users',
+        limit: 100,
+        overrideAccess: true,
+      });
+      if (usersResult?.docs && Array.isArray(usersResult.docs)) {
+        for (const doc of usersResult.docs) {
+          if (doc?.email && typeof doc.email === 'string' && doc.email.includes('@')) {
+            emailSet.add(doc.email.trim().toLowerCase());
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('[EMAIL SERVICE] Impossible de récupérer la liste des administrateurs CMS:', err);
+    }
+
+    // 4. SiteSettings global contactEmail if configured
+    try {
+      const settings = await payload.findGlobal({
+        slug: 'site-settings',
+        overrideAccess: true,
+      });
+      if (settings?.contactEmail && typeof settings.contactEmail === 'string' && settings.contactEmail.includes('@')) {
+        emailSet.add(settings.contactEmail.trim().toLowerCase());
+      }
+    } catch {
+      // Ignore if global is unavailable
+    }
+  }
+
+  return Array.from(emailSet);
+}
+
+/**
  * High-end branded HTML email template for client acknowledgment receipt (Accusé de réception).
  */
 export function generateClientAcknowledgmentHtml(params: {
@@ -75,6 +129,10 @@ export function generateClientAcknowledgmentHtml(params: {
   referenceId?: string;
 }) {
   const currentYear = new Date().getFullYear();
+  const formattedSummary = params.summary
+    ? escapeHtml(params.summary).replace(/\n/g, '<br/>')
+    : '';
+
   return `
 <!DOCTYPE html>
 <html lang="fr">
@@ -125,7 +183,15 @@ export function generateClientAcknowledgmentHtml(params: {
                 </div>
                 ${
                   params.referenceId
-                    ? `<div style="font-size: 12px; color: #64748b; font-family: monospace;">Réf: #${escapeHtml(params.referenceId)}</div>`
+                    ? `<div style="font-size: 12px; color: #64748b; font-family: monospace; margin-bottom: 10px;">Réf: #${escapeHtml(params.referenceId)}</div>`
+                    : ''
+                }
+                ${
+                  formattedSummary
+                    ? `<div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 13px; line-height: 1.6; color: #cbd5e1;">
+                        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; font-weight: 700; margin-bottom: 6px;">Résumé de votre demande :</div>
+                        ${formattedSummary}
+                      </div>`
                     : ''
                 }
               </div>
@@ -170,10 +236,228 @@ export function generateClientAcknowledgmentHtml(params: {
           <tr>
             <td style="background-color: #0b1120; border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 24px 30px; text-align: center;">
               <div style="font-size: 12px; color: #64748b; margin-bottom: 8px;">
-                NOB TECHNOLOGIES SARL — Solutions Informatiques, Télécoms & Cybersécurité
+                NOB TECHNOLOGIES — Solutions Informatiques, Télécoms & Cybersécurité
               </div>
               <div style="font-size: 11px; color: #475569;">
-                contact@nobtech.fr • +33 1 23 45 67 89 • Abidjan & Paris • &copy; ${currentYear} Tous droits réservés.
+                contact@nobtech.fr • +221 77 301 08 38 / +221 33 814 04 35 • Dakar, Sénégal • &copy; ${currentYear} Tous droits réservés.
+              </div>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `.trim();
+}
+
+export interface AdminNotificationParams {
+  formType?: string;
+  referenceId?: string;
+  name: string;
+  email: string;
+  phone?: string;
+  company?: string;
+  subject: string;
+  message: string;
+  fields?: Array<{ label: string; value?: string | null }>;
+}
+
+/**
+ * High-end branded HTML summary template sent to all administrators whenever a form is submitted.
+ */
+export function generateAdminNotificationHtml(params: AdminNotificationParams) {
+  const currentYear = new Date().getFullYear();
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://nob-technologies-7l3h.vercel.app').replace(/\/$/, '');
+  const adminUrl = params.referenceId
+    ? `${siteUrl}/admin/collections/contact-messages/${encodeURIComponent(params.referenceId)}`
+    : `${siteUrl}/admin/collections/contact-messages`;
+
+  const submittedAt = new Intl.DateTimeFormat('fr-FR', {
+    dateStyle: 'full',
+    timeStyle: 'short',
+    timeZone: 'Africa/Dakar',
+  }).format(new Date());
+
+  const cleanPhoneDigits = params.phone ? params.phone.replace(/[^\d+]/g, '').replace(/^\+/, '') : '';
+  const whatsappUrl = cleanPhoneDigits ? `https://wa.me/${cleanPhoneDigits}` : null;
+
+  const validExtraFields = (params.fields || []).filter(
+    (f) => f.value && String(f.value).trim().length > 0
+  );
+
+  const extraFieldsRowsHtml = validExtraFields
+    .map(
+      (f) => `
+      <tr>
+        <td style="padding: 10px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8; width: 38%;">
+          ${escapeHtml(f.label)}
+        </td>
+        <td style="padding: 10px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); font-size: 14px; font-weight: 600; color: #f8fafc;">
+          ${escapeHtml(String(f.value))}
+        </td>
+      </tr>`
+    )
+    .join('');
+
+  const formattedMessage = escapeHtml(params.message).replace(/\n/g, '<br/>');
+
+  return `
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nouveau formulaire soumis - NOB TECHNOLOGIES</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #0b1120; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #e2e8f0;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #0b1120; padding: 32px 10px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" style="max-width: 640px; background-color: #0f172a; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);">
+          
+          <!-- Header Banner -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #0A2540 0%, #00B4D8 100%); padding: 28px 30px;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>
+                    <div style="display: inline-block; padding: 4px 12px; background: rgba(11, 17, 32, 0.45); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 999px; color: #ffffff; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">
+                      🔔 ${escapeHtml(params.formType || 'Formulaire Site Web')}
+                    </div>
+                    <div style="font-size: 22px; font-weight: 800; letter-spacing: -0.4px; color: #ffffff;">
+                      Récapitulatif de Soumission
+                    </div>
+                    <div style="font-size: 12px; color: rgba(255, 255, 255, 0.85); margin-top: 4px;">
+                      Reçu le ${escapeHtml(submittedAt)} (Heure de Dakar)
+                    </div>
+                  </td>
+                  ${
+                    params.referenceId
+                      ? `<td align="right" valign="top">
+                          <div style="background: rgba(11, 17, 32, 0.55); padding: 6px 12px; border-radius: 8px; font-family: monospace; font-size: 12px; color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3);">
+                            Réf #${escapeHtml(params.referenceId)}
+                          </div>
+                        </td>`
+                      : ''
+                  }
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Main Body -->
+          <tr>
+            <td style="padding: 30px;">
+              <!-- Subject Banner -->
+              <div style="background-color: #1e293b; border-left: 4px solid #00B4D8; padding: 16px 20px; border-radius: 8px; margin-bottom: 24px;">
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #38bdf8; font-weight: 700; margin-bottom: 4px;">
+                  Objet de la demande
+                </div>
+                <div style="font-size: 17px; font-weight: 700; color: #ffffff;">
+                  ${escapeHtml(params.subject)}
+                </div>
+              </div>
+
+              <!-- Section 1: Coordonnées du Contact -->
+              <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #00B4D8; margin-bottom: 10px;">
+                1. Coordonnées de l'expéditeur
+              </div>
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #1e293b; border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 10px; overflow: hidden; margin-bottom: 24px;">
+                <tr>
+                  <td style="padding: 10px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8; width: 38%;">
+                    Nom & Prénom
+                  </td>
+                  <td style="padding: 10px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); font-size: 14px; font-weight: 700; color: #ffffff;">
+                    ${escapeHtml(params.name)}
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8;">
+                    Email
+                  </td>
+                  <td style="padding: 10px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); font-size: 14px;">
+                    <a href="mailto:${escapeHtml(params.email)}" style="color: #38bdf8; text-decoration: none; font-weight: 600;">
+                      ${escapeHtml(params.email)}
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8;">
+                    Téléphone / WhatsApp
+                  </td>
+                  <td style="padding: 10px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); font-size: 14px; color: #f8fafc;">
+                    ${
+                      params.phone
+                        ? `<a href="tel:${escapeHtml(params.phone)}" style="color: #f8fafc; text-decoration: none; font-weight: 600;">${escapeHtml(params.phone)}</a>`
+                        : '<span style="color: #64748b; font-style: italic;">Non renseigné</span>'
+                    }
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 14px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8;">
+                    Entreprise / Organisation
+                  </td>
+                  <td style="padding: 10px 14px; font-size: 14px; color: #f8fafc; font-weight: 600;">
+                    ${
+                      params.company
+                        ? escapeHtml(params.company)
+                        : '<span style="color: #64748b; font-style: italic; font-weight: 400;">Particulier / Non renseignée</span>'
+                    }
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Section 2: Critères & Spécifications du Formulaire (if any) -->
+              ${
+                validExtraFields.length > 0
+                  ? `<div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #00B4D8; margin-bottom: 10px;">
+                      2. Informations & Paramètres sélectionnés
+                    </div>
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #1e293b; border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 10px; overflow: hidden; margin-bottom: 24px;">
+                      ${extraFieldsRowsHtml}
+                    </table>`
+                  : ''
+              }
+
+              <!-- Section 3: Message / Détails complets -->
+              <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #00B4D8; margin-bottom: 10px;">
+                ${validExtraFields.length > 0 ? '3.' : '2.'} Contenu détaillé & Message
+              </div>
+              <div style="background-color: #1e293b; border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 10px; padding: 18px 20px; font-size: 14px; line-height: 1.7; color: #f1f5f9; margin-bottom: 28px;">
+                ${formattedMessage}
+              </div>
+
+              <!-- Quick Action Buttons -->
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td align="center" style="padding-bottom: 10px;">
+                    <a href="mailto:${escapeHtml(params.email)}?subject=${encodeURIComponent('Re: ' + params.subject + ' - NOB TECHNOLOGIES')}" style="display: inline-block; background-color: #00B4D8; color: #0b1120; font-weight: 700; font-size: 13px; text-decoration: none; padding: 12px 22px; border-radius: 10px; margin: 4px;">
+                      ✉️ Répondre par Email
+                    </a>
+                    ${
+                      whatsappUrl
+                        ? `<a href="${whatsappUrl}" style="display: inline-block; background-color: #10b981; color: #0b1120; font-weight: 700; font-size: 13px; text-decoration: none; padding: 12px 22px; border-radius: 10px; margin: 4px;">
+                            💬 Contacter sur WhatsApp
+                          </a>`
+                        : ''
+                    }
+                    <a href="${adminUrl}" style="display: inline-block; background-color: #1e293b; color: #f8fafc; border: 1px solid rgba(255, 255, 255, 0.15); font-weight: 600; font-size: 13px; text-decoration: none; padding: 12px 22px; border-radius: 10px; margin: 4px;">
+                      🖥️ Ouvrir dans le Back-Office
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #0b1120; border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 20px 30px; text-align: center;">
+              <div style="font-size: 11px; color: #64748b;">
+                Notification automatique envoyée aux administrateurs NOB TECHNOLOGIES • &copy; ${currentYear}
               </div>
             </td>
           </tr>
@@ -261,10 +545,10 @@ export function generateAdminReplyHtml(params: {
           <tr>
             <td style="background-color: #0b1120; border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 24px 30px; text-align: center;">
               <div style="font-size: 12px; color: #64748b; margin-bottom: 8px;">
-                NOB TECHNOLOGIES SARL — Réseaux, Télécoms, Cloud & Cybersécurité
+                NOB TECHNOLOGIES — Réseaux, Télécoms, Cloud & Cybersécurité
               </div>
               <div style="font-size: 11px; color: #475569;">
-                contact@nobtech.fr • +33 1 23 45 67 89 • Abidjan & Paris • &copy; ${currentYear} Tous droits réservés.
+                contact@nobtech.fr • +221 77 301 08 38 / +221 33 814 04 35 • Dakar, Sénégal • &copy; ${currentYear} Tous droits réservés.
               </div>
             </td>
           </tr>
