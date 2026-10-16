@@ -23,7 +23,7 @@ export default function BackToTop() {
       onClick={scrollToTop}
       aria-label="Retour en haut"
       className={[
-        'fixed bottom-20 right-4 sm:bottom-24 sm:right-8 z-40',
+        'fixed bottom-24 right-6 sm:bottom-28 sm:right-8 z-40',
         'w-10 h-10 sm:w-11 sm:h-11 rounded-full',
         'bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-white',
         'hover:bg-[#00D4FF] hover:border-[#00D4FF] hover:text-[#020617]',

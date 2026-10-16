@@ -71,33 +71,57 @@ export function AssistantAvatar({ className = "w-6 h-6" }: { className?: string 
   return (
     <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-label="Koffi, Conseiller virtuel NOBTECH">
       <defs>
-        <radialGradient id="nob-avatar-bg" cx="32" cy="24" r="32" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#38BDF8" />
-          <stop offset="55%" stopColor="#0284C7" />
-          <stop offset="100%" stopColor="#0369A1" />
+        {/* Fond dégradé tech NOBTECH */}
+        <radialGradient id="koffi-bg" cx="32" cy="24" r="32" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#0284C7" />
+          <stop offset="65%" stopColor="#0369A1" />
+          <stop offset="100%" stopColor="#06182C" />
         </radialGradient>
-        <radialGradient id="nob-afro-halo" cx="32" cy="20" r="24" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#BAE6FD" stopOpacity="0.45" />
+
+        {/* Halo lumineux */}
+        <radialGradient id="koffi-halo" cx="32" cy="18" r="26" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.4" />
           <stop offset="100%" stopColor="#0284C7" stopOpacity="0" />
         </radialGradient>
-        <linearGradient id="nob-skin-grad" x1="32" y1="18" x2="32" y2="45" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#A86E45" />
-          <stop offset="60%" stopColor="#8E532B" />
-          <stop offset="100%" stopColor="#6E3C1B" />
+
+        {/* Teint de peau africain chaleureux et riche */}
+        <linearGradient id="koffi-skin" x1="32" y1="16" x2="32" y2="46" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#9C5E2D" />
+          <stop offset="45%" stopColor="#874E23" />
+          <stop offset="100%" stopColor="#693916" />
         </linearGradient>
-        <linearGradient id="nob-neck-grad" x1="32" y1="41" x2="32" y2="53" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#552C12" />
-          <stop offset="100%" stopColor="#7B421E" />
+
+        {/* Ombrage du cou */}
+        <linearGradient id="koffi-neck" x1="32" y1="40" x2="32" y2="52" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#4A240C" />
+          <stop offset="100%" stopColor="#6B3916" />
         </linearGradient>
-        <linearGradient id="nob-glass-glare" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.4" />
-          <stop offset="45%" stopColor="#00D4FF" stopOpacity="0.15" />
-          <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.08" />
+
+        {/* Dégradé afro sur les tempes (taper fade) */}
+        <linearGradient id="koffi-fade-l" x1="16" y1="20" x2="20" y2="30" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#111116" />
+          <stop offset="60%" stopColor="#3E2211" />
+          <stop offset="100%" stopColor="#874E23" />
         </linearGradient>
-        <linearGradient id="nob-suit-grad" x1="32" y1="48" x2="32" y2="64" gradientUnits="userSpaceOnUse">
+        <linearGradient id="koffi-fade-r" x1="48" y1="20" x2="44" y2="30" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#111116" />
+          <stop offset="60%" stopColor="#3E2211" />
+          <stop offset="100%" stopColor="#874E23" />
+        </linearGradient>
+
+        {/* Veste de costume corporate */}
+        <linearGradient id="koffi-suit" x1="32" y1="46" x2="32" y2="64" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#0F172A" />
           <stop offset="100%" stopColor="#020617" />
         </linearGradient>
+
+        {/* Reflets verres lunettes */}
+        <linearGradient id="koffi-lens" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.35" />
+          <stop offset="50%" stopColor="#00D4FF" stopOpacity="0.12" />
+          <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.05" />
+        </linearGradient>
+
         <style>{`
           @keyframes koffiBlink {
             0%, 90%, 100% { transform: scaleY(1); }
@@ -105,10 +129,10 @@ export function AssistantAvatar({ className = "w-6 h-6" }: { className?: string 
           }
           @keyframes koffiHeadTilt {
             0%, 100% { transform: rotate(0deg) translateY(0); }
-            22% { transform: rotate(-2deg) translateY(-0.4px); }
-            48% { transform: rotate(0.4deg) translateY(0.2px); }
-            74% { transform: rotate(2.2deg) translateY(-0.3px); }
-            90% { transform: rotate(-0.5deg) translateY(0.1px); }
+            24% { transform: rotate(-1.8deg) translateY(-0.4px); }
+            50% { transform: rotate(0.4deg) translateY(0.2px); }
+            76% { transform: rotate(2deg) translateY(-0.3px); }
+            92% { transform: rotate(-0.5deg) translateY(0.1px); }
           }
           @keyframes koffiBrowsLift {
             0%, 88%, 100% { transform: translateY(0); }
@@ -129,70 +153,132 @@ export function AssistantAvatar({ className = "w-6 h-6" }: { className?: string 
         `}</style>
       </defs>
 
-      <circle cx="32" cy="32" r="31" fill="url(#nob-avatar-bg)" stroke="#BAE6FD" strokeWidth="1.5" />
-      <circle cx="32" cy="22" r="22" fill="url(#nob-afro-halo)" />
-      <path d="M10 64 C10 52 19 47 32 47 C45 47 54 52 54 64 Z" fill="url(#nob-suit-grad)" />
+      {/* Cercle de fond & liseré cyan */}
+      <circle cx="32" cy="32" r="31" fill="url(#koffi-bg)" stroke="#38BDF8" strokeWidth="1.5" />
+      <circle cx="32" cy="20" r="22" fill="url(#koffi-halo)" />
+
+      {/* Buste : Veste sombre & Chemise blanche avec cravate tech cyan */}
+      <path d="M8 64 C8 52 18 47 32 47 C46 47 56 52 56 64 Z" fill="url(#koffi-suit)" />
       <path d="M24 48 L32 58 L40 48 L36 47 L32 53 L28 47 Z" fill="#FFFFFF" />
       <path d="M30.5 53 L32 64 L33.5 53 Z" fill="#00D4FF" />
       <path d="M23 49 L32 59 L41 49" stroke="#E2E8F0" strokeWidth="1" fill="none" strokeLinecap="round" />
-      <path d="M25 39 H39 V50 C39 52.5 36.5 54 32 54 C27.5 54 25 52.5 25 50 Z" fill="url(#nob-neck-grad)" />
 
-      {/* Tête vivante de Koffi avec légers mouvements de tête et clignement */}
+      {/* Cou avec ombrage */}
+      <path d="M24.5 39 H39.5 V50 C39.5 52.5 36.5 54 32 54 C27.5 54 24.5 52.5 24.5 50 Z" fill="url(#koffi-neck)" />
+
+      {/* TÊTE ANIMÉE DE KOFFI (Dégradé afro, barbe soignée, traits nets) */}
       <g className="koffi-head-animated">
-        <path d="M14 31 C11 25 12 17 17 11 C22 5 32 4 42 7 C48 10 53 17 53 25 C53 29 51 33 48 35 C49 27 47 18 42 15 C36 12 28 12 22 15 C17 18 15 26 16 35 C14.5 34 14 32.5 14 31 Z" fill="#141417" />
-        <circle cx="21" cy="18" r="9" fill="#18181C" />
-        <circle cx="32" cy="13" r="10.5" fill="#18181C" />
-        <circle cx="43" cy="18" r="9" fill="#18181C" />
-        <circle cx="16" cy="27" r="6.5" fill="#18181C" />
-        <circle cx="48" cy="27" r="6.5" fill="#18181C" />
-        <circle cx="26" cy="14" r="8.5" fill="#18181C" />
-        <circle cx="38" cy="14" r="8.5" fill="#18181C" />
-        <path d="M28 8 C30 7 34 7 36 8" stroke="#383842" strokeWidth="2" strokeLinecap="round" />
-        <path d="M19 13 C21 11 24 11 26 12" stroke="#383842" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M38 12 C40 11 43 11 45 13" stroke="#383842" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M14 22 C14 20 16 19 18 20" stroke="#383842" strokeWidth="1.6" strokeLinecap="round" />
-        <path d="M46 20 C48 19 50 20 50 22" stroke="#383842" strokeWidth="1.6" strokeLinecap="round" />
-        <ellipse cx="17.5" cy="32" rx="3.5" ry="5.5" fill="#8E532B" />
-        <ellipse cx="17.5" cy="32" rx="2" ry="3.5" fill="#5E351A" />
-        <ellipse cx="46.5" cy="32" rx="3.5" ry="5.5" fill="#8E532B" />
-        <ellipse cx="46.5" cy="32" rx="2" ry="3.5" fill="#5E351A" />
-        <path d="M19 26 C19 19 23 16 32 16 C41 16 45 19 45 26 C45 35.5 41 43.5 32 43.5 C23 43.5 19 35.5 19 26 Z" fill="url(#nob-skin-grad)" />
-        <path d="M19 24 C23 20.5 28 20 32 20 C36 20 41 20.5 45 24 C43 21 38 19.5 32 19.5 C26 19.5 21 21 19 24 Z" fill="#141417" />
-        
-        {/* Sourcils expressifs */}
+        {/* 1. COIFFURE DÉGRADÉ AFRO (AFRO TAPER FADE) */}
+        {/* Volume afro supérieur texturé */}
+        <path
+          d="M17 19 C15 13 21 6 32 6 C43 6 49 13 47 19 C48 22 47 25 46 27 C44 23 43 18 39 16 C34 14 30 14 25 16 C21 18 20 23 18 27 C17 25 16 22 17 19 Z"
+          fill="#111116"
+        />
+        {/* Boucles afro et épaisseur */}
+        <circle cx="21" cy="14" r="7.5" fill="#141419" />
+        <circle cx="32" cy="10" r="8.5" fill="#181820" />
+        <circle cx="43" cy="14" r="7.5" fill="#141419" />
+        <circle cx="26" cy="10.5" r="7" fill="#16161D" />
+        <circle cx="38" cy="10.5" r="7" fill="#16161D" />
+        {/* Textures de boucles afro */}
+        <path d="M27 8 C29 6.8 32 6.8 34 8" stroke="#333342" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M19 12 C21 10.5 23 10.5 25 11.5" stroke="#333342" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M39 11.5 C41 10.5 43 10.5 45 12" stroke="#333342" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M30 13 C32 12 34 12 36 13" stroke="#2D2D3A" strokeWidth="1.5" strokeLinecap="round" />
+
+        {/* Dégradé / Fade sur les tempes et côtés (Taper fade) */}
+        <path d="M16 22 C16 22 19 23 19 29 L16.5 29 Z" fill="url(#koffi-fade-l)" />
+        <path d="M48 22 C48 22 45 23 45 29 L47.5 29 Z" fill="url(#koffi-fade-r)" />
+
+        {/* Oreilles bien proportionnées avec relief */}
+        <ellipse cx="17.5" cy="32" rx="3.2" ry="5.2" fill="#7D461E" />
+        <ellipse cx="17.5" cy="32" rx="1.8" ry="3.2" fill="#4D250C" />
+        <ellipse cx="46.5" cy="32" rx="3.2" ry="5.2" fill="#7D461E" />
+        <ellipse cx="46.5" cy="32" rx="1.8" ry="3.2" fill="#4D250C" />
+
+        {/* 2. STRUCTURE DU VISAGE SCULPTÉE & EXPRESSIVE */}
+        <path
+          d="M19 24 C19 18 23 16 32 16 C41 16 45 18 45 24 C45 32 43 43.5 32 43.5 C21 43.5 19 32 19 24 Z"
+          fill="url(#koffi-skin)"
+        />
+
+        {/* Contour net afro sur le front (Line-up / Barbershop contour) */}
+        <path d="M20 22.5 H44 V24 C41 21.5 37 21 32 21 C27 21 23 21.5 20 24 Z" fill="#121217" />
+        <path d="M20 22.5 L20 25.5" stroke="#121217" strokeWidth="1.8" strokeLinecap="square" />
+        <path d="M44 22.5 L44 25.5" stroke="#121217" strokeWidth="1.8" strokeLinecap="square" />
+
+        {/* Pommettes définies pour sculpter les traits */}
+        <ellipse cx="23" cy="31" rx="2.8" ry="1.6" fill="#A86A38" fillOpacity="0.4" />
+        <ellipse cx="41" cy="31" rx="2.8" ry="1.6" fill="#A86A38" fillOpacity="0.4" />
+
+        {/* 3. SOURCILS BIEN DESSINÉS */}
         <g className="koffi-brows-lift">
-          <path d="M22 24 C24.5 22.5 28 22.8 29.5 24" stroke="#121214" strokeWidth="2.2" strokeLinecap="round" />
-          <path d="M34.5 24 C36 22.8 39.5 22.5 42 24" stroke="#121214" strokeWidth="2.2" strokeLinecap="round" />
+          <path d="M22 23.5 C24.5 22 28 22.4 29.5 23.6" stroke="#0E0E12" strokeWidth="2.2" strokeLinecap="round" />
+          <path d="M34.5 23.6 C36 22.4 39.5 22 42 23.5" stroke="#0E0E12" strokeWidth="2.2" strokeLinecap="round" />
         </g>
 
-        {/* Yeux vivants clignant naturellement */}
+        {/* 4. YEUX VIVANTS, EXPRESSIFS & CLIGNANTS */}
         <g className="koffi-eyes-blink">
-          <ellipse cx="25.5" cy="28" rx="2.5" ry="2.2" fill="#141416" />
-          <circle cx="26.3" cy="27.3" r="0.9" fill="#FFFFFF" />
-          <ellipse cx="38.5" cy="28" rx="2.5" ry="2.2" fill="#141416" />
-          <circle cx="39.3" cy="27.3" r="0.9" fill="#FFFFFF" />
+          {/* Blanc des yeux avec profondeur */}
+          <ellipse cx="25.8" cy="27.8" rx="3.2" ry="2.2" fill="#E2E8F0" />
+          <ellipse cx="38.2" cy="27.8" rx="3.2" ry="2.2" fill="#E2E8F0" />
+          {/* Iris sombre intense */}
+          <circle cx="25.8" cy="27.8" r="1.9" fill="#101015" />
+          <circle cx="38.2" cy="27.8" r="1.9" fill="#101015" />
+          {/* Éclat de vie / Reflet blanc */}
+          <circle cx="26.6" cy="27.1" r="0.8" fill="#FFFFFF" />
+          <circle cx="39" cy="27.1" r="0.8" fill="#FFFFFF" />
+          {/* Paupière supérieure nette */}
+          <path d="M22.8 26.8 C24.5 25.8 27.2 25.8 28.8 26.8" stroke="#3D1E0B" strokeWidth="1.2" strokeLinecap="round" />
+          <path d="M35.2 26.8 C36.8 25.8 39.5 25.8 41.2 26.8" stroke="#3D1E0B" strokeWidth="1.2" strokeLinecap="round" />
         </g>
 
-        {/* Lunettes */}
-        <rect x="20.5" y="23.5" width="10" height="9" rx="3.5" fill="url(#nob-glass-glare)" stroke="#090D16" strokeWidth="2" />
-        <rect x="33.5" y="23.5" width="10" height="9" rx="3.5" fill="url(#nob-glass-glare)" stroke="#090D16" strokeWidth="2" />
-        <path d="M30.5 26.5 C31.5 25.5 32.5 25.5 33.5 26.5" stroke="#090D16" strokeWidth="2" strokeLinecap="round" />
-        <path d="M30.5 26.5 C31.5 25.5 32.5 25.5 33.5 26.5" stroke="#38BDF8" strokeWidth="0.8" strokeLinecap="round" />
-        <path d="M20.5 26.5 L17 27" stroke="#090D16" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M43.5 26.5 L47 27" stroke="#090D16" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M22.5 25 L27 25" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" strokeOpacity="0.85" />
-        <path d="M35.5 25 L40 25" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" strokeOpacity="0.85" />
-        
-        {/* Nez & Joues */}
-        <path d="M32 29.5 V33 C31.2 33.8 32.8 33.8 32 33.8" stroke="#5A2E12" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M30 33.8 C31 34.4 33 34.4 34 33.8" stroke="#5A2E12" strokeWidth="1.5" strokeLinecap="round" />
-        <ellipse cx="20.5" cy="34" rx="2.5" ry="1.5" fill="#BA7040" fillOpacity="0.35" />
-        <ellipse cx="43.5" cy="34" rx="2.5" ry="1.5" fill="#BA7040" fillOpacity="0.35" />
+        {/* 5. LUNETTES TECH DESIGNER MODERNES */}
+        <rect x="20.5" y="23.2" width="10.2" height="9.2" rx="3" fill="url(#koffi-lens)" stroke="#090D16" strokeWidth="1.8" />
+        <rect x="33.3" y="23.2" width="10.2" height="9.2" rx="3" fill="url(#koffi-lens)" stroke="#090D16" strokeWidth="1.8" />
+        <path d="M30.7 26.2 C31.7 25.4 32.3 25.4 33.3 26.2" stroke="#090D16" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M30.7 26.2 C31.7 25.4 32.3 25.4 33.3 26.2" stroke="#00D4FF" strokeWidth="0.8" strokeLinecap="round" />
+        <path d="M20.5 26.2 L17 26.8" stroke="#090D16" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M43.5 26.2 L47 26.8" stroke="#090D16" strokeWidth="1.6" strokeLinecap="round" />
+        {/* Reflet verre */}
+        <path d="M22.5 24.8 L26.5 24.8" stroke="#FFFFFF" strokeWidth="1" strokeLinecap="round" strokeOpacity="0.85" />
+        <path d="M35.3 24.8 L39.3 24.8" stroke="#FFFFFF" strokeWidth="1" strokeLinecap="round" strokeOpacity="0.85" />
 
-        {/* Sourire chaleureux */}
-        <path d="M25.5 36.5 C25.5 36.5 28 42 32 42 C36 42 38.5 36.5 38.5 36.5 Z" fill="#4C1518" />
-        <path d="M26.2 37 C27.8 39 36.2 39 37.8 37 C36.5 36.3 27.5 36.3 26.2 37 Z" fill="#FFFFFF" />
-        <path d="M24.5 36.5 C27.5 41.5 36.5 41.5 39.5 36.5" stroke="#3D1A06" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+        {/* 6. NEZ BIEN DESSINÉ AVEC ARÊTE ET NARINES */}
+        <path d="M32 27.5 V32" stroke="#663412" strokeWidth="1.2" strokeLinecap="round" />
+        <path d="M31.6 28 V31.5" stroke="#A86A38" strokeWidth="0.8" strokeLinecap="round" />
+        <path d="M29.5 32.8 C30.5 33.6 33.5 33.6 34.5 32.8" stroke="#4D230A" strokeWidth="1.6" strokeLinecap="round" />
+        <circle cx="30" cy="32.8" r="0.7" fill="#3D1A06" />
+        <circle cx="34" cy="32.8" r="0.7" fill="#3D1A06" />
+
+        {/* 7. BARBE TAILLÉE SOIGNÉE & SOURIRE CHALEUREUX */}
+        {/* Favoris dégradés descendant le long des joues */}
+        <path d="M19 28 L19.8 35 L21 37 L20 38 L18.5 33 Z" fill="#121217" />
+        <path d="M45 28 L44.2 35 L43 37 L44 38 L45.5 33 Z" fill="#121217" />
+
+        {/* Moustache bien taillée au-dessus de la lèvre */}
+        <path
+          d="M26 35.5 C28 34.5 30.5 35 32 35.8 C33.5 35 36 34.5 38 35.5 C38.5 36.6 36.5 37.4 34.5 37 C33 36.6 32 37.2 32 37.2 C32 37.2 31 36.6 29.5 37 C27.5 37.4 25.5 36.6 26 35.5 Z"
+          fill="#121217"
+        />
+
+        {/* Bouche souriante avec dents */}
+        <path d="M26.5 37.5 C26.5 37.5 28.5 41.5 32 41.5 C35.5 41.5 37.5 37.5 37.5 37.5 Z" fill="#3D1215" />
+        <path d="M27 37.8 C28.5 39.2 35.5 39.2 37 37.8 C36 37.3 28 37.3 27 37.8 Z" fill="#FFFFFF" />
+        <path d="M25.8 37.2 C28.5 41.8 35.5 41.8 38.2 37.2" stroke="#2B0E05" strokeWidth="1.2" strokeLinecap="round" fill="none" />
+
+        {/* Mouche / Soul patch sous la lèvre inférieure */}
+        <path d="M31 39.8 H33 V41.2 C33 41.8 31 41.8 31 41.2 Z" fill="#121217" />
+
+        {/* Barbe sculptée sur la mâchoire et le menton */}
+        <path
+          d="M20.5 37.5 C20.5 37.5 23 43.5 27 44.5 C29.5 45.2 34.5 45.2 37 44.5 C41 43.5 43.5 37.5 43.5 37.5 C43 40.5 40.5 44 37 45.2 C34 46 30 46 27 45.2 C23.5 44 21 40.5 20.5 37.5 Z"
+          fill="#121217"
+        />
+        <path
+          d="M27 42 C29 43.5 35 43.5 37 42 C36.5 44.8 34.5 45.8 32 45.8 C29.5 45.8 27.5 44.8 27 42 Z"
+          fill="#121217"
+        />
       </g>
     </svg>
   );
@@ -875,62 +961,32 @@ export function ChatBot() {
 
   return (
     <>
-      {/* Floating launcher with thought bubble & living Koffi head */}
-      <div className="fixed bottom-5 right-4 sm:bottom-7 sm:right-7 z-[150] flex flex-col items-end select-none">
-        {/* Bulle de pensée / réflexion "Une question ?" */}
-        {!open && (
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
-            aria-label="Poser une question à Koffi"
-            className="group relative mb-2 mr-2 cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95 animate-[bounce_4s_infinite_ease-in-out]"
-          >
-            {/* Bulle principale */}
-            <div className="relative rounded-2xl bg-white text-[#020617] px-3.5 py-1.5 shadow-[0_8px_24px_rgba(0,0,0,0.35)] border border-slate-200/90 flex items-center gap-1.5 transition-colors group-hover:bg-[#F0FDF4]">
-              <span className="text-[12px] sm:text-[13px] font-extrabold tracking-tight text-[#0F172A]">
-                Une question ?
-              </span>
-              <span className="text-amber-500 text-xs">💡</span>
-            </div>
-
-            {/* Cercles de réflexion reliant la bulle à la tête de Koffi */}
-            <span className="absolute -bottom-1.5 right-6 w-2.5 h-2.5 rounded-full bg-white border border-slate-200/90 shadow-sm" />
-            <span className="absolute -bottom-3.5 right-4 w-1.5 h-1.5 rounded-full bg-white border border-slate-200/90 shadow-sm" />
-          </button>
+      {/* Floating launcher button: juste Koffi dans la bulle (sans point vert, sans texte superflu) */}
+      <button
+        onClick={() => setOpen((v) => !v)}
+        aria-label={open ? 'Réduire le chat' : 'Discuter avec Koffi, conseiller virtuel NOBTECH'}
+        className={cn(
+          'fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-[150] rounded-full transition-all duration-300 hover:scale-105 active:scale-95 group flex items-center justify-center select-none',
+          open
+            ? 'w-12 h-12 bg-[#020617] border border-[#00D4FF]/50 text-[#00D4FF] shadow-[0_8px_24px_rgba(0,0,0,0.5)]'
+            : 'w-14 h-14 sm:w-16 sm:h-16 p-[2px] bg-gradient-to-tr from-[#0284C7] via-[#00D4FF] to-[#38BDF8] shadow-[0_10px_35px_rgba(0,212,255,0.45)] hover:shadow-[0_14px_45px_rgba(0,212,255,0.65)]'
+        )}
+      >
+        {open ? (
+          <X className="w-5 h-5 text-[#00D4FF]" />
+        ) : (
+          <div className="relative w-full h-full rounded-full bg-[#020617] overflow-hidden flex items-center justify-center">
+            <AssistantAvatar className="w-full h-full transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]" />
+          </div>
         )}
 
-        {/* Bouton circulaire avec la tête de Koffi */}
-        <button
-          onClick={() => setOpen((v) => !v)}
-          aria-label={open ? 'Réduire le chat' : 'Discuter avec Koffi, conseiller virtuel NOBTECH'}
-          className={cn(
-            'relative rounded-full transition-all duration-300 hover:scale-105 active:scale-95 group flex items-center justify-center',
-            open
-              ? 'w-12 h-12 bg-[#020617] border border-[#00D4FF]/50 text-[#00D4FF] shadow-[0_8px_24px_rgba(0,0,0,0.5)]'
-              : 'w-14 h-14 sm:w-16 sm:h-16 p-[2px] bg-gradient-to-tr from-[#0284C7] via-[#00D4FF] to-[#38BDF8] shadow-[0_10px_35px_rgba(0,212,255,0.45)] hover:shadow-[0_14px_45px_rgba(0,212,255,0.65)]'
-          )}
-        >
-          {open ? (
-            <X className="w-5 h-5 text-[#00D4FF]" />
-          ) : (
-            <div className="relative w-full h-full rounded-full bg-[#020617] overflow-hidden flex items-center justify-center">
-              <AssistantAvatar className="w-full h-full transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]" />
-              {/* L'unique point vert discret */}
-              <span
-                className="absolute bottom-1 right-1 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-[#020617] shadow-sm"
-                title="Koffi est en ligne"
-              />
-            </div>
-          )}
-
-          {/* Badge messages non-lus si fermé */}
-          {!open && unreadCount > 0 && (
-            <span className="absolute -top-1 -right-1 flex h-5 min-w-5 px-1 items-center justify-center rounded-full bg-rose-500 text-[10px] font-bold text-white ring-2 ring-[#020617] animate-pulse">
-              {unreadCount}
-            </span>
-          )}
-        </button>
-      </div>
+        {/* Badge messages non-lus si fermé */}
+        {!open && unreadCount > 0 && (
+          <span className="absolute -top-1 -right-1 flex h-5 min-w-5 px-1 items-center justify-center rounded-full bg-rose-500 text-[10px] font-bold text-white ring-2 ring-[#020617] animate-pulse">
+            {unreadCount}
+          </span>
+        )}
+      </button>
 
       {/* Corporate Chat Widget Container */}
       <div
