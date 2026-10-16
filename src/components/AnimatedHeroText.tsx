@@ -48,17 +48,22 @@ export function AnimatedHeroText() {
         Nous créons des solutions pour
       </h1>
       <div className="relative h-20 sm:h-24 lg:h-28 flex items-center justify-center w-full mt-1">
-        <div className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight py-2 flex items-center justify-center">
+        <div className="text-4xl sm:text-6xl lg:text-7xl font-mono font-bold tracking-tight py-2 flex items-center justify-center">
           <span className="relative inline-flex items-center">
-            <span className="bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] bg-clip-text text-transparent inline-block font-extrabold pb-1">
+            <span className="text-[#00D4FF] mr-2 sm:mr-3 select-none font-mono font-black drop-shadow-[0_0_12px_rgba(0,212,255,0.4)]">
+              &gt;
+            </span>
+            <span className="bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] bg-clip-text text-transparent inline-block font-mono font-bold pb-1">
               {displayedText}
             </span>
-            {/* Elegant thin corporate caret cursor */}
+            {/* Terminal underscore cursor */}
             <motion.span
               animate={{ opacity: [1, 0] }}
               transition={{ duration: 0.7, repeat: Infinity, ease: "easeInOut" }}
-              className="inline-block w-[3px] sm:w-[4px] h-[0.82em] bg-gradient-to-b from-[#00D4FF] to-[#10E760] ml-2 rounded-full align-middle shadow-[0_0_8px_rgba(0,212,255,0.5)]"
-            />
+              className="inline-block text-[#10E760] font-mono font-black ml-0.5 select-none drop-shadow-[0_0_10px_rgba(16,231,96,0.6)]"
+            >
+              _
+            </motion.span>
           </span>
         </div>
       </div>
