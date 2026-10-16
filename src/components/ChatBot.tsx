@@ -358,6 +358,29 @@ export function ChatBot() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Refs for automatic serious conversation summary dispatch (pause timer + tab close)
+  const summaryTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastSummarizedUserMsgCountRef = useRef<number>(0);
+  const latestStateRef = useRef({
+    phase,
+    sessionId,
+    contactMessageId,
+    visitor,
+    messages,
+    rating,
+  });
+
+  useEffect(() => {
+    latestStateRef.current = {
+      phase,
+      sessionId,
+      contactMessageId,
+      visitor,
+      messages,
+      rating,
+    };
+  }, [phase, sessionId, contactMessageId, visitor, messages, rating]);
+
   // Restore session & saved visitor profile from localStorage on mount
   useEffect(() => {
     try {
@@ -456,19 +479,26 @@ export function ChatBot() {
 
   // Sync session & transcript with backend CRM & admin emails
   const syncSessionWithBackend = async (params: {
-    action: 'sync' | 'end';
+    action: 'sync' | 'summary' | 'end';
     updatedMessages: Message[];
     updatedVisitor?: VisitorProfile;
     notifyAdminsNow?: boolean;
     sessionRating?: number | null;
+    keepalive?: boolean;
   }) => {
     const activeVisitor = params.updatedVisitor || visitor;
     if (!activeVisitor.name || (!activeVisitor.email && !activeVisitor.phone)) return;
+
+    const userMsgCount = params.updatedMessages.filter((m) => m.role === 'user').length;
+    if (params.action === 'summary' || params.action === 'end' || params.notifyAdminsNow) {
+      lastSummarizedUserMsgCountRef.current = userMsgCount;
+    }
 
     try {
       const res = await fetch('/api/chat/session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        keepalive: Boolean(params.keepalive),
         body: JSON.stringify({
           action: params.action,
           sessionId,
@@ -494,6 +524,45 @@ export function ChatBot() {
       // Fail silently so chat UX is never interrupted
     }
   };
+
+  // Automatically send serious conversation summary if visitor leaves tab or closes browser
+  useEffect(() => {
+    const handleVisibilityOrUnload = () => {
+      if (document.visibilityState !== 'hidden') return;
+      const st = latestStateRef.current;
+      if (st.phase !== 'active') return;
+      const userMsgCount = st.messages.filter((m) => m.role === 'user').length;
+      if (userMsgCount === 0 || userMsgCount <= lastSummarizedUserMsgCountRef.current) return;
+
+      lastSummarizedUserMsgCountRef.current = userMsgCount;
+      fetch('/api/chat/session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+        body: JSON.stringify({
+          action: 'summary',
+          sessionId: st.sessionId,
+          contactMessageId: st.contactMessageId,
+          visitor: st.visitor,
+          messages: st.messages.map((m) => ({
+            id: m.id,
+            role: m.role,
+            text: m.text,
+            time: m.time,
+          })),
+          rating: st.rating,
+          notifyAdminsNow: true,
+        }),
+      }).catch(() => {});
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityOrUnload);
+    window.addEventListener('pagehide', handleVisibilityOrUnload);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityOrUnload);
+      window.removeEventListener('pagehide', handleVisibilityOrUnload);
+    };
+  }, []);
 
   // Start a new corporate chat session after pre-chat identification
   const handleStartSession = async (e: React.FormEvent, initialTopic?: string) => {
@@ -536,6 +605,7 @@ export function ChatBot() {
     setSessionId(newSid);
     setContactMessageId(null);
     setHasNotifiedFirstMessage(false);
+    lastSummarizedUserMsgCountRef.current = 0;
     setRating(null);
     setShowEndConfirm(false);
 
@@ -647,21 +717,36 @@ export function ChatBot() {
       }
     }
 
-    // Sync conversation & contact to Payload CMS and notify admins on first message
-    const shouldNotifyNow = !hasNotifiedFirstMessage;
-    if (shouldNotifyNow) {
-      setHasNotifiedFirstMessage(true);
-    }
+    // 1. Always save transcript in real time to Payload CMS (`action: 'sync'`)
     await syncSessionWithBackend({
       action: 'sync',
       updatedMessages: finalMessagesWithBot,
       updatedVisitor: enrichedVisitor,
-      notifyAdminsNow: shouldNotifyNow,
+      notifyAdminsNow: false,
     });
+
+    // 2. Schedule automatic email summary to admins after 35s of inactivity
+    // (if the conversation is serious, `/api/chat/session` will dispatch the full summary email)
+    if (summaryTimerRef.current) {
+      clearTimeout(summaryTimerRef.current);
+    }
+    summaryTimerRef.current = setTimeout(() => {
+      setHasNotifiedFirstMessage(true);
+      syncSessionWithBackend({
+        action: 'summary',
+        updatedMessages: finalMessagesWithBot,
+        updatedVisitor: enrichedVisitor,
+        notifyAdminsNow: true,
+      });
+    }, 35000);
   };
 
   // End the current chat session cleanly & send full transcript to admins + visitor
   const handleEndSession = async () => {
+    if (summaryTimerRef.current) {
+      clearTimeout(summaryTimerRef.current);
+      summaryTimerRef.current = null;
+    }
     setIsEndingSession(true);
     try {
       await syncSessionWithBackend({

@@ -7,67 +7,136 @@ interface SendEmailOptions {
   replyTo?: string;
 }
 
-export function getEmailTransporter() {
-  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
-  const port = parseInt(process.env.SMTP_PORT || '587', 10);
-  const secure = process.env.SMTP_SECURE === 'true' || port === 465;
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+interface ResolvedEmailConfig {
+  host: string;
+  port: number;
+  secure: boolean;
+  user?: string;
+  pass?: string;
+  from: string;
+  resendApiKey?: string;
+}
 
-  if (!user || !pass) {
-    return null;
+async function resolveEmailConfig(): Promise<ResolvedEmailConfig> {
+  let host = process.env.SMTP_HOST || 'smtp.gmail.com';
+  let port = parseInt(process.env.SMTP_PORT || '587', 10);
+  let secure = process.env.SMTP_SECURE === 'true' || port === 465;
+  let user = process.env.SMTP_USER?.trim();
+  let pass = process.env.SMTP_PASS?.trim();
+  let from =
+    process.env.SMTP_FROM ||
+    (user ? `"NOB TECHNOLOGIES" <${user}>` : '"NOB TECHNOLOGIES" <contact@nobtech.fr>');
+  let resendApiKey = process.env.RESEND_API_KEY?.trim();
+
+  // If .env doesn't have credentials, check Payload CMS SiteSettings (`emailConfig` tab)
+  if ((!user || !pass) && !resendApiKey) {
+    try {
+      const { getPayloadClient } = await import('@/lib/payload');
+      const payload = await getPayloadClient();
+      const settings: any = await payload.findGlobal({
+        slug: 'site-settings',
+        overrideAccess: true,
+      });
+      const cfg = settings?.emailConfig;
+      if (cfg) {
+        if (cfg.smtpHost) host = String(cfg.smtpHost).trim();
+        if (cfg.smtpPort) port = Number(cfg.smtpPort) || 587;
+        if (typeof cfg.smtpSecure === 'boolean') secure = cfg.smtpSecure || port === 465;
+        if (cfg.smtpUser) user = String(cfg.smtpUser).trim();
+        if (cfg.smtpPass) pass = String(cfg.smtpPass).trim();
+        if (cfg.smtpFrom) from = String(cfg.smtpFrom).trim();
+        if (cfg.resendApiKey) resendApiKey = String(cfg.resendApiKey).trim();
+      }
+    } catch {
+      // Ignore if CMS not reachable
+    }
   }
 
-  return nodemailer.createTransport({
-    host,
-    port,
-    secure,
-    auth: {
-      user,
-      pass,
-    },
-  });
+  return { host, port, secure, user, pass, from, resendApiKey };
 }
 
 /**
- * Send an email using standard SMTP.
- * If credentials are not present, logs preview with a clear setup message.
+ * Send an email using standard SMTP or Resend API (configured via .env or Back-Office SiteSettings).
  */
 export async function sendEmail({ to, subject, html, replyTo }: SendEmailOptions) {
-  const transporter = getEmailTransporter();
-  const fromAddress = process.env.SMTP_FROM || process.env.SMTP_USER || '"NOB TECHNOLOGIES" <contact@nobtech.fr>';
+  const cfg = await resolveEmailConfig();
 
-  if (!transporter) {
-    console.warn(
-      `[EMAIL SERVICE] Paramètres SMTP non configurés dans le fichier .env (SMTP_USER, SMTP_PASS).\n` +
-      `Email destiné à : ${to} | Objet : ${subject}`
-    );
-    return {
-      success: false,
-      warning: 'SMTP_CONFIG_MISSING',
-      message: 'SMTP credentials not configured in .env',
-    };
+  // 1. Standard SMTP via Nodemailer
+  if (cfg.user && cfg.pass) {
+    try {
+      const transporter = nodemailer.createTransport({
+        host: cfg.host,
+        port: cfg.port,
+        secure: cfg.secure,
+        auth: {
+          user: cfg.user,
+          pass: cfg.pass,
+        },
+      });
+
+      const info = await transporter.sendMail({
+        from: cfg.from,
+        to,
+        replyTo: replyTo || cfg.user || 'contact@nobtech.fr',
+        subject,
+        html,
+      });
+      console.log(`[EMAIL SERVICE] Email SMTP envoyé avec succès à ${to}. MessageId: ${info.messageId}`);
+      return { success: true, messageId: info.messageId };
+    } catch (error) {
+      console.error(`[EMAIL SERVICE] Erreur SMTP lors de l'envoi à ${to} :`, error);
+      throw error;
+    }
   }
 
-  try {
-    const info = await transporter.sendMail({
-      from: fromAddress,
-      to,
-      replyTo: replyTo || process.env.SMTP_USER || 'contact@nobtech.fr',
-      subject,
-      html,
-    });
-    console.log(`[EMAIL SERVICE] Email envoyé avec succès à ${to}. MessageId: ${info.messageId}`);
-    return { success: true, messageId: info.messageId };
-  } catch (error) {
-    console.error(`[EMAIL SERVICE] Erreur lors de l'envoi à ${to} :`, error);
-    throw error;
+  // 2. Fallback: Resend HTTP API if configured
+  if (cfg.resendApiKey) {
+    try {
+      const toList = to
+        .split(',')
+        .map((e) => e.trim())
+        .filter(Boolean);
+      const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${cfg.resendApiKey}`,
+        },
+        body: JSON.stringify({
+          from: cfg.from.includes('@') ? cfg.from : 'NOB TECHNOLOGIES <onboarding@resend.dev>',
+          to: toList,
+          reply_to: replyTo || 'contact@nobtech.fr',
+          subject,
+          html,
+        }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        console.log(`[EMAIL SERVICE] Email Resend envoyé avec succès à ${to}. ID: ${data.id}`);
+        return { success: true, messageId: data.id };
+      } else {
+        const errText = await res.text();
+        console.error(`[EMAIL SERVICE] Erreur Resend API:`, errText);
+      }
+    } catch (error) {
+      console.error(`[EMAIL SERVICE] Erreur lors de l'envoi via Resend:`, error);
+    }
   }
+
+  console.warn(
+    `[EMAIL SERVICE] Identifiants d'envoi (SMTP_USER/SMTP_PASS ou RESEND_API_KEY) non renseignés dans .env ni dans Back-Office > Paramètres du site > Emails & Notifications.\n` +
+      `Email en attente pour : ${to} | Objet : ${subject}`
+  );
+  return {
+    success: false,
+    warning: 'SMTP_CONFIG_MISSING',
+    message: 'Identifiants SMTP / Resend non configurés dans .env ou dans le Back-Office',
+  };
 }
 
 /**
  * Resolve all administrator email addresses dynamically from Payload CMS `users` collection,
- * `SiteSettings` global, and `ADMIN_NOTIFY_EMAIL` environment variable.
+ * `SiteSettings` global (`emailConfig.adminEmails` & `contact.email`), and `ADMIN_NOTIFY_EMAIL` env var.
  */
 export async function getAdminRecipientEmails(payload?: any): Promise<string[]> {
   const emailSet = new Set<string>();
@@ -83,7 +152,7 @@ export async function getAdminRecipientEmails(payload?: any): Promise<string[]> 
   // 2. Default corporate contact address
   emailSet.add('contact@nobtech.fr');
 
-  // 3. Registered administrators in Payload CMS `users` collection
+  // 3. Registered administrators in Payload CMS `users` collection & `site-settings`
   if (payload) {
     try {
       const usersResult = await payload.find({
@@ -102,14 +171,20 @@ export async function getAdminRecipientEmails(payload?: any): Promise<string[]> 
       console.warn('[EMAIL SERVICE] Impossible de récupérer la liste des administrateurs CMS:', err);
     }
 
-    // 4. SiteSettings global contactEmail if configured
     try {
-      const settings = await payload.findGlobal({
+      const settings: any = await payload.findGlobal({
         slug: 'site-settings',
         overrideAccess: true,
       });
-      if (settings?.contactEmail && typeof settings.contactEmail === 'string' && settings.contactEmail.includes('@')) {
-        emailSet.add(settings.contactEmail.trim().toLowerCase());
+      if (settings?.contact?.email && typeof settings.contact.email === 'string' && settings.contact.email.includes('@')) {
+        emailSet.add(settings.contact.email.trim().toLowerCase());
+      }
+      if (settings?.emailConfig?.adminEmails && typeof settings.emailConfig.adminEmails === 'string') {
+        settings.emailConfig.adminEmails
+          .split(',')
+          .map((e: string) => e.trim().toLowerCase())
+          .filter((e: string) => e && e.includes('@'))
+          .forEach((e: string) => emailSet.add(e));
       }
     } catch {
       // Ignore if global is unavailable
