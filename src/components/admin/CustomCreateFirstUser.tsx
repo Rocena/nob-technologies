@@ -1,10 +1,11 @@
 'use client'
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { NobLogo } from '../NobLogo';
 import { TechConstellation } from './TechConstellation';
-import { Eye, EyeOff, ShieldCheck, Database, Cloud, Cpu, Network, Code, Lock, ArrowRight, CheckCircle2, MonitorPlay, FileText, Users, Settings, Rocket, Shield } from 'lucide-react';
+import { Eye, EyeOff, ShieldCheck, Database, Cloud, Cpu, Network, Code, Lock, ArrowRight, ArrowLeft, CheckCircle2, MonitorPlay, FileText, Users, Settings, Rocket, Shield } from 'lucide-react';
 
 type Step = 'WELCOME' | 'CREATE_ADMIN' | 'CREATING' | 'SUCCESS' | 'GUIDE' | 'FINISH';
 
@@ -112,8 +113,16 @@ export const CustomCreateFirstUser: React.FC = () => {
       <div className="flex w-full flex-col justify-center px-8 sm:px-16 md:w-1/2 lg:px-24 z-10 relative bg-[#020617]">
         <div className="w-full max-w-sm mx-auto min-h-[400px] flex flex-col justify-center">
           
-          <div className="mb-8">
+          <div className="mb-8 flex items-center justify-between">
             <NobLogo height={40} showText={true} textColor="#FFFFFF" />
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-slate-300 hover:text-white transition-all group"
+              title="Retourner sur le site public NOBTECH"
+            >
+              <ArrowLeft size={13} className="text-[#00D4FF] group-hover:-translate-x-0.5 transition-transform" />
+              <span>Retour au site</span>
+            </Link>
           </div>
 
           {/* STEP 1: WELCOME */}

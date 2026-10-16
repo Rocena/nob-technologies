@@ -19,6 +19,17 @@ export interface FormationCareer {
   };
 }
 
+export interface FormationPricing {
+  publicPrice: number;
+  promoPrice?: number;
+  launchPrice: number;
+  launchSpots?: number;
+  remainingSpots?: number;
+  paymentPlan?: string;
+  includedInPrice: string[];
+  note?: string;
+}
+
 export interface FormationOffering {
   id: "entreprise" | "bootcamp" | "particulier";
   title: string;
@@ -54,7 +65,17 @@ export interface Formation {
   keyOutcomes: string[];
   career?: FormationCareer;
   offerings: FormationOffering[];
+  pricing: FormationPricing;
 }
+
+export const DEFAULT_FORMATION_INCLUSIONS: string[] = [
+  "Labs sur matériel physique réel & émulateurs industriels",
+  "Batteries de simulations d'examens officielles chronométrées",
+  "Mentorat direct par des ingénieurs certifiés seniors en activité",
+  "Soutenance devant jury professionnel & cas d'usage réels",
+  "Certificat d'excellence officiel NOB TECHNOLOGIES vérifiable",
+  "Méthodologie de pédagogie active (80% pratique terrain, 20% théorie)",
+];
 
 export const DEFAULT_FORMATION_OFFERINGS: FormationOffering[] = [
   {
@@ -131,6 +152,14 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
     hours: "24 heures de pratique (6h / semaine)",
     pace: "Max 6h / semaine (cours du soir ou samedi matin)",
     offerings: DEFAULT_FORMATION_OFFERINGS,
+    pricing: {
+      publicPrice: 145000,
+      launchPrice: 120000,
+      launchSpots: 10,
+      remainingSpots: 3,
+      paymentPlan: "Comptant ou 2 mensualités de 60 000 FCFA",
+      includedInPrice: DEFAULT_FORMATION_INCLUSIONS,
+    },
     format: "Présentiel dans nos Labs à Dakar + Plateforme d'examen officiel Cisco",
     partnerLogos: [
       { name: "Cisco", logo: "/images/partners/cisco.png" },
@@ -252,6 +281,15 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
     hours: "12 heures d'ateliers interactifs",
     pace: "Ateliers intensifs (soirées ou demi-journées)",
     offerings: DEFAULT_FORMATION_OFFERINGS,
+    pricing: {
+      publicPrice: 60000,
+      launchPrice: 45000,
+      launchSpots: 20,
+      remainingSpots: 7,
+      paymentPlan: "Règlement unique à l'inscription",
+      includedInPrice: DEFAULT_FORMATION_INCLUSIONS,
+      note: "Prix par personne (dégressif pour groupes entreprise)",
+    },
     format: "Présentiel à Dakar ou Session intra-entreprise personnalisée",
     partnerLogos: [
       { name: "GateWatcher", logo: "/images/partners/gatewatcher.svg" },
@@ -340,6 +378,15 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
     hours: "24 heures de pratique interactive",
     pace: "Max 6h / semaine (cours du soir ou samedi matin)",
     offerings: DEFAULT_FORMATION_OFFERINGS,
+    pricing: {
+      publicPrice: 95000,
+      launchPrice: 75000,
+      launchSpots: 15,
+      remainingSpots: 5,
+      paymentPlan: "Comptant ou 2 versements de 37 500 FCFA",
+      includedInPrice: DEFAULT_FORMATION_INCLUSIONS,
+      note: "Pour booster sa productivité au travail",
+    },
     format: "Présentiel à Dakar & Labs interactifs sur plateformes d'IA",
     partnerLogos: [
       { name: "Microsoft 365", logo: "/images/partners/microsoft.svg" },
@@ -459,6 +506,14 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
     hours: "48 heures de pratique et labs réels",
     pace: "Max 6h / semaine (cours du soir ou samedi matin)",
     offerings: DEFAULT_FORMATION_OFFERINGS,
+    pricing: {
+      publicPrice: 295000,
+      launchPrice: 245000,
+      launchSpots: 10,
+      remainingSpots: 4,
+      paymentPlan: "Possibilité de paiement en 2 fois (122 500 FCFA / mois)",
+      includedInPrice: DEFAULT_FORMATION_INCLUSIONS,
+    },
     format: "Présentiel dans nos Labs à Dakar sur FortiOS & Appliances physiques",
     partnerLogos: [
       { name: "Fortinet", logo: "/images/partners/fortinet.svg" },
@@ -577,6 +632,14 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
     hours: "24 heures de travaux pratiques",
     pace: "Max 6h / semaine (cours du soir ou samedi matin)",
     offerings: DEFAULT_FORMATION_OFFERINGS,
+    pricing: {
+      publicPrice: 185000,
+      launchPrice: 150000,
+      launchSpots: 10,
+      remainingSpots: 4,
+      paymentPlan: "Possibilité de paiement en 2 versements de 75 000 FCFA",
+      includedInPrice: DEFAULT_FORMATION_INCLUSIONS,
+    },
     format: "Présentiel à Dakar & Labs sur Sophos Central et VM SFOS",
     partnerLogos: [
       { name: "Sophos", logo: "/images/partners/sophos.svg" },
@@ -689,6 +752,14 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
     hours: "24 heures de labs pratiques sur Tenant dédié",
     pace: "Max 6h / semaine (cours du soir ou samedi matin)",
     offerings: DEFAULT_FORMATION_OFFERINGS,
+    pricing: {
+      publicPrice: 115000,
+      launchPrice: 90000,
+      launchSpots: 10,
+      remainingSpots: 6,
+      paymentPlan: "Comptant ou 2 mensualités de 45 000 FCFA",
+      includedInPrice: DEFAULT_FORMATION_INCLUSIONS,
+    },
     format: "Présentiel à Dakar & Accès direct à un tenant Microsoft 365 d'entraînement",
     partnerLogos: [
       { name: "Microsoft 365", logo: "/images/partners/microsoft.svg" },
@@ -801,6 +872,16 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
     hours: "60 heures de formation et travaux pratiques sur banc d'essai",
     pace: "Max 6h / semaine (cours du soir ou samedi matin)",
     offerings: DEFAULT_FORMATION_OFFERINGS,
+    pricing: {
+      publicPrice: 245000,
+      promoPrice: 225000,
+      launchPrice: 199000,
+      launchSpots: 10,
+      remainingSpots: 3,
+      paymentPlan: "Possibilité de règlement en 2 fois (100 000 FCFA + 99 000 FCFA)",
+      includedInPrice: DEFAULT_FORMATION_INCLUSIONS,
+      note: "10 premières places seulement au tarif de lancement",
+    },
     format: "Présentiel sur racks réels Cisco à Dakar + Émulateurs GNS3/Packet Tracer",
     partnerLogos: [
       { name: "Cisco", logo: "/images/partners/cisco-color.svg" },
@@ -931,6 +1012,14 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
     hours: "24 heures d'ateliers et études de cas",
     pace: "Max 6h / semaine (cours du soir ou samedi matin)",
     offerings: DEFAULT_FORMATION_OFFERINGS,
+    pricing: {
+      publicPrice: 180000,
+      launchPrice: 150000,
+      launchSpots: 10,
+      remainingSpots: 5,
+      paymentPlan: "Possibilité de paiement en 2 versements de 75 000 FCFA",
+      includedInPrice: DEFAULT_FORMATION_INCLUSIONS,
+    },
     format: "Présentiel à Dakar & Outils de gestion en ligne (Trello, Jira, MS Project)",
     partnerLogos: [
       { name: "Microsoft 365", logo: "/images/partners/microsoft.svg" },
@@ -1051,6 +1140,15 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
     hours: "36 heures d'études de cas et modélisation de conformité",
     pace: "Max 6h / semaine (cours du soir ou samedi matin)",
     offerings: DEFAULT_FORMATION_OFFERINGS,
+    pricing: {
+      publicPrice: 420000,
+      launchPrice: 350000,
+      launchSpots: 10,
+      remainingSpots: 4,
+      paymentPlan: "Possibilité de règlement en 2 mensualités de 175 000 FCFA",
+      includedInPrice: DEFAULT_FORMATION_INCLUSIONS,
+      note: "Hors frais d'examen officiel",
+    },
     format: "Présentiel à Dakar & Études de cas sectorielles (Banque, Télécoms, Santé)",
     partnerLogos: [
       { name: "Wallix", logo: "/images/partners/wallix.svg" },
@@ -1159,6 +1257,14 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
     hours: "48 heures d'entraînement intensif sur labs CTF dédiés",
     pace: "Max 6h / semaine (cours du soir ou samedi matin)",
     offerings: DEFAULT_FORMATION_OFFERINGS,
+    pricing: {
+      publicPrice: 295000,
+      launchPrice: 245000,
+      launchSpots: 10,
+      remainingSpots: 3,
+      paymentPlan: "Possibilité de paiement en 2 fois (122 500 FCFA / mois)",
+      includedInPrice: DEFAULT_FORMATION_INCLUSIONS,
+    },
     format: "Présentiel à Dakar & Plateformes CTF (Capture The Flag) isolées",
     partnerLogos: [
       { name: "GateWatcher", logo: "/images/partners/gatewatcher.svg" },
@@ -1281,6 +1387,14 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
     hours: "24 heures de pratique (6h / semaine)",
     pace: "Max 6h / semaine (cours du soir ou samedi matin)",
     offerings: DEFAULT_FORMATION_OFFERINGS,
+    pricing: {
+      publicPrice: 155000,
+      launchPrice: 125000,
+      launchSpots: 12,
+      remainingSpots: 4,
+      paymentPlan: "Comptant ou 2 mensualités de 62 500 FCFA",
+      includedInPrice: DEFAULT_FORMATION_INCLUSIONS,
+    },
     format: "Présentiel dans nos Labs à Dakar + Accès plateforme cloud & cas d'entreprise réels",
     partnerLogos: [
       { name: "Microsoft Power BI", logo: "/images/partners/microsoft.svg" },
@@ -1387,4 +1501,363 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       },
     },
   },
+
+  // 12. PARCOURS METIER : RESEAUX & SYSTEMES (6 MOIS)
+  "reseaux-systemes": {
+    slug: "reseaux-systemes",
+    title: "Réseaux & Systèmes (CCNA + Windows/Linux Server + VMware)",
+    badge: "CYCLE DIPLOMANT METIER &bull; 6 MOIS &bull; SOUTENANCE INCLUSE",
+    category: "Réseaux & Systèmes",
+    shortDesc:
+      "Le cursus de référence complet sur 6 mois : Cisco CCNA (14 sem.) + Administration Windows/Linux Server (6 sem.) + Virtualisation VMware vSphere (4 sem.). Soutenance devant jury professionnel incluse.",
+    heroHeadline: "Devenez Administrateur Réseaux & Systèmes certifié en 6 mois d'immersion pratique",
+    heroDescription:
+      "Formation d'élite articulée autour des besoins réels des entreprises : manipulation de baies physiques Cisco, serveurs réels et hyperviseurs VMware. Examen blanc, soutenance de projet devant jury professionnel et délivrance du Certificat d'Excellence NOB TECHNOLOGIES.",
+    targetAudience: [
+      "Techniciens informatiques souhaitant monter Administrateur Réseaux & Systèmes",
+      "Diplômés Bac+2 à Bac+5 visant un poste immédiatement opérationnel",
+      "Professionnels en reconversion vers les métiers d'infrastructure IT",
+    ],
+    prerequisites: [
+      "Bases de l'informatique et des environnements Windows",
+      "Motivation et assiduité pour 6 mois de formation pratique",
+    ],
+    duration: "6 Mois (24 semaines)",
+    hours: "180 heures de pratique en laboratoire",
+    pace: "Max 6h / semaine (cours du soir ou samedi matin)",
+    offerings: DEFAULT_FORMATION_OFFERINGS,
+    pricing: {
+      publicPrice: 520000,
+      launchPrice: 435000,
+      launchSpots: 12,
+      remainingSpots: 4,
+      paymentPlan: "45 000 FCFA à l'inscription + 65 000 FCFA × 6 mois",
+      includedInPrice: DEFAULT_FORMATION_INCLUSIONS,
+      note: "45 000 FCFA + 65 000 FCFA × 6 mois = 435 000 FCFA total (soutenance incluse)",
+    },
+    format: "Présentiel sur racks réels à Dakar + Plateforme Cloud 24/7",
+    partnerLogos: [
+      { name: "Cisco", logo: "/images/partners/cisco-color.svg" },
+      { name: "Microsoft", logo: "/images/partners/microsoft.svg" },
+      { name: "VMware", logo: "/images/partners/vmware.svg" },
+      { name: "Dell Technologies", logo: "/images/partners/dell-color.svg" },
+    ],
+    targetCertifications: [
+      {
+        title: "Cisco CCNA (200-301)",
+        organization: "Cisco Systems",
+        level: "International Associate",
+        desc: "Routage dynamique OSPF, switching VLAN, sécurité niveau 2 et automatisation.",
+      },
+      {
+        title: "Windows Server Hybrid Core & Linux Administrator",
+        organization: "Microsoft / LPI",
+        level: "Systèmes d'Entreprise",
+        desc: "Active Directory, DHCP/DNS, GPO, scripting Bash et durcissement Linux.",
+      },
+      {
+        title: "VMware vSphere Certified Associate",
+        organization: "VMware Broadcom",
+        level: "Virtualisation & Datacenter",
+        desc: "Déploiement d'hyperviseurs ESXi, gestion vCenter et haute disponibilité.",
+      },
+    ],
+    months: [
+      {
+        month: 1,
+        title: "Mois 1 : Fondations Réseaux & Adressage IPv4/IPv6 Avancé (CCNA)",
+        duration: "Semaines 1 à 4 (30h)",
+        objectives: "Maîtriser les protocoles réseaux fondamentaux et configurer les commutateurs Cisco.",
+        topics: [
+          "Modèle OSI et pile TCP/IP en profondeur",
+          "Calculs VLSM et découpage de sous-réseaux IPv4/IPv6",
+          "Configuration initiale de switchs et routeurs Cisco IOS",
+        ],
+        practicalLab: "Câblage physique d'une baie de brassage et configuration de base sur matériel réel.",
+        deliverable: "Plan d'adressage IP validé et fichiers de configuration initiale IOS.",
+      },
+      {
+        month: 2,
+        title: "Mois 2 : Commutation Ethernet, VLANs, Trunking & STP (CCNA)",
+        duration: "Semaines 5 à 8 (30h)",
+        objectives: "Segmenter le réseau local et garantir la redondance sans boucles.",
+        topics: [
+          "VLANs, 802.1Q Trunking et routage inter-VLAN (Router-on-a-Stick)",
+          "Rapid Spanning Tree Protocol (RSTP) et EtherChannel (LACP)",
+          "Sécurisation des ports (Port Security, DHCP Snooping)",
+        ],
+        practicalLab: "Déploiement d'une architecture de commutation redondante haute disponibilité.",
+        deliverable: "Réseau LAN commuté sécurisé et documentation de câblage.",
+      },
+      {
+        month: 3,
+        title: "Mois 3 : Routage Dynamique OSPF & Sécurité Périmétrique (CCNA)",
+        duration: "Semaines 9 à 12 (30h)",
+        objectives: "Interconnecter des sites distants et contrôler les flux réseaux.",
+        topics: [
+          "Routage dynamique OSPFv2 Single & Multi-Area",
+          "Listes de contrôle d'accès (ACL IPv4 standard et étendue)",
+          "NAT/PAT pour l'accès Internet d'entreprise",
+        ],
+        practicalLab: "Interconnexion de 3 agences avec OSPF et translation d'adresses NAT.",
+        deliverable: "Maquette fonctionnelle interconnectée et audit des flux.",
+      },
+      {
+        month: 4,
+        title: "Mois 4 : Administration Windows Server & Active Directory",
+        duration: "Semaines 13 à 16 (30h)",
+        objectives: "Déployer un annuaire d'entreprise centralisé et sécurisé.",
+        topics: [
+          "Installation et rôle Active Directory Domain Services (AD DS)",
+          "Gestion des utilisateurs, groupes et stratégies de groupe (GPO)",
+          "Services réseau essentiels : DNS dynamique et DHCP redondant",
+        ],
+        practicalLab: "Création d'un domaine d'entreprise complet avec politiques de sécurité GPO.",
+        deliverable: "Serveur Windows Server opérationnel avec 50 comptes et GPO de durcissement.",
+      },
+      {
+        month: 5,
+        title: "Mois 5 : Administration Linux Server & Services Réseau",
+        duration: "Semaines 17 à 20 (30h)",
+        objectives: "Administrer des serveurs Linux de production (Debian/Ubuntu/RHEL).",
+        topics: [
+          "Ligne de commande avancée, permissions et gestion des disques LVM",
+          "Serveur Web NGINX/Apache, serveur de fichiers Samba et SSH sécurisé",
+          "Scripts d'automatisation Bash et sauvegardes planifiées",
+        ],
+        practicalLab: "Mise en production d'une pile de services Linux durcie avec pare-feu UFW.",
+        deliverable: "Serveur Linux supervisé avec scripts de sauvegarde automatique.",
+      },
+      {
+        month: 6,
+        title: "Mois 6 : Virtualisation VMware vSphere, Sauvegardes & Soutenance",
+        duration: "Semaines 21 à 24 (30h)",
+        objectives: "Virtualiser l'infrastructure d'entreprise et soutenir le projet final devant jury.",
+        topics: [
+          "Hyperviseur ESXi et gestion centralisée avec vCenter Server",
+          "Réseaux virtuels (vSwitch) et stockage partagé (NFS/iSCSI)",
+          "Plan de sauvegarde d'infrastructure et reprise d'activité",
+          "Préparation et passage de la soutenance finale devant le jury",
+        ],
+        practicalLab: "Architecture complète virtualisée intégrant routeur Cisco, AD Windows et serveurs Linux.",
+        deliverable: "Soutenance de projet devant jury professionnel et remise du Certificat d'Excellence.",
+      },
+    ],
+    keyOutcomes: [
+      "Maîtrise complète de l'ingénierie réseau Cisco (CCNA 200-301)",
+      "Capacité à administrer et sécuriser des parcs Windows Server et Linux",
+      "Compétences recherchées en virtualisation de datacenters VMware",
+      "Défense d'un projet réel devant un jury d'ingénieurs seniors en activité",
+    ],
+    career: {
+      targetRoles: [
+        { title: "Administrateur Réseaux & Systèmes", desc: "Gestion quotidienne des infrastructures, commutateurs, serveurs et télécoms." },
+        { title: "Technicien Infrastructure & Datacenter", desc: "Maintenance opérationnelle des serveurs physiques, baies et hyperviseurs." },
+        { title: "Ingénieur Support Réseaux N2", desc: "Résolution des incidents complexes et optimisation des liaisons inter-sites." },
+      ],
+      sectors: ["Banques & Institutions Financières", "Opérateurs Télécoms & FAI", "Grandes Entreprises & Ministères"],
+      salarySenegal: {
+        junior: "400 000 à 600 000 FCFA / mois",
+        intermediate: "650 000 à 1 000 000 FCFA / mois",
+        senior: "1 100 000 à 1 600 000 FCFA / mois",
+        context: "L'un des profils les plus recherchés au Sénégal avec une employabilité immédiate dès la soutenance.",
+      },
+    },
+  },
+
+  // 13. PARCOURS METIER : EXPERT CYBERSECURITE (8 MOIS)
+  "parcours-expert-cybersecurite": {
+    slug: "parcours-expert-cybersecurite",
+    title: "Parcours Expert Cybersécurité (Cisco + Security+ + NSE 4 + Pentest + ISO 27001)",
+    badge: "CYCLE DIPLOMANT HAUT NIVEAU &bull; 8 MOIS &bull; SOUTENANCE INCLUSE",
+    category: "Cybersécurité",
+    shortDesc:
+      "La formation la plus complète en sécurité informatique au Sénégal : Cisco Cyber (4 sem.) + CompTIA Security+ (6 sem.) + Fortinet NSE 4 (8 sem.) + Ethical Hacking Pentest (8 sem.) + Norme ISO 27001 (+6 sem.). Soutenance incluse.",
+    heroHeadline: "Devenez Expert Cybersécurité et protégez les infrastructures critiques des cyberattaques",
+    heroDescription:
+      "Cursus d'excellence conçu pour former les futurs cadres et consultants en sécurité offensive et défensive. Maîtrisez la détection des menaces, la configuration de pare-feu NGFW Fortinet, les audits d'intrusion et la conformité internationale ISO 27001.",
+    targetAudience: [
+      "Administrateurs systèmes et réseaux visant une spécialisation cybersécurité",
+      "Consultants et auditeurs souhaitant maîtriser la conformité ISO 27001",
+      "Ingénieurs IT aspirant aux postes de Responsable Sécurité (RSSI) ou Analyste SOC",
+    ],
+    prerequisites: [
+      "Bonnes connaissances des réseaux informatiques (TCP/IP, routage)",
+      "Pratique de l'administration système Windows ou Linux",
+    ],
+    duration: "8 Mois (32 semaines)",
+    hours: "240 heures d'ateliers et investigations",
+    pace: "Max 6h / semaine (cours du soir ou samedi matin)",
+    offerings: DEFAULT_FORMATION_OFFERINGS,
+    pricing: {
+      publicPrice: 850000,
+      launchPrice: 695000,
+      launchSpots: 10,
+      remainingSpots: 2,
+      paymentPlan: "55 000 FCFA à l'inscription + 80 000 FCFA × 8 mois",
+      includedInPrice: DEFAULT_FORMATION_INCLUSIONS,
+      note: "55 000 FCFA + 80 000 FCFA × 8 mois = 695 000 FCFA total (soutenance incluse)",
+    },
+    format: "Présentiel sur Cyber-Range à Dakar + Accès Cloud 24/7",
+    partnerLogos: [
+      { name: "Cisco", logo: "/images/partners/cisco-color.svg" },
+      { name: "Fortinet", logo: "/images/partners/fortinet.svg" },
+      { name: "CompTIA", logo: "/images/partners/comptia.svg" },
+      { name: "Offensive Security", logo: "/images/partners/offensive-security.svg" },
+    ],
+    targetCertifications: [
+      {
+        title: "CompTIA Security+ (SY0-701)",
+        organization: "CompTIA",
+        level: "Standard Mondial de Cybersécurité",
+        desc: "Gestion des risques, architecture de sécurité, réponse à incident et cryptographie.",
+      },
+      {
+        title: "Fortinet FCP Network Security (NSE 4)",
+        organization: "Fortinet",
+        level: "Certification Constructeur Majeure",
+        desc: "Administration de pare-feu FortiGate, inspection SSL, VPN IPsec et profils de sécurité.",
+      },
+      {
+        title: "Junior Penetration Tester / Ethical Hacker",
+        organization: "Standard Industrie",
+        level: "Sécurité Offensive Pratique",
+        desc: "Reconnaissance, scan de vulnérabilités, exploitation de failles et rédaction de rapports.",
+      },
+      {
+        title: "Spécialiste de la Norme ISO/IEC 27001",
+        organization: "ISO",
+        level: "Gouvernance & Conformité",
+        desc: "Mise en place d'un SMSI, analyse de risques et politiques de sécurité organisationnelle.",
+      },
+    ],
+    months: [
+      {
+        month: 1,
+        title: "Mois 1 : Fondamentaux de la Cybersécurité & Réseau Défensif (Cisco)",
+        duration: "Semaines 1 à 4 (30h)",
+        objectives: "Comprendre les vecteurs de cybermenaces et durcir les accès réseaux.",
+        topics: [
+          "Triade CIA, surfaces d'attaque et panorama des ransomwares",
+          "Sécurisation des protocoles d'administration (SSHv2, HTTPS, SNMPv3)",
+          "Chiffrement des données sensibles et authentification forte (MFA/2FA)",
+        ],
+        practicalLab: "Analyse d'un incident de sécurité réel et configuration d'un bastion d'accès.",
+        deliverable: "Rapport d'audit de premier niveau et check-list de durcissement.",
+      },
+      {
+        month: 2,
+        title: "Mois 2 : Architecture de Défense & Analyse des Menaces (Security+)",
+        duration: "Semaines 5 à 8 (30h)",
+        objectives: "Concevoir une architecture réseau résiliente et analyser les indicateurs de compromission.",
+        topics: [
+          "Modèle Zero Trust, micro-segmentation et bastions",
+          "Gestion des identités et des accès (IAM, SSO, SAML)",
+          "Analyse des logs, surveillance SIEM et détection d'anomalies",
+        ],
+        practicalLab: "Mise en place d'une stack de monitoring de sécurité et corrélation d'événements.",
+        deliverable: "Dashboard d'alertes de sécurité opérationnel.",
+      },
+      {
+        month: 3,
+        title: "Mois 3 : Pare-feu Nouvelle Génération Fortinet FortiGate (NSE 4 - Partie 1)",
+        duration: "Semaines 9 à 12 (30h)",
+        objectives: "Déployer et configurer des firewalls FortiGate en production.",
+        topics: [
+          "Architecture FortiOS et modes de déploiement (NAT/Route vs Transparent)",
+          "Politiques de sécurité avancées et règles de pare-feu par utilisateur",
+          "Inspection SSL Deep Packet et filtrage Web & Applicatif",
+        ],
+        practicalLab: "Configuration d'un FortiGate virtuel avec politiques d'inspection approfondie.",
+        deliverable: "Topologie pare-feu sécurisée et règles de filtrage validées.",
+      },
+      {
+        month: 4,
+        title: "Mois 4 : VPN Sécurisés & Haute Disponibilité Fortinet (NSE 4 - Partie 2)",
+        duration: "Semaines 13 à 16 (30h)",
+        objectives: "Garantir les accès distants sécurisés et la continuité de service.",
+        topics: [
+          "VPN IPsec Site-à-Site redondant et VPN SSL pour télétravailleurs",
+          "Cluster haute disponibilité (HA) Active-Passive et Active-Active",
+          "Système de prévention des intrusions (IPS) et antivirus FortiGuard",
+        ],
+        practicalLab: "Mise en place d'un cluster FortiGate en haute disponibilité et tunnel IPsec.",
+        deliverable: "Architecture haute disponibilité opérationnelle avec basculement automatique.",
+      },
+      {
+        month: 5,
+        title: "Mois 5 : Méthodologie du Pentest & Reconnaissance Offensive",
+        duration: "Semaines 17 à 20 (30h)",
+        objectives: "Penser comme un attaquant pour identifier les failles avant eux.",
+        topics: [
+          "Phases d'un test d'intrusion : scoping, reconnaissance OSINT et scanning",
+          "Détection des ports et services avec Nmap et Nessus",
+          "Énumération des cibles Web et serveurs d'infrastructure",
+        ],
+        practicalLab: "Scan de vulnérabilités complet sur un réseau d'entreprise simulé.",
+        deliverable: "Cartographie des vulnérabilités critiques avec matrice CVSS.",
+      },
+      {
+        month: 6,
+        title: "Mois 6 : Exploitation de Vulnérabilités & Élévation de Privilèges",
+        duration: "Semaines 21 à 24 (30h)",
+        objectives: "Exploiter des failles de sécurité dans un cadre éthique et légal.",
+        topics: [
+          "Framework Metasploit et techniques d'exploitation",
+          "Attaques sur les applications Web (Top 10 OWASP : injection SQL, XSS)",
+          "Élévation de privilèges Windows et Linux, mouvement latéral",
+        ],
+        practicalLab: "Simulation d'intrusion complète sur cible vulnérable et élévation Root/Admin.",
+        deliverable: "Rapport d'audit d'intrusion professionnel avec plan de remédiation priorisé.",
+      },
+      {
+        month: 7,
+        title: "Mois 7 : Gouvernance de la Sécurité & Norme ISO/IEC 27001",
+        duration: "Semaines 25 à 28 (30h)",
+        objectives: "Piloter la conformité et concevoir un Système de Management de la Sécurité (SMSI).",
+        topics: [
+          "Structure de la norme ISO 27001 et catalogue des mesures de l'Annexe A",
+          "Méthodologie d'analyse des risques (EBIOS / ISO 27005)",
+          "Politiques de sécurité des systèmes d'information (PSSI) et audits de conformité",
+        ],
+        practicalLab: "Élaboration d'une PSSI pour une entreprise et cartographie des risques critiques.",
+        deliverable: "Dossier d'analyse de risques et PSSI d'entreprise finalisée.",
+      },
+      {
+        month: 8,
+        title: "Mois 8 : Projet Intégrateur, Simulation d'Incident & Soutenance Finale",
+        duration: "Semaines 29 à 32 (30h)",
+        objectives: "Valider l'ensemble du cursus par une soutenance devant jury professionnel.",
+        topics: [
+          "Scénario d'attaque avancée (Red Team vs Blue Team)",
+          "Gestion de crise cyber et communication post-incident",
+          "Finalisation du mémoire technique de fin d'études",
+          "Soutenance orale officielle devant le jury de NOB TECHNOLOGIES",
+        ],
+        practicalLab: "Gestion de crise en temps réel face à une simulation d'attaque ransomware.",
+        deliverable: "Soutenance de projet devant jury professionnel et délivrance du Certificat d'Expertise.",
+      },
+    ],
+    keyOutcomes: [
+      "Expertise double en cybersécurité défensive (SOC/Firewall) et offensive (Pentest)",
+      "Maîtrise des standards mondiaux Fortinet NSE 4, Security+ et ISO 27001",
+      "Capacité à concevoir des politiques de sécurité et à piloter des audits de conformité",
+      "Soutenance de projet validée devant un jury d'ingénieurs cybersécurité seniors",
+    ],
+    career: {
+      targetRoles: [
+        { title: "Analyste / Ingénieur Cybersécurité", desc: "Supervision, détection des menaces et réponse aux incidents de sécurité." },
+        { title: "Pentesteur / Consultant Sécurité Offensive", desc: "Réalisation d'audits d'intrusion et tests de vulnérabilités pour clients d'entreprise." },
+        { title: "Responsable de la Sécurité des SI (RSSI Junior)", desc: "Définition de la PSSI, conformité réglementaire ISO 27001 et gestion des risques." },
+      ],
+      sectors: ["Secteur Bancaire & Assurances", "Opérateurs Télécoms & Datacenters", "Cabinets d'Audit & Cabinets Conseil"],
+      salarySenegal: {
+        junior: "500 000 à 750 000 FCFA / mois",
+        intermediate: "800 000 à 1 300 000 FCFA / mois",
+        senior: "1 400 000 à 2 200 000 FCFA / mois",
+        context: "La compétence la plus rémunératrice du secteur technologique en Afrique de l'Ouest.",
+      },
+    },
+  },
+
 };

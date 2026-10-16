@@ -13,6 +13,16 @@ export const Quotes: CollectionConfig = {
   },
   fields: [
     {
+      name: 'quoteActions',
+      type: 'ui',
+      admin: {
+        position: 'sidebar',
+        components: {
+          Field: '@/components/admin/QuoteActionsPanel#QuoteActionsPanel',
+        },
+      },
+    },
+    {
       type: 'tabs',
       tabs: [
         {

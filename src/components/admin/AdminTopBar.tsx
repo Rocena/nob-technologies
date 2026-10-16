@@ -1,9 +1,9 @@
-﻿'use client'
+'use client'
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@payloadcms/ui';
-import { Camera, LogOut, Moon, Sun, UserRound, Loader2 } from 'lucide-react';
+import { Camera, LogOut, Moon, Sun, UserRound, Loader2, ShieldCheck } from 'lucide-react';
 import { NobLogo } from '../NobLogo';
 
 type Props = { darkWallpaper?: boolean };
@@ -191,6 +191,9 @@ export const AdminTopBar: React.FC<Props> = ({ darkWallpaper = false }) => {
 
               <a role="menuitem" className="ntb-item" href="/admin/account">
                 <UserRound size={18} /> Mon profil
+              </a>
+              <a role="menuitem" className="ntb-item" href="/admin/globals/site-settings">
+                <ShieldCheck size={18} className="text-[#00D4FF]" /> Sécurité MFA (2FA)
               </a>
               <button type="button" role="menuitem" className="ntb-item" onClick={() => window.dispatchEvent(new Event('nob:toggle-dark-wallpaper'))}>
                 {dark ? <Sun size={18} /> : <Moon size={18} />} {dark ? 'Mode clair' : 'Mode sombre'}

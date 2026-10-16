@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import {
   Browsers,
   Question,
@@ -41,9 +41,10 @@ export const appGroups: AdminAppGroup[] = [
     ],
   },
   {
-    title: 'Expertises & Offres',
+    title: 'Expertises & Formations',
     color: '#0EA5E9',
     apps: [
+      { name: 'Formations', Icon: GraduationCap, href: '/admin/collections/formations' },
       { name: 'Services', Icon: SuitcaseSimple, href: '/admin/collections/services' },
       { name: 'Plans Tarifaires', Icon: TagChevron, href: '/admin/collections/pricing-plans' },
     ],
@@ -51,7 +52,7 @@ export const appGroups: AdminAppGroup[] = [
   {
     title: 'Carrières',
     color: '#38BDF8',
-    apps: [{ name: "Offres d'emploi", Icon: GraduationCap, href: '/admin/collections/job-offers' }],
+    apps: [{ name: "Offres d'emploi", Icon: SuitcaseSimple, href: '/admin/collections/job-offers' }],
   },
   {
     title: 'Portfolio & Preuves',

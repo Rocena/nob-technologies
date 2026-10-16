@@ -12,6 +12,7 @@ import { FormationInquiryForm } from "./FormationInquiryForm";
 import { CurriculumSyllabus } from "@/components/formations/CurriculumSyllabus";
 import { FormationOfferingsSection } from "@/components/formations/FormationOfferingsSection";
 import { FormationVideoSection } from "@/components/formations/FormationVideoSection";
+import { FormationPricingBox } from "@/components/formations/FormationPricingBox";
 import {
   Calendar,
   Clock,
@@ -248,10 +249,28 @@ export default async function FormationDetailPage({ params }: Props) {
           </Section>
         )}
 
-        {/* 3 Formats adaptés : Entreprises, Bootcamps, Particuliers */}
+        {/* Tarification Psychologique & Formats adaptés : Particuliers & Entreprises */}
         <Section className="py-20 bg-slate-900 border-t border-white/10">
           <Container>
-            <FormationOfferingsSection formationTitle={formation.title} />
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                TARIFS &bull; MODALITÉS D&apos;INSCRIPTION
+              </p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3">
+                Investissez dans Votre Avenir Professionnel
+              </h2>
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                Tarification transparente, facilités d&apos;échelonnement mensuel sans frais et formules intra-entreprise sur-mesure pour les directions informatiques.
+              </p>
+            </div>
+            {formation.pricing && (
+              <FormationPricingBox
+                formationTitle={formation.title}
+                formationSlug={formation.slug}
+                duration={formation.duration}
+                pricing={formation.pricing}
+              />
+            )}
           </Container>
         </Section>
 

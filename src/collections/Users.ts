@@ -98,5 +98,23 @@ export const Users: CollectionConfig = {
         description: 'Seul un Super Administrateur peut modifier les rôles et permissions.',
       },
     },
+    {
+      name: 'mfaEnabled',
+      type: 'checkbox',
+      label: 'Authentification à Deux Facteurs (MFA / 2FA)',
+      defaultValue: false,
+      admin: {
+        description: 'Sécurité renforcée par validation d’un code TOTP (Google Authenticator, Microsoft Authenticator, Authy).',
+      },
+    },
+    {
+      name: 'mfaSecret',
+      type: 'text',
+      label: 'Clé secrète MFA (TOTP)',
+      admin: {
+        readOnly: true,
+        condition: (data) => Boolean(data?.mfaEnabled || data?.mfaSecret),
+      },
+    },
   ],
 };

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import React, { useEffect, useState, useMemo } from 'react';
 import { useAuth } from '@payloadcms/ui';
 import {
@@ -11,6 +11,7 @@ import {
   FilePlus,
   SquaresFour,
 } from '@phosphor-icons/react';
+import { FormReportsWidget } from './FormReportsWidget';
 
 type StatItem = {
   slug: string;
@@ -268,6 +269,8 @@ export const DashboardWidget: React.FC = () => {
           <StatCard key={s.slug} s={s} value={counts[s.slug] ?? null} i={i} />
         ))}
       </div>
+
+      <FormReportsWidget />
     </div>
   );
 };

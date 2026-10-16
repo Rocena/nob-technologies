@@ -169,7 +169,22 @@ export const SiteSettings: GlobalConfig = {
               ]
             }
           ]
-        }
+        },
+        {
+          name: 'security',
+          label: 'Sécurité & Accès MFA (2FA)',
+          fields: [
+            {
+              name: 'mfaSecuritySettings',
+              type: 'ui',
+              admin: {
+                components: {
+                  Field: '@/components/admin/MfaSettingsField#MfaSettingsField',
+                },
+              },
+            },
+          ],
+        },
       ]
     }
   ],

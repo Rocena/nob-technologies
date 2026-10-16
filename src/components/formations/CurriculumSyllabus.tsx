@@ -166,8 +166,25 @@ export function CurriculumSyllabus({ months, formationTitle, duration, hours, pa
         </div>
       </div>
 
-      {/* Accordéon interactif modulaire (Pattern Coursera / edX / Springboard) */}
-      <div className="space-y-4">
+      {/* Badge Anti-Copie / Propriété Intellectuelle */}
+      <div className="mb-4 flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-900/60 border border-white/5 text-[11px] font-mono text-slate-400">
+        <span className="flex items-center gap-2 text-cyan-400">
+          <Layers className="w-3.5 h-3.5" /> Programme d&apos;ingénierie certifié • Droits réservés NOB TECHNOLOGIES
+        </span>
+        <span className="hidden sm:inline-block text-slate-500">Copie non autorisée — Brochure PDF officielle disponible</span>
+      </div>
+
+      {/* Accordéon interactif modulaire avec protection anti-copie */}
+      <div 
+        className="space-y-4 select-none"
+        style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
+        onCopy={(e) => {
+          e.preventDefault();
+        }}
+        onContextMenu={(e) => {
+          e.preventDefault();
+        }}
+      >
         {displayedMonths.map((m) => {
           const isOpen = activeTab === m.month || !!openMonths[m.month];
 
