@@ -843,26 +843,16 @@ export function ChatBot() {
           <Minus className="w-5 h-5" />
         ) : (
           <>
-            <AssistantAvatar className="w-8 h-8 shrink-0 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_2px_8px_rgba(0,0,0,0.25)]" />
-            <div className="flex flex-col text-left leading-none">
-              <div className="flex items-center gap-1.5">
-                <span className="text-xs font-black tracking-tight text-[#020617]">Koffi</span>
-                {phase === 'active' && (
-                  <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-[#020617]/15 text-[#020617]">
-                    Session active
-                  </span>
-                )}
-              </div>
-              <span className="text-[10px] font-semibold opacity-85 hidden sm:inline mt-0.5">
-                {phase === 'active' ? `Reprendre #${sessionId}` : 'Conseiller virtuel NOBTECH'}
-              </span>
-            </div>
+            <AssistantAvatar className="w-7 h-7 sm:w-8 sm:h-8 shrink-0 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_2px_8px_rgba(0,0,0,0.25)]" />
+            <span className="text-xs font-black tracking-tight text-[#020617] pr-1">
+              {phase === 'active' ? 'Reprendre le chat' : 'Chat Koffi'}
+            </span>
             {unreadCount > 0 ? (
               <span className="absolute -top-1.5 -right-1.5 flex h-5 min-w-5 px-1 items-center justify-center rounded-full bg-rose-500 text-[10px] font-bold text-white ring-2 ring-[#020617]">
                 {unreadCount}
               </span>
             ) : (
-              <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-emerald-500 ring-2 ring-[#020617]" />
+              <span className="absolute -top-1 -right-1 flex h-3 w-3 items-center justify-center rounded-full bg-emerald-500 ring-2 ring-[#020617]" />
             )}
           </>
         )}
@@ -887,6 +877,7 @@ export function ChatBot() {
             <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#00D4FF]/25 to-[#0284c7]/35 border border-[#00D4FF]/50 flex items-center justify-center p-0.5 shadow-md">
               <AssistantAvatar className="w-9 h-9" />
             </div>
+            {/* L'unique point vert indiquant la présence en ligne */}
             <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#020617]" />
           </div>
 
@@ -897,13 +888,12 @@ export function ChatBot() {
                 NOBTECH
               </span>
               {phase === 'active' && (
-                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/25">
+                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/10 text-slate-300 border border-white/15">
                   #{sessionId}
                 </span>
               )}
             </div>
-            <div className="text-[11px] text-slate-400 font-sans flex items-center gap-1.5 mt-0.5 truncate">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+            <div className="text-[11px] text-slate-400 font-sans mt-0.5 truncate">
               {phase === 'active' && visitor.name ? (
                 <span className="truncate">
                   Session de <strong className="text-slate-200 font-medium">{visitor.name.split(' ')[0]}</strong>
@@ -1102,7 +1092,7 @@ export function ChatBot() {
               {/* Session opened banner */}
               <div className="text-center py-1">
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-[10px] font-mono text-slate-400">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF]/60" />
                   Session #{sessionId} ouverte · {visitor.name}
                 </span>
               </div>
