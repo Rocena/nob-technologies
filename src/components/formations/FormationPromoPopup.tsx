@@ -13,7 +13,6 @@ interface FormationPromoPopupProps {
 
 export function FormationPromoPopup({ formation }: FormationPromoPopupProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [minimized, setMinimized] = useState(false);
   const { openApplyModal } = useFormationApplyModal();
   const { openSyllabusModal } = useSyllabusModal();
 
@@ -53,7 +52,6 @@ export function FormationPromoPopup({ formation }: FormationPromoPopupProps) {
 
   const handleClose = () => {
     setIsOpen(false);
-    setMinimized(true);
   };
 
   const handleApply = () => {
@@ -229,37 +227,6 @@ export function FormationPromoPopup({ formation }: FormationPromoPopupProps) {
               </div>
             </motion.div>
           </div>
-        )}
-      </AnimatePresence>
-
-      {/* 2. Bouton / Pill Flottant discret si fermé durant la visite */}
-      <AnimatePresence>
-        {minimized && !isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 12, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12, scale: 0.9 }}
-            className="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 z-[95]"
-          >
-            <button
-              type="button"
-              onClick={() => setIsOpen(true)}
-              className="flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full bg-slate-900/95 border border-amber-500/40 text-slate-100 shadow-xl shadow-amber-500/10 hover:border-amber-400 hover:scale-105 transition-all cursor-pointer backdrop-blur-md"
-            >
-              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
-                <Flame size={12} className="animate-pulse" />
-              </div>
-              <div className="text-left">
-                <span className="text-[9px] sm:text-[10px] font-mono text-amber-400 uppercase font-bold block leading-none">
-                  Offre de lancement ({remainingSpots} places)
-                </span>
-                <span className="text-[11px] sm:text-xs font-bold text-white leading-none">
-                  {pricing.launchPrice.toLocaleString("fr-FR")} F <span className="text-[9px] line-through text-slate-500">{pricing.publicPrice.toLocaleString("fr-FR")}</span>
-                </span>
-              </div>
-              <span className="text-[10px] sm:text-[11px] font-bold text-cyan-400 ml-0.5 sm:ml-1">&rarr;</span>
-            </button>
-          </motion.div>
         )}
       </AnimatePresence>
     </>
