@@ -199,10 +199,6 @@ export function FormationInquiryForm({
 
       {/* Title & Context */}
       <div className="relative z-10 mb-8 pb-6 border-b border-white/10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold uppercase mb-3">
-          <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-          Formulaire Officiel d&apos;Admission &bull; {formationTitle}
-        </div>
         <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
           Dossier d&apos;inscription &amp; Candidature
         </h3>

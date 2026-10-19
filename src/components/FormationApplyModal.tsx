@@ -310,14 +310,6 @@ export function FormationApplyModal({
                   <GraduationCap className="w-6 h-6" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-cyan-100/80 text-cyan-800 border border-cyan-200">
-                      Admission Officielle
-                    </span>
-                    <span className="text-[11px] text-slate-400 font-mono hidden sm:inline">
-                      Dakar &bull; Présentiel &amp; Hybride
-                    </span>
-                  </div>
                   <h3 id="modal-formation-title" className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900">
                     Postuler à la formation
                   </h3>

@@ -19,7 +19,6 @@ export function BrochureDownloadModal({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [profileType, setProfileType] = useState<"particulier" | "entreprise">("particulier");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -28,8 +27,8 @@ export function BrochureDownloadModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !phone) {
-      setError("Veuillez renseigner votre email et numéro de téléphone.");
+    if (!email) {
+      setError("Veuillez renseigner votre adresse email.");
       return;
     }
 
@@ -41,10 +40,10 @@ export function BrochureDownloadModal({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: name.trim() || "Visiteur",
+          name: name.trim() || "Prospect Programme Complet",
           email: email.trim(),
           phone: phone.trim(),
-          profileType,
+          profileType: "particulier",
         }),
       });
 
@@ -52,7 +51,7 @@ export function BrochureDownloadModal({
         setSuccess(true);
       } else {
         const data = await res.json().catch(() => ({}));
-        setError(data.error || "Une erreur est survenue lors de la génération.");
+        setError(data.error || "Une erreur est survenue lors de l'envoi du programme.");
       }
     } catch {
       setError("Erreur de connexion. Veuillez réessayer.");
@@ -67,17 +66,18 @@ export function BrochureDownloadModal({
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors"
+          aria-label="Fermer"
         >
           <X size={20} />
         </button>
 
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+          <div className="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shrink-0">
             <FileText size={24} />
           </div>
           <div>
             <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold block">
-              Syllabus &amp; Programme Complet
+              Programme Complet (PDF)
             </span>
             <h3 className="text-lg font-bold text-white leading-tight">
               {formationTitle}
@@ -105,7 +105,7 @@ export function BrochureDownloadModal({
               <div className="flex items-start gap-2.5 text-xs text-slate-200">
                 <Mail size={16} className="text-cyan-400 mt-0.5 shrink-0" />
                 <span>
-                  Le syllabus complet ainsi que la grille tarifaire ont été envoyés à :<br />
+                  Le programme complet (syllabus &amp; calendrier) a été envoyé à :<br />
                   <strong className="text-white font-semibold underline decoration-cyan-400/50">{email}</strong>
                 </span>
               </div>
@@ -141,33 +141,16 @@ export function BrochureDownloadModal({
           </div>
         ) : (
           <>
-            <p className="text-xs text-slate-300 leading-relaxed mb-6">
-              Renseignez votre email pour recevoir directement le syllabus officiel complet (curriculum détaillé des modules, ateliers pratiques sur baie physique, tarif avec facilité de paiement et débouchés au Sénégal).
+            <p className="text-xs text-slate-300 leading-relaxed mb-5">
+              Indiquez votre adresse email pour recevoir immédiatement le programme complet au format PDF (détail des modules, ateliers pratiques sur équipements réels et calendrier).
             </p>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {error && (
-              <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs">
-                {error}
-              </div>
-            )}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {error && (
+                <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs">
+                  {error}
+                </div>
+              )}
 
-            <div>
-              <label className="text-xs font-medium text-slate-300 block mb-1.5">
-                Nom &amp; Prénom
-              </label>
-              <div className="relative">
-                <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Ex : Ousmane Diallo"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="text-xs font-medium text-slate-300 block mb-1.5">
                   Adresse Email <span className="text-cyan-400">*</span>
@@ -179,74 +162,60 @@ export function BrochureDownloadModal({
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="nom@domaine.sn"
+                    placeholder="nom@exemple.com"
                     className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
                   />
                 </div>
               </div>
 
-              <div>
-                <label className="text-xs font-medium text-slate-300 block mb-1.5">
-                  Téléphone / WhatsApp <span className="text-cyan-400">*</span>
-                </label>
-                <div className="relative">
-                  <Phone size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
-                  <input
-                    type="tel"
-                    required
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="+221 77 000 00 00"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
-                  />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs font-medium text-slate-300 block mb-1.5">
+                    Nom &amp; Prénom <span className="text-slate-500 text-[11px]">(optionnel)</span>
+                  </label>
+                  <div className="relative">
+                    <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Ex : Ousmane Diallo"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-slate-300 block mb-1.5">
+                    Téléphone / WhatsApp <span className="text-slate-500 text-[11px]">(optionnel)</span>
+                  </label>
+                  <div className="relative">
+                    <Phone size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+                    <input
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="+221 77 000 00 00"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div>
-              <label className="text-xs font-medium text-slate-300 block mb-1.5">
-                Vous vous inscrivez en tant que :
-              </label>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setProfileType("particulier")}
-                  className={`py-2 px-3 rounded-xl border text-xs font-medium transition-all ${
-                    profileType === "particulier"
-                      ? "bg-cyan-500/20 border-cyan-400 text-white font-semibold"
-                      : "bg-slate-950 border-slate-800 text-slate-400 hover:text-white"
-                  }`}
-                >
-                  Particulier / Salarié
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setProfileType("entreprise")}
-                  className={`py-2 px-3 rounded-xl border text-xs font-medium transition-all ${
-                    profileType === "entreprise"
-                      ? "bg-cyan-500/20 border-cyan-400 text-white font-semibold"
-                      : "bg-slate-950 border-slate-800 text-slate-400 hover:text-white"
-                  }`}
-                >
-                  Entreprise / Direction IT
-                </button>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full mt-2 py-3 px-4 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-xs uppercase tracking-wider hover:opacity-95 disabled:opacity-50 transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 cursor-pointer"
+              >
+                {loading ? <Loader2 size={16} className="animate-spin" /> : <FileText size={16} />}
+                {loading ? "Envoi du programme en cours..." : "Recevoir le programme complet (PDF)"}
+              </button>
+
+              <div className="flex items-center justify-center gap-1.5 text-[10px] text-slate-400 pt-1">
+                <ShieldCheck size={12} className="text-emerald-400" />
+                <span>Vos données sont strictement sécurisées (Conformité CDP Sénégal &amp; RGPD).</span>
               </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full mt-2 py-3 px-4 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-xs uppercase tracking-wider hover:opacity-95 disabled:opacity-50 transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
-            >
-              {loading ? <Loader2 size={16} className="animate-spin" /> : <FileText size={16} />}
-              {loading ? "Envoi du programme complet en cours..." : "Recevoir le programme complet par email"}
-            </button>
-
-            <div className="flex items-center justify-center gap-1.5 text-[10px] text-slate-400 pt-1">
-              <ShieldCheck size={12} className="text-emerald-400" />
-              <span>Vos coordonnées sont strictement confidentielles (Politique RGPD &amp; CDP Sénégal).</span>
-            </div>
-          </form>
+            </form>
           </>
         )}
       </div>
