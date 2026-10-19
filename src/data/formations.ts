@@ -1748,6 +1748,7 @@ export const FORMATIONS_DATA: Record<string, Formation> = {
       { name: "Fortinet", logo: "/images/partners/fortinet.svg" },
       { name: "CompTIA", logo: "/images/partners/comptia.svg" },
       { name: "Offensive Security", logo: "/images/partners/offensive-security.svg" },
+      { name: "Norme ISO 27001", logo: "/images/partners/iso-27001.svg" },
     ],
     targetCertifications: [
       {

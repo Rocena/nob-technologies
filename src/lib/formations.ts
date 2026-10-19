@@ -39,7 +39,10 @@ function buildFormationFromCmsDoc(doc: any): Formation {
     hours: doc.hours || "Pratique intensive & Labs",
     pace: "Rythme flexible (Soirs ou Samedis)",
     format: doc.format || "Présentiel & Hybride (Dakar / Visio)",
-    partnerLogos: [],
+    partnerLogos:
+      Array.isArray(doc.partnerLogos) && doc.partnerLogos.length > 0
+        ? doc.partnerLogos.map((p: any) => ({ name: p.name, logo: p.logo }))
+        : (FORMATIONS_DATA[doc.slug]?.partnerLogos || []),
     targetCertifications: Array.isArray(doc.targetCertifications)
       ? doc.targetCertifications.map((c: any) => ({
           title: c.title,

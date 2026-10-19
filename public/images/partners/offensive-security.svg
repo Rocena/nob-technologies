@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 32" width="170" height="32" fill="none">
+  <!-- OffSec / Offensive Security Shield & Dragon Icon -->
+  <g>
+    <path d="M4 6c5-2 10-3 15-3s10 1 15 3v12c0 8-7 13-15 15-8-2-15-7-15-15V6z" fill="#C51A1B"/>
+    <!-- Stylized internal dragon / sword slash -->
+    <path d="M19 8l4 6-3 2 4 5-8-3 1-4-3 1 5-7z" fill="#FFFFFF"/>
+  </g>
+  <!-- Text: OFFSEC / OFFENSIVE SECURITY -->
+  <text x="40" y="18" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="900" fill="#111827" letter-spacing="0.5">OFFSEC</text>
+  <text x="40" y="27" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7" font-weight="700" fill="#C51A1B" letter-spacing="1">OFFENSIVE SECURITY</text>
+</svg>

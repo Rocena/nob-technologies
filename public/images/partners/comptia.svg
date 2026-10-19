@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 32" width="150" height="32" fill="none">
+  <!-- CompTIA Iconic Red Badge / Angle -->
+  <g fill="#ED1C24">
+    <path d="M4 6h18v20H4z" rx="3" fill="#ED1C24"/>
+    <path d="M10 11l6 5-6 5" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- CompTIA Wordmark -->
+  <text x="30" y="22" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="900" fill="#ED1C24" letter-spacing="-0.5">CompTIA</text>
+  <text x="122" y="14" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="bold" fill="#ED1C24">®</text>
+</svg>
