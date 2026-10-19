@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { X, Check, Settings2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
@@ -27,6 +26,17 @@ export function CookieConsent() {
       } catch(e) {}
     }
   }, []);
+
+  // Bloquer le scroll et l'interaction avec le site tant que le consentement n'est pas donné
+  useEffect(() => {
+    if (isVisible) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [isVisible]);
 
   const applyConsent = (prefs: typeof preferences) => {
     // Dispatch un événement custom pour que les outils d'analyse (GTM, Matomo, Plausible) puissent réagir
@@ -65,42 +75,64 @@ export function CookieConsent() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[100] p-4 md:p-6 sm:bottom-4 sm:left-4 sm:right-auto sm:max-w-[450px]">
-      <div className="bg-[#020617] border border-slate-700/50 rounded-sm shadow-2xl overflow-hidden backdrop-blur-xl relative">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full blur-[40px] -translate-y-1/2 translate-x-1/2"></div>
+    <div 
+      className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cookie-consent-title"
+    >
+      <div className="w-full max-w-lg bg-[#020617] border border-slate-700/60 rounded-xl shadow-2xl overflow-hidden backdrop-blur-2xl relative my-auto">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-full blur-[40px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
         
         {!showSettings ? (
-          <div className="p-6">
-            <h3 className="text-white font-bold mb-3 flex items-center gap-2 text-lg">
+          <div className="p-6 md:p-8">
+            <h3 id="cookie-consent-title" className="text-white font-bold mb-3 flex items-center gap-2.5 text-lg md:text-xl">
               <span>🍪</span> Vos préférences de cookies
             </h3>
             <p className="text-slate-300 text-sm leading-relaxed mb-6">
-              Afin d'améliorer votre expérience, nous utilisons des cookies pour réaliser des statistiques d'audience et adapter nos contenus.
+              Afin d'améliorer votre expérience, assurer la sécurité de vos sessions et adapter nos contenus, nous utilisons des cookies. Vous devez définir vos préférences avant de poursuivre votre navigation sur notre site.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <button onClick={handleAcceptAll} className="flex-1 bg-accent text-[#020617] font-bold py-2.5 px-4 rounded-sm hover:bg-[#00B4D8] transition-colors text-sm text-center">
+              <button 
+                type="button"
+                onClick={handleAcceptAll} 
+                className="flex-1 bg-accent text-[#020617] font-bold py-3 px-4 rounded-lg hover:bg-[#00B4D8] transition-colors text-sm text-center shadow-lg shadow-cyan-500/20 cursor-pointer"
+              >
                 Tout accepter
               </button>
-              <button onClick={handleDeclineAll} className="flex-1 bg-slate-800 text-white hover:bg-slate-700 py-2.5 px-4 rounded-sm transition-colors text-sm text-center border border-slate-700">
+              <button 
+                type="button"
+                onClick={handleDeclineAll} 
+                className="flex-1 bg-slate-800 text-white hover:bg-slate-700 py-3 px-4 rounded-lg transition-colors text-sm text-center border border-slate-700 cursor-pointer"
+              >
                 Tout refuser
               </button>
             </div>
-            <button onClick={() => setShowSettings(true)} className="w-full text-slate-400 hover:text-accent transition-colors text-sm text-center mt-4 flex items-center justify-center gap-1">
-              <Settings2 className="w-3.5 h-3.5" /> Personnaliser mes choix
+            <button 
+              type="button"
+              onClick={() => setShowSettings(true)} 
+              className="w-full text-slate-400 hover:text-accent transition-colors text-sm text-center mt-5 flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <Settings2 className="w-4 h-4" /> Personnaliser mes choix
             </button>
           </div>
         ) : (
-          <div className="p-6">
+          <div className="p-6 md:p-8">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-white font-bold text-lg">Paramètres des cookies</h3>
-              <button onClick={() => setShowSettings(false)} className="text-slate-400 hover:text-white">
+              <h3 id="cookie-consent-title" className="text-white font-bold text-lg md:text-xl">Paramètres des cookies</h3>
+              <button 
+                type="button"
+                onClick={() => setShowSettings(false)} 
+                className="text-slate-400 hover:text-white p-1 rounded-md transition-colors"
+                title="Retour"
+              >
                 <X className="w-5 h-5" />
               </button>
             </div>
             
-            <div className="space-y-4 mb-6 max-h-[40vh] overflow-y-auto pr-2 custom-scrollbar">
+            <div className="space-y-4 mb-6 max-h-[45vh] overflow-y-auto pr-2 custom-scrollbar">
               {/* Nécessaires */}
-              <div className="flex items-start justify-between p-3 bg-white/5 rounded-sm border border-white/10">
+              <div className="flex items-start justify-between p-3.5 bg-white/5 rounded-lg border border-white/10">
                 <div className="pr-4">
                   <h4 className="text-slate-200 text-sm font-semibold mb-1">Strictement nécessaires</h4>
                   <p className="text-slate-400 text-xs leading-relaxed">Indispensables au fonctionnement du site (navigation, sécurité). Ils ne peuvent pas être désactivés.</p>
@@ -113,37 +145,52 @@ export function CookieConsent() {
               </div>
 
               {/* Analytiques */}
-              <div className="flex items-start justify-between p-3 bg-white/5 rounded-sm border border-white/10">
+              <div className="flex items-start justify-between p-3.5 bg-white/5 rounded-lg border border-white/10">
                 <div className="pr-4">
                   <h4 className="text-slate-200 text-sm font-semibold mb-1">Mesure d'audience (Analytiques)</h4>
                   <p className="text-slate-400 text-xs leading-relaxed">Permettent de comprendre comment les visiteurs interagissent avec le site pour en améliorer l'ergonomie (ex: Google Analytics, Matomo).</p>
                 </div>
                 <button 
+                  type="button"
                   onClick={() => setPreferences(p => ({ ...p, analytics: !p.analytics }))}
-                  className={`shrink-0 relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${preferences.analytics ? 'bg-accent' : 'bg-slate-600'}`}
+                  className={`shrink-0 relative inline-flex h-5 w-9 items-center rounded-full transition-colors cursor-pointer ${preferences.analytics ? 'bg-accent' : 'bg-slate-600'}`}
                 >
                   <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${preferences.analytics ? 'translate-x-4.5' : 'translate-x-1'}`} />
                 </button>
               </div>
 
               {/* Marketing */}
-              <div className="flex items-start justify-between p-3 bg-white/5 rounded-sm border border-white/10">
+              <div className="flex items-start justify-between p-3.5 bg-white/5 rounded-lg border border-white/10">
                 <div className="pr-4">
                   <h4 className="text-slate-200 text-sm font-semibold mb-1">Marketing & Publicité</h4>
-                  <p className="text-slate-400 text-xs leading-relaxed">Permettent d'afficher des publicités ciblées et d'en mesurer l'efficacité.</p>
+                  <p className="text-slate-400 text-xs leading-relaxed">Permettent d'adapter nos offres de formation et mesurer l'efficacité de nos communications.</p>
                 </div>
                 <button 
+                  type="button"
                   onClick={() => setPreferences(p => ({ ...p, marketing: !p.marketing }))}
-                  className={`shrink-0 relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${preferences.marketing ? 'bg-accent' : 'bg-slate-600'}`}
+                  className={`shrink-0 relative inline-flex h-5 w-9 items-center rounded-full transition-colors cursor-pointer ${preferences.marketing ? 'bg-accent' : 'bg-slate-600'}`}
                 >
                   <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${preferences.marketing ? 'translate-x-4.5' : 'translate-x-1'}`} />
                 </button>
               </div>
             </div>
 
-            <button onClick={handleSavePreferences} className="w-full bg-accent text-[#020617] font-bold py-2.5 rounded-sm hover:bg-[#00B4D8] transition-colors text-sm shadow-[0_0_15px_rgba(0,212,255,0.15)]">
-              Enregistrer mes préférences
-            </button>
+            <div className="flex items-center gap-3">
+              <button 
+                type="button"
+                onClick={handleSavePreferences} 
+                className="flex-1 bg-accent text-[#020617] font-bold py-2.5 px-4 rounded-lg hover:bg-[#00B4D8] transition-colors text-sm shadow-[0_0_15px_rgba(0,212,255,0.15)] cursor-pointer text-center"
+              >
+                Enregistrer mes préférences
+              </button>
+              <button 
+                type="button"
+                onClick={() => setShowSettings(false)} 
+                className="py-2.5 px-4 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm border border-slate-700 transition-colors cursor-pointer text-center"
+              >
+                Retour
+              </button>
+            </div>
           </div>
         )}
       </div>
