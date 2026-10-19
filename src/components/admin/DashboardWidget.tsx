@@ -22,19 +22,21 @@ type StatItem = {
 };
 
 const STATS: StatItem[] = [
+  { slug: 'formations', label: 'Formations', Icon: Browsers, href: '/admin/collections/formations', color: '#00D4FF' },
+  { slug: 'projects', label: 'Réalisations', Icon: SquaresFour, href: '/admin/collections/projects', color: '#10E760' },
+  { slug: 'galleries', label: 'Galeries Photos', Icon: Browsers, href: '/admin/collections/galleries', color: '#8b5cf6' },
+  { slug: 'testimonials', label: 'Témoignages', Icon: ChatCircleText, href: '/admin/collections/testimonials', color: '#f59e0b' },
   { slug: 'admissions', label: 'Candidatures', Icon: UsersThree, href: '/admin/collections/admissions', color: '#10b981' },
   { slug: 'contact-messages', label: 'Messages reçus', Icon: ChatCircleText, href: '/admin/collections/contact-messages', color: '#0284c7' },
-  { slug: 'quotes', label: 'Devis', Icon: FileText, href: '/admin/collections/quotes', color: '#0ea5e9' },
-  { slug: 'invoices', label: 'Factures', Icon: Receipt, href: '/admin/collections/invoices', color: '#0369a1' },
-  { slug: 'customers', label: 'Clients', Icon: UsersThree, href: '/admin/collections/customers', color: '#38bdf8' },
-  { slug: 'articles', label: 'Articles', Icon: NewspaperClipping, href: '/admin/collections/articles', color: '#0284c7' },
 ];
 
 const QUICK = [
+  { label: 'Gérer les Formations', Icon: Browsers, href: '/admin/collections/formations' },
+  { label: 'Gérer les Réalisations', Icon: SquaresFour, href: '/admin/collections/projects' },
+  { label: 'Gérer la Galerie Photos', Icon: Browsers, href: '/admin/collections/galleries' },
+  { label: 'Gérer les Témoignages', Icon: ChatCircleText, href: '/admin/collections/testimonials' },
   { label: 'Candidatures reçues', Icon: UsersThree, href: '/admin/collections/admissions' },
   { label: 'Nouveau devis', Icon: FilePlus, href: '/admin/collections/quotes/create' },
-  { label: 'Nouvel article', Icon: NewspaperClipping, href: '/admin/collections/articles/create' },
-  { label: 'Voir les messages', Icon: ChatCircleText, href: '/admin/collections/contact-messages' },
 ];
 
 function useCountUp(target: number | null) {

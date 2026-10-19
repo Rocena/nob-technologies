@@ -8,13 +8,40 @@ import { FadeUp, TextReveal } from "@/components/animations";
 import { GalleryGrid } from "@/components/GalleryGrid";
 import { ShieldCheck, CheckCircle2 } from "lucide-react";
 
+import { getPayloadClient } from "@/lib/payload";
+import { GALLERY_ITEMS, GalleryItem } from "@/components/GalleryGrid";
+
 export const metadata: Metadata = {
   title: "Galerie & Chantiers Réalisés | NOB TECHNOLOGIES",
   description:
     "Découvrez les photos réelles de nos installations informatiques au Sénégal : baies de brassage, câblage structuré, salles serveurs et équipements réseaux déployés.",
 };
 
-export default function GaleriePage() {
+export default async function GaleriePage() {
+  let galleryItems: GalleryItem[] = GALLERY_ITEMS;
+  try {
+    const payload = await getPayloadClient();
+    const res = await (payload as any).find({
+      collection: 'galleries' as any,
+      where: { published: { equals: true } },
+      sort: 'order',
+      limit: 100,
+    });
+    if (res?.docs && res.docs.length > 0) {
+      galleryItems = res.docs.map((doc: any) => ({
+        id: String(doc.id),
+        title: doc.title,
+        category: (doc.category || 'cablage') as any,
+        categoryLabel: doc.categoryLabel || 'Chantier Réalisé',
+        image: doc.imageUpload?.url || doc.imageUrl || '/images/gallery/galerie-1-baie-brassage.jpg',
+        description: doc.description,
+        date: doc.date,
+      }));
+    }
+  } catch {
+    // Fallback if db is unavailable
+  }
+
   return (
     <>
       <Header />
@@ -58,7 +85,7 @@ export default function GaleriePage() {
         {/* Gallery Interactive Component */}
         <Section className="py-16 md:py-24">
           <Container>
-            <GalleryGrid />
+            <GalleryGrid items={galleryItems} />
           </Container>
         </Section>
 

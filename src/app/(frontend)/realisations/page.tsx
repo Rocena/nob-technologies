@@ -89,11 +89,45 @@ export default async function ProjectsPage() {
     const res = await payload.find({
       collection: 'projects',
       where: { status: { equals: 'published' } },
+      limit: 100,
     });
     cmsProjects = res?.docs || [];
   } catch (err) {
     // Fallback if db is unseeded
   }
+
+  const cmsParcExotique = cmsProjects.find((p) => p.slug === 'parc-exotique');
+
+  const displayedProjects: ProjectItem[] = secondaryProjects.map((fallback) => {
+    const cmsMatch = cmsProjects.find((p) => p.slug === fallback.id || p.id === fallback.id);
+    if (!cmsMatch) return fallback;
+    return {
+      id: cmsMatch.slug || fallback.id,
+      title: cmsMatch.title || fallback.title,
+      sector: cmsMatch.sector || fallback.sector,
+      description: cmsMatch.description || fallback.description,
+      tags: fallback.tags,
+      websiteUrl: cmsMatch.websiteUrl || fallback.websiteUrl,
+      previewScreenshotUrl: cmsMatch.previewScreenshotUrl || fallback.previewScreenshotUrl,
+      coverImage: cmsMatch.coverImage?.url || fallback.coverImage,
+      clientLogo: fallback.clientLogo,
+    };
+  });
+
+  const additionalCmsProjects: ProjectItem[] = cmsProjects
+    .filter((p) => p.slug !== 'parc-exotique' && !secondaryProjects.some((s) => s.id === p.slug))
+    .map((p) => ({
+      id: p.slug || String(p.id),
+      title: p.title,
+      sector: p.sector || 'Technologie & IT',
+      description: p.description || '',
+      tags: ['Référence Terrain'],
+      websiteUrl: p.websiteUrl,
+      previewScreenshotUrl: p.previewScreenshotUrl,
+      coverImage: p.coverImage?.url || '/images/projects/union-europeenne-baie-42u.jpg',
+    }));
+
+  const allProjects = [...displayedProjects, ...additionalCmsProjects];
 
   return (
     <>
@@ -132,10 +166,10 @@ export default async function ProjectsPage() {
                   ÉTUDE DE CAS &bull; HÔTELLERIE &amp; WEB
                 </p>
                 <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">
-                  Parc Exotique du Sénégal &mdash; Plateforme Web Officielle
+                  {cmsParcExotique?.title || "Parc Exotique du Sénégal — Plateforme Web Officielle"}
                 </h2>
                 <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
-                  Développement et mise en production de la vitrine numérique complète de l’Hôtel du Parc, du restaurant La Plume et du parc animalier à Somone, ainsi que la gestion et l’animation continue de leurs réseaux sociaux (Instagram et Facebook).
+                  {cmsParcExotique?.description || "Développement et mise en production de la vitrine numérique complète de l’Hôtel du Parc, du restaurant La Plume et du parc animalier à Somone, ainsi que la gestion et l’animation continue de leurs réseaux sociaux (Instagram et Facebook)."}
                 </p>
               </div>
             </FadeUp>
@@ -464,29 +498,11 @@ export default async function ProjectsPage() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {secondaryProjects.map((project, index) => (
-                <FadeUp key={project.id} delay={index * 0.1}>
+              {allProjects.map((project, index) => (
+                <FadeUp key={project.id || index} delay={index * 0.08}>
                   <div id={String(project.id)} className="scroll-mt-28 h-full">
                     <ProjectCard project={project} />
                   </div>
-                </FadeUp>
-              ))}
-
-              {/* Any dynamically added CMS projects */}
-              {cmsProjects.map((project, index) => (
-                <FadeUp key={project.id} delay={0.3 + index * 0.1}>
-                  <ProjectCard
-                    project={{
-                      id: project.id,
-                      title: project.title,
-                      sector: project.sector || 'Technologie',
-                      description: project.description,
-                      websiteUrl: project.websiteUrl,
-                      previewScreenshotUrl: project.previewScreenshotUrl,
-                      coverImage: project.coverImage,
-                      tags: project.tags || ['Projet Client'],
-                    }}
-                  />
                 </FadeUp>
               ))}
             </div>

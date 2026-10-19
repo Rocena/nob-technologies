@@ -186,13 +186,15 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
 ];
 
-export function GalleryGrid() {
+export function GalleryGrid({ items = GALLERY_ITEMS }: { items?: GalleryItem[] }) {
   const [activeFilter, setActiveFilter] = useState<string>("tous");
   const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
 
+  const sourceItems = items && items.length > 0 ? items : GALLERY_ITEMS;
+
   const filteredItems = activeFilter === "tous"
-    ? GALLERY_ITEMS
-    : GALLERY_ITEMS.filter((item) => item.category === activeFilter);
+    ? sourceItems
+    : sourceItems.filter((item) => item.category === activeFilter);
 
   const openLightbox = (index: number) => {
     setSelectedItemIndex(index);

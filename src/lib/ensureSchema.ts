@@ -81,6 +81,26 @@ const postgresPatchStatements: string[] = [
   'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "smtp_from" varchar DEFAULT \'"NOB TECHNOLOGIES" <contact@nobtech.fr>\';',
   'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "admin_notification_emails" varchar;',
   'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "resend_api_key" varchar;',
+
+  // 7. Table galleries (Galerie photos & chantiers)
+  `CREATE TABLE IF NOT EXISTS "galleries" (
+    "id" serial PRIMARY KEY NOT NULL,
+    "title" varchar NOT NULL,
+    "category" varchar DEFAULT 'cablage' NOT NULL,
+    "category_label" varchar,
+    "image_url" varchar,
+    "image_upload_id" integer,
+    "description" varchar NOT NULL,
+    "date" varchar,
+    "order" numeric DEFAULT 10,
+    "published" boolean DEFAULT true,
+    "updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+    "created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+  );`,
+  'CREATE INDEX IF NOT EXISTS "galleries_category_idx" ON "galleries" ("category");',
+  'CREATE INDEX IF NOT EXISTS "galleries_order_idx" ON "galleries" ("order");',
+  'CREATE INDEX IF NOT EXISTS "galleries_published_idx" ON "galleries" ("published");',
+  'ALTER TABLE "payload_locked_documents_rels" ADD COLUMN IF NOT EXISTS "galleries_id" integer;',
 ];
 
 export async function ensureDatabaseSchema(payload: Payload): Promise<{
@@ -222,6 +242,27 @@ export async function ensureDatabaseSchema(payload: Payload): Promise<{
         try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`smtp_from\` text DEFAULT '"NOB TECHNOLOGIES" <contact@nobtech.fr>';`); } catch {}
         try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`admin_notification_emails\` text;`); } catch {}
         try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`resend_api_key\` text;`); } catch {}
+
+        // 6. Table galleries (SQLite)
+        try {
+          await db.run(sql`
+            CREATE TABLE IF NOT EXISTS \`galleries\` (
+              \`id\` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+              \`title\` text NOT NULL,
+              \`category\` text DEFAULT 'cablage' NOT NULL,
+              \`category_label\` text,
+              \`image_url\` text,
+              \`image_upload_id\` integer,
+              \`description\` text NOT NULL,
+              \`date\` text,
+              \`order\` numeric DEFAULT 10,
+              \`published\` integer DEFAULT 1,
+              \`updated_at\` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL,
+              \`created_at\` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL
+            );
+          `);
+        } catch {}
+        try { await db.run(sql`ALTER TABLE \`payload_locked_documents_rels\` ADD COLUMN \`galleries_id\` integer;`); } catch {}
 
         console.log('[ensureDatabaseSchema] Schéma SQLite synchronisé avec succès.');
         return {

@@ -26,6 +26,7 @@ import { Quotes } from './collections/Quotes';
 import { Invoices } from './collections/Invoices';
 import { Formations } from './collections/Formations';
 import { Admissions } from './collections/Admissions';
+import { Galleries } from './collections/Galleries';
 import { SiteSettings } from './globals/SiteSettings';
 import { migrations, postgresMigrations } from './migrations';
 
@@ -94,6 +95,7 @@ export default buildConfig({
     Projects,
     Formations,
     Admissions,
+    Galleries,
   ],
   editor: lexicalEditor({}),
   secret: process.env.PAYLOAD_SECRET || 'nobtech-super-secret-key-12345',
@@ -156,6 +158,16 @@ export default buildConfig({
       wal: true,
     });
   })(),
+  onInit: async (payload) => {
+    try {
+      const { ensureDatabaseSchema } = await import('@/lib/ensureSchema');
+      await ensureDatabaseSchema(payload);
+      const { ensureCompleteSeed } = await import('@/lib/ensureSeed');
+      await ensureCompleteSeed(payload);
+    } catch (err: any) {
+      console.warn('[PAYLOAD ONINIT WARNING]:', err?.message || err);
+    }
+  },
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },

@@ -7,6 +7,8 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
   try {
     const payload = await getPayloadClient();
+    const { ensureDatabaseSchema } = await import('@/lib/ensureSchema');
+    await ensureDatabaseSchema(payload);
     const result = await ensureCompleteSeed(payload);
     return NextResponse.json({ success: true, result });
   } catch (error: any) {
