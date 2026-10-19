@@ -24,6 +24,7 @@ import { FormationOfferingsSection } from "@/components/formations/FormationOffe
 import { FormationVideoSection } from "@/components/formations/FormationVideoSection";
 import { FormationApplyButton } from "@/components/FormationApplyButton";
 import { FormationPromoPopup } from "@/components/formations/FormationPromoPopup";
+import { FORMATIONS_DATA } from "@/data/formations";
 
 export const metadata: Metadata = {
   title: "Formations Professionnelles & Préparation aux Certifications | NOB TECHNOLOGIES",
@@ -36,11 +37,13 @@ export default async function FormationsCatalogPage() {
 
   // Détection de la formation phare bénéficiant de l'offre de lancement (10 premières places)
   // Si le quota de 10 inscrits est atteint, isPromoExpired est vrai et le popup ne s'affichera pas
-  const featuredPromoFormation = formations.find(
-    (f) => f.slug === "cisco-ccna" && f.pricing && !f.pricing.isPromoExpired && (f.pricing.remainingSpots ?? 0) > 0
-  ) || formations.find(
-    (f) => f.pricing && !f.pricing.isPromoExpired && (f.pricing.remainingSpots ?? 0) > 0 && f.pricing.launchSpots === 10
-  );
+  const ccnaFormation = formations.find((f) => f.slug === "cisco-ccna") || FORMATIONS_DATA["cisco-ccna"];
+  const featuredPromoFormation =
+    ccnaFormation && ccnaFormation.pricing && !ccnaFormation.pricing.isPromoExpired && (ccnaFormation.pricing.remainingSpots ?? 3) > 0
+      ? ccnaFormation
+      : formations.find(
+          (f) => f.pricing && !f.pricing.isPromoExpired && (f.pricing.remainingSpots ?? 0) > 0 && f.pricing.launchSpots === 10
+        ) || FORMATIONS_DATA["cisco-ccna"];
 
   return (
     <>
