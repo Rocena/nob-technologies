@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { CookieConsent } from "@/components/CookieConsent";
@@ -8,6 +8,16 @@ import StickyCallout from "@/components/StickyCallout";
 import { ChatBot } from "@/components/ChatBot";
 import { CommandPaletteProvider } from "@/components/CommandPaletteProvider";
 import { EngineerModalProvider } from "@/components/EngineerModalContext";
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#020617" },
+    { media: "(prefers-color-scheme: light)", color: "#0A2540" },
+  ],
+  colorScheme: "dark light",
+  width: "device-width",
+  initialScale: 1,
+};
 
 const inter = Inter({
   subsets: ["latin"],

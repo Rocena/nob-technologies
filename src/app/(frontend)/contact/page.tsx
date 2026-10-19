@@ -70,7 +70,7 @@ export default async function ContactPage({
           </Container>
         </Section>
 
-        <Section className="py-16 md:py-24 bg-slate-50">
+        <Section className="py-16 md:py-24 bg-slate-50 dark:bg-[#020617]">
           <Container>
             <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
               <FadeUp className="lg:col-span-1 space-y-8">
@@ -78,10 +78,10 @@ export default async function ContactPage({
                   <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                     CONTACT DIRECT &bull; DAKAR
                   </p>
-                  <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3 tracking-tight">
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-3 tracking-tight">
                     Nos coordonnées
                   </h2>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                  <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
                     N&apos;hésitez pas à nous contacter directement ou à renseigner le formulaire ci-contre. Nos ingénieurs vous répondent avec réactivité.
                   </p>
                 </div>
@@ -91,36 +91,36 @@ export default async function ContactPage({
                     href="https://www.google.com/maps/search/?api=1&query=QG3J%2BHP+Dakar"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-start gap-4 p-4 rounded-xl bg-white hover:bg-slate-50/90 border border-slate-200/80 hover:border-cyan-300 transition-all shadow-sm group cursor-pointer"
+                    className="flex items-start gap-4 p-4 rounded-xl bg-white dark:bg-[#0b1329] hover:bg-slate-50/90 dark:hover:bg-[#0f1d3d] border border-slate-200/80 dark:border-slate-800 hover:border-cyan-300 dark:hover:border-cyan-500/50 transition-all shadow-sm group cursor-pointer"
                     title="Ouvrir la localisation sur Google Maps (QG3J+HP Dakar)"
                   >
-                    <div className="w-11 h-11 bg-cyan-50 group-hover:bg-cyan-100/70 rounded-lg flex items-center justify-center shrink-0 border border-cyan-100 group-hover:border-cyan-200 transition-colors">
-                      <MapPin className="w-5 h-5 text-cyan-600 group-hover:scale-110 transition-transform" />
+                    <div className="w-11 h-11 bg-cyan-50 dark:bg-cyan-950/60 group-hover:bg-cyan-100/70 dark:group-hover:bg-cyan-900/60 rounded-lg flex items-center justify-center shrink-0 border border-cyan-100 dark:border-cyan-800/80 group-hover:border-cyan-200 transition-colors">
+                      <MapPin className="w-5 h-5 text-cyan-600 dark:text-cyan-400 group-hover:scale-110 transition-transform" />
                     </div>
                     <div>
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-600 block mb-1">
+                        <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400 block mb-1">
                           Siège &amp; Bureaux
                         </span>
-                        <span className="text-[11px] font-semibold text-cyan-600 group-hover:underline inline-flex items-center gap-0.5">
+                        <span className="text-[11px] font-semibold text-cyan-600 dark:text-cyan-400 group-hover:underline inline-flex items-center gap-0.5">
                           Google Maps &rarr;
                         </span>
                       </div>
-                      <p className="text-sm text-slate-800 font-medium leading-relaxed group-hover:text-cyan-950 transition-colors">{address}</p>
+                      <p className="text-sm text-slate-800 dark:text-slate-200 font-medium leading-relaxed group-hover:text-cyan-950 dark:group-hover:text-white transition-colors">{address}</p>
                     </div>
                   </a>
                   
-                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200/80 shadow-sm">
-                    <div className="w-11 h-11 bg-cyan-50 rounded-lg flex items-center justify-center shrink-0 border border-cyan-100">
-                      <Phone className="w-5 h-5 text-cyan-600" />
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white dark:bg-[#0b1329] border border-slate-200/80 dark:border-slate-800 shadow-sm">
+                    <div className="w-11 h-11 bg-cyan-50 dark:bg-cyan-950/60 rounded-lg flex items-center justify-center shrink-0 border border-cyan-100 dark:border-cyan-800/80">
+                      <Phone className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
                     </div>
                     <div>
-                      <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-600 block mb-1">
+                      <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400 block mb-1">
                         Ligne Téléphonique
                       </span>
                       <div className="flex flex-col space-y-1">
                         {phone.split('/').map((p: string, i: number) => (
-                          <a key={i} href={`tel:${p.trim().replace(/\s+/g, '')}`} className="text-sm font-semibold text-slate-800 hover:text-cyan-600 transition-colors">
+                          <a key={i} href={`tel:${p.trim().replace(/\s+/g, '')}`} className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                             {p.trim()}
                           </a>
                         ))}
@@ -130,20 +130,20 @@ export default async function ContactPage({
 
                   <div className="flex items-start gap-5">
                     <MagneticElement>
-                      <div className="w-12 h-12 bg-white rounded-sm shadow-sm border border-slate-200 flex items-center justify-center shrink-0">
-                        <Mail className="w-6 h-6 text-accent" />
+                      <div className="w-12 h-12 bg-white dark:bg-[#0b1329] rounded-sm shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-center shrink-0">
+                        <Mail className="w-6 h-6 text-cyan-500" />
                       </div>
                     </MagneticElement>
                     <div>
-                      <h4 className="font-semibold text-slate-900 mb-1">Email</h4>
-                      <a href={`mailto:${email}`} className="text-slate-600 hover:text-accent transition-colors">{email}</a>
+                      <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Email</h4>
+                      <a href={`mailto:${email}`} className="text-slate-600 dark:text-slate-300 hover:text-cyan-500 transition-colors">{email}</a>
                     </div>
                   </div>
                 </div>
               </FadeUp>
 
               <FadeUp delay={0.2} className="lg:col-span-2">
-                <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative overflow-hidden">
+                <div className="bg-white dark:bg-[#0b1329] border border-slate-200/90 dark:border-slate-800 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative overflow-hidden">
                   <ShieldWatermark position="top-right" size={240} opacity={0.07} />
                   <ContactForm formType={type} initialService={initialService} />
                 </div>

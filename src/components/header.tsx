@@ -317,7 +317,7 @@ export function Header() {
       />
 
       {/* Main Header Bar - Corporate Silicon Valley Standard */}
-      <header className="fixed top-0 inset-x-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200/80 shadow-[0_4px_25px_rgba(15,23,42,0.03)] transition-all duration-300">
+      <header className="fixed top-0 inset-x-0 z-50 w-full bg-white/95 dark:bg-[#020617]/95 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 shadow-[0_4px_25px_rgba(15,23,42,0.03)] dark:shadow-[0_4px_25px_rgba(0,0,0,0.5)] transition-all duration-300">
         {/* Executive Top Utility Bar - Direct Corporate Contacts */}
         <div className="w-full bg-[#030712] border-b border-slate-800/80 text-slate-300">
           <div className="w-full max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -413,18 +413,22 @@ export function Header() {
                       href={item.href} 
                       className={cn(
                         "text-[13.5px] xl:text-[14px] font-semibold transition-colors py-5 px-0.5 flex items-center",
-                        isHovered ? "text-cyan-600" : "text-slate-800 hover:text-cyan-600"
+                        isHovered 
+                          ? "text-cyan-600 dark:text-cyan-400" 
+                          : "text-slate-800 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-400"
                       )}
                     >
                       <span className={cn(
                         "px-2.5 xl:px-3 py-1.5 rounded-lg transition-all flex items-center gap-1 xl:gap-1.5 whitespace-nowrap",
-                        isHovered ? "bg-slate-100 text-cyan-600" : "hover:bg-slate-100/80"
+                        isHovered 
+                          ? "bg-slate-100 dark:bg-slate-800/80 text-cyan-600 dark:text-cyan-400" 
+                          : "hover:bg-slate-100/80 dark:hover:bg-slate-800/60"
                       )}>
                         <span>{item.name}</span>
                         {(hasChildren || item.id === 'contact') && (
                           <ChevronDown className={cn(
                             "w-3.5 h-3.5 transition-transform duration-200",
-                            isHovered ? "rotate-180 text-cyan-600" : "text-slate-400"
+                            isHovered ? "rotate-180 text-cyan-600 dark:text-cyan-400" : "text-slate-400"
                           )} />
                         )}
                       </span>
@@ -440,9 +444,9 @@ export function Header() {
                         getDropdownAlign(index, navItems.length),
                         getDropdownWidth(item)
                       )}>
-                        <div className="bg-white/98 backdrop-blur-2xl border border-slate-200/90 shadow-[0_24px_50px_-12px_rgba(15,23,42,0.18),0_0_0_1px_rgba(15,23,42,0.04)] rounded-2xl p-5 sm:p-6 relative overflow-hidden ring-1 ring-slate-900/5">
+                        <div className="bg-white/98 dark:bg-[#070d1f]/98 backdrop-blur-2xl border border-slate-200/90 dark:border-slate-800 shadow-[0_24px_50px_-12px_rgba(15,23,42,0.18),0_0_0_1px_rgba(15,23,42,0.04)] dark:shadow-[0_24px_50px_-12px_rgba(0,0,0,0.6)] rounded-2xl p-5 sm:p-6 relative overflow-hidden ring-1 ring-slate-900/5 dark:ring-white/10">
                           {/* Discrete NOBTECH Shield Watermark in top-right */}
-                          <div className="absolute -top-3 -right-3 w-28 h-28 opacity-[0.05] pointer-events-none select-none overflow-hidden">
+                          <div className="absolute -top-3 -right-3 w-28 h-28 opacity-[0.05] dark:opacity-[0.08] pointer-events-none select-none overflow-hidden">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img 
                               src="/images/nobtech-shield.png" 
@@ -453,16 +457,16 @@ export function Header() {
                           
                           <div className="relative z-10">
                             {/* Dropdown Header Banner (Clean Corporate, Zero "Pôle") */}
-                            <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-100">
+                            <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-100 dark:border-slate-800">
                               <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-600 border border-cyan-500/20 flex items-center justify-center font-bold text-xs shrink-0">
+                                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 flex items-center justify-center font-bold text-xs shrink-0">
                                   <ParentIcon className="w-4 h-4" />
                                 </div>
                                 <div>
-                                  <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-700">
+                                  <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-400">
                                     {getHeaderCategoryLabel(item.id || item.name)}
                                   </div>
-                                  <p className="text-xs text-slate-500 line-clamp-1">
+                                  <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">
                                     {item.desc}
                                   </p>
                                 </div>
@@ -470,10 +474,10 @@ export function Header() {
                               <Link
                                 href={item.href}
                                 onClick={() => setActiveHover(null)}
-                                className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 hover:text-cyan-600 hover:bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200/70 transition-colors shrink-0"
+                                className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-50 dark:hover:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200/70 dark:border-slate-700 transition-colors shrink-0"
                               >
                                 <span>Voir tout</span>
-                                <ArrowRight className="w-3.5 h-3.5 text-cyan-600" />
+                                <ArrowRight className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
                               </Link>
                             </div>
 
@@ -494,7 +498,7 @@ export function Header() {
                                       key={child.href}
                                       href={child.href}
                                       onClick={() => setActiveHover(null)}
-                                      className="group/bento relative rounded-xl p-3 sm:p-3.5 bg-slate-50/70 hover:bg-white border border-slate-200/70 hover:border-cyan-300 hover:shadow-[0_8px_20px_-6px_rgba(0,212,255,0.16),0_2px_6px_-1px_rgba(15,23,42,0.04)] transition-all duration-200 flex flex-col justify-between overflow-hidden"
+                                      className="group/bento relative rounded-xl p-3 sm:p-3.5 bg-slate-50/70 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-[#0b1329] border border-slate-200/70 dark:border-slate-800 hover:border-cyan-300 dark:hover:border-cyan-500/50 hover:shadow-[0_8px_20px_-6px_rgba(0,212,255,0.16),0_2px_6px_-1px_rgba(15,23,42,0.04)] transition-all duration-200 flex flex-col justify-between overflow-hidden"
                                     >
                                       {/* Micro top shine edge on hover */}
                                       <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover/bento:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -502,11 +506,11 @@ export function Header() {
                                       <div>
                                         {/* Header of Bento Card: Icon + Micro Tag */}
                                         <div className="flex items-center justify-between gap-2">
-                                          <div className="w-8 h-8 rounded-lg bg-white border border-slate-200/80 shadow-2xs flex items-center justify-center text-slate-700 group-hover/bento:text-cyan-600 group-hover/bento:border-cyan-200 transition-colors shrink-0">
+                                          <div className="w-8 h-8 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-2xs flex items-center justify-center text-slate-700 dark:text-slate-300 group-hover/bento:text-cyan-600 dark:group-hover/bento:text-cyan-400 group-hover/bento:border-cyan-200 dark:group-hover/bento:border-cyan-500/40 transition-colors shrink-0">
                                             <ChildIcon className="w-4 h-4 stroke-[2]" />
                                           </div>
                                           {child.tag && (
-                                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 group-hover/bento:text-cyan-700 bg-white/90 group-hover/bento:bg-cyan-50/80 border border-slate-200/60 group-hover/bento:border-cyan-200/60 px-2 py-0.5 rounded-md transition-colors truncate max-w-[150px]">
+                                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-300 group-hover/bento:text-cyan-700 dark:group-hover/bento:text-cyan-300 bg-white/90 dark:bg-slate-800 group-hover/bento:bg-cyan-50/80 dark:group-hover/bento:bg-cyan-950/60 border border-slate-200/60 dark:border-slate-700 group-hover/bento:border-cyan-200/60 dark:group-hover/bento:border-cyan-500/30 px-2 py-0.5 rounded-md transition-colors truncate max-w-[150px]">
                                               {child.tag}
                                             </span>
                                           )}
@@ -514,15 +518,15 @@ export function Header() {
 
                                         {/* Title & Arrow */}
                                         <div className="flex items-center justify-between gap-1 mt-2.5">
-                                          <span className="text-[13px] font-bold text-slate-900 group-hover/bento:text-cyan-600 transition-colors leading-snug">
+                                          <span className="text-[13px] font-bold text-slate-900 dark:text-white group-hover/bento:text-cyan-600 dark:group-hover/bento:text-cyan-400 transition-colors leading-snug">
                                             {child.name}
                                           </span>
-                                          <ArrowRight className="w-3 h-3 text-slate-300 opacity-0 group-hover/bento:opacity-100 group-hover/bento:translate-x-0.5 group-hover/bento:text-cyan-600 transition-all shrink-0" />
+                                          <ArrowRight className="w-3 h-3 text-slate-300 dark:text-slate-600 opacity-0 group-hover/bento:opacity-100 group-hover/bento:translate-x-0.5 group-hover/bento:text-cyan-600 dark:group-hover/bento:text-cyan-400 transition-all shrink-0" />
                                         </div>
 
                                         {/* Description */}
                                         {child.desc && (
-                                          <p className="text-[11px] text-slate-500 group-hover/bento:text-slate-600 leading-snug mt-1 font-normal line-clamp-2">
+                                          <p className="text-[11px] text-slate-500 dark:text-slate-400 group-hover/bento:text-slate-600 dark:group-hover/bento:text-slate-300 leading-snug mt-1 font-normal line-clamp-2">
                                             {child.desc}
                                           </p>
                                         )}
@@ -573,14 +577,14 @@ export function Header() {
                             </div>
 
                             {/* Dropdown Footer Strip */}
-                            <div className="mt-4 pt-3 border-t border-slate-100/90 -mx-5 -mb-5 sm:-mx-6 sm:-mb-6 px-5 sm:px-6 py-2.5 bg-slate-50/80 rounded-b-2xl flex items-center justify-between text-xs text-slate-600">
+                            <div className="mt-4 pt-3 border-t border-slate-100/90 dark:border-slate-800 -mx-5 -mb-5 sm:-mx-6 sm:-mb-6 px-5 sm:px-6 py-2.5 bg-slate-50/80 dark:bg-slate-900/90 rounded-b-2xl flex items-center justify-between text-xs text-slate-600 dark:text-slate-300">
                               <span className="flex items-center gap-2">
-                                <span className="inline-flex items-center gap-1.5 font-semibold text-slate-800">
+                                <span className="inline-flex items-center gap-1.5 font-semibold text-slate-800 dark:text-slate-200">
                                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                                   Support Dakar 24/7
                                 </span>
-                                <span className="text-slate-400">&bull;</span>
-                                <span className="text-slate-500">Interventions garanties sous 24h</span>
+                                <span className="text-slate-400 dark:text-slate-500">&bull;</span>
+                                <span className="text-slate-500 dark:text-slate-400">Interventions garanties sous 24h</span>
                               </span>
                               <button
                                 type="button"
@@ -588,7 +592,7 @@ export function Header() {
                                   setActiveHover(null);
                                   openQuoteModal(item.name);
                                 }}
-                                className="font-bold text-cyan-600 hover:text-cyan-700 flex items-center gap-1 hover:underline cursor-pointer"
+                                className="font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 flex items-center gap-1 hover:underline cursor-pointer"
                               >
                                 <span>Demander un devis pour {item.name}</span>
                                 <ArrowRight className="w-3 h-3" />
@@ -606,18 +610,18 @@ export function Header() {
                         getDropdownAlign(index, navItems.length),
                         getDropdownWidth(item)
                       )}>
-                        <div className="bg-white/98 backdrop-blur-2xl border border-slate-200/90 shadow-[0_24px_50px_-12px_rgba(15,23,42,0.18)] rounded-2xl p-5 relative overflow-hidden ring-1 ring-slate-900/5">
+                        <div className="bg-white/98 dark:bg-[#070d1f]/98 backdrop-blur-2xl border border-slate-200/90 dark:border-slate-800 shadow-[0_24px_50px_-12px_rgba(15,23,42,0.18)] dark:shadow-[0_24px_50px_-12px_rgba(0,0,0,0.6)] rounded-2xl p-5 relative overflow-hidden ring-1 ring-slate-900/5 dark:ring-white/10">
                           <div className="relative z-10 space-y-3">
-                            <div className="pb-3 border-b border-slate-100 flex items-center justify-between">
+                            <div className="pb-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
                               <div>
-                                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-700">
+                                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-400">
                                   Contact Direct &bull; Dakar
                                 </div>
-                                <h5 className="text-[14px] font-bold text-slate-900 mt-0.5">
+                                <h5 className="text-[14px] font-bold text-slate-900 dark:text-white mt-0.5">
                                   Parlons de votre projet IT
                                 </h5>
                               </div>
-                              <span className="inline-flex items-center gap-1.5 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200">
+                              <span className="inline-flex items-center gap-1.5 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/70">
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                                 Support 24/7
                               </span>
@@ -627,22 +631,22 @@ export function Header() {
                             <div className="space-y-2 pt-0.5">
                               <a
                                 href="tel:+221773010838"
-                                className="group/bento relative flex items-center gap-3 p-3 rounded-xl bg-slate-50/80 hover:bg-white border border-slate-200/70 hover:border-emerald-300 hover:shadow-md transition-all overflow-hidden"
+                                className="group/bento relative flex items-center gap-3 p-3 rounded-xl bg-slate-50/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-[#0b1329] border border-slate-200/70 dark:border-slate-800 hover:border-emerald-300 dark:hover:border-emerald-500/50 hover:shadow-md transition-all overflow-hidden"
                               >
                                 <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent opacity-0 group-hover/bento:opacity-100 transition-opacity pointer-events-none" />
-                                <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-emerald-600 shadow-2xs shrink-0 group-hover/bento:border-emerald-200">
+                                <div className="w-8 h-8 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shadow-2xs shrink-0 group-hover/bento:border-emerald-200 dark:group-hover/bento:border-emerald-500/40">
                                   <Smartphone className="w-4 h-4" />
                                 </div>
                                 <div className="min-w-0 flex-1">
                                   <div className="flex items-center justify-between">
-                                    <span className="text-xs font-bold text-slate-900 group-hover/bento:text-emerald-600 transition-colors">
+                                    <span className="text-xs font-bold text-slate-900 dark:text-white group-hover/bento:text-emerald-600 dark:group-hover/bento:text-emerald-400 transition-colors">
                                       +221 77 301 08 38
                                     </span>
-                                    <span className="text-[9.5px] font-mono text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100">
+                                    <span className="text-[9.5px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-100 dark:border-emerald-800/60">
                                       Astreinte 24/7
                                     </span>
                                   </div>
-                                  <div className="text-[11px] text-slate-500">
+                                  <div className="text-[11px] text-slate-500 dark:text-slate-400">
                                     Portable direct & WhatsApp
                                   </div>
                                 </div>
@@ -650,22 +654,22 @@ export function Header() {
 
                               <a
                                 href="tel:+221338140435"
-                                className="group/bento relative flex items-center gap-3 p-3 rounded-xl bg-slate-50/80 hover:bg-white border border-slate-200/70 hover:border-cyan-300 hover:shadow-md transition-all overflow-hidden"
+                                className="group/bento relative flex items-center gap-3 p-3 rounded-xl bg-slate-50/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-[#0b1329] border border-slate-200/70 dark:border-slate-800 hover:border-cyan-300 dark:hover:border-cyan-500/50 hover:shadow-md transition-all overflow-hidden"
                               >
                                 <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover/bento:opacity-100 transition-opacity pointer-events-none" />
-                                <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-cyan-600 shadow-2xs shrink-0 group-hover/bento:border-cyan-200">
+                                <div className="w-8 h-8 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-cyan-600 dark:text-cyan-400 shadow-2xs shrink-0 group-hover/bento:border-cyan-200 dark:group-hover/bento:border-cyan-500/40">
                                   <Phone className="w-4 h-4" />
                                 </div>
                                 <div className="min-w-0 flex-1">
                                   <div className="flex items-center justify-between">
-                                    <span className="text-xs font-bold text-slate-900 group-hover/bento:text-cyan-600 transition-colors">
+                                    <span className="text-xs font-bold text-slate-900 dark:text-white group-hover/bento:text-cyan-600 dark:group-hover/bento:text-cyan-400 transition-colors">
                                       +221 33 814 04 35
                                     </span>
-                                    <span className="text-[9.5px] font-mono text-cyan-600 bg-cyan-50 px-1.5 py-0.5 rounded border border-cyan-100">
+                                    <span className="text-[9.5px] font-mono text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/60 px-1.5 py-0.5 rounded border border-cyan-100 dark:border-cyan-800/60">
                                       Standard Fixe
                                     </span>
                                   </div>
-                                  <div className="text-[11px] text-slate-500">
+                                  <div className="text-[11px] text-slate-500 dark:text-slate-400">
                                     Bureau Dakar • Route Aéroport
                                   </div>
                                 </div>
@@ -673,22 +677,22 @@ export function Header() {
 
                               <a
                                 href="mailto:contact@nobtech.fr"
-                                className="group/bento relative flex items-center gap-3 p-3 rounded-xl bg-slate-50/80 hover:bg-white border border-slate-200/70 hover:border-cyan-300 hover:shadow-md transition-all overflow-hidden"
+                                className="group/bento relative flex items-center gap-3 p-3 rounded-xl bg-slate-50/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-[#0b1329] border border-slate-200/70 dark:border-slate-800 hover:border-cyan-300 dark:hover:border-cyan-500/50 hover:shadow-md transition-all overflow-hidden"
                               >
                                 <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover/bento:opacity-100 transition-opacity pointer-events-none" />
-                                <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-cyan-600 shadow-2xs shrink-0 group-hover/bento:border-cyan-200">
+                                <div className="w-8 h-8 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-cyan-600 dark:text-cyan-400 shadow-2xs shrink-0 group-hover/bento:border-cyan-200 dark:group-hover/bento:border-cyan-500/40">
                                   <Mail className="w-4 h-4" />
                                 </div>
                                 <div className="min-w-0 flex-1">
                                   <div className="flex items-center justify-between">
-                                    <span className="text-xs font-bold text-slate-900 group-hover/bento:text-cyan-600 transition-colors">
+                                    <span className="text-xs font-bold text-slate-900 dark:text-white group-hover/bento:text-cyan-600 dark:group-hover/bento:text-cyan-400 transition-colors">
                                       contact@nobtech.fr
                                     </span>
-                                    <span className="text-[9.5px] font-mono text-cyan-600 bg-cyan-50 px-1.5 py-0.5 rounded border border-cyan-100">
+                                    <span className="text-[9.5px] font-mono text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/60 px-1.5 py-0.5 rounded border border-cyan-100 dark:border-cyan-800/60">
                                       Courriel Pro
                                     </span>
                                   </div>
-                                  <div className="text-[11px] text-slate-500">
+                                  <div className="text-[11px] text-slate-500 dark:text-slate-400">
                                     Devis & cahier des charges
                                   </div>
                                 </div>
@@ -699,7 +703,7 @@ export function Header() {
                               <Link
                                 href="/contact"
                                 onClick={() => setActiveHover(null)}
-                                className="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-cyan-600 text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer"
+                                className="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-cyan-600 dark:bg-cyan-600 dark:hover:bg-cyan-500 text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer"
                               >
                                 <span>Ouvrir la page de contact</span>
                                 <ArrowRight className="w-3.5 h-3.5" />
@@ -763,13 +767,13 @@ export function Header() {
         />
 
         <div className={cn(
-          "absolute inset-x-0 top-[96px] sm:top-[116px] bottom-0 bg-white shadow-2xl flex flex-col justify-between overflow-y-auto transition-transform duration-300 ease-out",
+          "absolute inset-x-0 top-[96px] sm:top-[116px] bottom-0 bg-white dark:bg-[#070d1f] shadow-2xl flex flex-col justify-between overflow-y-auto transition-transform duration-300 ease-out",
           isOpen ? "translate-y-0" : "-translate-y-4"
         )}>
           {/* Main Navigation Links */}
           <div className="p-5 sm:p-8 max-w-3xl mx-auto w-full space-y-4">
-            <div className="pb-2.5 border-b border-slate-100 flex items-center justify-between">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">
+            <div className="pb-2.5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 NAVIGATION
               </span>
             </div>
@@ -781,21 +785,21 @@ export function Header() {
                 const isExpanded = openMobileSubmenu === item.name;
 
                 return (
-                  <div key={item.name} className="flex flex-col rounded-xl bg-slate-50 border border-slate-200/80 overflow-hidden">
-                    <div className="flex items-center justify-between p-3 sm:p-3.5 hover:bg-cyan-50/60 transition-colors">
+                  <div key={item.name} className="flex flex-col rounded-xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-800 overflow-hidden">
+                    <div className="flex items-center justify-between p-3 sm:p-3.5 hover:bg-cyan-50/60 dark:hover:bg-slate-800/60 transition-colors">
                       <Link
                         href={item.href}
                         onClick={closeMenu}
                         className="flex items-center gap-3 min-w-0 flex-1"
                       >
-                        <div className="w-9 h-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-700 shadow-sm shrink-0">
+                        <div className="w-9 h-9 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-cyan-400 shadow-sm shrink-0">
                           <IconComponent className="w-4 h-4" />
                         </div>
                         <div className="min-w-0">
-                          <div className="text-sm font-bold text-slate-900 truncate">
+                          <div className="text-sm font-bold text-slate-900 dark:text-white truncate">
                             {item.name}
                           </div>
-                          <div className="text-[11px] text-slate-500 line-clamp-1">
+                          <div className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
                             {item.desc}
                           </div>
                         </div>
@@ -805,16 +809,16 @@ export function Header() {
                         <button
                           type="button"
                           onClick={() => setOpenMobileSubmenu(isExpanded ? null : item.name)}
-                          className="p-2 rounded-lg text-slate-400 hover:text-cyan-600 hover:bg-white transition-colors ml-2"
+                          className="p-2 rounded-lg text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-white dark:hover:bg-slate-800 transition-colors ml-2"
                           aria-label={`Ouvrir le sous-menu de ${item.name}`}
                         >
-                          <ChevronDown className={cn("w-4 h-4 transition-transform duration-200", isExpanded && "rotate-180 text-cyan-600")} />
+                          <ChevronDown className={cn("w-4 h-4 transition-transform duration-200", isExpanded && "rotate-180 text-cyan-600 dark:text-cyan-400")} />
                         </button>
                       ) : (
                         <Link
                           href={item.href}
                           onClick={closeMenu}
-                          className="p-2 text-slate-400 hover:text-cyan-600 transition-colors ml-2"
+                          className="p-2 text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors ml-2"
                         >
                           <ArrowRight className="w-4 h-4" />
                         </Link>
@@ -823,11 +827,11 @@ export function Header() {
 
                     {/* Submenu Accordion on Mobile */}
                     {hasChildren && isExpanded && (
-                      <div className="px-3 pb-3 pt-1 border-t border-slate-200/60 bg-white/70 space-y-1">
+                      <div className="px-3 pb-3 pt-1 border-t border-slate-200/60 dark:border-slate-800 bg-white/70 dark:bg-slate-950/60 space-y-1">
                         <Link
                           href={item.href}
                           onClick={closeMenu}
-                          className="block p-2 rounded-lg text-xs font-bold text-cyan-700 bg-cyan-50/50 hover:bg-cyan-100/60 transition-colors"
+                          className="block p-2 rounded-lg text-xs font-bold text-cyan-700 dark:text-cyan-300 bg-cyan-50/50 dark:bg-cyan-950/40 hover:bg-cyan-100/60 dark:hover:bg-cyan-900/60 transition-colors"
                         >
                           &rarr; Vue d’ensemble ({item.name})
                         </Link>
@@ -838,17 +842,17 @@ export function Header() {
                               key={c.href}
                               href={c.href}
                               onClick={closeMenu}
-                              className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-100/90 transition-colors"
+                              className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-100/90 dark:hover:bg-slate-800/80 transition-colors"
                             >
-                              <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-700 shrink-0 mt-0.5">
+                              <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-cyan-400 shrink-0 mt-0.5">
                                 <SubIcon className="w-4 h-4" />
                               </div>
                               <div className="min-w-0">
-                                <div className="text-xs sm:text-sm font-bold text-slate-900">
+                                <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
                                   {c.name}
                                 </div>
                                 {c.desc && (
-                                  <div className="text-[11px] text-slate-500 line-clamp-1 leading-snug">
+                                  <div className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 leading-snug">
                                     {c.desc}
                                   </div>
                                 )}
@@ -865,7 +869,7 @@ export function Header() {
           </div>
 
           {/* Drawer Footer with Quick Calls & Devis CTA */}
-          <div className="p-5 sm:p-8 bg-slate-50/90 border-t border-slate-200 mt-auto shrink-0">
+          <div className="p-5 sm:p-8 bg-slate-50/90 dark:bg-slate-900/90 border-t border-slate-200 dark:border-slate-800 mt-auto shrink-0">
             <div className="max-w-3xl mx-auto w-full space-y-3">
               <GlowButton
                 onClick={() => {
@@ -880,7 +884,7 @@ export function Header() {
               <div className="grid grid-cols-2 gap-2 pt-1">
                 <a
                   href="tel:+221773010838"
-                  className="flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-emerald-600 hover:border-emerald-200 transition-colors shadow-2xs"
+                  className="flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-200 dark:hover:border-emerald-700 transition-colors shadow-2xs"
                 >
                   <Smartphone className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
                   <span className="truncate">+221 77 301 08 38</span>
@@ -888,7 +892,7 @@ export function Header() {
 
                 <a
                   href="tel:+221338140435"
-                  className="flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-cyan-600 hover:border-cyan-200 transition-colors shadow-2xs"
+                  className="flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-200 dark:hover:border-cyan-700 transition-colors shadow-2xs"
                 >
                   <Phone className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
                   <span className="truncate">+221 33 814 04 35</span>
@@ -897,7 +901,7 @@ export function Header() {
 
               <a
                 href="mailto:contact@nobtech.fr"
-                className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-cyan-600 hover:border-cyan-200 transition-colors shadow-2xs"
+                className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-200 dark:hover:border-cyan-700 transition-colors shadow-2xs"
               >
                 <Mail className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
                 <span className="truncate font-medium">contact@nobtech.fr</span>
@@ -907,7 +911,7 @@ export function Header() {
                 href="https://www.google.com/maps/search/?api=1&query=QG3J%2BHP+Dakar"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-center text-[11px] text-slate-400 hover:text-cyan-600 font-mono flex items-center justify-center gap-1.5 transition-colors group"
+                className="text-center text-[11px] text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 font-mono flex items-center justify-center gap-1.5 transition-colors group"
                 title="Localisation Google Maps : QG3J+HP Dakar"
               >
                 <MapPin className="w-3 h-3 text-cyan-500 shrink-0 group-hover:scale-110 transition-transform" />

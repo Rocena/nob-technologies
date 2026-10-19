@@ -98,7 +98,7 @@ export function Expertises({ services = [] }: { services: any[] }) {
   const displayServices = services.length > 0 ? services : defaultServices;
 
   return (
-    <Section id="solutions" className="bg-white py-16 md:py-24 lg:py-32 border-b border-slate-100">
+    <Section id="solutions" className="bg-white dark:bg-[#020617] py-16 md:py-24 lg:py-32 border-b border-slate-100 dark:border-slate-800/80 transition-colors">
       <Container>
         <div className="text-center max-w-4xl mx-auto mb-16 md:mb-20">
           <FadeUp>
@@ -108,10 +108,10 @@ export function Expertises({ services = [] }: { services: any[] }) {
                 SOLUTIONS &bull; PÔLES D&apos;EXPERTISE
               </span>
             </p>
-            <Heading level={2} className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
+            <Heading level={2} className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
               Nous construisons les fondations numériques des leaders de demain.
             </Heading>
-            <Text className="text-base sm:text-lg lg:text-xl text-slate-800 md:text-slate-700 font-medium sm:font-normal leading-relaxed max-w-3xl mx-auto">
+            <Text className="text-base sm:text-lg lg:text-xl text-slate-800 md:text-slate-700 dark:text-slate-300 font-medium sm:font-normal leading-relaxed max-w-3xl mx-auto">
               Chez NOB TECHNOLOGIES, nous ne nous contentons pas de fournir des services IT. Nous architecturons des écosystèmes complets, résilients et évolutifs. Face à la complexité croissante des réseaux et à l&apos;évolution des cybermenaces, notre mission est de vous offrir un socle technologique infaillible.
             </Text>
           </FadeUp>
@@ -124,25 +124,25 @@ export function Expertises({ services = [] }: { services: any[] }) {
             const showNewBadge = isRecentlyCreated(service.createdAt);
             return (
               <FadeUp key={service.id || idx} delay={0.04 * idx}>
-                <div className="group flex flex-col h-full bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-cyan-400 rounded-2xl p-7 md:p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden">
+                <div className="group flex flex-col h-full bg-slate-50 hover:bg-white dark:bg-[#0b1329] dark:hover:bg-[#0f1d3d] border border-slate-200/80 hover:border-cyan-400 dark:border-slate-800 dark:hover:border-cyan-400/80 rounded-2xl p-7 md:p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden">
                   {showNewBadge && (
-                    <span className="absolute top-4 right-4 text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded bg-cyan-100 text-cyan-800 border border-cyan-200">
+                    <span className="absolute top-4 right-4 text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded bg-cyan-100 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800/60">
                       NOUVEAU
                     </span>
                   )}
                   <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-500/20 group-hover:scale-110 transition-all duration-300">
-                    <Icon className="w-6 h-6 text-cyan-600" />
+                    <Icon className="w-6 h-6 text-cyan-600 dark:text-cyan-400" />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-3 group-hover:text-cyan-600 transition-colors">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-slate-600 leading-relaxed text-sm flex-1">
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm flex-1">
                     {service.description || service.excerpt}
                   </p>
-                  <div className="flex items-center justify-between gap-2 mt-6 pt-4 border-t border-slate-200/60">
+                  <div className="flex items-center justify-between gap-2 mt-6 pt-4 border-t border-slate-200/60 dark:border-slate-800">
                     <QuoteRequestButton
                       service={service.title}
-                      className="text-xs font-bold text-slate-700 hover:text-cyan-600 transition-colors cursor-pointer text-left"
+                      className="text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors cursor-pointer text-left"
                     >
                       Demander un devis &rarr;
                     </QuoteRequestButton>

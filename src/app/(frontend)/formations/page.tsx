@@ -245,55 +245,55 @@ export default async function FormationsCatalogPage() {
         </Section>
 
         {/* Methodology & Training Excellence */}
-        <Section className="py-20 md:py-28 bg-white text-slate-900">
+        <Section className="py-20 md:py-28 bg-white dark:bg-[#020617] text-slate-900 dark:text-white">
           <Container>
             <FadeUp>
               <div className="text-center max-w-3xl mx-auto mb-16">
                 <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                   PÉDAGOGIE &bull; IMMERSION TECHNIQUE
                 </p>
-                <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-4">
+                <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
                   Une méthode d&apos;apprentissage axée sur le terrain
                 </h2>
-                <p className="text-slate-600 max-w-2xl mx-auto text-base">
+                <p className="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto text-base">
                   Nous privilégions l&apos;immersion technique directe pour transformer des connaissances théoriques en réflexes d&apos;ingénierie opérationnels.
                 </p>
               </div>
             </FadeUp>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="p-8 rounded-2xl bg-slate-50 border border-slate-200">
-                <div className="w-12 h-12 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center mb-6">
+              <div className="p-8 rounded-2xl bg-slate-50 dark:bg-[#0b1329] border border-slate-200 dark:border-slate-800">
+                <div className="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-400 flex items-center justify-center mb-6">
                   <Terminal className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
                   Labs sur matériel physique
                 </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                   Accès à des baies de brassage réelles, commutateurs Cisco Catalyst, appliances FortiGate et serveurs Dell PowerEdge pour des manipulations sans artifice.
                 </p>
               </div>
 
-              <div className="p-8 rounded-2xl bg-slate-50 border border-slate-200">
-                <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center mb-6">
+              <div className="p-8 rounded-2xl bg-slate-50 dark:bg-[#0b1329] border border-slate-200 dark:border-slate-800">
+                <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 flex items-center justify-center mb-6">
                   <Award className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
                   Simulations Pearson VUE
                 </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                   Entraînements chronométrés sous format d&apos;examen officiel, analyse approfondie des questions complexes et débriefing personnalisé avant chaque passage.
                 </p>
               </div>
 
-              <div className="p-8 rounded-2xl bg-slate-50 border border-slate-200">
-                <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-6">
+              <div className="p-8 rounded-2xl bg-slate-50 dark:bg-[#0b1329] border border-slate-200 dark:border-slate-800">
+                <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 flex items-center justify-center mb-6">
                   <Users className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
                   Mentoring d&apos;ingénieurs seniors
                 </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                   Formateurs en activité sur des projets d&apos;envergure nationale et internationale, partageant retours d&apos;expérience réels et bonnes pratiques du marché.
                 </p>
               </div>

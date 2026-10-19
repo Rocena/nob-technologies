@@ -342,17 +342,17 @@ export default function PartenairesPage() {
         </Section>
 
         {/* All Partners Grid */}
-        <Section className="py-20 md:py-28 bg-white text-slate-900">
+        <Section className="py-20 md:py-28 bg-white dark:bg-[#020617] text-slate-900 dark:text-white">
           <Container>
             <FadeUp>
               <div className="text-center mb-16">
                 <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                   CATALOGUE DE PARTENAIRES OFFICIELS
                 </p>
-                <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-4">
+                <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
                   Un écosystème technologique d&apos;élite
                 </h2>
-                <p className="text-slate-600 max-w-2xl mx-auto text-base">
+                <p className="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto text-base">
                   Des solutions éprouvées pour la sécurité des données, la protection de réseau, la gestion des accès, la virtualisation et la supervision PRTG.
                 </p>
               </div>
@@ -362,11 +362,11 @@ export default function PartenairesPage() {
               {allPartners.map((partner, i) => (
                 <FadeUp key={partner.name} delay={i * 0.04}>
                   <div
-                    className={`group relative rounded-2xl border bg-slate-50/80 p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden border-slate-200 hover:border-cyan-500/50 flex flex-col justify-between`}
+                    className={`group relative rounded-2xl border bg-slate-50/80 dark:bg-[#0b1329] p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden border-slate-200 dark:border-slate-800 hover:border-cyan-500/50 flex flex-col justify-between`}
                   >
                     <div>
                       <div className="flex items-center justify-between mb-3">
-                        <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-black tracking-widest border bg-white text-cyan-700 border-slate-200">
+                        <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-black tracking-widest border bg-white dark:bg-slate-800 text-cyan-700 dark:text-cyan-400 border-slate-200 dark:border-slate-700">
                           {partner.badge}
                         </span>
                         {partner.url && (
@@ -375,7 +375,7 @@ export default function PartenairesPage() {
                             target="_blank"
                             rel="noopener noreferrer"
                             title={`Visiter le site officiel de ${partner.name}`}
-                            className="p-1 rounded-lg text-slate-400 hover:text-cyan-600 hover:bg-slate-200/50 transition-colors"
+                            className="p-1 rounded-lg text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-200/50 dark:hover:bg-slate-800 transition-colors"
                           >
                             <ExternalLink className="w-3.5 h-3.5" />
                           </a>
@@ -383,7 +383,7 @@ export default function PartenairesPage() {
                       </div>
 
                       {partner.logo && (
-                        <div className="h-12 w-fit min-w-[130px] max-w-[160px] mb-4 bg-white rounded-xl px-3.5 py-1.5 flex items-center justify-center shadow-sm border border-slate-200/80">
+                        <div className="h-12 w-fit min-w-[130px] max-w-[160px] mb-4 bg-white/95 rounded-xl px-3.5 py-1.5 flex items-center justify-center shadow-sm border border-slate-200/80 dark:border-white/20">
                           <Image
                             src={partner.logo}
                             alt={`Logo ${partner.name}`}
@@ -395,14 +395,14 @@ export default function PartenairesPage() {
                         </div>
                       )}
 
-                      <h3 className="text-xl font-extrabold text-slate-900 mb-1">
+                      <h3 className="text-xl font-extrabold text-slate-900 dark:text-white mb-1">
                         {partner.name}
                       </h3>
-                      <p className="text-xs font-bold mb-3 text-cyan-600">
+                      <p className="text-xs font-bold mb-3 text-cyan-600 dark:text-cyan-400">
                         {partner.role}
                       </p>
 
-                      <p className="text-sm text-slate-600 leading-relaxed">
+                      <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                         {partner.desc}
                       </p>
                     </div>
@@ -422,7 +422,7 @@ export default function PartenairesPage() {
                   MONTÉE EN COMPÉTENCES
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
-                  Découvrez nos Formations Certifiantes sur 6 Mois
+                  Découvrez nos Formations Certifiantes
                 </h3>
                 <p className="text-sm text-slate-300 max-w-xl">
                   Accompagnement intensif pour ingénieurs et équipes IT : préparation aux certifications Cisco, Fortinet, Sophos, gouvernance cyber ISO 27001 et automatisation IA.
@@ -431,10 +431,10 @@ export default function PartenairesPage() {
 
               <Link
                 href="/formations"
-                className="shrink-0 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-900 font-bold text-sm flex items-center gap-2 shadow-2xs transition-all hover:scale-105"
+                className="shrink-0 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 dark:bg-cyan-500 dark:hover:bg-cyan-400 border border-slate-300 dark:border-cyan-400 hover:border-slate-400 text-slate-900 dark:text-slate-950 font-bold text-sm flex items-center gap-2 shadow-2xs transition-all hover:scale-105"
               >
                 <span>Voir le catalogue Formations</span>
-                <ArrowRight className="w-4 h-4 text-slate-600" />
+                <ArrowRight className="w-4 h-4 text-slate-600 dark:text-slate-950" />
               </Link>
             </div>
           </Container>

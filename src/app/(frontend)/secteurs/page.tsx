@@ -42,18 +42,18 @@ export default function SectorsPage() {
         </Section>
         
         {/* The Strategy */}
-        <Section className="py-12 md:py-16 lg:py-24 bg-white border-b border-slate-100">
+        <Section className="py-12 md:py-16 lg:py-24 bg-white dark:bg-[#020617] border-b border-slate-100 dark:border-slate-800">
           <Container>
             <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
               <FadeUp>
                 <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                   APPROCHE MÉTIER &bull; AUDIT SUR-MESURE
                 </p>
-                <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 leading-tight mb-8">
+                <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight mb-8">
                   La technologie n'est pas générique.
                 </h2>
                 <div className="w-16 h-1.5 bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] rounded-full mb-8 mx-auto"></div>
-                <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
+                <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
                   Chaque secteur d'activité possède son propre rythme, ses propres menaces et ses propres normes. Chez NOB TECHNOLOGIES, nous n'appliquons pas de solutions toutes faites. Nous réalisons un audit précis de vos processus métiers pour concevoir, déployer et infogérer des solutions réseaux, télécoms et logicielles parfaitement alignées avec vos ambitions stratégiques.
                 </p>
               </FadeUp>
@@ -62,31 +62,31 @@ export default function SectorsPage() {
         </Section>
 
         {/* Sectors Grid */}
-        <Section className="py-12 md:py-16 lg:py-24 bg-slate-50 relative">
+        <Section className="py-12 md:py-16 lg:py-24 bg-slate-50 dark:bg-[#070d1f] relative">
           <Container>
             <div className="grid lg:grid-cols-2 gap-10">
               
               {/* Card 1 */}
               <FadeUp delay={0.1}>
-                <div className="group h-full bg-white p-6 md:p-10 lg:p-14 rounded-sm border border-slate-200 hover:border-accent transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] relative overflow-hidden flex flex-col">
+                <div className="group h-full bg-white dark:bg-[#0b1329] p-6 md:p-10 lg:p-14 rounded-sm border border-slate-200 dark:border-slate-800 hover:border-cyan-400 dark:hover:border-cyan-400 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] relative overflow-hidden flex flex-col">
                   <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
                     <Building2 className="w-32 h-32" />
                   </div>
                   <MagneticElement className="inline-block mb-8">
-                    <div className="h-16 w-16 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center relative overflow-hidden">
-                      <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
-                      <Building2 className="w-8 h-8 text-slate-900 relative z-10 group-hover:text-accent transition-colors duration-500" />
+                    <div className="h-16 w-16 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center relative overflow-hidden">
+                      <div className="absolute inset-0 bg-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
+                      <Building2 className="w-8 h-8 text-slate-900 dark:text-cyan-400 relative z-10 group-hover:text-cyan-400 transition-colors duration-500" />
                     </div>
                   </MagneticElement>
-                  <h3 className="text-3xl font-bold text-slate-900 tracking-tight mb-6">PME & ETI</h3>
-                  <p className="text-lg text-slate-600 leading-relaxed mb-8 flex-1">
+                  <h3 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-6">PME & ETI</h3>
+                  <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8 flex-1">
                     Les moyennes et grandes entreprises nécessitent une infrastructure capable d'absorber une croissance rapide. Nous concevons des réseaux locaux haut débit, déployons des ERP pour unifier la gestion de vos départements, et mettons en place des politiques de cybersécurité (Firewalls, VPN) pour protéger votre capital data.
                   </p>
                   
-                  <div className="mt-auto pt-8 border-t border-slate-100">
-                    <Link href="/secteurs/pme-eti" className="inline-flex items-center justify-center w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-800 hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs">
+                  <div className="mt-auto pt-8 border-t border-slate-100 dark:border-slate-800">
+                    <Link href="/secteurs/pme-eti" className="inline-flex items-center justify-center w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 hover:border-slate-400 text-slate-800 dark:text-white hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs">
                       <span>Découvrir nos solutions PME</span>
-                      <ArrowRight className="w-3.5 h-3.5 ml-2 text-slate-500" />
+                      <ArrowRight className="w-3.5 h-3.5 ml-2 text-slate-500 dark:text-slate-400" />
                     </Link>
                   </div>
                 </div>
@@ -94,25 +94,25 @@ export default function SectorsPage() {
 
               {/* Card 2 */}
               <FadeUp delay={0.2}>
-                <div className="group h-full bg-white p-6 md:p-10 lg:p-14 rounded-sm border border-slate-200 hover:border-accent transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] relative overflow-hidden flex flex-col">
+                <div className="group h-full bg-white dark:bg-[#0b1329] p-6 md:p-10 lg:p-14 rounded-sm border border-slate-200 dark:border-slate-800 hover:border-cyan-400 dark:hover:border-cyan-400 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] relative overflow-hidden flex flex-col">
                   <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
                     <Factory className="w-32 h-32" />
                   </div>
                   <MagneticElement className="inline-block mb-8">
-                    <div className="h-16 w-16 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center relative overflow-hidden">
-                      <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
-                      <Factory className="w-8 h-8 text-slate-900 relative z-10 group-hover:text-accent transition-colors duration-500" />
+                    <div className="h-16 w-16 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center relative overflow-hidden">
+                      <div className="absolute inset-0 bg-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
+                      <Factory className="w-8 h-8 text-slate-900 dark:text-cyan-400 relative z-10 group-hover:text-cyan-400 transition-colors duration-500" />
                     </div>
                   </MagneticElement>
-                  <h3 className="text-3xl font-bold text-slate-900 tracking-tight mb-6">PMI & Industrie</h3>
-                  <p className="text-lg text-slate-600 leading-relaxed mb-8 flex-1">
+                  <h3 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-6">PMI & Industrie</h3>
+                  <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8 flex-1">
                     Les environnements industriels imposent des contraintes physiques et thermiques extrêmes. Nous réalisons des câblages structurés durcis, interconnectons vos sites de production via fibre optique et protégeons vos lignes de contrôle industriel contre les attaques externes.
                   </p>
                   
-                  <div className="mt-auto pt-8 border-t border-slate-100">
-                    <Link href="/secteurs/pmi-industrie" className="inline-flex items-center justify-center w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-800 hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs">
+                  <div className="mt-auto pt-8 border-t border-slate-100 dark:border-slate-800">
+                    <Link href="/secteurs/pmi-industrie" className="inline-flex items-center justify-center w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 hover:border-slate-400 text-slate-800 dark:text-white hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs">
                       <span>Découvrir nos solutions Industrie</span>
-                      <ArrowRight className="w-3.5 h-3.5 ml-2 text-slate-500" />
+                      <ArrowRight className="w-3.5 h-3.5 ml-2 text-slate-500 dark:text-slate-400" />
                     </Link>
                   </div>
                 </div>
@@ -120,25 +120,25 @@ export default function SectorsPage() {
               
               {/* Card 3 */}
               <FadeUp delay={0.3}>
-                <div className="group h-full bg-white p-6 md:p-10 lg:p-14 rounded-sm border border-slate-200 hover:border-accent transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] relative overflow-hidden flex flex-col">
+                <div className="group h-full bg-white dark:bg-[#0b1329] p-6 md:p-10 lg:p-14 rounded-sm border border-slate-200 dark:border-slate-800 hover:border-cyan-400 dark:hover:border-cyan-400 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] relative overflow-hidden flex flex-col">
                   <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
                     <Store className="w-32 h-32" />
                   </div>
                   <MagneticElement className="inline-block mb-8">
-                    <div className="h-16 w-16 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center relative overflow-hidden">
-                      <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
-                      <Store className="w-8 h-8 text-slate-900 relative z-10 group-hover:text-accent transition-colors duration-500" />
+                    <div className="h-16 w-16 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center relative overflow-hidden">
+                      <div className="absolute inset-0 bg-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
+                      <Store className="w-8 h-8 text-slate-900 dark:text-cyan-400 relative z-10 group-hover:text-cyan-400 transition-colors duration-500" />
                     </div>
                   </MagneticElement>
-                  <h3 className="text-3xl font-bold text-slate-900 tracking-tight mb-6">Commerces & Institutions</h3>
-                  <p className="text-lg text-slate-600 leading-relaxed mb-8 flex-1">
+                  <h3 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-6">Commerces & Institutions</h3>
+                  <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8 flex-1">
                     Pour garantir l'accueil de votre public en toute sécurité, nous installons des systèmes de vidéosurveillance haute définition, configurons des réseaux Wi-Fi sécurisés pour les visiteurs et vos équipes, et déployons des solutions avancées de contrôle d'accès.
                   </p>
                   
-                  <div className="mt-auto pt-8 border-t border-slate-100">
-                    <Link href="/secteurs/commerces-institutions" className="inline-flex items-center justify-center w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-800 hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs">
+                  <div className="mt-auto pt-8 border-t border-slate-100 dark:border-slate-800">
+                    <Link href="/secteurs/commerces-institutions" className="inline-flex items-center justify-center w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 hover:border-slate-400 text-slate-800 dark:text-white hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs">
                       <span>Découvrir nos solutions Commerce</span>
-                      <ArrowRight className="w-3.5 h-3.5 ml-2 text-slate-500" />
+                      <ArrowRight className="w-3.5 h-3.5 ml-2 text-slate-500 dark:text-slate-400" />
                     </Link>
                   </div>
                 </div>
@@ -146,25 +146,25 @@ export default function SectorsPage() {
 
               {/* Card 4 */}
               <FadeUp delay={0.4}>
-                <div className="group h-full bg-white p-6 md:p-10 lg:p-14 rounded-sm border border-slate-200 hover:border-accent transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] relative overflow-hidden flex flex-col">
+                <div className="group h-full bg-white dark:bg-[#0b1329] p-6 md:p-10 lg:p-14 rounded-sm border border-slate-200 dark:border-slate-800 hover:border-cyan-400 dark:hover:border-cyan-400 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] relative overflow-hidden flex flex-col">
                   <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
                     <Users className="w-32 h-32" />
                   </div>
                   <MagneticElement className="inline-block mb-8">
-                    <div className="h-16 w-16 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center relative overflow-hidden">
-                      <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
-                      <Users className="w-8 h-8 text-slate-900 relative z-10 group-hover:text-accent transition-colors duration-500" />
+                    <div className="h-16 w-16 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center relative overflow-hidden">
+                      <div className="absolute inset-0 bg-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
+                      <Users className="w-8 h-8 text-slate-900 dark:text-cyan-400 relative z-10 group-hover:text-cyan-400 transition-colors duration-500" />
                     </div>
                   </MagneticElement>
-                  <h3 className="text-3xl font-bold text-slate-900 tracking-tight mb-6">Particuliers & Startups</h3>
-                  <p className="text-lg text-slate-600 leading-relaxed mb-8 flex-1">
+                  <h3 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-6">Particuliers & Startups</h3>
+                  <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8 flex-1">
                     Parce que la sécurité et la connectivité ne sont pas réservées aux grands groupes. Nous accompagnons les résidences privées et les jeunes entreprises avec des installations réseau fiables, de la vidéosurveillance accessible depuis smartphone et la création de sites web professionnels.
                   </p>
                   
-                  <div className="mt-auto pt-8 border-t border-slate-100">
-                    <Link href="/secteurs/particuliers-startups" className="inline-flex items-center justify-center w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-800 hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs">
+                  <div className="mt-auto pt-8 border-t border-slate-100 dark:border-slate-800">
+                    <Link href="/secteurs/particuliers-startups" className="inline-flex items-center justify-center w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 hover:border-slate-400 text-slate-800 dark:text-white hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs">
                       <span>Découvrir nos solutions Startups</span>
-                      <ArrowRight className="w-3.5 h-3.5 ml-2 text-slate-500" />
+                      <ArrowRight className="w-3.5 h-3.5 ml-2 text-slate-500 dark:text-slate-400" />
                     </Link>
                   </div>
                 </div>

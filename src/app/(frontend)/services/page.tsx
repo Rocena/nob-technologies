@@ -173,45 +173,45 @@ export default async function ServicesPage() {
         </Section>
         
         {/* Services Grid with Silicon Valley UI */}
-        <Section className="py-16 md:py-24 bg-slate-50">
+        <Section className="py-16 md:py-24 bg-slate-50 dark:bg-[#020617]">
           <Container>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {OFFICIAL_SERVICES.map((service, index) => {
                 const Icon = service.icon;
                 return (
                   <FadeUp key={service.slug} delay={index * 0.05}>
-                    <div className="group h-full bg-white rounded-2xl border border-slate-200/90 hover:border-cyan-400 p-7 md:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden">
+                    <div className="group h-full bg-white dark:bg-[#0b1329] rounded-2xl border border-slate-200/90 dark:border-slate-800 hover:border-cyan-400 dark:hover:border-cyan-400/80 dark:hover:bg-[#0f1d3d] p-7 md:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden">
                       <div>
                         <div className="flex items-center justify-between gap-2 mb-5">
-                          <div className="w-12 h-12 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-all duration-300">
+                          <div className="w-12 h-12 rounded-xl bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-100 dark:border-cyan-800/80 flex items-center justify-center text-cyan-600 dark:text-cyan-400 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-all duration-300">
                             <Icon className="w-6 h-6" />
                           </div>
 
                           <div className="flex items-center gap-1.5">
                             {(service as any).createdAt && (Date.now() - new Date((service as any).createdAt).getTime() <= 7 * 24 * 60 * 60 * 1000) && (
-                              <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-cyan-100 text-cyan-800 border border-cyan-200">
+                              <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-cyan-100 dark:bg-cyan-950/80 text-cyan-800 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800">
                                 NOUVEAU
                               </span>
                             )}
-                            <span className="text-[11px] font-mono text-slate-400">
+                            <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500">
                               {service.category}
                             </span>
                           </div>
                         </div>
 
-                        <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-cyan-600 transition-colors leading-snug">
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors leading-snug">
                           {service.title}
                         </h3>
 
-                        <p className="text-sm text-slate-600 leading-relaxed mb-6">
+                        <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                           {service.description}
                         </p>
 
                         {/* Feature bullets */}
-                        <div className="space-y-2 mb-6 pt-4 border-t border-slate-100">
+                        <div className="space-y-2 mb-6 pt-4 border-t border-slate-100 dark:border-slate-800">
                           {service.features.map((feat, i) => (
-                            <div key={i} className="flex items-start gap-2 text-xs text-slate-700 font-medium">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-cyan-600 shrink-0 mt-0.5" />
+                            <div key={i} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-200 font-medium">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0 mt-0.5" />
                               <span>{feat}</span>
                             </div>
                           ))}
@@ -221,9 +221,9 @@ export default async function ServicesPage() {
                       {/* Partners / Tech stack tags & Actions */}
                       <div>
                         {service.partners && (
-                          <div className="flex flex-wrap gap-1.5 mb-5 pt-3 border-t border-slate-100">
+                          <div className="flex flex-wrap gap-1.5 mb-5 pt-3 border-t border-slate-100 dark:border-slate-800">
                             {service.partners.map((p, i) => (
-                              <span key={i} className="text-[10px] font-mono font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+                              <span key={i} className="text-[10px] font-mono font-medium text-slate-500 dark:text-slate-300 bg-slate-100 dark:bg-slate-800/80 px-2 py-0.5 rounded">
                                 {p}
                               </span>
                             ))}
@@ -233,7 +233,7 @@ export default async function ServicesPage() {
                         <div className="flex items-center justify-between pt-2">
                           <QuoteRequestButton
                             service={service.title}
-                            className="inline-flex items-center gap-1 text-xs font-bold text-slate-900 group-hover:text-cyan-600 transition-colors cursor-pointer"
+                            className="inline-flex items-center gap-1 text-xs font-bold text-slate-900 dark:text-slate-200 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors cursor-pointer"
                           >
                             <span>Demander un devis</span>
                             <ArrowRight className="w-3.5 h-3.5" />
@@ -241,7 +241,7 @@ export default async function ServicesPage() {
 
                           <Link
                             href={`/services/${service.slug}`}
-                            className="text-xs font-medium text-slate-400 hover:text-slate-700 transition-colors underline"
+                            className="text-xs font-medium text-slate-400 hover:text-slate-700 dark:hover:text-cyan-400 transition-colors underline"
                           >
                             Détails &rarr;
                           </Link>

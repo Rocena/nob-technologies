@@ -259,7 +259,7 @@ export function Clients({ clients = [] }: { clients: any[] }) {
   }, [selectedClient]);
 
   return (
-    <Section className="py-14 md:py-20 bg-slate-50/80 border-b border-slate-200/80 overflow-hidden">
+    <Section className="py-14 md:py-20 bg-slate-50/80 dark:bg-[#070d1f] border-b border-slate-200/80 dark:border-slate-800/80 overflow-hidden transition-colors">
       <Container>
         {/* Section Header: Constructeurs & Éditeurs Partenaires */}
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
@@ -270,10 +270,10 @@ export function Clients({ clients = [] }: { clients: any[] }) {
                 ÉCOSYSTÈME TECHNOLOGIQUE INTERNATIONAL
               </span>
             </p>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-3">
               Partenaires Technologiques &amp; Constructeurs
             </h2>
-            <p className="text-sm sm:text-base text-slate-600">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
               Des partenariats certifiés avec les constructeurs et éditeurs leaders mondiaux pour garantir la fiabilité, la sécurité et la haute disponibilité de vos systèmes d’information.
             </p>
           </FadeUp>
@@ -288,18 +288,18 @@ export function Clients({ clients = [] }: { clients: any[] }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 title={`Visiter le site officiel de ${brand.name}`}
-                className="group relative bg-white hover:bg-slate-50/90 rounded-2xl border border-slate-200/90 hover:border-cyan-500/80 p-3.5 sm:p-4 flex flex-col justify-between items-center text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1 h-full min-h-[140px]"
+                className="group relative bg-white hover:bg-slate-50/90 dark:bg-[#0b1329] dark:hover:bg-[#0f1d3d] rounded-2xl border border-slate-200/90 hover:border-cyan-500/80 dark:border-slate-800 dark:hover:border-cyan-400 p-3.5 sm:p-4 flex flex-col justify-between items-center text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1 h-full min-h-[140px]"
               >
                 {/* Top Badge & External Link Icon */}
                 <div className="w-full flex items-center justify-between gap-1 mb-2.5">
-                  <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200/60 group-hover:bg-cyan-50 group-hover:text-cyan-700 group-hover:border-cyan-200 transition-colors truncate max-w-[85px]">
+                  <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700 group-hover:bg-cyan-50 dark:group-hover:bg-cyan-950/60 group-hover:text-cyan-700 dark:group-hover:text-cyan-300 group-hover:border-cyan-200 dark:group-hover:border-cyan-800 transition-colors truncate max-w-[85px]">
                     {brand.badge}
                   </span>
                   <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-cyan-600 transition-colors opacity-70 group-hover:opacity-100 shrink-0" />
                 </div>
 
-                {/* Real Authentic Logo */}
-                <div className="relative h-14 w-full flex items-center justify-center py-1">
+                {/* Real Authentic Logo with dark mode contrast backing */}
+                <div className="relative h-14 w-full flex items-center justify-center py-1 px-2 rounded-xl bg-transparent dark:bg-white/[0.95] transition-colors">
                   <Image
                     src={brand.logo}
                     alt={`Logo officiel ${brand.name}`}
@@ -311,8 +311,8 @@ export function Clients({ clients = [] }: { clients: any[] }) {
                 </div>
 
                 {/* Brand Name Footer */}
-                <div className="mt-2.5 pt-2 w-full border-t border-slate-100 flex flex-col items-center">
-                  <span className="text-xs font-bold text-slate-900 group-hover:text-cyan-600 transition-colors truncate max-w-full">
+                <div className="mt-2.5 pt-2 w-full border-t border-slate-100 dark:border-slate-800 flex flex-col items-center">
+                  <span className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors truncate max-w-full">
                     {brand.name}
                   </span>
                 </div>

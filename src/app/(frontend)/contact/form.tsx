@@ -98,14 +98,14 @@ export function ContactForm({
 
       {/* Section 1: Informations Personnelles */}
       <div className="space-y-4">
-        <p className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">
+        <p className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 font-semibold">
           Coordonnées
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div className="space-y-1.5">
-            <label htmlFor="name" className="text-xs sm:text-sm font-semibold text-slate-700">
-              Nom complet <span className="text-cyan-600">*</span>
+            <label htmlFor="name" className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">
+              Nom complet <span className="text-cyan-600 dark:text-cyan-400">*</span>
             </label>
             <input 
               type="text" 
@@ -115,13 +115,13 @@ export function ContactForm({
               autoComplete="name"
               placeholder="Ex: Jean Dupont"
               disabled={isPending}
-              className="w-full px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm placeholder-slate-400 text-slate-800" 
+              className="w-full px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-900 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm placeholder-slate-400 dark:placeholder-slate-500 text-slate-800 dark:text-white" 
             />
           </div>
           
           <div className="space-y-1.5">
-            <label htmlFor="email" className="text-xs sm:text-sm font-semibold text-slate-700">
-              Email professionnel <span className="text-cyan-600">*</span>
+            <label htmlFor="email" className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">
+              Email professionnel <span className="text-cyan-600 dark:text-cyan-400">*</span>
             </label>
             <input 
               type="email" 
@@ -132,14 +132,14 @@ export function ContactForm({
               inputMode="email"
               placeholder="jean@entreprise.sn"
               disabled={isPending}
-              className="w-full px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm placeholder-slate-400 text-slate-800" 
+              className="w-full px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-900 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm placeholder-slate-400 dark:placeholder-slate-500 text-slate-800 dark:text-white" 
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div className="space-y-1.5">
-            <label htmlFor="phone" className="text-xs sm:text-sm font-semibold text-slate-700">
+            <label htmlFor="phone" className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">
               Numéro de téléphone
             </label>
             <input 
@@ -150,12 +150,12 @@ export function ContactForm({
               inputMode="tel"
               placeholder="+221 77 000 00 00"
               disabled={isPending}
-              className="w-full px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm placeholder-slate-400 text-slate-800" 
+              className="w-full px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-900 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm placeholder-slate-400 dark:placeholder-slate-500 text-slate-800 dark:text-white" 
             />
           </div>
           
           <div className="space-y-1.5">
-            <label htmlFor="company" className="text-xs sm:text-sm font-semibold text-slate-700">
+            <label htmlFor="company" className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">
               Entreprise / Organisation
             </label>
             <input 
@@ -165,21 +165,21 @@ export function ContactForm({
               autoComplete="organization"
               placeholder="Ex: Sonatel, Port Autonome..."
               disabled={isPending}
-              className="w-full px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm placeholder-slate-400 text-slate-800" 
+              className="w-full px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-900 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm placeholder-slate-400 dark:placeholder-slate-500 text-slate-800 dark:text-white" 
             />
           </div>
         </div>
       </div>
 
       {/* Section 2: Objet de la prise de contact */}
-      <div className="space-y-4 pt-2 border-t border-slate-100">
-        <p className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">
+      <div className="space-y-4 pt-2 border-t border-slate-100 dark:border-slate-800">
+        <p className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 font-semibold">
           Projet &amp; Objectifs
         </p>
 
         <div className="space-y-1.5">
-          <label htmlFor="subject" className="text-xs sm:text-sm font-semibold text-slate-700">
-            Sujet de votre demande <span className="text-cyan-600">*</span>
+          <label htmlFor="subject" className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">
+            Sujet de votre demande <span className="text-cyan-600 dark:text-cyan-400">*</span>
           </label>
           <input 
             type="text" 
@@ -189,25 +189,25 @@ export function ContactForm({
             defaultValue={defaultSubject}
             placeholder="Ex: Audit sécurité, Câblage réseau, Cloud"
             disabled={isPending}
-            className="w-full px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm placeholder-slate-400 text-slate-800" 
+            className="w-full px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-900 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm placeholder-slate-400 dark:placeholder-slate-500 text-slate-800 dark:text-white" 
           />
         </div>
 
         {formType === 'quote' && (
-          <div className="p-4 sm:p-6 bg-slate-50/80 border border-slate-200/80 rounded-2xl space-y-5">
-            <h4 className="font-bold text-slate-900 text-sm sm:text-base">
+          <div className="p-4 sm:p-6 bg-slate-50/80 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 rounded-2xl space-y-5">
+            <h4 className="font-bold text-slate-900 dark:text-white text-sm sm:text-base">
               Spécifications du devis
             </h4>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               <div className="space-y-1.5">
-                <label htmlFor="budget" className="text-xs sm:text-sm font-semibold text-slate-700">Budget estimé</label>
+                <label htmlFor="budget" className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">Budget estimé</label>
                 <div className="relative">
                   <select 
                     id="budget" 
                     name="budget" 
                     disabled={isPending}
-                    className="w-full appearance-none px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 focus:bg-white focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm text-slate-800 cursor-pointer"
+                    className="w-full appearance-none px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/80 focus:bg-white dark:focus:bg-slate-800 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm text-slate-800 dark:text-white cursor-pointer"
                   >
                     <option value="">Sélectionnez une fourchette</option>
                     <option value="Moins de 1 000 000 FCFA">Moins de 1 000 000 FCFA</option>
@@ -223,13 +223,13 @@ export function ContactForm({
               </div>
 
               <div className="space-y-1.5">
-                <label htmlFor="deadline" className="text-xs sm:text-sm font-semibold text-slate-700">Délai souhaité</label>
+                <label htmlFor="deadline" className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">Délai souhaité</label>
                 <div className="relative">
                   <select 
                     id="deadline" 
                     name="deadline" 
                     disabled={isPending}
-                    className="w-full appearance-none px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 focus:bg-white focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm text-slate-800 cursor-pointer"
+                    className="w-full appearance-none px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/80 focus:bg-white dark:focus:bg-slate-800 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm text-slate-800 dark:text-white cursor-pointer"
                   >
                     <option value="">Sélectionnez un délai</option>
                     <option value="Immédiat">Immédiat (Urgent)</option>
@@ -245,12 +245,12 @@ export function ContactForm({
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs sm:text-sm font-semibold text-slate-700 block">Services concernés</label>
+              <label className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 block">Services concernés</label>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-2.5">
                 {["Câblage & Réseau", "Sécurité & Caméras", "Développement Logiciel", "Infogérance", "Téléphonie IP"].map((service) => (
-                  <label key={service} className="flex items-center gap-3 p-3 rounded-xl border border-slate-200 bg-white active:bg-cyan-50/50 cursor-pointer hover:border-cyan-400 transition-all select-none">
+                  <label key={service} className="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 active:bg-cyan-50/50 cursor-pointer hover:border-cyan-400 transition-all select-none">
                     <input type="checkbox" name="services" value={service} className="w-4 h-4 accent-cyan-500 rounded text-cyan-600" />
-                    <span className="text-xs sm:text-sm font-medium text-slate-700 leading-tight">{service}</span>
+                    <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 leading-tight">{service}</span>
                   </label>
                 ))}
               </div>
@@ -259,20 +259,20 @@ export function ContactForm({
         )}
 
         {formType === 'engineer' && (
-          <div className="p-4 sm:p-6 bg-slate-50/80 border border-slate-200/80 rounded-2xl space-y-5">
-            <h4 className="font-bold text-slate-900 text-sm sm:text-base">
+          <div className="p-4 sm:p-6 bg-slate-50/80 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 rounded-2xl space-y-5">
+            <h4 className="font-bold text-slate-900 dark:text-white text-sm sm:text-base">
               Spécifications techniques
             </h4>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               <div className="space-y-1.5">
-                <label htmlFor="infrastructure_size" className="text-xs sm:text-sm font-semibold text-slate-700">Taille de l'infrastructure</label>
+                <label htmlFor="infrastructure_size" className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">Taille de l'infrastructure</label>
                 <div className="relative">
                   <select 
                     id="infrastructure_size" 
                     name="infrastructure_size" 
                     disabled={isPending}
-                    className="w-full appearance-none px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 focus:bg-white focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm text-slate-800 cursor-pointer"
+                    className="w-full appearance-none px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/80 focus:bg-white dark:focus:bg-slate-800 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm text-slate-800 dark:text-white cursor-pointer"
                   >
                     <option value="">Sélectionnez une option</option>
                     <option value="1 à 10 postes">1 à 10 postes / Petite structure</option>
@@ -287,14 +287,14 @@ export function ContactForm({
               </div>
 
               <div className="space-y-1.5">
-                <label htmlFor="technologies" className="text-xs sm:text-sm font-semibold text-slate-700">Technologies actuelles</label>
+                <label htmlFor="technologies" className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">Technologies actuelles</label>
                 <input 
                   type="text" 
                   id="technologies" 
                   name="technologies" 
                   placeholder="Ex: Cisco, Fortinet, Azure..."
                   disabled={isPending}
-                  className="w-full px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 focus:bg-white focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm placeholder-slate-400 text-slate-800" 
+                  className="w-full px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/80 focus:bg-white dark:focus:bg-slate-800 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm placeholder-slate-400 dark:placeholder-slate-500 text-slate-800 dark:text-white" 
                 />
               </div>
             </div>
@@ -302,7 +302,7 @@ export function ContactForm({
         )}
 
         <div className="space-y-1.5">
-          <label htmlFor="message" className="text-xs sm:text-sm font-semibold text-slate-700">
+          <label htmlFor="message" className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">
             {messageLabel}
           </label>
           <textarea 
@@ -312,18 +312,18 @@ export function ContactForm({
             required 
             placeholder={messagePlaceholder}
             disabled={isPending}
-            className="w-full px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm placeholder-slate-400 text-slate-800 resize-y" 
+            className="w-full px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-900 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 outline-none transition-all text-base sm:text-sm placeholder-slate-400 dark:placeholder-slate-500 text-slate-800 dark:text-white resize-y" 
           />
         </div>
       </div>
 
       {/* Native Math Anti-Spam Captcha (Compact on Mobile) */}
       {captchaA > 0 && (
-        <div className="bg-slate-50 p-4 sm:p-4.5 border border-slate-200 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 justify-between">
+        <div className="bg-slate-50 dark:bg-slate-900/70 p-4 sm:p-4.5 border border-slate-200 dark:border-slate-800 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 justify-between">
           <div className="flex items-center gap-2.5">
-            <ShieldCheck className="w-5 h-5 text-cyan-600 shrink-0" />
-            <label htmlFor="captcha_answer" className="text-xs sm:text-sm font-semibold text-slate-700">
-              Vérification anti-spam : Combien font <span className="font-mono text-cyan-700 font-bold">{captchaA} + {captchaB}</span> ?
+            <ShieldCheck className="w-5 h-5 text-cyan-600 dark:text-cyan-400 shrink-0" />
+            <label htmlFor="captcha_answer" className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">
+              Vérification anti-spam : Combien font <span className="font-mono text-cyan-700 dark:text-cyan-400 font-bold">{captchaA} + {captchaB}</span> ?
             </label>
           </div>
           <div className="flex items-center gap-2 w-full sm:w-auto">
@@ -339,7 +339,7 @@ export function ContactForm({
               inputMode="numeric"
               placeholder="?"
               disabled={isPending}
-              className="w-full sm:w-20 px-4 py-2.5 sm:py-2 text-center rounded-lg border border-slate-300 bg-white focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none font-bold text-base sm:text-sm text-slate-900"
+              className="w-full sm:w-20 px-4 py-2.5 sm:py-2 text-center rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none font-bold text-base sm:text-sm text-slate-900 dark:text-white"
             />
           </div>
         </div>
@@ -350,7 +350,7 @@ export function ContactForm({
         <Button 
           type="submit" 
           size="lg" 
-          className="w-full h-13 sm:h-14 text-base font-bold rounded-xl bg-slate-900 hover:bg-cyan-600 text-white shadow-lg shadow-slate-900/10 active:scale-[0.99] transition-all duration-200 cursor-pointer" 
+          className="w-full h-13 sm:h-14 text-base font-bold rounded-xl bg-slate-900 hover:bg-cyan-600 dark:bg-cyan-600 dark:hover:bg-cyan-500 text-white shadow-lg shadow-slate-900/10 active:scale-[0.99] transition-all duration-200 cursor-pointer" 
           disabled={isPending}
         >
           {isPending ? (

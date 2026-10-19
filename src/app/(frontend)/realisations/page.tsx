@@ -124,17 +124,17 @@ export default async function ProjectsPage() {
         </Section>
         
         {/* Flagship Reference: Parc Exotique du Sénégal with Vercel Preview */}
-        <Section id="parc-exotique" className="scroll-mt-20 py-16 md:py-24 bg-white border-b border-slate-200">
+        <Section id="parc-exotique" className="scroll-mt-20 py-16 md:py-24 bg-white dark:bg-[#020617] border-b border-slate-200 dark:border-slate-800">
           <Container>
             <FadeUp>
               <div className="mb-10 text-center max-w-3xl mx-auto">
                 <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                   ÉTUDE DE CAS &bull; HÔTELLERIE &amp; WEB
                 </p>
-                <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
+                <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">
                   Parc Exotique du Sénégal &mdash; Plateforme Web Officielle
                 </h2>
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
                   Développement et mise en production de la vitrine numérique complète de l’Hôtel du Parc, du restaurant La Plume et du parc animalier à Somone, ainsi que la gestion et l’animation continue de leurs réseaux sociaux (Instagram et Facebook).
                 </p>
               </div>
@@ -151,65 +151,65 @@ export default async function ProjectsPage() {
             </div>
 
             {/* Grounded Technical Case Study Specifications */}
-            <div className="grid lg:grid-cols-3 gap-8 p-8 rounded-2xl bg-slate-50 border border-slate-200">
+            <div className="grid lg:grid-cols-3 gap-8 p-8 rounded-2xl bg-slate-50 dark:bg-[#0b1329] border border-slate-200 dark:border-slate-800">
               <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-cyan-600 font-bold mb-2">
+                <h4 className="text-xs font-mono uppercase tracking-wider text-cyan-600 dark:text-cyan-400 font-bold mb-2">
                   01. Contexte & Objectifs
                 </h4>
-                <p className="text-sm text-slate-600 leading-relaxed">
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                   L’établissement avait besoin d'une plateforme moderne pour valoriser ses 12 chambres d'hôtel, son restaurant et son parc animalier (90+ espèces), avec un système de réservation directe accessible sur mobile, un référencement Google optimisé et une animation dynamique de ses réseaux sociaux.
                 </p>
               </div>
 
               <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-cyan-600 font-bold mb-2">
+                <h4 className="text-xs font-mono uppercase tracking-wider text-cyan-600 dark:text-cyan-400 font-bold mb-2">
                   02. Réalisations Techniques
                 </h4>
-                <ul className="text-sm text-slate-600 space-y-2">
+                <ul className="text-sm text-slate-600 dark:text-slate-300 space-y-2">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                     <span>Interface web responsive et optimisée pour smartphone.</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                     <span>Module de présentation des chambres & réservation.</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                     <span>Catalogue interactif des espèces et galeries photos.</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                     <span>Gestion des réseaux sociaux : Community management Instagram &amp; Facebook.</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                     <span>Hébergement sécurisé SSL et temps de chargement &lt; 1.2s.</span>
                   </li>
                 </ul>
               </div>
 
               <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-cyan-600 font-bold mb-2">
+                <h4 className="text-xs font-mono uppercase tracking-wider text-cyan-600 dark:text-cyan-400 font-bold mb-2">
                   03. Accès & Résultat
                 </h4>
-                <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
                   Le site est actuellement en ligne et opérationnel à l’adresse officielle <strong>parcexotique.sn</strong>, générant des demandes de réservations directes pour l’hôtel et le restaurant.
                 </p>
                 <a
                   href="https://parcexotique.sn/fr/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-800 hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 hover:border-slate-400 text-slate-800 dark:text-white hover:text-slate-900 font-semibold text-xs sm:text-sm transition-all shadow-2xs"
                 >
                   <span>Visiter le site en direct</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                 </a>
               </div>
             </div>
 
             {/* Client Feedback Card */}
-            <div className="mt-6 p-5 rounded-2xl bg-gradient-to-r from-cyan-50/70 via-slate-50 to-emerald-50/70 border border-slate-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xs">
+            <div className="mt-6 p-5 rounded-2xl bg-gradient-to-r from-cyan-50/70 via-slate-50 to-emerald-50/70 dark:from-cyan-950/40 dark:via-slate-900 dark:to-emerald-950/40 border border-slate-200/90 dark:border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xs">
               <div className="flex items-center gap-3.5">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00D4FF] via-[#00F0FF] to-[#10E760] flex items-center justify-center text-[#020617] font-black text-sm shrink-0 shadow-sm">
                   ★

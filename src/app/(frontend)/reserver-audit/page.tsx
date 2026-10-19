@@ -53,7 +53,7 @@ export default function ReserverAuditPage() {
   return (
     <>
       <Header />
-      <main className="flex-1 bg-white">
+      <main className="flex-1 bg-white dark:bg-[#020617]">
         {/* Hero Section */}
         <Section className="bg-[#020617] text-white pt-28 pb-16 sm:pt-36 sm:pb-20 relative overflow-hidden border-b border-slate-800">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:32px_32px]" />
@@ -89,35 +89,35 @@ export default function ReserverAuditPage() {
         </Section>
 
         {/* 2-Columns: Left = Details & Process, Right = Booking Form */}
-        <Section className="py-16 md:py-24 bg-slate-50">
+        <Section className="py-16 md:py-24 bg-slate-50 dark:bg-[#020617]">
           <Container>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start max-w-6xl mx-auto">
               
               {/* Left Column: Scope & Benefits */}
               <div className="lg:col-span-6 space-y-8">
                 <div>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-3">
                     Pourquoi faire auditer vos infrastructures par Nob Technologies ?
                   </h2>
-                  <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                  <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
                     Un réseau mal structuré ou une passerelle mal configurée expose votre entreprise aux pannes paralysantes, aux pertes de données et aux cyberattaques. Nos audits apportent un regard d’ingénieur indépendant et constructif.
                   </p>
                 </div>
 
                 {/* Steps Timeline */}
                 <div className="space-y-4">
-                  <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-900">
+                  <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">
                     Déroulement de l’intervention
                   </h3>
                   <div className="space-y-4">
                     {AUDIT_STEPS.map((st, i) => (
-                      <div key={i} className="p-4 sm:p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs flex gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-cyan-50 border border-cyan-200 text-cyan-700 font-mono font-bold text-sm flex items-center justify-center shrink-0">
+                      <div key={i} className="p-4 sm:p-5 rounded-xl bg-white dark:bg-[#0b1329] border border-slate-200/90 dark:border-slate-800 shadow-2xs flex gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-200 dark:border-cyan-800 text-cyan-700 dark:text-cyan-400 font-mono font-bold text-sm flex items-center justify-center shrink-0">
                           {st.step}
                         </div>
                         <div>
-                          <h4 className="text-sm font-bold text-slate-900">{st.title}</h4>
-                          <p className="text-xs text-slate-600 mt-1 leading-relaxed">{st.desc}</p>
+                          <h4 className="text-sm font-bold text-slate-900 dark:text-white">{st.title}</h4>
+                          <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">{st.desc}</p>
                         </div>
                       </div>
                     ))}
@@ -125,14 +125,14 @@ export default function ReserverAuditPage() {
                 </div>
 
                 {/* Scope Card */}
-                <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
-                  <h3 className="text-sm font-bold text-slate-900 mb-4 flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-cyan-600" />
+                <div className="p-6 rounded-2xl bg-white dark:bg-[#0b1329] border border-slate-200 dark:border-slate-800 shadow-sm">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                     <span>Contrôles inclus dans le rapport de diagnostic</span>
                   </h3>
                   <ul className="space-y-2.5">
                     {INCLUDED_CHECKS.map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
+                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
                         <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </li>
@@ -141,11 +141,11 @@ export default function ReserverAuditPage() {
                 </div>
 
                 {/* Direct Help */}
-                <div className="p-5 rounded-xl bg-cyan-50 border border-cyan-200 text-slate-800 text-xs sm:text-sm">
-                  <p className="font-semibold text-cyan-900 mb-1">Urgence ou panne en cours ?</p>
-                  <p className="text-cyan-800/90">
+                <div className="p-5 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-200 dark:border-cyan-800/80 text-slate-800 dark:text-slate-200 text-xs sm:text-sm">
+                  <p className="font-semibold text-cyan-900 dark:text-cyan-300 mb-1">Urgence ou panne en cours ?</p>
+                  <p className="text-cyan-800/90 dark:text-cyan-200/90">
                     Pour une intervention d’urgence immédiate à Dakar, appelez notre permanence technique au{' '}
-                    <a href="tel:+221773010838" className="font-bold underline text-cyan-900">
+                    <a href="tel:+221773010838" className="font-bold underline text-cyan-900 dark:text-cyan-300">
                       +221 77 301 08 38
                     </a>.
                   </p>
@@ -153,10 +153,10 @@ export default function ReserverAuditPage() {
               </div>
 
               {/* Right Column: Form Container */}
-              <div className="lg:col-span-6 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/90 shadow-xl relative">
-                <div className="mb-6 pb-4 border-b border-slate-100">
-                  <h3 className="text-xl font-bold text-slate-900">Formulaire de Réservation d’Audit</h3>
-                  <p className="text-xs text-slate-500 mt-1">
+              <div className="lg:col-span-6 bg-white dark:bg-[#0b1329] p-6 sm:p-8 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xl relative">
+                <div className="mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">Formulaire de Réservation d’Audit</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                     Renseignez vos coordonnées ci-dessous. Un ingénieur senior prend contact avec vous pour convenir de la date et des modalités d’accès.
                   </p>
                 </div>

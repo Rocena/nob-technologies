@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light dark;
   /* Premium Tech Palette for NOBTECH (Aligned with new Shield Logo) */
   --primary: #0A2540; /* Deep professional midnight navy */
   --primary-dark: #031E3E;
@@ -47,21 +48,131 @@
   --animate-spin-slow: spin 4s linear infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --primary: #0F3255;
-    --background: #050505;
-    --surface: #111111;
-    --surface-elevated: #1A1A1A;
-    --text: #F3F4F6;
-    --muted: #9CA3AF;
-    --border: #27272A;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--text);
 }
 
 @keyframes shimmer { 100% { transform: translateX(100%); } }
+
+/* ==========================================================================
+   ADAPTATION DU SITE AU MODE NUIT (DARK MODE) MOBILE & NAVIGATEUR
+   Élimine tout texte illisible ou délavé lorsque le smartphone est en mode nuit
+   et unifie l'esthétique Dark Tech haut de gamme de NOBTECH.
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --primary: #0F3255;
+    --background: #020617;
+    --surface: #0B132B;
+    --surface-elevated: #101C3D;
+    --text: #F8FAFC;
+    --muted: #94A3B8;
+    --border: #1E293B;
+  }
+
+  body {
+    background-color: #020617 !important;
+    color: #F8FAFC !important;
+  }
+
+  /* Surfaçage des sections claires vers le bleu nuit corporate */
+  .bg-white:not([data-force-light="true"]):not(.keep-white) {
+    background-color: #0B132B !important;
+  }
+  .bg-white\/95:not([data-force-light="true"]):not(.keep-white),
+  .bg-white\/98:not([data-force-light="true"]):not(.keep-white) {
+    background-color: rgba(2, 6, 23, 0.95) !important;
+  }
+  .bg-slate-50:not([data-force-light="true"]),
+  .bg-slate-50\/70:not([data-force-light="true"]),
+  .bg-slate-50\/80:not([data-force-light="true"]),
+  .bg-slate-50\/90:not([data-force-light="true"]),
+  .bg-slate-100:not([data-force-light="true"]),
+  .bg-gray-50:not([data-force-light="true"]),
+  .bg-cyan-50:not([data-force-light="true"]) {
+    background-color: #070D1F !important;
+  }
+
+  .hover\:bg-white:hover {
+    background-color: #0F1D3D !important;
+  }
+  .hover\:bg-slate-50:hover,
+  .hover\:bg-slate-50\/90:hover,
+  .hover\:bg-slate-100:hover,
+  .hover\:bg-slate-100\/80:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+  }
+
+  /* Bordures nettes et douces */
+  .border-slate-100,
+  .border-slate-200,
+  .border-slate-200\/60,
+  .border-slate-200\/80,
+  .border-slate-200\/90,
+  .border-gray-100,
+  .border-gray-200,
+  .border-cyan-100 {
+    border-color: rgba(255, 255, 255, 0.12) !important;
+  }
+
+  /* Typographie & Contraste des textes : clarté absolue (WCAG AAA) */
+  .text-slate-900,
+  .text-gray-900,
+  .text-slate-800,
+  .text-gray-800 {
+    color: #F8FAFC !important;
+  }
+  .text-slate-700,
+  .text-gray-700 {
+    color: #E2E8F0 !important;
+  }
+  .text-slate-600,
+  .text-gray-600 {
+    color: #CBD5E1 !important;
+  }
+  .text-slate-500,
+  .text-gray-500 {
+    color: #94A3B8 !important;
+  }
+  .text-cyan-700,
+  .text-cyan-800,
+  .text-cyan-900,
+  .text-cyan-950 {
+    color: #38BDF8 !important;
+  }
+  .text-emerald-700,
+  .text-emerald-800,
+  .text-emerald-900 {
+    color: #34D399 !important;
+  }
+  .bg-cyan-100 {
+    background-color: rgba(6, 182, 212, 0.2) !important;
+    color: #38BDF8 !important;
+  }
+  .bg-emerald-50 {
+    background-color: rgba(16, 185, 129, 0.15) !important;
+  }
+
+  /* Formulaires, inputs & textareas */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+  textarea,
+  select {
+    background-color: #070D1F !important;
+    color: #F8FAFC !important;
+    border-color: rgba(255, 255, 255, 0.18) !important;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: #64748B !important;
+  }
+
+  /* Menu mobile tiroir */
+  #mobile-nav-drawer .bg-white {
+    background-color: #020617 !important;
+  }
+  #mobile-nav-drawer .bg-slate-50 {
+    background-color: #0B132B !important;
+  }
+}
