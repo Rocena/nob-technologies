@@ -14,6 +14,7 @@ import { FormationOfferingsSection } from "@/components/formations/FormationOffe
 import { FormationVideoSection } from "@/components/formations/FormationVideoSection";
 import { FormationPricingBox } from "@/components/formations/FormationPricingBox";
 import { FormationApplyButton } from "@/components/FormationApplyButton";
+import { SyllabusButton } from "@/components/formations/SyllabusButton";
 import {
   Calendar,
   Clock,
@@ -104,13 +105,13 @@ export default async function FormationDetailPage({ params }: Props) {
                   <span>Postuler</span>
                   <ArrowRight className="w-4 h-4" />
                 </FormationApplyButton>
-                <a
-                  href="#candidature"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/5 border border-white/15 text-white font-semibold text-sm hover:bg-white/10 hover:border-cyan-400/40 transition-all"
+                <SyllabusButton
+                  formationTitle={formation.title}
+                  formationSlug={formation.slug}
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/5 border border-white/15 text-white font-semibold text-sm hover:bg-white/10 hover:border-cyan-400/40 transition-all cursor-pointer"
                 >
-                  <Award className="w-4 h-4 text-cyan-400" />
-                  <span>Demander le syllabus officiel</span>
-                </a>
+                  <span>Demander le programme complet</span>
+                </SyllabusButton>
               </div>
 
               {/* Quick Info Grid */}
@@ -283,6 +284,7 @@ export default async function FormationDetailPage({ params }: Props) {
             <CurriculumSyllabus
               months={formation.months}
               formationTitle={formation.title}
+              formationSlug={formation.slug}
               duration={formation.duration}
               hours={formation.hours}
               pace={formation.pace}

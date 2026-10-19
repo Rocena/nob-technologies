@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { FormationPricing } from "@/data/formations";
-import { CheckCircle2, Download, ArrowRight, Sparkles, Building2, User, Clock, ShieldCheck, Flame } from "lucide-react";
+import { CheckCircle2, Download, ArrowRight, Sparkles, Building2, User, Clock, ShieldCheck, Flame, FileText } from "lucide-react";
 import { useEngineerModal } from "@/components/EngineerModalContext";
 import { useFormationApplyModal } from "@/components/FormationApplyModalContext";
 import { BrochureDownloadModal } from "./BrochureDownloadModal";
@@ -179,10 +179,10 @@ export function FormationPricingBox({
                 <button
                   type="button"
                   onClick={() => setBrochureModalOpen(true)}
-                  className="flex-1 py-3.5 px-5 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-xs uppercase tracking-wider hover:opacity-95 transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25"
+                  className="flex-1 py-3.5 px-5 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-xs uppercase tracking-wider hover:opacity-95 transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 cursor-pointer"
                 >
-                  <Download size={16} />
-                  <span>Télécharger la brochure PDF</span>
+                  <FileText size={16} />
+                  <span>Demander le programme complet</span>
                 </button>
                 <button
                   type="button"

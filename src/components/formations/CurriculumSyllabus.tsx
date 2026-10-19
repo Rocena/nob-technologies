@@ -18,22 +18,25 @@ import {
   ArrowRight
 } from "lucide-react";
 import { useEngineerModal } from "@/components/EngineerModalContext";
+import { useSyllabusModal } from "@/components/SyllabusModalContext";
 
 interface CurriculumSyllabusProps {
   months: FormationMonth[];
   formationTitle: string;
+  formationSlug?: string;
   duration?: string;
   hours?: string;
   pace?: string;
 }
 
-export function CurriculumSyllabus({ months, formationTitle, duration, hours, pace }: CurriculumSyllabusProps) {
+export function CurriculumSyllabus({ months, formationTitle, formationSlug, duration, hours, pace }: CurriculumSyllabusProps) {
   // Par défaut, le premier module est ouvert pour donner un aperçu immédiat
   const [openMonths, setOpenMonths] = useState<Record<number, boolean>>({
     1: true,
   });
   const [activeTab, setActiveTab] = useState<number | "all">("all");
   const { openQuoteModal } = useEngineerModal();
+  const { openSyllabusModal } = useSyllabusModal();
 
   const toggleMonth = (m: number) => {
     setOpenMonths((prev) => ({
@@ -324,12 +327,13 @@ export function CurriculumSyllabus({ months, formationTitle, duration, hours, pa
         </div>
 
         <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
-          <a
-            href="#candidature"
-            className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs text-center transition-colors shadow-md"
+          <button
+            type="button"
+            onClick={() => openSyllabusModal({ formationTitle, formationSlug: formationSlug || "" })}
+            className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs text-center transition-colors shadow-md cursor-pointer"
           >
-            Recevoir la brochure PDF
-          </a>
+            Recevoir le programme complet
+          </button>
           <button
             type="button"
             onClick={() => openQuoteModal(`Programme Formation: ${formationTitle}`)}

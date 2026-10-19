@@ -238,8 +238,8 @@ export function BrochureDownloadModal({
               disabled={loading}
               className="w-full mt-2 py-3 px-4 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-xs uppercase tracking-wider hover:opacity-95 disabled:opacity-50 transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
             >
-              {loading ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
-              {loading ? "Génération de la brochure..." : "Télécharger la brochure PDF complète"}
+              {loading ? <Loader2 size={16} className="animate-spin" /> : <FileText size={16} />}
+              {loading ? "Envoi du programme complet en cours..." : "Recevoir le programme complet par email"}
             </button>
 
             <div className="flex items-center justify-center gap-1.5 text-[10px] text-slate-400 pt-1">

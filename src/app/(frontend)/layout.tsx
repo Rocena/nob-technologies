@@ -9,6 +9,7 @@ import { ChatBot } from "@/components/ChatBot";
 import { CommandPaletteProvider } from "@/components/CommandPaletteProvider";
 import { EngineerModalProvider } from "@/components/EngineerModalContext";
 import { FormationApplyModalProvider } from "@/components/FormationApplyModalContext";
+import { SyllabusModalProvider } from "@/components/SyllabusModalContext";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -75,12 +76,14 @@ export default function RootLayout({
         <CommandPaletteProvider>
           <EngineerModalProvider>
             <FormationApplyModalProvider>
-              <ScrollProgress />
-              {children}
-              <BackToTop />
-              <StickyCallout />
-              <CookieConsent />
-              <ChatBot />
+              <SyllabusModalProvider>
+                <ScrollProgress />
+                {children}
+                <BackToTop />
+                <StickyCallout />
+                <CookieConsent />
+                <ChatBot />
+              </SyllabusModalProvider>
             </FormationApplyModalProvider>
           </EngineerModalProvider>
         </CommandPaletteProvider>
