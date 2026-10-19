@@ -68,52 +68,97 @@ export function FormationPricingBox({
           <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Colonne gauche : Prix barré & offre de lancement */}
+            {/* Colonne gauche : Prix barré & offre de lancement OU Tarif standard si quota atteint */}
             <div className="lg:col-span-6 space-y-5">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold">
-                <Sparkles size={14} className="text-cyan-400" />
-                <span>OFFRE DE LANCEMENT LIMITÉE • ÉCONOMIE -{discountPercent}%</span>
-              </div>
-
-              <div>
-                <p className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-1">
-                  Tarif de Référence &amp; Prix Public :
-                </p>
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl font-bold text-slate-500 line-through">
-                    {pricing.publicPrice.toLocaleString("fr-FR")} FCFA
-                  </span>
-                  <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
-                    -{discountPercent}%
-                  </span>
-                </div>
-              </div>
-
-              <div>
-                <p className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold mb-1">
-                  Prix Spécial Lancement ({duration}) :
-                </p>
-                <div className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-cyan-300 tracking-tight">
-                  {pricing.launchPrice.toLocaleString("fr-FR")} <span className="text-lg font-bold text-cyan-400">FCFA</span>
-                </div>
-                {pricing.promoPrice && pricing.promoPrice !== pricing.launchPrice && (
-                  <p className="text-xs text-slate-400 mt-1">
-                    Tarif promotionnel standard : {pricing.promoPrice.toLocaleString("fr-FR")} FCFA
-                  </p>
-                )}
-              </div>
-
-              {/* Places limitées */}
-              {pricing.launchSpots && (
-                <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-200 text-xs flex items-center gap-2.5">
-                  <Flame size={18} className="text-amber-400 shrink-0" />
-                  <div>
-                    <span className="font-bold">10 premières places seulement à ce tarif.</span>
-                    <span className="text-amber-300/80 block text-[11px]">
-                      Il ne reste que {pricing.remainingSpots || 3} places disponibles pour la prochaine session.
-                    </span>
+              {pricing.isPromoExpired ? (
+                <>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-xs font-mono font-bold">
+                    <ShieldCheck size={14} className="text-emerald-400" />
+                    <span>TARIF PUBLIC STANDARD • 100% TRANSPARENCE</span>
                   </div>
-                </div>
+
+                  <div>
+                    <p className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-1">
+                      Tarif Officiel en Vigueur ({duration}) :
+                    </p>
+                    <div className="text-4xl sm:text-5xl font-black text-white tracking-tight">
+                      {pricing.publicPrice.toLocaleString("fr-FR")} <span className="text-lg font-bold text-cyan-400">FCFA</span>
+                    </div>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-slate-800/80 border border-amber-500/30 text-xs space-y-1.5">
+                    <div className="flex items-center gap-2 text-amber-300 font-bold">
+                      <Flame size={16} className="text-amber-400 shrink-0" />
+                      <span>Offre de lancement expirée ({pricing.launchSpots || 10}/{pricing.launchSpots || 10} places pourvues)</span>
+                    </div>
+                    <p className="text-slate-300 text-[11px] leading-relaxed">
+                      Conformément à nos engagements d&apos;intégrité (zéro fausse promotion), les 10 premières places à tarif réduit ont été intégralement attribuées suite aux candidatures reçues. Les inscriptions sont désormais ouvertes au tarif public standard.
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold">
+                    <Sparkles size={14} className="text-cyan-400" />
+                    <span>OFFRE DE LANCEMENT LIMITÉE • ÉCONOMIE -{discountPercent}%</span>
+                  </div>
+
+                  <div>
+                    <p className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-1">
+                      Tarif de Référence &amp; Prix Public :
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl font-bold text-slate-500 line-through">
+                        {pricing.publicPrice.toLocaleString("fr-FR")} FCFA
+                      </span>
+                      <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                        -{discountPercent}%
+                      </span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <p className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold mb-1">
+                      Prix Spécial Lancement ({duration}) :
+                    </p>
+                    <div className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-cyan-300 tracking-tight">
+                      {pricing.launchPrice.toLocaleString("fr-FR")} <span className="text-lg font-bold text-cyan-400">FCFA</span>
+                    </div>
+                    {pricing.promoPrice && pricing.promoPrice !== pricing.launchPrice && (
+                      <p className="text-xs text-slate-400 mt-1">
+                        Tarif promotionnel standard : {pricing.promoPrice.toLocaleString("fr-FR")} FCFA
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Places limitées avec vérification dynamique */}
+                  {pricing.launchSpots && (
+                    <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-200 text-xs space-y-2">
+                      <div className="flex items-center gap-2.5">
+                        <Flame size={18} className="text-amber-400 shrink-0" />
+                        <div>
+                          <span className="font-bold">
+                            {pricing.launchSpots} premières places seulement à ce tarif (Suivi en temps réel).
+                          </span>
+                          <span className="text-amber-300/80 block text-[11px]">
+                            {pricing.remainingSpots === 1
+                              ? "Dernière place disponible à ce tarif promotionnel avant clôture !"
+                              : `Plus que ${pricing.remainingSpots ?? 3} places disponibles avant passage au tarif standard (${pricing.publicPrice.toLocaleString("fr-FR")} FCFA).`}
+                          </span>
+                        </div>
+                      </div>
+                      {/* Barre de progression des places réservées */}
+                      <div className="w-full bg-slate-950/70 rounded-full h-1.5 overflow-hidden border border-amber-500/20">
+                        <div
+                          className="bg-gradient-to-r from-amber-400 to-rose-500 h-full rounded-full transition-all duration-500"
+                          style={{
+                            width: `${Math.min(100, Math.round(((pricing.launchSpots - (pricing.remainingSpots ?? 3)) / pricing.launchSpots) * 100))}%`,
+                          }}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
 
               {/* Échelonnement & Décomposition */}

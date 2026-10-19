@@ -25,6 +25,8 @@ export interface FormationPricing {
   launchPrice: number;
   launchSpots?: number;
   remainingSpots?: number;
+  isPromoExpired?: boolean;
+  totalApplicationsCount?: number;
   paymentPlan?: string;
   includedInPrice: string[];
   note?: string;

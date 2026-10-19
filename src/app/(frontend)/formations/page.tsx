@@ -168,29 +168,45 @@ export default async function FormationsCatalogPage() {
                         </div>
                       )}
 
-                      {/* Tarification & Prix Barré (Marketing d'Attraction) */}
+                      {/* Tarification & Prix Barré (Marketing d'Attraction ou Tarif Standard si quota atteint) */}
                       {track.pricing && (
                         <div className="mb-4 p-3 rounded-xl bg-slate-900/90 border border-white/10 space-y-1.5">
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <div className="flex items-center gap-1.5">
-                                <span className="text-[11px] text-slate-500 line-through font-semibold">
-                                  {track.pricing.publicPrice.toLocaleString("fr-FR")} FCFA
+                          {track.pricing.isPromoExpired ? (
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <span className="text-[10px] text-slate-400 uppercase font-mono tracking-wider block">
+                                  Tarif Standard
                                 </span>
-                                <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300">
-                                  -{Math.round(((track.pricing.publicPrice - track.pricing.launchPrice) / track.pricing.publicPrice) * 100)}%
-                                </span>
+                                <div className="text-base font-black text-white leading-tight">
+                                  {track.pricing.publicPrice.toLocaleString("fr-FR")} <span className="text-xs font-bold text-cyan-400">FCFA</span>
+                                </div>
                               </div>
-                              <div className="text-base font-black text-white leading-tight mt-0.5">
-                                {track.pricing.launchPrice.toLocaleString("fr-FR")} <span className="text-xs font-bold text-cyan-400">FCFA</span>
-                              </div>
-                            </div>
-                            {track.pricing.launchSpots && (
-                              <span className="text-[10px] font-mono font-bold px-2 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 shrink-0">
-                                {track.pricing.remainingSpots || 3} places restantes
+                              <span className="text-[10px] font-mono font-bold px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300 shrink-0">
+                                Quota promo atteint ({track.pricing.launchSpots}/{track.pricing.launchSpots})
                               </span>
-                            )}
-                          </div>
+                            </div>
+                          ) : (
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[11px] text-slate-500 line-through font-semibold">
+                                    {track.pricing.publicPrice.toLocaleString("fr-FR")} FCFA
+                                  </span>
+                                  <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300">
+                                    -{Math.round(((track.pricing.publicPrice - track.pricing.launchPrice) / track.pricing.publicPrice) * 100)}%
+                                  </span>
+                                </div>
+                                <div className="text-base font-black text-white leading-tight mt-0.5">
+                                  {track.pricing.launchPrice.toLocaleString("fr-FR")} <span className="text-xs font-bold text-cyan-400">FCFA</span>
+                                </div>
+                              </div>
+                              {track.pricing.launchSpots && (
+                                <span className="text-[10px] font-mono font-bold px-2 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 shrink-0">
+                                  Plus que {track.pricing.remainingSpots ?? 3} places
+                                </span>
+                              )}
+                            </div>
+                          )}
                           {track.pricing.paymentPlan && (
                             <div className="pt-1.5 border-t border-white/5 text-[10px] text-slate-400 font-mono leading-tight">
                               <span className="text-cyan-400 font-semibold">Règlement :</span> {track.pricing.paymentPlan}

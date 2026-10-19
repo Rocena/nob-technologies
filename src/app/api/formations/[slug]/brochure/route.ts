@@ -136,11 +136,19 @@ export async function POST(
                 <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #166534; margin-bottom: 4px;">
                   Tarification &amp; Modalités Financières
                 </div>
+                ${pricing.isPromoExpired ? `
+                <div style="font-size: 14px; margin-bottom: 6px;">
+                  <strong>Tarif Officiel en Vigueur : <span style="color: #15803d; font-size: 17px; font-weight: 900;">${pricing.publicPrice.toLocaleString("fr-FR")} FCFA</span></strong>
+                  <span style="font-size: 11px; color: #64748b; display: block; margin-top: 3px;">(Offre de lancement expirée : les 10 premières places à tarif réduit ont été pourvues)</span>
+                </div>
+                ` : `
                 <div style="font-size: 14px; margin-bottom: 6px;">
                   Prix public : <span style="text-decoration: line-through; color: #ef4444; font-weight: 700;">${pricing.publicPrice.toLocaleString("fr-FR")} FCFA</span>
                   &nbsp;&rarr;&nbsp;
                   <strong>Tarif Réduit : <span style="color: #15803d; font-size: 17px; font-weight: 900;">${pricing.launchPrice.toLocaleString("fr-FR")} FCFA</span></strong>
+                  <span style="font-size: 11px; color: #166534; font-weight: 700; display: block; margin-top: 3px;">(Plus que ${pricing.remainingSpots ?? 3} places restantes à ce tarif)</span>
                 </div>
+                `}
                 ${pricing.paymentPlan ? `<div style="font-size: 13px; color: #166534; font-weight: 600; margin-bottom: 10px;">Facilité de paiement : ${pricing.paymentPlan}</div>` : ""}
 
                 <div style="font-size: 12px; font-weight: 700; color: #1e293b; margin: 10px 0 6px 0; text-transform: uppercase;">
@@ -554,14 +562,26 @@ export async function GET(
 
   <!-- TARIF & INCLUSIONS (MARKETING PSYCHOLOGY) -->
   <div class="pricing-card">
+    ${pricing.isPromoExpired ? `
     <div style="font-size: 8.5pt; font-weight: 800; text-transform: uppercase; color: #166534; margin-bottom: 4px;">
-      Tarification Officielle & Offre de Lancement
+      Tarification Officielle en Vigueur
+    </div>
+    <div class="price-row">
+      <span class="final-price">${pricing.publicPrice.toLocaleString("fr-FR")} FCFA</span>
+      <span style="font-size: 8.5pt; background: #f1f5f9; color: #475569; padding: 2px 6px; border-radius: 4px; font-weight: 700;">
+        Offre de lancement expirée (10/10 places pourvues)
+      </span>
+    </div>
+    ` : `
+    <div style="font-size: 8.5pt; font-weight: 800; text-transform: uppercase; color: #166534; margin-bottom: 4px;">
+      Tarification Officielle &amp; Offre de Lancement
     </div>
     <div class="price-row">
       <span class="strikethrough-price">${pricing.publicPrice.toLocaleString("fr-FR")} FCFA</span>
       <span class="final-price">${pricing.launchPrice.toLocaleString("fr-FR")} FCFA</span>
-      ${pricing.launchSpots ? `<span style="font-size: 8.5pt; background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Limité aux ${pricing.launchSpots} premières inscriptions</span>` : ""}
+      ${pricing.launchSpots ? `<span style="font-size: 8.5pt; background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Plus que ${pricing.remainingSpots ?? 3} places à ce tarif sur ${pricing.launchSpots}</span>` : ""}
     </div>
+    `}
     ${pricing.paymentPlan ? `<div class="payment-plan">Facilité de paiement : ${pricing.paymentPlan}</div>` : ""}
     ${pricing.note ? `<div style="font-size: 8pt; color: #64748b; margin-top: 2px;">* ${pricing.note}</div>` : ""}
 
