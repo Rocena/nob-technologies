@@ -320,7 +320,7 @@ export const CustomLogin: React.FC = () => {
 
         <div className="absolute bottom-8 left-8 right-8 flex justify-between items-center text-xs text-slate-500 font-medium tracking-widest uppercase">
           <span className="flex items-center gap-1.5 text-emerald-500">
-            <Lock size={14} /> Connexion Chiffrée &bull; MFA 2FA Actif
+            <Lock size={14} /> Connexion Chiffrée
           </span>
           <span>Nobtech OS v3.9</span>
         </div>
