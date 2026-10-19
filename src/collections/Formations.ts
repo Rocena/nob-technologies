@@ -42,7 +42,7 @@ export const Formations: CollectionConfig = {
     },
     {
       name: 'badge',
-      label: 'Badge en-tête (ex: PROGRAMME INTENSIF 6 MOIS • EXPERT IT)',
+      label: 'Badge en-tête (ex: CURSUS CERTIFIANT • LABS PHYSIQUES)',
       type: 'text',
     },
     {
@@ -68,7 +68,7 @@ export const Formations: CollectionConfig = {
           name: 'duration',
           label: 'Durée',
           type: 'text',
-          defaultValue: '6 Mois (24 semaines)',
+          defaultValue: 'Variable selon cursus',
         },
         {
           name: 'hours',
@@ -140,7 +140,7 @@ export const Formations: CollectionConfig = {
     },
     {
       name: 'months',
-      label: 'Programme détaillé Mois par Mois (6 Mois)',
+      label: 'Programme détaillé / Modules du cursus',
       type: 'array',
       fields: [
         {
@@ -148,7 +148,7 @@ export const Formations: CollectionConfig = {
           fields: [
             {
               name: 'month',
-              label: 'Numéro du Mois (1 à 6)',
+              label: 'Numéro du Module / Mois',
               type: 'number',
               required: true,
             },

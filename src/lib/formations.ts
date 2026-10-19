@@ -35,7 +35,7 @@ function buildFormationFromCmsDoc(doc: any): Formation {
     heroDescription: doc.heroDescription || doc.shortDesc || "",
     targetAudience: Array.isArray(doc.targetAudience) ? doc.targetAudience.map((a: any) => a.item || a) : [],
     prerequisites: Array.isArray(doc.prerequisites) ? doc.prerequisites.map((p: any) => p.item || p) : [],
-    duration: doc.duration || "1 à 6 Mois",
+    duration: doc.duration || "Variable selon cursus",
     hours: doc.hours || "Pratique intensive & Labs",
     pace: "Rythme flexible (Soirs ou Samedis)",
     format: doc.format || "Présentiel & Hybride (Dakar / Visio)",
