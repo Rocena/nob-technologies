@@ -16,6 +16,7 @@ import { FormationPricingBox } from "@/components/formations/FormationPricingBox
 import { FormationApplyButton } from "@/components/FormationApplyButton";
 import { SyllabusButton } from "@/components/formations/SyllabusButton";
 import { FormationPromoPopup } from "@/components/formations/FormationPromoPopup";
+import { FORMATIONS_DATA } from "@/data/formations";
 import {
   Calendar,
   Clock,
@@ -62,10 +63,29 @@ export default async function FormationDetailPage({ params }: Props) {
   const allFormations = await getAllFormations();
   const otherFormations = allFormations.filter((f) => f.slug !== slug);
 
+  // Si la formation courante possède une offre de lancement, on l'affiche.
+  // Sinon, on met en avant l'offre de lancement phare (Cisco CCNA 10 premières places).
+  const currentHasDiscount = Boolean(
+    formation.pricing &&
+      !formation.pricing.isPromoExpired &&
+      (formation.pricing.remainingSpots ?? 3) > 0 &&
+      formation.pricing.launchPrice < formation.pricing.publicPrice
+  );
+
+  const promoFormation = currentHasDiscount
+    ? formation
+    : allFormations.find(
+        (f) =>
+          f.slug === "cisco-ccna" &&
+          f.pricing &&
+          !f.pricing.isPromoExpired &&
+          (f.pricing.remainingSpots ?? 0) > 0
+      ) || FORMATIONS_DATA["cisco-ccna"];
+
   return (
     <>
       <Header />
-      <FormationPromoPopup formation={formation} />
+      {promoFormation && <FormationPromoPopup formation={promoFormation} />}
       <main className="min-h-screen bg-slate-950 text-slate-100">
         {/* Hero Section */}
         <Section className="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden bg-gradient-to-b from-[#020617] via-[#030d24] to-[#020617]">
