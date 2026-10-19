@@ -20,7 +20,7 @@ const SERVICE_OPTIONS = [
   "ERP & Digitalisation (Conception sur-mesure, Odoo, Dolibarr)",
   "Développement d'Applications Web & Mobile",
   "Vente de Licences Microsoft 365 (ESD & CSP)",
-  "Formations & Préparation aux Certifications (6 mois)",
+  "Formations & Préparation aux Certifications",
   "Téléphonie IP (VoIP Yeastar, Cisco) & Vidéosurveillance",
   "Infogérance, Supervision & Support Proactif 24/7",
   "Autre projet ou étude sur-mesure",

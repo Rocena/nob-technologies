@@ -102,10 +102,10 @@ const DEFAULT_NAV: NavItem[] = [
     id: 'formations',
     name: 'Formations', 
     href: '/formations', 
-    desc: 'Cursus d’immersion sur 6 mois et préparation aux certifications d’élite',
+    desc: 'Cursus d’immersion pratique et préparation aux certifications d’élite',
     order: 2,
     children: [
-      { name: 'Catalogue Formations (6 Mois)', href: '/formations', desc: 'Cursus d’excellence et ateliers pratiques à Dakar (max 6h/sem)', tag: 'Immersion • 6 Mois' },
+      { name: 'Catalogue Formations', href: '/formations', desc: 'Cursus d’excellence et ateliers pratiques à Dakar (rythme flexible)', tag: 'Pratique & Certifications' },
       { name: 'Préparation Certifications IT', href: '/formations/cisco-ccna', desc: 'Préparation officielle Cisco CCNA, Fortinet NSE, Sophos & CompTIA', tag: 'CCNA • NSE 4 • Sophos' },
       { name: 'Business Intelligence & Power BI', href: '/formations/power-bi', desc: 'Modélisation DAX, tableaux de bord interactifs et reporting décisionnel', tag: 'Power BI • DAX' },
       { name: 'Automatisation & IA', href: '/formations/initiation-intelligence-artificielle', desc: 'Workflows Make, scripting Python, agents IA et productivité', tag: 'Make • Python • IA' },

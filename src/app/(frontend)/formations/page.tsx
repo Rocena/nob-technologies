@@ -26,7 +26,7 @@ import { FormationVideoSection } from "@/components/formations/FormationVideoSec
 export const metadata: Metadata = {
   title: "Formations Professionnelles & Préparation aux Certifications | NOB TECHNOLOGIES",
   description:
-    "Cycles d'excellence et programmes intensifs sur 6 mois pour ingénieurs et techniciens : Cisco CCNA/CCNP, Fortinet NSE, Sophos, Cybersécurité ISO 27001 et Automatisation IA.",
+    "Cycles d'excellence et programmes intensifs pour ingénieurs et techniciens : Cisco CCNA/CCNP, Fortinet NSE, Sophos, Cybersécurité ISO 27001 et Automatisation IA.",
 };
 
 export default async function FormationsCatalogPage() {

@@ -475,7 +475,7 @@ export default async function FormationDetailPage({ params }: Props) {
                   </h3>
 
                   <p className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold mb-3">
-                    Ce que vous maîtriserez à l&apos;issue des 6 mois :
+                    Ce que vous maîtriserez à l&apos;issue de la formation :
                   </p>
                   <ul className="space-y-3">
                     {formation.keyOutcomes.map((out, i) => (
@@ -539,7 +539,7 @@ export default async function FormationDetailPage({ params }: Props) {
                     href={`/formations/${other.slug}`}
                     className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 hover:text-cyan-300 pt-3 border-t border-white/10"
                   >
-                    <span>Voir le programme complet sur 6 mois</span>
+                    <span>Voir le programme complet</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
