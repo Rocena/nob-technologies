@@ -23,6 +23,13 @@ Ton identité & ton style :
 - Si l'utilisateur demande de pirater un compte privé (Instagram, WhatsApp...), refuse fermement mais poliment en rappelant que NOBTECH fait uniquement de la cybersécurité défensive et éthique, mais propose de l'aider si son compte ou son entreprise subit une attaque.
 - Si l'utilisateur est dans l'urgence ou en panne, sois réactif et donne immédiatement le numéro d'astreinte : +221 77 301 08 38.
 
+Approche progressive et humaine de recueil des coordonnées :
+- Au début de la discussion, NE DEMANDE PAS immédiatement ses coordonnées de manière intrusive ou formelle comme un formulaire ! Laisse le visiteur poser sa question et réponds-lui d'abord avec expertise et chaleur.
+- Dès que l'échange devient sérieux (demande de devis, estimation de prix, cadrage d'un projet de câblage/baie/pare-feu, inscription à une formation certifiante, besoin d'être rappelé) :
+  Demande poliment et avec convivialité ses coordonnées au fil de l'échange :
+  « Pour une meilleure prise en charge par nos ingénieurs (et pour vous faire parvenir notre chiffrage ou vous rappeler si besoin), puis-je avoir votre prénom ainsi que votre numéro WhatsApp ou adresse email ? Vous pouvez simplement me l'écrire ici ! »
+- Si le visiteur te donne son prénom, son email ou son numéro de téléphone, remercie-le chaleureusement et confirme que c'est bien noté pour le suivi par l'équipe d'ingénieurs.
+
 Coordonnées officielles de NOBTECH :
 - Création & Historique : Société d'ingénierie créée en 2020 à Dakar (6 ans d'expérience terrain).
 - Fondateur : Ozias B. Nzongo, plus de 15 ans d'expérience métier terrain en réseaux, télécoms et cybersécurité.
@@ -46,6 +53,31 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
   const q = raw.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // strip accents
   const words = q.split(/[\s,.'?!;:()\-_\/]+/).filter((w) => w.length > 0);
   const isOneWord = words.length <= 1;
+
+  // Détection si l'utilisateur fournit spontanément ses coordonnées ou répond à la demande
+  const emailMatch = raw.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/i);
+  const phoneMatch = raw.match(/(?:\+221|00221)?\s*[73][05678]\s*\d{3}\s*\d{2}\s*\d{2}|\b\d{2}[-.\s]?\d{3}[-.\s]?\d{2}[-.\s]?\d{2}\b/);
+  const nameIntroMatch = raw.match(/(?:je m['\s]?appelle|moi c['\s]?est|mon nom est|mon prénom est)\s+([A-ZÀ-ÿa-z\-]+)/i);
+
+  if (emailMatch || phoneMatch) {
+    const details = [emailMatch ? emailMatch[0] : null, phoneMatch ? phoneMatch[0] : null].filter(Boolean).join(" et ");
+    return `C'est bien noté, merci beaucoup ! 🙌 Vos coordonnées (${details}) ont bien été enregistrées. Un ingénieur de l'équipe NOBTECH pourra ainsi assurer votre suivi ou vous transmettre notre chiffrage.\n\nSouhaitez-vous apporter une précision particulière sur votre projet ou votre calendrier ?`;
+  }
+
+  if (nameIntroMatch && nameIntroMatch[1] && nameIntroMatch[1].length >= 2 && words.length <= 7) {
+    const namePart = nameIntroMatch[1].charAt(0).toUpperCase() + nameIntroMatch[1].slice(1).toLowerCase();
+    return `Enchanté **${namePart}** ! 😊 C'est un réel plaisir d'échanger avec vous. Dites-moi tout : sur quel projet (cybersécurité, réseau, formation certifiante, ERP) puis-je vous accompagner aujourd'hui ?`;
+  }
+
+  // Vérifier si l'historique contient déjà un email ou téléphone fourni
+  const alreadyHasContact = history.some((m) =>
+    /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/i.test(m.text) ||
+    /(?:\+221|00221)?\s*[73][05678]\s*\d{3}\s*\d{2}\s*\d{2}/.test(m.text)
+  );
+
+  const contactPromptPill = !alreadyHasContact
+    ? "\n\n💡 *Pour une meilleure prise en charge par nos ingénieurs (et pour vous faire parvenir notre proposition détaillée), puis-je avoir votre prénom ainsi que votre numéro WhatsApp ou email ? Vous pouvez simplement me l'écrire ici !*"
+    : "";
 
   // 1. Wolof & Salutations sénégalaises
   if (/^(nanga def|salaam|assalam|salam|mangi fi|ba beneen|na rekk|jerejef)/i.test(q)) {
@@ -171,7 +203,7 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
 
   // 20. Demande générale de devis / "remplir un devis" / "demander un devis" / "prix"
   if (/(remplir un devis|demander un devis|faire un devis|obtenir un devis|devis gratuit|devis|c['\s]?est cher|combien [cç]a co[uû]te|prix|tarif|co[uû]t|budget|chiffrer)/i.test(q) || (isOneWord && ["prix", "devis", "tarif", "combien"].includes(words[0]))) {
-    return "Avec grand plaisir ! Chez **NOBTECH**, nos devis sont **100% gratuits, sur-mesure et transmis sous 24h ouvrées** sans aucun engagement. 📋\n\nPour avancer au plus vite, vous avez **3 options très simples** :\n\n1️⃣ **Remplir notre formulaire guidé en 1 minute** :\n👉 [Cliquez ici pour ouvrir le formulaire de devis en ligne](/contact)\n\n2️⃣ **M'en dire deux mots directement ici** :\nDites-moi simplement : de quel type de projet s'agit-il (cybersécurité & pare-feu, câblage réseau, ERP, matériel, formation) et quel est le volume concerné ? Je note tout pour nos ingénieurs !\n\n3️⃣ **Échanger directement sur WhatsApp** avec notre équipe technique :\n📲 [Discuter sur WhatsApp (+221 77 301 08 38)](https://wa.me/221773010838?text=Bonjour%20Koffi,%20je%20souhaite%20obtenir%20un%20devis)\n\nQuel domaine vous intéresse en priorité ?";
+    return "Avec grand plaisir ! Chez **NOBTECH**, nos devis sont **100% gratuits, sur-mesure et transmis sous 24h ouvrées** sans aucun engagement. 📋\n\nPour avancer au plus vite, vous avez **3 options très simples** :\n\n1️⃣ **M'en dire deux mots directement ici** :\nDites-moi simplement de quel type de projet il s'agit (cybersécurité & pare-feu, câblage réseau, ERP, matériel, formation) et vos délais souhaités.\n\n2️⃣ **Remplir notre formulaire guidé en ligne** :\n👉 [Ouvrir le formulaire de devis en ligne](/contact)\n\n3️⃣ **Échanger directement sur WhatsApp** avec notre équipe technique :\n📲 [Discuter sur WhatsApp (+221 77 301 08 38)](https://wa.me/221773010838?text=Bonjour%20Koffi,%20je%20souhaite%20obtenir%20un%20devis)" + contactPromptPill;
   }
 
   // 21. Wi-Fi & Problèmes réseau local
@@ -198,7 +230,8 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
       "9. **Gestion de projet IT** (4 sem.) : méthodes Agiles, Scrum et gouvernance.\n" +
       "10. **Normes & Conformité** (6 sem.) : ISO 27001, NIST CSF 2.0, CDP Sénégal.\n" +
       "11. **Ethical Hacking & Pentest** (8 sem.) : tests d'intrusion éthiques et labs CTF.\n\n" +
-      "Les cours se déroulent en présentiel dans nos Labs à Dakar ou à distance, avec formules du soir ou du samedi. C'est pour vous-même ou pour votre équipe ?";
+      "Les cours se déroulent en présentiel dans nos Labs à Dakar ou à distance, avec formules du soir ou du samedi. C'est pour vous-même ou pour votre équipe ?" +
+      contactPromptPill;
   }
 
   // 24. ERP & Logiciels de gestion

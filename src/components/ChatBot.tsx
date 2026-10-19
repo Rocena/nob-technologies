@@ -466,8 +466,8 @@ export function ChatBot() {
   const [knowledge, setKnowledge] = useState<KnowledgeItem[]>(DEFAULT_KNOWLEDGE_BASE);
   const [cmsGreeting, setCmsGreeting] = useState<string>('');
 
-  // Session lifecycle state: 'prechat' -> 'active' -> 'ended'
-  const [phase, setPhase] = useState<'prechat' | 'active' | 'ended'>('prechat');
+  // Session lifecycle state: 'active' | 'ended' (direct conversation without blocking form)
+  const [phase, setPhase] = useState<'prechat' | 'active' | 'ended'>('active');
   const [sessionId, setSessionId] = useState<string>(() => generateSessionId());
   const [contactMessageId, setContactMessageId] = useState<string | null>(null);
   const [hasNotifiedFirstMessage, setHasNotifiedFirstMessage] = useState<boolean>(false);
@@ -475,6 +475,8 @@ export function ChatBot() {
   const [isEndingSession, setIsEndingSession] = useState<boolean>(false);
   const [rating, setRating] = useState<number | null>(null);
   const [unreadCount, setUnreadCount] = useState<number>(0);
+  const [showContactForm, setShowContactForm] = useState<boolean>(false);
+  const [manualContactSaved, setManualContactSaved] = useState<boolean>(false);
 
   // Visitor contact state
   const [visitor, setVisitor] = useState<VisitorProfile>({
@@ -483,7 +485,6 @@ export function ChatBot() {
     phone: '',
     company: '',
   });
-  const [prechatError, setPrechatError] = useState<string>('');
 
   const [messages, setMessages] = useState<Message[]>([createWelcomeMessage()]);
   const [input, setInput] = useState('');
@@ -620,7 +621,6 @@ export function ChatBot() {
     keepalive?: boolean;
   }) => {
     const activeVisitor = params.updatedVisitor || visitor;
-    if (!activeVisitor.name || (!activeVisitor.email && !activeVisitor.phone)) return;
 
     const userMsgCount = params.updatedMessages.filter((m) => m.role === 'user').length;
     if (params.action === 'summary' || params.action === 'end' || params.notifyAdminsNow) {
@@ -697,61 +697,6 @@ export function ChatBot() {
     };
   }, []);
 
-  // Start a new corporate chat session after pre-chat identification
-  const handleStartSession = async (e: React.FormEvent, initialTopic?: string) => {
-    e.preventDefault();
-    setPrechatError('');
-
-    const cleanName = visitor.name.trim();
-    const cleanEmail = visitor.email.trim();
-    const cleanPhone = visitor.phone.trim();
-    const cleanCompany = visitor.company.trim();
-
-    if (cleanName.length < 2) {
-      setPrechatError('Veuillez indiquer votre nom complet.');
-      return;
-    }
-    if (!cleanEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
-      setPrechatError('Veuillez renseigner une adresse email valide.');
-      return;
-    }
-    if (cleanPhone.length < 6) {
-      setPrechatError('Veuillez indiquer votre numéro de téléphone ou WhatsApp.');
-      return;
-    }
-
-    const updatedVisitor: VisitorProfile = {
-      name: cleanName,
-      email: cleanEmail,
-      phone: cleanPhone,
-      company: cleanCompany,
-    };
-
-    setVisitor(updatedVisitor);
-    try {
-      localStorage.setItem(VISITOR_PROFILE_KEY, JSON.stringify(updatedVisitor));
-    } catch {
-      // Ignore storage error
-    }
-
-    const newSid = generateSessionId();
-    setSessionId(newSid);
-    setContactMessageId(null);
-    setHasNotifiedFirstMessage(false);
-    lastSummarizedUserMsgCountRef.current = 0;
-    setRating(null);
-    setShowEndConfirm(false);
-
-    const welcomeMsg = createWelcomeMessage(cleanName, cmsGreeting);
-    setMessages([welcomeMsg]);
-    setPhase('active');
-
-    if (initialTopic) {
-      setTimeout(() => {
-        sendMessage(initialTopic, [welcomeMsg], updatedVisitor);
-      }, 150);
-    }
-  };
 
   const sendMessage = async (
     textToSend: string,
@@ -764,16 +709,39 @@ export function ChatBot() {
     const currentMessages = overrideBaseMessages || messages;
     const currentVisitor = overrideVisitor || visitor;
 
-    // Extract any email or phone mentioned directly in message if visitor updated it
-    const emailMatch = trimmed.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
-    const phoneMatch = trimmed.match(/(?:\+221|00221)?\s*[73][05678]\s*\d{3}\s*\d{2}\s*\d{2}/);
-    const enrichedVisitor = {
-      ...currentVisitor,
+    // Extract any email, phone or name mentioned directly in message
+    const emailMatch = trimmed.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/i);
+    const phoneMatch = trimmed.match(/(?:\+221|00221)?\s*[73][05678]\s*\d{3}\s*\d{2}\s*\d{2}|\b\d{2}[-.\s]?\d{3}[-.\s]?\d{2}[-.\s]?\d{2}\b/);
+    const nameIntroMatch = trimmed.match(/(?:je m['\s]?appelle|moi c['\s]?est|mon nom est|mon prénom est)\s+([A-ZÀ-ÿa-z\-]+(?:\s+[A-ZÀ-ÿa-z\-]+)?)/i);
+
+    let detectedName = nameIntroMatch && nameIntroMatch[1] ? nameIntroMatch[1].trim() : '';
+    if (!detectedName && !currentVisitor.name && !emailMatch && !phoneMatch) {
+      const words = trimmed.split(/\s+/);
+      if (words.length >= 1 && words.length <= 3 && /^[A-ZÀ-ÿa-z\s\-]+$/.test(trimmed) && trimmed.length >= 3 && trimmed.length <= 30) {
+        const lastBot = currentMessages.slice().reverse().find((m) => m.role === 'bot');
+        if (lastBot && /prénom|nom|coordonnées|contact/i.test(lastBot.text)) {
+          detectedName = trimmed;
+        }
+      }
+    }
+
+    const enrichedVisitor: VisitorProfile = {
+      name: currentVisitor.name || detectedName || (emailMatch ? emailMatch[0].split('@')[0] : ''),
       email: currentVisitor.email || (emailMatch ? emailMatch[0] : ''),
       phone: currentVisitor.phone || (phoneMatch ? phoneMatch[0] : ''),
+      company: currentVisitor.company || '',
     };
-    if (enrichedVisitor.email !== currentVisitor.email || enrichedVisitor.phone !== currentVisitor.phone) {
+    if (
+      enrichedVisitor.name !== currentVisitor.name ||
+      enrichedVisitor.email !== currentVisitor.email ||
+      enrichedVisitor.phone !== currentVisitor.phone
+    ) {
       setVisitor(enrichedVisitor);
+      try {
+        localStorage.setItem(VISITOR_PROFILE_KEY, JSON.stringify(enrichedVisitor));
+      } catch {
+        // Ignore
+      }
     }
 
     const userMsg: Message = {
@@ -942,14 +910,16 @@ export function ChatBot() {
     URL.revokeObjectURL(url);
   };
 
-  // Reset to start a fresh session (keeping visitor profile pre-filled)
+  // Reset to start a fresh active session (keeping visitor profile if previously filled)
   const handleNewSession = () => {
     setShowEndConfirm(false);
     setRating(null);
     setContactMessageId(null);
     setHasNotifiedFirstMessage(false);
-    setSessionId(generateSessionId());
-    setPhase('prechat');
+    const newSid = generateSessionId();
+    setSessionId(newSid);
+    setMessages([createWelcomeMessage(visitor.name, cmsGreeting)]);
+    setPhase('active');
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -1060,109 +1030,104 @@ export function ChatBot() {
           </div>
         </div>
 
-        {/* PHASE 1: PRE-CHAT SESSION OPENING & CONTACT CAPTURE */}
-        {phase === 'prechat' && (
-          <div className="flex-1 overflow-y-auto px-5 py-5 flex flex-col justify-between scrollbar-thin scrollbar-thumb-white/10">
-            <div>
-              <h3 className="text-base font-bold text-white leading-snug">
-                Hello ! Discutons de votre projet 👋
-              </h3>
-              <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">
-                Cybersécurité, réseau, devis ou formation... Dites-moi ce dont vous avez besoin ! Laissez-moi vos coordonnées pour qu&apos;on garde le fil de notre échange.
-              </p>
-
-              <form onSubmit={handleStartSession} className="mt-4 space-y-3">
-                <div>
-                  <label className="block text-[11px] font-semibold text-slate-300 mb-1">
-                    Nom & Prénom <span className="text-[#00D4FF]">*</span>
-                  </label>
-                  <div className="flex items-center gap-2 rounded-xl bg-white/[0.04] border border-white/10 px-3 py-2 focus-within:border-[#00D4FF]/60 transition-colors">
-                    <User className="w-4 h-4 text-slate-400 shrink-0" />
-                    <input
-                      type="text"
-                      required
-                      value={visitor.name}
-                      onChange={(e) => setVisitor({ ...visitor, name: e.target.value })}
-                      placeholder="Ex: Moussa Diop"
-                      className="w-full bg-transparent text-xs text-white placeholder-slate-500 outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-[11px] font-semibold text-slate-300 mb-1">
-                    Email professionnel <span className="text-[#00D4FF]">*</span>
-                  </label>
-                  <div className="flex items-center gap-2 rounded-xl bg-white/[0.04] border border-white/10 px-3 py-2 focus-within:border-[#00D4FF]/60 transition-colors">
-                    <Mail className="w-4 h-4 text-slate-400 shrink-0" />
-                    <input
-                      type="email"
-                      required
-                      value={visitor.email}
-                      onChange={(e) => setVisitor({ ...visitor, email: e.target.value })}
-                      placeholder="nom@entreprise.sn"
-                      className="w-full bg-transparent text-xs text-white placeholder-slate-500 outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  <div>
-                    <label className="block text-[11px] font-semibold text-slate-300 mb-1">
-                      Téléphone / WhatsApp <span className="text-[#00D4FF]">*</span>
-                    </label>
-                    <div className="flex items-center gap-2 rounded-xl bg-white/[0.04] border border-white/10 px-3 py-2 focus-within:border-[#00D4FF]/60 transition-colors">
-                      <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                      <input
-                        type="tel"
-                        required
-                        value={visitor.phone}
-                        onChange={(e) => setVisitor({ ...visitor, phone: e.target.value })}
-                        placeholder="+221 77..."
-                        className="w-full bg-transparent text-xs text-white placeholder-slate-500 outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-semibold text-slate-300 mb-1">
-                      Entreprise <span className="text-slate-500 font-normal">(Optionnel)</span>
-                    </label>
-                    <div className="flex items-center gap-2 rounded-xl bg-white/[0.04] border border-white/10 px-3 py-2 focus-within:border-[#00D4FF]/60 transition-colors">
-                      <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                      <input
-                        type="text"
-                        value={visitor.company}
-                        onChange={(e) => setVisitor({ ...visitor, company: e.target.value })}
-                        placeholder="Nom société"
-                        className="w-full bg-transparent text-xs text-white placeholder-slate-500 outline-none"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {prechatError && (
-                  <div className="text-xs text-rose-400 bg-rose-500/10 border border-rose-500/20 rounded-lg px-3 py-2">
-                    {prechatError}
-                  </div>
-                )}
-
+        {/* NON-BLOCKING PROGRESSIVE CONTACT COLLECTION BAR */}
+        {phase === 'active' && !visitor.phone && !visitor.email && (
+          <div className="px-3.5 py-2 bg-gradient-to-r from-[#00D4FF]/[0.08] via-white/[0.02] to-[#00D4FF]/[0.08] border-b border-[#00D4FF]/20 shrink-0">
+            {!showContactForm ? (
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[11px] text-slate-300 flex items-center gap-1.5 truncate">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  <span>Discussion directe avec Koffi</span>
+                </span>
                 <button
-                  type="submit"
-                  className="w-full mt-2 py-2.5 px-4 rounded-xl bg-[#00D4FF] hover:bg-[#38BDF8] text-[#020617] font-bold text-xs tracking-wide transition-all duration-200 shadow-[0_6px_20px_rgba(0,212,255,0.3)] hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
+                  type="button"
+                  onClick={() => setShowContactForm(true)}
+                  className="text-[11px] font-semibold text-[#00D4FF] hover:text-white underline underline-offset-2 decoration-[#00D4FF]/40 transition-colors shrink-0"
                 >
-                  <MessageSquare className="w-4 h-4" />
-                  C&apos;est parti, on discute ! 👋
+                  Laisser mes coordonnées (facultatif)
                 </button>
-              </form>
-            </div>
+              </div>
+            ) : (
+              <div className="pt-1 pb-1 animate-in fade-in duration-200">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-[11px] font-medium text-slate-200">
+                    Pour être recontacté ou recevoir un chiffrage :
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setShowContactForm(false)}
+                    className="text-[10px] text-slate-400 hover:text-white"
+                  >
+                    Masquer ✕
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <input
+                    type="text"
+                    value={visitor.name}
+                    onChange={(e) => setVisitor({ ...visitor, name: e.target.value })}
+                    placeholder="Votre prénom / nom"
+                    className="bg-white/[0.06] border border-white/10 rounded-lg px-2.5 py-1 text-xs text-white placeholder-slate-500 outline-none focus:border-[#00D4FF]/60"
+                  />
+                  <input
+                    type="text"
+                    value={visitor.phone || visitor.email}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val.includes('@')) {
+                        setVisitor({ ...visitor, email: val });
+                      } else {
+                        setVisitor({ ...visitor, phone: val });
+                      }
+                    }}
+                    placeholder="WhatsApp ou Email"
+                    className="bg-white/[0.06] border border-white/10 rounded-lg px-2.5 py-1 text-xs text-white placeholder-slate-500 outline-none focus:border-[#00D4FF]/60"
+                  />
+                </div>
+                <div className="mt-2 flex justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowContactForm(false)}
+                    className="px-2 py-0.5 text-[10.5px] text-slate-400 hover:text-white"
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (visitor.name || visitor.phone || visitor.email) {
+                        try {
+                          localStorage.setItem(VISITOR_PROFILE_KEY, JSON.stringify(visitor));
+                        } catch {}
+                        syncSessionWithBackend({
+                          action: 'sync',
+                          updatedMessages: messages,
+                          updatedVisitor: visitor,
+                        });
+                        setManualContactSaved(true);
+                        setShowContactForm(false);
+                      }
+                    }}
+                    className="px-3 py-1 rounded-md bg-[#00D4FF] hover:bg-[#38BDF8] text-[#020617] text-[10.5px] font-bold transition-colors"
+                  >
+                    Enregistrer
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
-            <div className="mt-4 pt-3 border-t border-white/10 flex items-start gap-2 text-[10.5px] text-slate-400 leading-snug">
-              <ShieldCheck className="w-4 h-4 text-[#00D4FF] shrink-0 mt-0.5" />
-              <span>
-                Échange confidentiel · Vos coordonnées permettent à nos ingénieurs à Dakar de vous recontacter directement ou d&apos;établir votre devis sous 24h.
-              </span>
-            </div>
+        {phase === 'active' && manualContactSaved && (visitor.phone || visitor.email) && (
+          <div className="px-3.5 py-1.5 bg-emerald-500/10 border-b border-emerald-500/20 text-[11px] text-emerald-300 flex items-center justify-between shrink-0">
+            <span>✓ Coordonnées enregistrées pour nos ingénieurs</span>
+            <button
+              type="button"
+              onClick={() => setManualContactSaved(false)}
+              className="text-slate-400 hover:text-white text-[10px]"
+            >
+              ✕
+            </button>
           </div>
         )}
 
@@ -1179,7 +1144,7 @@ export function ChatBot() {
                   Clôturer la session #{sessionId} ?
                 </h4>
                 <p className="text-xs text-slate-400 mt-1.5 max-w-[300px] leading-relaxed">
-                  En clôturant cette session, un récapitulatif complet de votre conversation sera transmis à nos ingénieurs ainsi qu&apos;à <strong className="text-slate-200">{visitor.email}</strong>.
+                  En clôturant cette session, un récapitulatif complet de votre conversation sera transmis à nos ingénieurs{visitor.email ? <> ainsi qu&apos;à <strong className="text-slate-200">{visitor.email}</strong></> : '.'}.
                 </p>
 
                 <div className="w-full space-y-2 mt-5">
@@ -1222,7 +1187,7 @@ export function ChatBot() {
               <div className="text-center py-1">
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-[10px] font-mono text-slate-400">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF]/60" />
-                  Session #{sessionId} ouverte · {visitor.name}
+                  Session #{sessionId} ouverte{visitor.name ? ` · ${visitor.name}` : ''}
                 </span>
               </div>
 
@@ -1332,7 +1297,13 @@ export function ChatBot() {
                 </button>
               </div>
               <div className="flex items-center justify-between text-[10px] text-slate-500 px-1 mt-1.5">
-                <span>Connecté : {visitor.email}</span>
+                <span>
+                  {visitor.phone || visitor.email ? (
+                    <span className="text-emerald-400 font-medium">✓ Prise en charge : {visitor.phone || visitor.email}</span>
+                  ) : (
+                    <span className="text-slate-400">💬 Koffi est à votre écoute</span>
+                  )}
+                </span>
                 <button
                   type="button"
                   onClick={() => setShowEndConfirm(true)}
@@ -1358,11 +1329,10 @@ export function ChatBot() {
               </span>
 
               <h3 className="text-base font-bold text-white">
-                Merci pour votre échange, {visitor.name.split(' ')[0]} !
+                Merci pour votre échange{visitor.name ? `, ${visitor.name.split(' ')[0]}` : ''} !
               </h3>
               <p className="text-xs text-slate-400 mt-1.5 leading-relaxed max-w-[310px]">
-                Le récapitulatif de votre conversation et vos coordonnées ont été transmis à nos ingénieurs ainsi qu&apos;à{' '}
-                <strong className="text-slate-200">{visitor.email}</strong>.
+                Le récapitulatif de votre conversation a été transmis à nos ingénieurs à Dakar{visitor.email ? <> ainsi qu&apos;à <strong className="text-slate-200">{visitor.email}</strong></> : '.'}
               </p>
 
               {/* Star Rating (CSAT) */}

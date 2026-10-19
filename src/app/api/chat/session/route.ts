@@ -200,18 +200,15 @@ export async function POST(req: NextRequest) {
       notifyAdminsNow?: boolean;
     } = body;
 
-    if (!visitor || !visitor.name || (!visitor.email && !visitor.phone)) {
-      return NextResponse.json(
-        { error: 'Coordonnées du visiteur incomplètes' },
-        { status: 400 }
-      );
-    }
-
-    const cleanName = visitor.name.trim();
-    const cleanEmail = (visitor.email || 'non-renseigne@nobtech.fr').trim();
-    const cleanPhone = (visitor.phone || '').trim();
-    const cleanCompany = (visitor.company || '').trim();
     const cleanSessionId = (sessionId || `SES-${Date.now().toString(36).toUpperCase()}`).trim();
+    const cleanName = (visitor?.name || 'Visiteur en ligne').trim();
+    const cleanEmail = (
+      visitor?.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(visitor.email.trim())
+        ? visitor.email.trim()
+        : `visiteur-${cleanSessionId.toLowerCase()}@nobtech.fr`
+    );
+    const cleanPhone = (visitor?.phone || '').trim();
+    const cleanCompany = (visitor?.company || '').trim();
 
     const userMessages = Array.isArray(messages)
       ? messages.filter((m) => m.role === 'user')
@@ -361,12 +358,13 @@ export async function POST(req: NextRequest) {
         emailSent = Boolean(sendRes?.success);
         emailWarning = sendRes?.warning;
 
-        // If session ended and visitor provided a valid email, send them their session summary
+        // If session ended and visitor provided a genuine email, send them their session summary
         if (
           action === 'end' &&
           cleanEmail &&
           /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail) &&
-          !cleanEmail.startsWith('non-renseigne@')
+          !cleanEmail.startsWith('non-renseigne@') &&
+          !cleanEmail.startsWith('visiteur-')
         ) {
           const clientHtml = generateClientAcknowledgmentHtml({
             name: cleanName,
