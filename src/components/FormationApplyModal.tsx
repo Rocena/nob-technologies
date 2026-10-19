@@ -616,32 +616,32 @@ export function FormationApplyModal({
                     </div>
                   </div>
 
-                  {/* 8. Footer & Submit Button */}
-                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <p className="text-[11px] text-slate-500 flex items-center gap-1.5 order-2 sm:order-1">
-                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-                      <span>Dossier examiné confidentiellement sous 24h</span>
-                    </p>
+                    {/* 8. Footer & Submit Button */}
+                    <div className="pt-3 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-100">
+                      <p className="text-xs text-slate-500 flex items-center gap-1.5 order-2 sm:order-1 font-medium">
+                        <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+                        <span>Dossier examiné confidentiellement sous 24h ouvrées</span>
+                      </p>
 
-                    <Button
-                      type="submit"
-                      disabled={loading}
-                      className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-slate-900 to-cyan-950 hover:from-cyan-600 hover:to-emerald-600 text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-md active:scale-95 cursor-pointer order-1 sm:order-2 flex items-center justify-center gap-2"
-                    >
-                      {loading ? (
-                        <>
-                          <Loader2 className="w-4 h-4 animate-spin text-white" />
-                          <span>Enregistrement du dossier...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>Soumettre ma candidature</span>
-                          <ArrowRight className="w-4 h-4" />
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </form>
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-cyan-500/25 hover:opacity-95 hover:shadow-cyan-500/35 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer order-1 sm:order-2 flex items-center justify-center gap-2"
+                      >
+                        {loading ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
+                            <span>Transmission du dossier d&apos;admission...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>Valider et soumettre mon dossier d&apos;admission</span>
+                            <ArrowRight className="w-4 h-4 text-slate-950 shrink-0" />
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </form>
               )}
             </div>
           </motion.div>

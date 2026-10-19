@@ -61,15 +61,18 @@ export function BrochureDownloadModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg bg-slate-900 border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl text-slate-100">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors"
-          aria-label="Fermer"
-        >
-          <X size={20} />
-        </button>
+    <div className="fixed inset-0 z-[999] overflow-y-auto flex min-h-full items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md animate-in fade-in duration-200">
+      <div className="relative w-full max-w-lg bg-[#030712] border border-cyan-500/30 rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.9),0_0_50px_rgba(0,212,255,0.15)] text-slate-100 overflow-hidden my-auto">
+        <div className="h-1.5 w-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]" />
+        
+        <div className="p-5 sm:p-7">
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-full bg-white/5 hover:bg-white/10 transition-colors cursor-pointer z-10"
+            aria-label="Fermer"
+          >
+            <X size={18} />
+          </button>
 
         <div className="flex items-center gap-3 mb-4">
           <div className="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shrink-0">
@@ -218,6 +221,7 @@ export function BrochureDownloadModal({
             </form>
           </>
         )}
+        </div>
       </div>
     </div>
   );

@@ -456,17 +456,17 @@ export function FormationInquiryForm({
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 text-white font-extrabold text-sm tracking-wide transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-cyan-500/20 disabled:opacity-50"
+          className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-cyan-500/25 hover:opacity-95 hover:shadow-cyan-500/35 active:scale-95 disabled:opacity-50 cursor-pointer"
         >
           {loading ? (
             <>
-              <Loader2 className="w-4 h-4 animate-spin" />
+              <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
               <span>Transmission de votre dossier d&apos;admission...</span>
             </>
           ) : (
             <>
-              <Send className="w-4 h-4" />
-              <span>Valider &amp; Soumettre mon dossier d&apos;admission</span>
+              <Send className="w-4 h-4 text-slate-950" />
+              <span>Valider et soumettre mon dossier d&apos;admission</span>
             </>
           )}
         </button>
