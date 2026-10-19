@@ -28,6 +28,48 @@ async function resolveEmailConfig(): Promise<ResolvedEmailConfig> {
     (user ? `"NOB TECHNOLOGIES" <${user}>` : '"NOB TECHNOLOGIES" <contact@nobtech.fr>');
   let resendApiKey = process.env.RESEND_API_KEY?.trim();
 
+  try {
+    const { getPayloadClient } = await import('@/lib/payload');
+    const payload = await getPayloadClient();
+    const settings = (await payload.findGlobal({
+      slug: 'site-settings',
+      overrideAccess: true,
+    })) as any;
+
+    if (settings) {
+      const emailObj = settings.emailSettings || settings;
+
+      if (emailObj.smtpHost || settings.smtpHost) {
+        host = (emailObj.smtpHost || settings.smtpHost).trim();
+      }
+      const rawPort = emailObj.smtpPort ?? settings.smtpPort;
+      if (rawPort) {
+        const p = parseInt(String(rawPort), 10);
+        if (!isNaN(p) && p > 0) port = p;
+      }
+      const rawSecure = emailObj.smtpSecure ?? settings.smtpSecure;
+      if (typeof rawSecure === 'boolean') {
+        secure = rawSecure;
+      } else if (port === 465) {
+        secure = true;
+      }
+      if (emailObj.smtpUser || settings.smtpUser) {
+        user = (emailObj.smtpUser || settings.smtpUser).trim();
+      }
+      if (emailObj.smtpPass || settings.smtpPass) {
+        pass = (emailObj.smtpPass || settings.smtpPass).trim();
+      }
+      if (emailObj.smtpFrom || settings.smtpFrom) {
+        from = (emailObj.smtpFrom || settings.smtpFrom).trim();
+      }
+      if (emailObj.resendApiKey || settings.resendApiKey) {
+        resendApiKey = (emailObj.resendApiKey || settings.resendApiKey).trim();
+      }
+    }
+  } catch (err) {
+    console.warn('[EMAIL SERVICE] Impossible de charger les paramètres SMTP depuis la base, utilisation de .env:', err);
+  }
+
   return { host, port, secure, user, pass, from, resendApiKey };
 }
 
@@ -155,6 +197,14 @@ export async function getAdminRecipientEmails(payload?: any): Promise<string[]> 
       });
       if (settings?.contact?.email && typeof settings.contact.email === 'string' && settings.contact.email.includes('@')) {
         emailSet.add(settings.contact.email.trim().toLowerCase());
+      }
+      const adminEmailsField = settings?.adminNotificationEmails || settings?.emailSettings?.adminNotificationEmails;
+      if (adminEmailsField && typeof adminEmailsField === 'string') {
+        adminEmailsField
+          .split(',')
+          .map((e: string) => e.trim().toLowerCase())
+          .filter((e: string) => e && e.includes('@'))
+          .forEach((e: string) => emailSet.add(e));
       }
     } catch {
       // Ignore if global is unavailable

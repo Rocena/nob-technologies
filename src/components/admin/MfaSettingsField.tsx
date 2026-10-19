@@ -70,7 +70,10 @@ export const MfaSettingsField: React.FC = () => {
       const res = await fetch('/api/admin/mfa/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: code.trim() }),
+        body: JSON.stringify({
+          code: code.trim(),
+          secret: setupData?.secret,
+        }),
         credentials: 'same-origin',
       });
 
@@ -79,7 +82,7 @@ export const MfaSettingsField: React.FC = () => {
         setMfaEnabled(true);
         setSetupData(null);
         setCode('');
-        setSuccessMsg('Félicitations ! Votre double authentification TOTP (MFA) est désormais active.');
+        setSuccessMsg('Félicitations ! Votre double authentification Google Authenticator (MFA) est désormais active.');
       } else {
         setError(data.error || 'Code invalide ou expiré. Assurez-vous que l\'heure de votre téléphone est synchronisée.');
       }
@@ -208,32 +211,56 @@ export const MfaSettingsField: React.FC = () => {
       {setupData && (
         <div className="mt-6 p-6 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-6">
           <div className="border-b border-slate-800 pb-4">
-            <h4 className="font-semibold text-white text-sm flex items-center gap-2">
-              <QrCode size={18} className="text-[#00D4FF]" /> Configuration de votre application d&apos;authentification
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-semibold mb-2">
+              <QrCode size={14} /> Recommandé : Google Authenticator
+            </div>
+            <h4 className="font-semibold text-white text-base flex items-center gap-2">
+              Configuration de votre application Google Authenticator
             </h4>
             <p className="text-xs text-slate-400 mt-1">
-              Ouvrez Google Authenticator, Microsoft Authenticator ou Authy sur votre smartphone.
+              Protégez votre compte avec la validation en deux étapes standard TOTP (compatible Google Authenticator, Microsoft Authenticator, Authy).
             </p>
+          </div>
+
+          {/* Guide étapes claires */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 text-xs text-slate-300">
+            <div className="flex items-start gap-2">
+              <span className="w-5 h-5 rounded-full bg-[#00D4FF]/20 text-[#00D4FF] font-bold flex items-center justify-center flex-shrink-0 text-[11px]">1</span>
+              <span>Ouvrez <strong>Google Authenticator</strong> sur votre smartphone.</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="w-5 h-5 rounded-full bg-[#00D4FF]/20 text-[#00D4FF] font-bold flex items-center justify-center flex-shrink-0 text-[11px]">2</span>
+              <span>Touchez le bouton <strong>« + »</strong> puis <strong>« Scanner un code QR »</strong>.</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="w-5 h-5 rounded-full bg-[#00D4FF]/20 text-[#00D4FF] font-bold flex items-center justify-center flex-shrink-0 text-[11px]">3</span>
+              <span>Saisissez le code à 6 chiffres généré pour valider.</span>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 items-center">
             {/* QR Code */}
-            <div className="flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-lg">
+            <div className="flex flex-col items-center justify-center p-5 bg-white rounded-2xl shadow-xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={setupData.qrCodeDataUrl}
-                alt="QR Code MFA Nobtech"
-                className="w-48 h-48 rounded"
+                alt="QR Code Google Authenticator MFA Nobtech"
+                className="w-52 h-52 rounded-lg"
               />
-              <span className="text-[11px] text-slate-600 font-medium mt-2">Scannez ce QR Code avec l&apos;application</span>
+              <span className="text-[11px] text-slate-700 font-semibold mt-3 flex items-center gap-1.5">
+                <QrCode size={13} className="text-blue-600" />
+                Scannez ce QR Code avec Google Authenticator
+              </span>
             </div>
 
             {/* Saisie Manuelle */}
             <div className="space-y-4">
               <div>
-                <label className="text-xs text-slate-400 block mb-1">Clé secrète (si vous ne pouvez pas scanner) :</label>
+                <label className="text-xs text-slate-400 block mb-1">
+                  Clé de configuration manuelle (si la caméra ne fonctionne pas) :
+                </label>
                 <div className="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg p-2.5">
-                  <code className="text-xs font-mono text-[#00D4FF] select-all flex-1 tracking-wider">
+                  <code className="text-xs font-mono text-[#00D4FF] select-all flex-1 tracking-wider font-semibold">
                     {setupData.secret}
                   </code>
                   <button
@@ -249,24 +276,24 @@ export const MfaSettingsField: React.FC = () => {
 
               <form onSubmit={handleVerify} className="space-y-3 pt-2">
                 <label className="text-xs font-medium text-slate-300 block">
-                  Entrez le code à 6 chiffres affiché sur votre téléphone :
+                  Entrez le code à 6 chiffres affiché sur Google Authenticator :
                 </label>
                 <input
                   type="text"
                   maxLength={6}
                   value={code}
                   onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
-                  placeholder="123456"
-                  className="w-full text-center tracking-[0.5em] font-mono text-2xl py-3 px-4 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-[#00D4FF] focus:ring-2 focus:ring-[#00D4FF]/20"
+                  placeholder="000000"
+                  className="w-full text-center tracking-[0.4em] font-mono text-2xl py-3 px-4 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-[#00D4FF] focus:ring-2 focus:ring-[#00D4FF]/20"
                   autoFocus
                 />
                 <button
                   type="submit"
                   disabled={verifying || code.length !== 6}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#00D4FF] to-[#0077b6] text-white text-xs font-bold uppercase tracking-wider hover:opacity-95 disabled:opacity-50 transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#00D4FF]/20"
+                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00D4FF] to-[#0077b6] text-white text-xs font-bold uppercase tracking-wider hover:opacity-95 disabled:opacity-50 transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#00D4FF]/20"
                 >
                   {verifying ? <Loader2 size={16} className="animate-spin" /> : <ShieldCheck size={16} />}
-                  {verifying ? 'Vérification...' : 'Valider et activer le MFA'}
+                  {verifying ? 'Vérification...' : 'Valider et activer la protection Google Authenticator'}
                 </button>
               </form>
             </div>
@@ -278,7 +305,7 @@ export const MfaSettingsField: React.FC = () => {
       {!mfaEnabled && !setupData && (
         <div className="space-y-4">
           <p className="text-xs text-slate-400 leading-relaxed">
-            Pour sécuriser les données confidentielles de NOBTECH, les devis, factures et contenus du site, nous vous recommandons fortement d&apos;activer la double authentification.
+            Pour sécuriser les données confidentielles de NOBTECH (devis, factures, admissions et messages clients), nous vous recommandons fortement d&apos;activer la double authentification avec <strong>Google Authenticator</strong>.
           </p>
           <button
             type="button"

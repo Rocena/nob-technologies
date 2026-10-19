@@ -171,8 +171,121 @@ export const SiteSettings: GlobalConfig = {
           ]
         },
         {
+          name: 'emailSettings',
+          label: 'Configuration E-mails & SMTP',
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'smtpHost',
+                  type: 'text',
+                  label: 'Serveur SMTP (Hôte)',
+                  defaultValue: 'smtp.gmail.com',
+                  admin: {
+                    width: '50%',
+                    placeholder: 'ex: smtp.gmail.com, mail.infomaniak.com, ssl0.ovh.net',
+                    description: 'Hôte SMTP de votre fournisseur de messagerie.',
+                  },
+                },
+                {
+                  name: 'smtpPort',
+                  type: 'number',
+                  label: 'Port SMTP',
+                  defaultValue: 587,
+                  admin: {
+                    width: '25%',
+                    placeholder: '587 ou 465',
+                    description: '587 (TLS standard) ou 465 (SSL direct).',
+                  },
+                },
+                {
+                  name: 'smtpSecure',
+                  type: 'checkbox',
+                  label: 'SSL direct (Port 465)',
+                  defaultValue: false,
+                  admin: {
+                    width: '25%',
+                    description: 'Cocher pour SSL direct (465). Décocher pour 587.',
+                  },
+                },
+              ],
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'smtpUser',
+                  type: 'text',
+                  label: 'Utilisateur / E-mail d’authentification SMTP',
+                  admin: {
+                    width: '50%',
+                    placeholder: 'ex: contact@nobtech.fr ou monadresse@gmail.com',
+                    description: 'Compte de messagerie utilisé pour s’authentifier.',
+                  },
+                },
+                {
+                  name: 'smtpPass',
+                  type: 'text',
+                  label: 'Mot de passe SMTP / Clé d’application',
+                  admin: {
+                    width: '50%',
+                    placeholder: '••••••••••••••••',
+                    description: 'Pour Gmail : utilisez un "Mot de passe d\'application" Google (16 caractères).',
+                  },
+                },
+              ],
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'smtpFrom',
+                  type: 'text',
+                  label: 'Nom & Adresse d’expéditeur (From)',
+                  defaultValue: '"NOB TECHNOLOGIES" <contact@nobtech.fr>',
+                  admin: {
+                    width: '50%',
+                    placeholder: '"NOB TECHNOLOGIES" <contact@nobtech.fr>',
+                    description: 'Expéditeur officiel affiché au destinataire.',
+                  },
+                },
+                {
+                  name: 'adminNotificationEmails',
+                  type: 'text',
+                  label: 'Destinataires des notifications admin (séparés par virgules)',
+                  defaultValue: 'contact@nobtech.fr, rolva.iqra@gmail.com',
+                  admin: {
+                    width: '50%',
+                    placeholder: 'contact@nobtech.fr, rolva.iqra@gmail.com',
+                    description: 'Adresses qui reçoivent les devis, admissions et messages.',
+                  },
+                },
+              ],
+            },
+            {
+              name: 'resendApiKey',
+              type: 'text',
+              label: 'Clé API Resend (Optionnel - Solution de secours HTTP)',
+              admin: {
+                placeholder: 're_...',
+                description: 'Clé API Resend si vous souhaitez utiliser l\'envoi par API HTTP plutôt que SMTP.',
+              },
+            },
+            {
+              name: 'emailTestTool',
+              type: 'ui',
+              admin: {
+                components: {
+                  Field: '@/components/admin/EmailTestField#EmailTestField',
+                },
+              },
+            },
+          ],
+        },
+        {
           name: 'security',
-          label: 'Sécurité & Accès MFA (2FA)',
+          label: 'Sécurité & Google Authenticator (MFA / 2FA)',
           fields: [
             {
               name: 'mfaSecuritySettings',

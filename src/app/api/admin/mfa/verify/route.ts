@@ -11,15 +11,27 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Non authentifié' }, { status: 401 });
     }
 
-    const { secret, code } = await req.json();
+    const body = await req.json().catch(() => ({}));
+    const code = (body.code || '').trim();
+    let secret = (body.secret || '').trim();
+
+    if (!secret) {
+      const currentUser = await payload.findByID({
+        collection: 'users',
+        id: user.id,
+      }) as any;
+      if (currentUser?.mfaSecret) {
+        secret = currentUser.mfaSecret;
+      }
+    }
 
     if (!secret || !code) {
-      return NextResponse.json({ error: 'Secret et code requis' }, { status: 400 });
+      return NextResponse.json({ error: 'Clé secrète et code à 6 chiffres requis' }, { status: 400 });
     }
 
     const isValid = verifyTOTP(secret, code);
     if (!isValid) {
-      return NextResponse.json({ error: 'Code de vérification invalide ou expiré. Assurez-vous que l’heure de votre appareil est synchronisée.' }, { status: 400 });
+      return NextResponse.json({ error: 'Code de vérification Google Authenticator invalide ou expiré. Assurez-vous que l’heure de votre smartphone est synchronisée automatiquement.' }, { status: 400 });
     }
 
     // Update user with MFA enabled

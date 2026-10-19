@@ -53,3 +53,64 @@ export async function GET(req: NextRequest) {
     );
   }
 }
+
+export async function POST(req: NextRequest) {
+  try {
+    const payload = await getPayloadClient();
+    const { user } = await payload.auth({ headers: req.headers });
+
+    if (!user) {
+      return NextResponse.json({ error: 'Non authentifié. Vous devez être connecté au back-office.' }, { status: 401 });
+    }
+
+    const body = await req.json().catch(() => ({}));
+    const recipient = (body.recipient || '').trim() || user.email || 'contact@nobtech.fr';
+
+    const testHtml = generateAdminNotificationHtml({
+      formType: 'Test de Validation SMTP (Back-Office)',
+      name: user.name || 'Administrateur NOBTECH',
+      email: user.email,
+      phone: '+221 77 301 08 38',
+      company: 'NOB TECHNOLOGIES',
+      subject: 'Confirmation de fonctionnement du serveur SMTP',
+      message: 'Ce message confirme que la liaison SMTP configurée dans les paramètres du Back-Office NOBTECH est opérationnelle.',
+      fields: [
+        { label: 'Date et heure', value: new Date().toLocaleString('fr-FR', { timeZone: 'Africa/Dakar' }) },
+        { label: 'Destinataire testé', value: recipient },
+        { label: 'Déclenché par', value: `${user.name || user.email} (${user.email})` },
+      ],
+    });
+
+    const result = await sendEmail({
+      to: recipient,
+      subject: '[Test NOBTECH] Validation réussie de vos paramètres SMTP',
+      html: testHtml,
+    });
+
+    if (result.success) {
+      return NextResponse.json({
+        success: true,
+        message: `E-mail de test envoyé avec succès à ${recipient} !`,
+        messageId: (result as any).messageId,
+      });
+    } else {
+      return NextResponse.json(
+        {
+          success: false,
+          error: (result as any).message || 'Échec de l\'envoi de l\'email de test.',
+          warning: (result as any).warning,
+        },
+        { status: 400 }
+      );
+    }
+  } catch (error: any) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: error?.message || String(error),
+      },
+      { status: 500 }
+    );
+  }
+}
+

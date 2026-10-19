@@ -63,6 +63,24 @@ const postgresPatchStatements: string[] = [
 
   // 5. Relations
   'ALTER TABLE "payload_locked_documents_rels" ADD COLUMN IF NOT EXISTS "admissions_id" integer;',
+
+  // 6. Colonnes Email & SMTP sur site_settings
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_settings_smtp_host" varchar DEFAULT \'smtp.gmail.com\';',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_settings_smtp_port" numeric DEFAULT 587;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_settings_smtp_secure" boolean DEFAULT false;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_settings_smtp_user" varchar;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_settings_smtp_pass" varchar;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_settings_smtp_from" varchar DEFAULT \'"NOB TECHNOLOGIES" <contact@nobtech.fr>\';',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_settings_admin_notification_emails" varchar;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_settings_resend_api_key" varchar;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "smtp_host" varchar DEFAULT \'smtp.gmail.com\';',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "smtp_port" numeric DEFAULT 587;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "smtp_secure" boolean DEFAULT false;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "smtp_user" varchar;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "smtp_pass" varchar;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "smtp_from" varchar DEFAULT \'"NOB TECHNOLOGIES" <contact@nobtech.fr>\';',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "admin_notification_emails" varchar;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "resend_api_key" varchar;',
 ];
 
 export async function ensureDatabaseSchema(payload: Payload): Promise<{
@@ -186,6 +204,24 @@ export async function ensureDatabaseSchema(payload: Payload): Promise<{
             );
           `);
         } catch {}
+
+        // 5. Colonnes Email & SMTP sur site_settings (SQLite)
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_settings_smtp_host\` text DEFAULT 'smtp.gmail.com';`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_settings_smtp_port\` numeric DEFAULT 587;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_settings_smtp_secure\` integer DEFAULT 0;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_settings_smtp_user\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_settings_smtp_pass\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_settings_smtp_from\` text DEFAULT '"NOB TECHNOLOGIES" <contact@nobtech.fr>';`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_settings_admin_notification_emails\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_settings_resend_api_key\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`smtp_host\` text DEFAULT 'smtp.gmail.com';`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`smtp_port\` numeric DEFAULT 587;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`smtp_secure\` integer DEFAULT 0;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`smtp_user\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`smtp_pass\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`smtp_from\` text DEFAULT '"NOB TECHNOLOGIES" <contact@nobtech.fr>';`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`admin_notification_emails\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`resend_api_key\` text;`); } catch {}
 
         console.log('[ensureDatabaseSchema] Schéma SQLite synchronisé avec succès.');
         return {
