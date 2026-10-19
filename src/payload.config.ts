@@ -142,7 +142,7 @@ export default buildConfig({
           max: 10,
         },
         prodMigrations: postgresMigrations,
-        push: false,
+        push: true,
       });
     }
 
