@@ -1,0 +1,61 @@
+[
+  {
+    "id": "learn-pricing",
+    "triggerPhrases": [
+      "c koi le prix",
+      "cb ca coute",
+      "tarif stp",
+      "combien pour",
+      "c cher",
+      "les prix svp",
+      "cout moyen",
+      "kel prix"
+    ],
+    "topic": "pricing",
+    "confidenceScore": 0.95,
+    "updatedAt": "2026-10-19T15:00:00.000Z"
+  },
+  {
+    "id": "learn-wifi-troubleshooting",
+    "triggerPhrases": [
+      "mon wifi deconne",
+      "le wifi saute",
+      "connexion pourrie",
+      "reseau trop lent",
+      "ca coupe tt le tps",
+      "probleme internet"
+    ],
+    "topic": "network-troubleshooting",
+    "confidenceScore": 0.95,
+    "updatedAt": "2026-10-19T15:00:00.000Z"
+  },
+  {
+    "id": "learn-virus-incident",
+    "triggerPhrases": [
+      "g un virus",
+      "ordi bloque",
+      "on s fait hacker",
+      "fichiers cryptes",
+      "rancon",
+      "pc infecte",
+      "ecran bloque"
+    ],
+    "topic": "incident-response",
+    "confidenceScore": 0.98,
+    "updatedAt": "2026-10-19T15:00:00.000Z"
+  },
+  {
+    "id": "learn-training-inquiry",
+    "triggerPhrases": [
+      "jveux apprendre",
+      "formation possible",
+      "cours du soir",
+      "certif cisco dispo",
+      "combien de tps la formation",
+      "formation pour debutant"
+    ],
+    "topic": "training",
+    "confidenceScore": 0.95,
+    "updatedAt": "2026-10-19T15:00:00.000Z"
+  }
+]

@@ -294,7 +294,7 @@ const INITIAL_SUGGESTIONS: string[] = [
 const DEFAULT_KNOWLEDGE_BASE: KnowledgeItem[] = [
   {
     keywords: ["prix", "tarif", "devis", "coût", "cout", "forfait", "abonnement", "chiffrer", "remplir"],
-    response: "Avec grand plaisir ! Chez **NOBTECH**, nos devis sont **100% gratuits, sur-mesure et sans engagement** sous 24h ouvrées. 📋\n\nPour aller au plus vite, 3 possibilités s'offrent à vous :\n\n1️⃣ **Remplir notre formulaire guidé en 1 minute** :\n👉 [Ouvrir le formulaire de devis en ligne](/contact)\n\n2️⃣ **M'en dire deux mots ici** :\nDites-moi simplement quel est votre projet (cybersécurité & pare-feu, câblage réseau, ERP, matériel, formation) et le nombre de postes ou locaux concernés. Vos coordonnées étant déjà rattachées à cette session, je transmets tout directement à nos ingénieurs !\n\n3️⃣ **Échanger directement sur WhatsApp** avec notre équipe technique :\n📲 [Discuter sur WhatsApp (+221 77 301 08 38)](https://wa.me/221773010838?text=Bonjour%20Koffi,%20je%20souhaite%20obtenir%20un%20devis)\n\nQuel domaine vous intéresse en priorité ?"
+    response: "Avec grand plaisir ! Chez **NOBTECH**, nos devis sont **100% gratuits, sur-mesure et transmis sous 24h ouvrées** sans engagement. 📋\n\nPour aller au plus vite, vous pouvez :\n• **M'en dire deux mots ici** (type de projet, nombre de postes ou locaux) et je transmets tout à nos ingénieurs.\n• Ou remplir notre formulaire rapide : [Ouvrir le formulaire de devis en ligne](/contact)\n\nDe quel domaine s'agit-il en priorité ?"
   },
   {
     keywords: ["sécurité", "securite", "cyber", "cybersécurité", "firewall", "vpn", "protection", "hack", "virus", "sophos", "fortinet"],
@@ -328,13 +328,21 @@ const DEFAULT_KNOWLEDGE_BASE: KnowledgeItem[] = [
 
 function fallbackSuggestions(text: string): string[] {
   const lower = text.toLowerCase();
+  if (/pas tout a fait certain|pardonnez-moi|pas bien compris|whatsapp|ingenieur/i.test(lower)) {
+    return [
+      "Échanger sur WhatsApp",
+      "Cybersécurité & Firewalls",
+      "Réseaux & Câblage",
+      "Formations certifiantes",
+      "Demander un devis"
+    ];
+  }
   if (/devis|prix|tarif|combien|cout|remplir|chiffrer/i.test(lower)) {
     return [
       "Devis Cybersécurité & Pare-feu",
       "Devis Câblage & Réseau",
       "Devis ERP sur-mesure",
-      "Ouvrir le formulaire devis",
-      "Échanger sur WhatsApp"
+      "Ouvrir le formulaire devis"
     ];
   }
   if (/cyber|securite|firewall|sophos|fortinet/i.test(lower)) {
@@ -352,12 +360,22 @@ function fallbackSuggestions(text: string): string[] {
   return ["Demander un devis gratuit", "Cybersécurité & Firewalls", "Réseaux & Câblage", "Formations certifiantes"];
 }
 
-function getBotResponse(input: string, knowledge: KnowledgeItem[]): string {
+function getBotResponse(input: string, knowledge: KnowledgeItem[], currentSessionId?: string): string {
   const lower = input.toLowerCase().trim();
   const words = lower.split(/[\s,.'?!]+/).filter(w => w.length > 0);
   
   if (words.length === 0) {
     return "Je vous écoute ! Dites-moi tout : comment puis-je vous aider aujourd'hui ? 😊";
+  }
+
+  // Affirmations
+  if (/^(oui|ok|d['\s]?accord|dac|ca marche|je veux bien|pourquoi pas|exactement|c['\s]?est ca|tout a fait)[.!?\s]*$/i.test(lower)) {
+    return "C'est un grand plaisir ! Dites-moi tout : quel projet ou point souhaitez-vous approfondir ?";
+  }
+
+  // Négations
+  if (/^(non|nan|pas pour l['\s]instant|plus tard|pas besoin|laisse tomber)[.!?\s]*$/i.test(lower)) {
+    return "Aucun problème, je comprends parfaitement ! 😊 Je reste à votre entière disposition dès que vous aurez besoin d'un conseil en informatique, réseau ou cybersécurité. Belle journée !";
   }
 
   if (/pizza|burger|nourriture|faim|manger/i.test(lower)) {
@@ -379,7 +397,7 @@ function getBotResponse(input: string, knowledge: KnowledgeItem[]): string {
     return "Vous pouvez nous écrire directement sur WhatsApp au **+221 77 301 08 38** 📲 ! [Cliquez ici pour démarrer la discussion](https://wa.me/221773010838?text=Bonjour%20Koffi,%20je%20souhaite%20obtenir%20des%20informations). Nos ingénieurs vous répondent très rapidement.";
   }
   if (/remplir un devis|demander un devis|devis gratuit|obtenir un devis|faire un devis|devis/i.test(lower)) {
-    return "Avec grand plaisir ! Chez **NOBTECH**, nos devis sont **100% gratuits, personnalisés et sans engagement** sous 24h ouvrées. 📋\n\nPour aller au plus vite, 3 possibilités s'offrent à vous :\n\n1️⃣ **Remplir notre formulaire guidé en 1 minute** :\n👉 [Ouvrir le formulaire de devis en ligne](/contact)\n\n2️⃣ **M'en dire deux mots ici** :\nDites-moi simplement quel est votre projet (cybersécurité & pare-feu, câblage réseau, ERP, matériel, formation) et le nombre de postes ou locaux concernés. Je note tout pour nos ingénieurs !\n\n3️⃣ **Échanger directement sur WhatsApp** avec notre équipe technique :\n📲 [Discuter sur WhatsApp (+221 77 301 08 38)](https://wa.me/221773010838?text=Bonjour%20Koffi,%20je%20souhaite%20obtenir%20un%20devis)\n\nQuel domaine vous intéresse en priorité ?";
+    return "Avec grand plaisir ! Chez **NOBTECH**, nos devis sont **100% gratuits, personnalisés et sans engagement** sous 24h ouvrées. 📋\n\nPour aller au plus vite, vous pouvez :\n• **M'en dire deux mots ici** (type de projet, nombre de postes ou locaux) et je transmets tout à nos ingénieurs.\n• Ou remplir notre formulaire guidé : [Ouvrir le formulaire de devis en ligne](/contact)\n\nQuel domaine vous intéresse en priorité ?";
   }
 
   let bestMatch: KnowledgeItem | null = null;
@@ -404,7 +422,16 @@ function getBotResponse(input: string, knowledge: KnowledgeItem[]): string {
     return bestMatch.response;
   }
 
-  return "Je suis à votre écoute ! Chez **NOBTECH**, nous intervenons en cybersécurité (Sophos, Fortinet), réseaux & câblage certifié, ERP sur-mesure (Odoo, Dolibarr), développement web et formations certifiantes à Dakar.\n\nDites-moi simplement ce que vous aimeriez réaliser ou joignez notre équipe au **+221 77 301 08 38** !";
+  const refText = currentSessionId ? ` (Réf. #${currentSessionId})` : '';
+  const waUrl = `https://wa.me/221773010838?text=Bonjour,%20j'%C3%A9changeais%20avec%20Koffi%20sur%20le%20site%20NOBTECH${encodeURIComponent(
+    refText
+  )}%20et%20je%20souhaite%20poser%20une%20question`;
+
+  return (
+    "Je ne suis pas tout à fait certain d'avoir bien compris votre demande, pardonnez-moi ! 😊 Pouvez-vous me la préciser en quelques mots ?\n\n" +
+    "Si vous préférez, vous pouvez aussi échanger directement avec un de nos ingénieurs sur WhatsApp :\n" +
+    `[💬 Échanger avec un ingénieur sur WhatsApp](${waUrl})`
+  );
 }
 
 function renderFormattedChunk(chunk: string, keyPrefix: string) {
@@ -764,6 +791,7 @@ export function ChatBot() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: trimmed,
+          sessionId,
           history: newMessages.slice(-6).map((m) => ({
             role: m.role,
             text: m.text,
@@ -773,7 +801,7 @@ export function ChatBot() {
 
       if (res.ok) {
         const data = await res.json();
-        const replyText = data.reply || getBotResponse(trimmed, knowledge);
+        const replyText = data.reply || getBotResponse(trimmed, knowledge, sessionId);
         const suggestions =
           Array.isArray(data.suggestions) && data.suggestions.length > 0
             ? data.suggestions
@@ -789,7 +817,7 @@ export function ChatBot() {
         finalMessagesWithBot = [...newMessages, botMsg];
         setMessages(finalMessagesWithBot);
       } else {
-        const replyText = getBotResponse(trimmed, knowledge);
+        const replyText = getBotResponse(trimmed, knowledge, sessionId);
         const botMsg: Message = {
           id: `bot-${Date.now()}`,
           role: 'bot',
@@ -801,7 +829,7 @@ export function ChatBot() {
         setMessages(finalMessagesWithBot);
       }
     } catch {
-      const replyText = getBotResponse(trimmed, knowledge);
+      const replyText = getBotResponse(trimmed, knowledge, sessionId);
       const botMsg: Message = {
         id: `bot-${Date.now()}`,
         role: 'bot',
@@ -987,29 +1015,34 @@ export function ChatBot() {
               <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#00D4FF]/10 text-[#00D4FF] font-semibold border border-[#00D4FF]/25">
                 NOBTECH
               </span>
-              {phase === 'active' && (
-                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/10 text-slate-300 border border-white/15">
-                  #{sessionId}
-                </span>
-              )}
             </div>
             <div className="text-[11px] text-slate-400 font-sans mt-0.5 truncate">
-              {phase === 'active' && visitor.name ? (
+              {visitor.name ? (
                 <span className="truncate">
-                  Session de <strong className="text-slate-200 font-medium">{visitor.name.split(' ')[0]}</strong>
+                  À votre écoute, <strong className="text-slate-200 font-medium">{visitor.name.split(' ')[0]}</strong>
                 </span>
               ) : (
-                <span>Conseiller virtuel en ligne · À votre écoute !</span>
+                <span>Conseiller en ligne · À votre écoute</span>
               )}
             </div>
           </div>
 
-          {/* Header Controls: Minimize (—) vs End Session (✕) */}
-          <div className="flex items-center gap-1 shrink-0">
+          {/* Header Controls: WhatsApp direct + Minimize (—) + Terminer (✕) */}
+          <div className="flex items-center gap-1.5 shrink-0">
+            <a
+              href={`https://wa.me/221773010838?text=Bonjour,%20j'%C3%A9changeais%20sur%20le%20site%20NOBTECH%20(R%C3%A9f.%20%23${sessionId})%20et%20je%20souhaite%20parler%20%C3%A0%20un%20ing%C3%A9nieur`}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Échanger avec un ingénieur sur WhatsApp"
+              className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-1 rounded bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366]/20 border border-[#25D366]/25 transition-colors cursor-pointer"
+            >
+              <span>WhatsApp</span>
+            </a>
+
             <button
               type="button"
               onClick={() => setOpen(false)}
-              title="Réduire la fenêtre (garder la session active)"
+              title="Réduire la fenêtre"
               className="text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/10"
               aria-label="Réduire la fenêtre"
             >
@@ -1020,9 +1053,9 @@ export function ChatBot() {
               <button
                 type="button"
                 onClick={() => setShowEndConfirm(true)}
-                title="Terminer et clôturer la session"
+                title="Terminer la discussion"
                 className="text-slate-400 hover:text-rose-400 transition-colors p-1.5 rounded-lg hover:bg-rose-500/10"
-                aria-label="Clôturer la session"
+                aria-label="Terminer la discussion"
               >
                 <LogOut className="w-4 h-4" />
               </button>
@@ -1141,10 +1174,10 @@ export function ChatBot() {
                   <LogOut className="w-6 h-6" />
                 </div>
                 <h4 className="text-base font-bold text-white">
-                  Clôturer la session #{sessionId} ?
+                  Terminer cette discussion ?
                 </h4>
                 <p className="text-xs text-slate-400 mt-1.5 max-w-[300px] leading-relaxed">
-                  En clôturant cette session, un récapitulatif complet de votre conversation sera transmis à nos ingénieurs{visitor.email ? <> ainsi qu&apos;à <strong className="text-slate-200">{visitor.email}</strong></> : '.'}.
+                  En terminant cet échange, un récapitulatif complet de votre conversation sera transmis à nos ingénieurs{visitor.email ? <> ainsi qu&apos;à <strong className="text-slate-200">{visitor.email}</strong></> : '.'}.
                 </p>
 
                 <div className="w-full space-y-2 mt-5">
@@ -1156,7 +1189,7 @@ export function ChatBot() {
                   >
                     {isEndingSession
                       ? 'Transmission du récapitulatif...'
-                      : 'Oui, clôturer et envoyer le récapitulatif'}
+                      : 'Oui, terminer et envoyer le récapitulatif'}
                   </button>
 
                   <button
@@ -1309,7 +1342,7 @@ export function ChatBot() {
                   onClick={() => setShowEndConfirm(true)}
                   className="text-slate-400 hover:text-rose-400 font-medium transition-colors"
                 >
-                  Clôturer la session
+                  Terminer l&apos;échange
                 </button>
               </div>
             </div>
@@ -1325,7 +1358,7 @@ export function ChatBot() {
               </div>
 
               <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-400 mb-2">
-                Session #{sessionId} clôturée
+                Discussion terminée
               </span>
 
               <h3 className="text-base font-bold text-white">
@@ -1385,7 +1418,7 @@ export function ChatBot() {
                 className="w-full py-2.5 px-4 rounded-xl bg-[#00D4FF] hover:bg-[#38BDF8] text-[#020617] font-bold text-xs transition-all flex items-center justify-center gap-2 shadow-[0_6px_20px_rgba(0,212,255,0.25)]"
               >
                 <RotateCcw className="w-4 h-4" />
-                Démarrer une nouvelle session
+                Démarrer un nouvel échange
               </button>
             </div>
           </div>

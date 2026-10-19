@@ -6,6 +6,7 @@ import {
   generateAdminNotificationHtml,
   generateClientAcknowledgmentHtml,
 } from '@/lib/email';
+import { saveLearnedPattern } from '@/lib/chat-learner';
 
 interface ChatTranscriptMessage {
   id?: string;
@@ -299,6 +300,16 @@ export async function POST(req: NextRequest) {
         },
       });
       savedDocId = created?.id ? String(created.id) : undefined;
+    }
+
+    // Apprentissage continu : mémoriser les formulations des conversations qualifiées ou bien notées
+    if (userMessages.length > 0 && ((rating && rating >= 4) || analysis.isSerious)) {
+      const topTopic = analysis.detectedTopics.length > 0 ? analysis.detectedTopics[0] : 'general';
+      for (const uMsg of userMessages) {
+        if (uMsg.text && uMsg.text.length >= 6 && uMsg.text.length <= 80) {
+          saveLearnedPattern(uMsg.text, topTopic);
+        }
+      }
     }
 
     // Send email summary to all admins ONLY when the conversation is serious

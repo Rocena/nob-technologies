@@ -1,4 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import {
+  normalizeNaturalLanguage,
+  analyzeConversationContext,
+  saveLearnedPattern,
+  buildUnclearFallbackResponse,
+  ChatHistoryItem,
+} from "@/lib/chat-learner";
 
 interface ChatMessage {
   role: "user" | "bot" | "assistant" | "system";
@@ -48,11 +55,40 @@ Pôles d'expertise clés :
 6. Formations & Certifications : Cybersécurité Fondamentale avec Certificat International Cisco (test officiel sanctionné par Cisco), Microsoft Power BI & Business Intelligence, Fortinet NSE 4, Sophos, Microsoft 365, Cisco CCNA, Gestion de projet, ISO 27001/NIST, Ethical Hacking.`;
 
 // Natural conversational human response generator (works 100% offline & without third-party API keys)
-function generateNaturalResponse(userMessage: string, history: ChatMessage[] = []): string {
+function generateNaturalResponse(
+  userMessage: string,
+  history: ChatMessage[] = [],
+  sessionId?: string
+): string {
   const raw = userMessage.trim();
-  const q = raw.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // strip accents
+  const q = normalizeNaturalLanguage(raw);
   const words = q.split(/[\s,.'?!;:()\-_\/]+/).filter((w) => w.length > 0);
   const isOneWord = words.length <= 1;
+
+  // 0. Analyse contextuelle multi-tours pour comprendre naturellement la suite de l'échange
+  const context = analyzeConversationContext(raw, history as ChatHistoryItem[]);
+
+  if (context.isAffirmation) {
+    if (context.lastTopic === "formation") {
+      return "Super ! 🎓 Souhaitez-vous vous inscrire à la prochaine session ou recevoir le programme complet en PDF ?\n\nVous pouvez aussi nous laisser vos coordonnées (prénom, téléphone ou email) ici pour qu'un conseiller pédagogique vous recontacte.";
+    }
+    if (context.lastTopic === "devis" || context.lastTopic === "dimensionnement-postes" || context.lastTopic === "cablage-reseau") {
+      return "Parfait ! 📋 Vous pouvez soit remplir notre formulaire en 1 minute : [Ouvrir le formulaire de devis](/contact), soit me décrire votre projet et vos locaux directement ici !";
+    }
+    if (context.lastTopic === "contact-request") {
+      return "Parfait ! Vous pouvez simplement m'écrire votre prénom ainsi que votre numéro de téléphone ou adresse email ci-dessous.";
+    }
+    return "C'est un grand plaisir ! Dites-moi tout : quel projet ou point souhaitez-vous approfondir ?";
+  }
+
+  if (context.isNegation) {
+    return "Aucun problème, je comprends parfaitement ! 😊 Je reste à votre entière disposition dès que vous aurez besoin d'un conseil en informatique, réseau ou cybersécurité. Belle journée à vous !";
+  }
+
+  if (context.isNumberAnswer && (context.lastTopic === "dimensionnement-postes" || context.lastTopic === "cybersecurite" || context.lastTopic === "cablage-reseau")) {
+    saveLearnedPattern(raw, "dimensionnement-postes");
+    return `C'est bien noté pour ce volume (${context.numberValue || words[0]}) ! 📊 Pour un tel parc, nous préconisons un dimensionnement robuste et évolutif avec pare-feu nouvelle génération (Sophos ou Fortinet), commutation Gigabit manageable et plan de sauvegarde quotidien.\n\nSouhaitez-vous recevoir une proposition chiffrée détaillée sous 24h ouvrées ? Vous pouvez remplir notre [formulaire de devis](/contact) ou me laisser vos coordonnées ici !`;
+  }
 
   // Détection si l'utilisateur fournit spontanément ses coordonnées ou répond à la demande
   const emailMatch = raw.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/i);
@@ -178,32 +214,38 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
 
   // 15. Devis spécifique Cybersécurité & Pare-feu
   if (/(cyber|s[eé]curit[eé]|firewall|pare-?feu|ransomware)/i.test(q) && /(devis|prix|tarif|combien|chiffr|cout|budget)/i.test(q)) {
-    return "C'est bien noté pour votre projet de cybersécurité ! 🛡️ Chez **NOBTECH**, nous protégeons les réseaux et données des entreprises avec les pare-feux Sophos XGS et Fortinet FortiGate, et des sauvegardes anti-ransomware Acronis.\n\nPour vous chiffrer la solution adéquate :\n1. Combien de postes de travail, serveurs ou utilisateurs avez-vous environ à sécuriser ?\n2. S'agit-il d'équiper un nouveau réseau ou de remplacer un équipement existant ?\n\nVous pouvez me donner ces détails ici, ou les consigner dans notre [formulaire de devis](/contact) ou par [WhatsApp direct (+221 77 301 08 38)](https://wa.me/221773010838?text=Bonjour%20Koffi,%20je%20souhaite%20un%20devis%20cyber) !";
+    saveLearnedPattern(raw, "cybersecurite");
+    return "C'est bien noté pour votre projet de cybersécurité ! 🛡️ Chez **NOBTECH**, nous protégeons les réseaux et données des entreprises avec les pare-feux Sophos XGS et Fortinet FortiGate, et des sauvegardes anti-ransomware Acronis.\n\nPour vous chiffrer la solution adéquate :\n1. Combien de postes de travail, serveurs ou utilisateurs avez-vous environ à sécuriser ?\n2. S'agit-il d'équiper un nouveau réseau ou de remplacer un équipement existant ?\n\nVous pouvez me donner ces détails ici, ou remplir notre [formulaire de devis en ligne](/contact) !";
   }
 
   // 16. Devis spécifique Réseau & Câblage
   if (/(r[eé]seau|c[aâ]blage|baie|brassage|fibre|wifi)/i.test(q) && /(devis|prix|tarif|combien|chiffr|cout|budget)/i.test(q)) {
-    return "Excellente démarche ! Une infrastructure réseau bien dimensionnée est essentielle pour la productivité de vos équipes. 🌐\n\nChez **NOBTECH**, nous assurons le câblage Cat 6A/7 certifié Fluke, l'aménagement de baies 42U et le Wi-Fi haute densité.\n\nPour calibrer le devis :\n1. S'agit-il de nouveaux bureaux ou de la rénovation d'un réseau existant ?\n2. Combien de prises RJ45 ou de pièces devez-vous raccorder ?\n\nDécrivez-moi vos locaux ici, ou partagez vos plans sur notre [formulaire de devis](/contact) ou sur [WhatsApp (+221 77 301 08 38)](https://wa.me/221773010838) !";
+    saveLearnedPattern(raw, "cablage-reseau");
+    return "Excellente démarche ! Une infrastructure réseau bien dimensionnée est essentielle pour la productivité de vos équipes. 🌐\n\nChez **NOBTECH**, nous assurons le câblage Cat 6A/7 certifié Fluke, l'aménagement de baies 42U et le Wi-Fi haute densité.\n\nPour calibrer le devis :\n1. S'agit-il de nouveaux bureaux ou de la rénovation d'un réseau existant ?\n2. Combien de prises RJ45 ou de pièces devez-vous raccorder ?\n\nDécrivez-moi vos locaux ici, ou partagez vos plans sur notre [formulaire de devis en ligne](/contact) !";
   }
 
   // 17. Devis spécifique ERP & Logiciel de gestion
   if (/(erp|odoo|dolibarr|logiciel|gestion|facturation)/i.test(q) && /(devis|prix|tarif|combien|chiffr|cout|budget)/i.test(q)) {
+    saveLearnedPattern(raw, "erp");
     return "Très bon réflexe ! La digitalisation de vos processus permet un gain de temps et un contrôle financier immédiats. 💼\n\n**NOBTECH** conçoit des ERP 100% sur-mesure et déploie les solutions de référence Odoo et Dolibarr (ventes, facturation conforme, stocks, achats, RH).\n\nPour préparer votre chiffrage :\n• Quels sont les 2 ou 3 modules essentiels pour votre activité ?\n• Combien de collaborateurs utiliseront l'outil au quotidien ?\n\nVous pouvez me l'indiquer ici ou remplir notre [formulaire de devis](/contact) !";
   }
 
   // 18. Spécifications de postes fournies par l'utilisateur (ex: "20 postes", "moins de 20 postes", etc.)
   if (/(moins de \d+|entre \d+ et \d+|plus de \d+|\d+\s*(postes|ordinateurs|pc|utilisateurs|salari[eé]s|employ[eé]s))/i.test(q)) {
-    return "C'est bien noté pour ce volume ! Pour un parc de cette envergure, nous recommandons généralement un dimensionnement robuste et évolutif (pare-feu adapté nouvelle génération, commutation Gigabit manageable et plan de sauvegarde quotidien immuable).\n\nPour recevoir votre proposition chiffrée détaillée sous 24h ouvrées :\n👉 [Remplissez rapidement notre formulaire de devis](/contact)\n📲 Ou écrivez-nous sur [WhatsApp au +221 77 301 08 38](https://wa.me/221773010838?text=Bonjour%20Koffi,%20j'ai%20un%20projet%20pour%20ce%20volume%20de%20postes) avec ces détails !";
+    saveLearnedPattern(raw, "dimensionnement-postes");
+    return "C'est bien noté pour ce volume ! Pour un parc de cette envergure, nous recommandons généralement un dimensionnement robuste et évolutif (pare-feu adapté nouvelle génération, commutation Gigabit manageable et plan de sauvegarde quotidien immuable).\n\nPour recevoir votre proposition chiffrée détaillée sous 24h ouvrées :\n👉 [Remplissez rapidement notre formulaire de devis en ligne](/contact)\n\nVous pouvez aussi simplement me laisser votre email ou numéro ici !";
   }
 
   // 19. Nouveaux locaux à câbler
   if (/(nouveau|nouveaux|nouvelle)\s*(locaux|bureau|bureaux|batiment|immeuble|siege)/i.test(q)) {
+    saveLearnedPattern(raw, "cablage-reseau");
     return "Félicitations pour vos nouveaux locaux ! 🎉 C'est le moment parfait pour installer un câblage certifié Cat 6A et une baie de brassage propre avant l'arrivée des équipes.\n\nNos ingénieurs se déplacent gratuitement à Dakar pour visiter votre site, effectuer le relevé technique et vous transmettre un devis détaillé sous 24h.\n\nSouhaitez-vous planifier une visite sur place ou échanger par téléphone au **+221 77 301 08 38** ?";
   }
 
   // 20. Demande générale de devis / "remplir un devis" / "demander un devis" / "prix"
   if (/(remplir un devis|demander un devis|faire un devis|obtenir un devis|devis gratuit|devis|c['\s]?est cher|combien [cç]a co[uû]te|prix|tarif|co[uû]t|budget|chiffrer)/i.test(q) || (isOneWord && ["prix", "devis", "tarif", "combien"].includes(words[0]))) {
-    return "Avec grand plaisir ! Chez **NOBTECH**, nos devis sont **100% gratuits, sur-mesure et transmis sous 24h ouvrées** sans aucun engagement. 📋\n\nPour avancer au plus vite, vous avez **3 options très simples** :\n\n1️⃣ **M'en dire deux mots directement ici** :\nDites-moi simplement de quel type de projet il s'agit (cybersécurité & pare-feu, câblage réseau, ERP, matériel, formation) et vos délais souhaités.\n\n2️⃣ **Remplir notre formulaire guidé en ligne** :\n👉 [Ouvrir le formulaire de devis en ligne](/contact)\n\n3️⃣ **Échanger directement sur WhatsApp** avec notre équipe technique :\n📲 [Discuter sur WhatsApp (+221 77 301 08 38)](https://wa.me/221773010838?text=Bonjour%20Koffi,%20je%20souhaite%20obtenir%20un%20devis)" + contactPromptPill;
+    saveLearnedPattern(raw, "pricing");
+    return "Avec grand plaisir ! Chez **NOBTECH**, nos devis sont **100% gratuits, sur-mesure et transmis sous 24h ouvrées** sans aucun engagement. 📋\n\nPour avancer simplement, vous pouvez :\n• **M'en dire deux mots directement ici** (type de projet, nombre de postes ou locaux) et je transmets tout à nos ingénieurs.\n• Ou remplir notre formulaire rapide en 1 minute : [Ouvrir le formulaire de devis en ligne](/contact)\n\nDe quel domaine s'agit-il en priorité ?" + contactPromptPill;
   }
 
   // 21. Wi-Fi & Problèmes réseau local
@@ -290,18 +332,24 @@ function generateNaturalResponse(userMessage: string, history: ChatMessage[] = [
     return "Pourquoi choisir **NOBTECH** ? Parce que nous allions la réactivité locale à Dakar et l'exigence des standards internationaux ! 🚀\n\n• Des ingénieurs certifiés sur le terrain (Cisco, Fortinet, Sophos).\n• Des références majeures qui attestent de notre sérieux (Union Européenne, SETER / TER Dakar, Dolima, Polyclinique P2A).\n• Des solutions pérennes et durables, avec support technique disponible.\n\nQue cherchez-vous à améliorer dans votre entreprise ?";
   }
 
-  // 32. Réponse générale naturelle & conversationnelle
-  return "Je suis à votre écoute ! Chez **NOBTECH**, nous accompagnons les entreprises et professionnels dans quatre grands domaines :\n\n" +
-    "• 🛡️ **Cybersécurité & Pare-feux** (Sophos, Fortinet, sauvegardes anti-ransomware Acronis)\n" +
-    "• 🌐 **Réseaux, Wi-Fi & Câblage** (baies de brassage 42U, fibre optique, commutateurs Cisco)\n" +
-    "• 💼 **ERP & Digitalisation** (logiciels sur-mesure, Odoo, Dolibarr, sites web)\n" +
-    "• 🎓 **Formations certifiantes** (Cybersécurité Cisco, Power BI, Fortinet NSE 4, CCNA)\n\n" +
-    "Dites-moi simplement en quelques mots ce que vous aimeriez réaliser ou le problème que vous rencontrez, et je vous orienterai avec grand plaisir ! Vous pouvez aussi joindre directement un de nos ingénieurs au **+221 77 301 08 38**.";
+  // 32. Réponse de repli quand le chat ne comprend pas bien la demande
+  return buildUnclearFallbackResponse(sessionId);
 }
 
 // Génère des choix interactifs de rebond pour aider l'utilisateur sans boucler à l'infini
 export function computeSuggestions(userMessage: string, botReply: string = ""): string[] {
   const text = (userMessage + " " + botReply).toLowerCase();
+
+  // Cas où le bot ne comprend pas bien la demande ou propose d'échanger sur WhatsApp
+  if (/pas tout a fait certain|pardonnez-moi|pas bien compris|ingenieur sur whatsapp/i.test(text)) {
+    return [
+      "Échanger sur WhatsApp",
+      "Cybersécurité & Pare-feu",
+      "Réseaux & Câblage",
+      "Formations certifiantes",
+      "Demander un devis"
+    ];
+  }
 
   // Cas spécifique : détails de devis cyber
   if (/cyber|securite|firewall|sophos|fortinet/i.test(text) && /poste|taille|dimension|chiffr/i.test(text)) {
@@ -339,8 +387,7 @@ export function computeSuggestions(userMessage: string, botReply: string = ""): 
       "Devis Cybersécurité & Pare-feu",
       "Devis Câblage & Réseau",
       "Devis ERP & Logiciel",
-      "Ouvrir le formulaire devis",
-      "Échanger sur WhatsApp"
+      "Ouvrir le formulaire devis"
     ];
   }
 
@@ -406,7 +453,7 @@ export function computeSuggestions(userMessage: string, botReply: string = ""): 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { message, history } = body;
+    const { message, history, sessionId } = body;
 
     if (!message || typeof message !== "string") {
       return NextResponse.json({ error: "Message invalide" }, { status: 400 });
@@ -553,7 +600,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Provider 4: Built-in Human Conversational Intelligence (100% reliable, zero license fee, immediate)
-    const naturalReply = generateNaturalResponse(message, history);
+    const naturalReply = generateNaturalResponse(message, history, sessionId);
     return NextResponse.json({
       reply: naturalReply,
       suggestions: computeSuggestions(message, naturalReply),
