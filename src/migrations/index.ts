@@ -1,5 +1,6 @@
 import * as migration_20261009_084959_init from './20261009_084959_init';
 import * as migration_20261013_153500_sync_columns from './20261013_153500_sync_columns';
+import * as migration_20261016_190000_admissions_and_sessions from './20261016_190000_admissions_and_sessions';
 import * as migration_20261013_183000_postgres_init from './20261013_183000_postgres_init';
 
 export const migrations = [
@@ -12,6 +13,11 @@ export const migrations = [
     up: migration_20261013_153500_sync_columns.up,
     down: migration_20261013_153500_sync_columns.down,
     name: '20261013_153500_sync_columns'
+  },
+  {
+    up: migration_20261016_190000_admissions_and_sessions.up,
+    down: migration_20261016_190000_admissions_and_sessions.down,
+    name: '20261016_190000_admissions_and_sessions'
   },
 ];
 

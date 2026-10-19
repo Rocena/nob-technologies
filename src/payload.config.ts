@@ -25,6 +25,7 @@ import { Customers } from './collections/Customers';
 import { Quotes } from './collections/Quotes';
 import { Invoices } from './collections/Invoices';
 import { Formations } from './collections/Formations';
+import { Admissions } from './collections/Admissions';
 import { SiteSettings } from './globals/SiteSettings';
 import { migrations, postgresMigrations } from './migrations';
 
@@ -92,6 +93,7 @@ export default buildConfig({
     ContactMessages,
     Projects,
     Formations,
+    Admissions,
   ],
   editor: lexicalEditor({}),
   secret: process.env.PAYLOAD_SECRET || 'nobtech-super-secret-key-12345',

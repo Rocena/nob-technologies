@@ -208,5 +208,92 @@ export const Formations: CollectionConfig = {
         },
       ],
     },
+    {
+      name: 'sessions',
+      label: 'Sessions & Prochaines Rentrées',
+      labels: {
+        singular: 'Session de rentrée',
+        plural: 'Sessions de rentrées',
+      },
+      type: 'array',
+      admin: {
+        description: 'Créez, modifiez ou supprimez les sessions / rentrées disponibles pour cette formation.',
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'name',
+              label: 'Intitulé de la session (ex: Rentrée Novembre 2026 — Soir)',
+              type: 'text',
+              required: true,
+              admin: { width: '60%' },
+            },
+            {
+              name: 'startDate',
+              label: 'Date de démarrage',
+              type: 'date',
+              admin: { width: '40%' },
+            },
+          ],
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'schedule',
+              label: 'Horaires & Rythme (ex: Mar & Jeu 18h30 - 21h00, Sam 9h - 13h)',
+              type: 'text',
+              admin: { width: '40%' },
+            },
+            {
+              name: 'format',
+              label: 'Modalité pédagogique',
+              type: 'select',
+              defaultValue: 'hybride',
+              options: [
+                { label: 'Hybride (Présentiel Dakar + En direct en ligne)', value: 'hybride' },
+                { label: '100% Présentiel (Campus Dakar)', value: 'presentiel' },
+                { label: '100% En Ligne (Direct interactif & Labs)', value: 'en_ligne' },
+              ],
+              admin: { width: '30%' },
+            },
+            {
+              name: 'status',
+              label: 'Statut des inscriptions',
+              type: 'select',
+              defaultValue: 'open',
+              options: [
+                { label: 'Inscriptions ouvertes', value: 'open' },
+                { label: 'Dernières places', value: 'limited' },
+                { label: 'Complet (Liste d\'attente)', value: 'full' },
+                { label: 'Session fermée', value: 'closed' },
+              ],
+              admin: { width: '30%' },
+            },
+          ],
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'availableSeats',
+              label: 'Nombre de places disponibles / restantes',
+              type: 'number',
+              defaultValue: 10,
+              admin: { width: '50%' },
+            },
+            {
+              name: 'location',
+              label: 'Lieu / Campus (ex: Dakar — Almadies ou En Ligne)',
+              type: 'text',
+              defaultValue: 'Campus NOB TECHNOLOGIES — Dakar',
+              admin: { width: '50%' },
+            },
+          ],
+        },
+      ],
+    },
   ],
 };

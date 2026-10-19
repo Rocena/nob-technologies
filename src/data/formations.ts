@@ -40,6 +40,17 @@ export interface FormationOffering {
   rhythm: string;
 }
 
+export interface FormationSession {
+  id?: string;
+  name: string;
+  startDate?: string;
+  schedule?: string;
+  format?: 'hybride' | 'presentiel' | 'en_ligne';
+  status?: 'open' | 'limited' | 'full' | 'closed';
+  availableSeats?: number;
+  location?: string;
+}
+
 export interface Formation {
   slug: string;
   title: string;
@@ -66,6 +77,7 @@ export interface Formation {
   career?: FormationCareer;
   offerings: FormationOffering[];
   pricing: FormationPricing;
+  sessions?: FormationSession[];
 }
 
 export const DEFAULT_FORMATION_INCLUSIONS: string[] = [
@@ -76,6 +88,38 @@ export const DEFAULT_FORMATION_INCLUSIONS: string[] = [
   "Certificat d'excellence officiel NOB TECHNOLOGIES vérifiable",
   "Méthodologie de pédagogie active (80% pratique terrain, 20% théorie)",
 ];
+
+export function getDefaultSessionsForFormation(slug?: string): FormationSession[] {
+  return [
+    {
+      name: "Rentrée Prochaine — Cours du Soir (18h30 - 21h00)",
+      startDate: "2026-11-16",
+      schedule: "Mardi & Jeudi 18h30 - 21h00",
+      format: "hybride",
+      status: "open",
+      availableSeats: 8,
+      location: "Campus Dakar (Almadies) & En direct en ligne",
+    },
+    {
+      name: "Rentrée Prochaine — Session Samedi Intensif (9h00 - 13h00)",
+      startDate: "2026-11-21",
+      schedule: "Samedi 09h00 - 13h00 + Travaux Pratiques dirigés",
+      format: "hybride",
+      status: "limited",
+      availableSeats: 4,
+      location: "Campus Dakar & Labs cloud dédiés",
+    },
+    {
+      name: "Session Suivante — Cohorte Trimestrielle",
+      startDate: "2027-01-11",
+      schedule: "Rythme flexible (Soir ou Samedi)",
+      format: "hybride",
+      status: "open",
+      availableSeats: 12,
+      location: "Campus Dakar & Visio interactif",
+    },
+  ];
+}
 
 export const DEFAULT_FORMATION_OFFERINGS: FormationOffering[] = [
   {

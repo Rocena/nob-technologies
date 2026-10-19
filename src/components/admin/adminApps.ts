@@ -45,6 +45,7 @@ export const appGroups: AdminAppGroup[] = [
     color: '#0EA5E9',
     apps: [
       { name: 'Formations', Icon: GraduationCap, href: '/admin/collections/formations' },
+      { name: 'Admissions', Icon: UsersThree, href: '/admin/collections/admissions' },
       { name: 'Services', Icon: SuitcaseSimple, href: '/admin/collections/services' },
       { name: 'Plans Tarifaires', Icon: TagChevron, href: '/admin/collections/pricing-plans' },
     ],

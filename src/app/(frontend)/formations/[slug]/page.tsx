@@ -499,6 +499,7 @@ export default async function FormationDetailPage({ params }: Props) {
               <FormationInquiryForm
                 formationTitle={formation.title}
                 formationSlug={formation.slug}
+                sessions={formation.sessions}
               />
             </div>
           </Container>

@@ -319,10 +319,20 @@ export const statements: string[] = [
   "CREATE INDEX \"users_created_at_idx\" ON \"users\" USING btree (\"created_at\");",
   "CREATE UNIQUE INDEX \"users_email_idx\" ON \"users\" USING btree (\"email\");",
   "CREATE INDEX \"users_sessions_order_idx\" ON \"users_sessions\" USING btree (\"_order\");",
-  "CREATE INDEX \"users_sessions_parent_id_idx\" ON \"users_sessions\" USING btree (\"_parent_id\");"
+  "CREATE INDEX \"users_sessions_parent_id_idx\" ON \"users_sessions\" USING btree (\"_parent_id\");",
+  "CREATE TABLE IF NOT EXISTS \"admissions\" (\"id\" serial PRIMARY KEY NOT NULL, \"candidate_name\" varchar NOT NULL, \"email\" varchar NOT NULL, \"phone\" varchar NOT NULL, \"current_status\" varchar, \"formation_title\" varchar NOT NULL, \"formation_slug\" varchar, \"target_session\" varchar NOT NULL, \"preferred_schedule\" varchar, \"current_level\" varchar, \"format\" varchar, \"motivation\" text, \"status\" varchar DEFAULT 'pending', \"decision_date\" timestamp(3) with time zone, \"admin_feedback\" text, \"email_sent_at\" timestamp(3) with time zone, \"reviewed_by\" varchar, \"updated_at\" timestamp(3) with time zone DEFAULT now() NOT NULL, \"created_at\" timestamp(3) with time zone DEFAULT now() NOT NULL);",
+  "CREATE INDEX IF NOT EXISTS \"admissions_status_idx\" ON \"admissions\" USING btree (\"status\");",
+  "CREATE INDEX IF NOT EXISTS \"admissions_email_idx\" ON \"admissions\" USING btree (\"email\");",
+  "CREATE TABLE IF NOT EXISTS \"formations_sessions\" (\"_order\" integer NOT NULL, \"_parent_id\" integer NOT NULL, \"id\" varchar PRIMARY KEY NOT NULL, \"name\" varchar NOT NULL, \"start_date\" timestamp(3) with time zone, \"schedule\" varchar, \"format\" varchar DEFAULT 'hybride', \"status\" varchar DEFAULT 'open', \"available_seats\" numeric DEFAULT 10, \"location\" varchar DEFAULT 'Campus NOB TECHNOLOGIES — Dakar', CONSTRAINT \"formations_sessions_parent_id_fk\" FOREIGN KEY (\"_parent_id\") REFERENCES \"formations\"(\"id\") ON DELETE cascade ON UPDATE no action);",
+  "CREATE INDEX IF NOT EXISTS \"formations_sessions_order_idx\" ON \"formations_sessions\" USING btree (\"_order\");",
+  "CREATE INDEX IF NOT EXISTS \"formations_sessions_parent_id_idx\" ON \"formations_sessions\" USING btree (\"_parent_id\");"
 ];
 
 export async function up({ db }: MigrateUpArgs): Promise<void> {
+  if (typeof (db as any)?.execute !== 'function') {
+    // Running on SQLite adapter, skip postgres-specific DDL
+    return;
+  }
   for (const statement of statements) {
     try {
       await db.execute(sql.raw(statement));

@@ -1,4 +1,4 @@
-import { FORMATIONS_DATA } from '@/data/formations';
+import { FORMATIONS_DATA, getDefaultSessionsForFormation } from '@/data/formations';
 import type { Payload } from 'payload';
 
 export async function ensureCompleteSeed(payload: Payload) {
@@ -14,6 +14,8 @@ export async function ensureCompleteSeed(payload: Payload) {
           where: { slug: { equals: item.slug } },
           limit: 1,
         }).catch(() => ({ docs: [] }));
+
+        const defaultSessions = getDefaultSessionsForFormation(item.slug);
 
         const formationPayload: any = {
           title: item.title,
@@ -45,22 +47,37 @@ export async function ensureCompleteSeed(payload: Payload) {
             deliverable: m.deliverable,
           })),
           keyOutcomes: (item.keyOutcomes || []).map((o) => ({ outcome: o })),
+          sessions: defaultSessions.map((s) => ({
+            name: s.name,
+            startDate: s.startDate,
+            schedule: s.schedule,
+            format: s.format || 'hybride',
+            status: s.status || 'open',
+            availableSeats: s.availableSeats || 10,
+            location: s.location || 'Campus NOB TECHNOLOGIES — Dakar',
+          })),
         };
 
         if (existing.docs.length === 0) {
-          await payload.create({
+          await (payload as any).create({
             collection: 'formations',
             data: formationPayload,
           });
         } else {
-          await payload.update({
-            collection: 'formations',
-            id: existing.docs[0].id,
-            data: formationPayload,
-          });
+          // If existing doc has no sessions, add them
+          const existingDoc = existing.docs[0] as any;
+          if (!existingDoc.sessions || existingDoc.sessions.length === 0) {
+            await (payload as any).update({
+              collection: 'formations',
+              id: existingDoc.id,
+              data: {
+                sessions: formationPayload.sessions,
+              },
+            });
+          }
         }
       }
-      console.log('[SEED] Toutes les 13 formations ont été synchronisées dans le CMS !');
+      console.log('[SEED] Toutes les 13 formations et sessions ont été synchronisées dans le CMS !');
     }
 
     // 2. SEED TESTIMONIALS

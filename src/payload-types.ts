@@ -86,6 +86,7 @@ export interface Config {
     'contact-messages': ContactMessage;
     projects: Project;
     formations: Formation;
+    admissions: Admission;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -112,6 +113,7 @@ export interface Config {
     'contact-messages': ContactMessagesSelect<false> | ContactMessagesSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     formations: FormationsSelect<false> | FormationsSelect<true>;
+    admissions: AdmissionsSelect<false> | AdmissionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -170,6 +172,11 @@ export interface User {
    * Seul un Super Administrateur peut modifier les rôles et permissions.
    */
   role: 'super_admin' | 'editor';
+  /**
+   * Sécurité renforcée par validation d’un code TOTP (Google Authenticator, Microsoft Authenticator, Authy).
+   */
+  mfaEnabled?: boolean | null;
+  mfaSecret?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -843,6 +850,49 @@ export interface Formation {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Créez, modifiez ou supprimez les sessions / rentrées disponibles pour cette formation.
+   */
+  sessions?:
+    | {
+        name: string;
+        startDate?: string | null;
+        schedule?: string | null;
+        format?: ('hybride' | 'presentiel' | 'en_ligne') | null;
+        status?: ('open' | 'limited' | 'full' | 'closed') | null;
+        availableSeats?: number | null;
+        location?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "admissions".
+ */
+export interface Admission {
+  id: number;
+  candidateName: string;
+  email: string;
+  phone: string;
+  currentStatus?: string | null;
+  formationTitle: string;
+  formationSlug?: string | null;
+  targetSession: string;
+  preferredSchedule?: string | null;
+  currentLevel?: string | null;
+  format?: string | null;
+  motivation?: string | null;
+  status?: ('pending' | 'accepted' | 'declined') | null;
+  decisionDate?: string | null;
+  /**
+   * Laissez vide pour appliquer le message officiel standard, ou saisissez des instructions spécifiques.
+   */
+  adminFeedback?: string | null;
+  emailSentAt?: string | null;
+  reviewedBy?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -945,6 +995,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'formations';
         value: number | Formation;
+      } | null)
+    | ({
+        relationTo: 'admissions';
+        value: number | Admission;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -996,6 +1050,8 @@ export interface UsersSelect<T extends boolean = true> {
   name?: T;
   avatar?: T;
   role?: T;
+  mfaEnabled?: T;
+  mfaSecret?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -1513,6 +1569,42 @@ export interface FormationsSelect<T extends boolean = true> {
         outcome?: T;
         id?: T;
       };
+  sessions?:
+    | T
+    | {
+        name?: T;
+        startDate?: T;
+        schedule?: T;
+        format?: T;
+        status?: T;
+        availableSeats?: T;
+        location?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "admissions_select".
+ */
+export interface AdmissionsSelect<T extends boolean = true> {
+  candidateName?: T;
+  email?: T;
+  phone?: T;
+  currentStatus?: T;
+  formationTitle?: T;
+  formationSlug?: T;
+  targetSession?: T;
+  preferredSchedule?: T;
+  currentLevel?: T;
+  format?: T;
+  motivation?: T;
+  status?: T;
+  decisionDate?: T;
+  adminFeedback?: T;
+  emailSentAt?: T;
+  reviewedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1602,6 +1694,7 @@ export interface SiteSetting {
         }[]
       | null;
   };
+  security?: {};
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1644,6 +1737,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
               id?: T;
             };
       };
+  security?: T | {};
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

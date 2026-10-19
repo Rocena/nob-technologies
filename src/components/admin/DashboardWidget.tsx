@@ -22,15 +22,16 @@ type StatItem = {
 };
 
 const STATS: StatItem[] = [
+  { slug: 'admissions', label: 'Candidatures', Icon: UsersThree, href: '/admin/collections/admissions', color: '#10b981' },
   { slug: 'contact-messages', label: 'Messages reçus', Icon: ChatCircleText, href: '/admin/collections/contact-messages', color: '#0284c7' },
   { slug: 'quotes', label: 'Devis', Icon: FileText, href: '/admin/collections/quotes', color: '#0ea5e9' },
   { slug: 'invoices', label: 'Factures', Icon: Receipt, href: '/admin/collections/invoices', color: '#0369a1' },
   { slug: 'customers', label: 'Clients', Icon: UsersThree, href: '/admin/collections/customers', color: '#38bdf8' },
   { slug: 'articles', label: 'Articles', Icon: NewspaperClipping, href: '/admin/collections/articles', color: '#0284c7' },
-  { slug: 'pages', label: 'Pages', Icon: Browsers, href: '/admin/collections/pages', color: '#00b4d8' },
 ];
 
 const QUICK = [
+  { label: 'Candidatures reçues', Icon: UsersThree, href: '/admin/collections/admissions' },
   { label: 'Nouveau devis', Icon: FilePlus, href: '/admin/collections/quotes/create' },
   { label: 'Nouvel article', Icon: NewspaperClipping, href: '/admin/collections/articles/create' },
   { label: 'Voir les messages', Icon: ChatCircleText, href: '/admin/collections/contact-messages' },
