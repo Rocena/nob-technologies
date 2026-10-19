@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getPayloadClient } from '@/lib/payload';
-import { sendEmail } from '@/lib/email';
+import { sendEmail, resolveEmailTemplates } from '@/lib/email';
 import { headers } from 'next/headers';
 
 export async function POST(req: Request) {
@@ -61,12 +61,29 @@ export async function POST(req: Request) {
     const schedule = admission.preferredSchedule || 'Horaires définis selon la cohorte';
     const currentYear = new Date().getFullYear();
 
-    // 3. Prepare Corporate HTML Email
+    // 3. Resolve Custom Email Templates configured in Back-Office
+    const templates = await resolveEmailTemplates(payload);
+
     let subject = '';
     let emailHtml = '';
 
     if (decision === 'accepted') {
-      subject = `🎓 Félicitations ! Votre admission à la formation ${formationTitle} est validée — NOB TECHNOLOGIES`;
+      const defaultSubj = `🎓 Félicitations ! Votre admission à la formation ${formationTitle} est validée — NOB TECHNOLOGIES`;
+      subject = templates.admissionAcceptedSubject
+        ? templates.admissionAcceptedSubject
+            .replace(/\{\{formationTitle\}\}/g, formationTitle)
+            .replace(/\{\{candidateName\}\}/g, candidateName)
+            .replace(/\{\{targetSession\}\}/g, targetSession)
+        : defaultSubj;
+
+      const introMsg = templates.admissionAcceptedMessage
+        ? templates.admissionAcceptedMessage
+            .replace(/\{\{formationTitle\}\}/g, formationTitle)
+            .replace(/\{\{candidateName\}\}/g, candidateName)
+            .replace(/\{\{targetSession\}\}/g, targetSession)
+            .replace(/\n/g, '<br/>')
+        : `Nous avons le plaisir de vous informer que votre dossier de candidature a été examiné avec succès par notre comité pédagogique. <strong>Votre admission est officiellement validée</strong> pour le programme d'excellence suivant :`;
+
       emailHtml = `
       <!DOCTYPE html>
       <html lang="fr">
@@ -88,7 +105,7 @@ export async function POST(req: Request) {
             <p style="font-size: 16px; margin: 0 0 16px; color: #0f172a;">Bonjour <strong>${candidateName}</strong>,</p>
             
             <p style="font-size: 14px; line-height: 1.6; color: #334155; margin: 0 0 20px;">
-              Nous avons le plaisir de vous informer que votre dossier de candidature a été examiné avec succès par notre comité pédagogique. <strong>Votre admission est officiellement validée</strong> pour le programme d'excellence suivant :
+              ${introMsg}
             </p>
 
             <!-- FORMATION HIGHLIGHT CARD -->
@@ -99,6 +116,13 @@ export async function POST(req: Request) {
               <div style="font-size: 13px; color: #475569; margin-bottom: 4px;">
                 <strong>Session retenue :</strong> ${targetSession}
               </div>
+              <div style="font-size: 13px; color: #475569; margin-bottom: 4px;">
+                <strong>Modalité :</strong> ${format}
+              </div>
+              <div style="font-size: 13px; color: #475569;">
+                <strong>Horaires :</strong> ${schedule}
+              </div>
+            </div>
               <div style="font-size: 13px; color: #475569; margin-bottom: 4px;">
                 <strong>Modalité :</strong> ${format}
               </div>
@@ -152,7 +176,22 @@ export async function POST(req: Request) {
       </html>
       `;
     } else {
-      subject = `Mise à jour concernant votre candidature — NOB TECHNOLOGIES`;
+      const defaultSubj = `Mise à jour concernant votre candidature — NOB TECHNOLOGIES`;
+      subject = templates.admissionDeclinedSubject
+        ? templates.admissionDeclinedSubject
+            .replace(/\{\{formationTitle\}\}/g, formationTitle)
+            .replace(/\{\{candidateName\}\}/g, candidateName)
+            .replace(/\{\{targetSession\}\}/g, targetSession)
+        : defaultSubj;
+
+      const introMsg = templates.admissionDeclinedMessage
+        ? templates.admissionDeclinedMessage
+            .replace(/\{\{formationTitle\}\}/g, formationTitle)
+            .replace(/\{\{candidateName\}\}/g, candidateName)
+            .replace(/\{\{targetSession\}\}/g, targetSession)
+            .replace(/\n/g, '<br/>')
+        : `Après analyse attentive de votre dossier et au vu du nombre strictement limité de places par session sur nos infrastructures physiques, nous ne sommes malheureusement pas en mesure de donner une suite favorable à votre admission pour cette cohorte précise.`;
+
       emailHtml = `
       <!DOCTYPE html>
       <html lang="fr">
@@ -175,7 +214,7 @@ export async function POST(req: Request) {
             </p>
 
             <p style="font-size: 14px; line-height: 1.6; color: #334155; margin: 0 0 18px;">
-              Après analyse attentive de votre dossier et au vu du nombre strictement limité de places par session sur nos infrastructures physiques, nous ne sommes malheureusement pas en mesure de donner une suite favorable à votre admission pour cette cohorte précise.
+              ${introMsg}
             </p>
 
             ${

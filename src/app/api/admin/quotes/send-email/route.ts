@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getPayloadClient } from '@/lib/payload';
-import { sendEmail } from '@/lib/email';
+import { sendEmail, resolveEmailTemplates } from '@/lib/email';
 import { headers } from 'next/headers';
 
 export async function POST(req: Request) {
@@ -45,6 +45,27 @@ export async function POST(req: Request) {
     const origin = req.headers.get('origin') || process.env.NEXT_PUBLIC_SERVER_URL || 'https://www.nobtech.fr';
     const documentUrl = `${origin}/document/devis/${quote.id}`;
 
+    // Resolve Custom Email Templates configured in Back-Office
+    const templates = await resolveEmailTemplates(payload);
+    const customerDisplayName = customer.contactName || customer.companyName || 'Cher Client';
+
+    const defaultSubj = `Devis N° ${quoteNumber} — NOB TECHNOLOGIES (${customer.companyName || customer.contactName || ''})`;
+    const customSubj = templates.quoteEmailSubject
+      ? templates.quoteEmailSubject
+          .replace(/\{\{quoteNumber\}\}/g, quoteNumber)
+          .replace(/\{\{customerName\}\}/g, customerDisplayName)
+          .replace(/\{\{totalAmount\}\}/g, `${totalFormatted} FCFA`)
+      : defaultSubj;
+
+    const defaultMessage = `Nous avons le plaisir de vous transmettre notre proposition commerciale concernant vos besoins d'infrastructure et de services IT. Vous trouverez ci-dessous le récapitulatif de votre devis officiel <strong>N° ${quoteNumber}</strong>.`;
+    const introMsg = templates.quoteEmailMessage
+      ? templates.quoteEmailMessage
+          .replace(/\{\{quoteNumber\}\}/g, quoteNumber)
+          .replace(/\{\{customerName\}\}/g, customerDisplayName)
+          .replace(/\{\{totalAmount\}\}/g, `${totalFormatted} FCFA`)
+          .replace(/\n/g, '<br/>')
+      : defaultMessage;
+
     const itemsHtml = items.map((it) => `
       <tr>
         <td style="padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px; color: #1e293b;">
@@ -74,10 +95,10 @@ export async function POST(req: Request) {
 
         <!-- BODY -->
         <div style="padding: 32px 28px;">
-          <p style="font-size: 15px; margin: 0 0 16px;">Bonjour <strong>${customer.contactName || customer.companyName || 'Cher Client'}</strong>,</p>
-          <p style="font-size: 14px; line-height: 1.6; color: #334155; margin: 0 0 24px;">
-            Nous avons le plaisir de vous transmettre notre proposition commerciale concernant vos besoins d'infrastructure et de services IT. Vous trouverez ci-dessous le récapitulatif de votre devis officiel <strong>N° ${quoteNumber}</strong>.
-          </p>
+          <p style="font-size: 15px; margin: 0 0 16px;">Bonjour <strong>${customerDisplayName}</strong>,</p>
+          <div style="font-size: 14px; line-height: 1.6; color: #334155; margin: 0 0 24px;">
+            ${introMsg}
+          </div>
 
           <!-- SUMMARY CARD -->
           <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
@@ -132,7 +153,7 @@ export async function POST(req: Request) {
     // Dispatch email
     await sendEmail({
       to: customer.email,
-      subject: `Devis N° ${quoteNumber} — NOB TECHNOLOGIES (${customer.companyName || customer.contactName || ''})`,
+      subject: customSubj,
       html: emailHtml,
     });
 

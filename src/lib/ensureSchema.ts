@@ -101,6 +101,18 @@ const postgresPatchStatements: string[] = [
   'CREATE INDEX IF NOT EXISTS "galleries_order_idx" ON "galleries" ("order");',
   'CREATE INDEX IF NOT EXISTS "galleries_published_idx" ON "galleries" ("published");',
   'ALTER TABLE "payload_locked_documents_rels" ADD COLUMN IF NOT EXISTS "galleries_id" integer;',
+
+  // 8. Colonnes Modèles d'emails personnalisables sur site_settings
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_templates_ack_email_subject" varchar;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_templates_ack_email_heading" varchar;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_templates_ack_email_message" text;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_templates_ack_email_help_text" text;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_templates_admission_accepted_subject" varchar;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_templates_admission_accepted_message" text;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_templates_admission_declined_subject" varchar;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_templates_admission_declined_message" text;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_templates_quote_email_subject" varchar;',
+  'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_templates_quote_email_message" text;',
 ];
 
 export async function ensureDatabaseSchema(payload: Payload): Promise<{
@@ -242,6 +254,18 @@ export async function ensureDatabaseSchema(payload: Payload): Promise<{
         try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`smtp_from\` text DEFAULT '"NOB TECHNOLOGIES" <contact@nobtech.fr>';`); } catch {}
         try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`admin_notification_emails\` text;`); } catch {}
         try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`resend_api_key\` text;`); } catch {}
+
+        // 5b. Colonnes Modèles d'emails personnalisables sur site_settings (SQLite)
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_templates_ack_email_subject\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_templates_ack_email_heading\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_templates_ack_email_message\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_templates_ack_email_help_text\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_templates_admission_accepted_subject\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_templates_admission_accepted_message\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_templates_admission_declined_subject\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_templates_admission_declined_message\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_templates_quote_email_subject\` text;`); } catch {}
+        try { await db.run(sql`ALTER TABLE \`site_settings\` ADD COLUMN \`email_templates_quote_email_message\` text;`); } catch {}
 
         // 6. Table galleries (SQLite)
         try {

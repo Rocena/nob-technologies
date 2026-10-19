@@ -284,6 +284,151 @@ export const SiteSettings: GlobalConfig = {
           ],
         },
         {
+          name: 'emailTemplates',
+          label: 'Modèles d\'E-mails & Notifications',
+          fields: [
+            {
+              type: 'collapsible',
+              label: '1. Accusé de Réception Client (Formulaires & Candidatures)',
+              admin: {
+                initCollapsed: false,
+                description: 'Email automatique envoyé instantanément au visiteur/candidat dès qu\'il soumet un formulaire.',
+              },
+              fields: [
+                {
+                  name: 'ackEmailSubject',
+                  type: 'text',
+                  label: 'Sujet de l\'email (Accusé de réception)',
+                  defaultValue: 'Accusé de réception : Nous avons bien reçu votre demande — NOB TECHNOLOGIES',
+                  admin: {
+                    description: 'Vous pouvez utiliser la variable {{subject}} pour inclure l\'objet saisi par le visiteur.',
+                  },
+                },
+                {
+                  name: 'ackEmailHeading',
+                  type: 'text',
+                  label: 'Titre principal affiché dans l\'email',
+                  defaultValue: 'Merci pour votre confiance',
+                  admin: {
+                    description: 'Titre en haut du message de confirmation.',
+                  },
+                },
+                {
+                  name: 'ackEmailMessage',
+                  type: 'textarea',
+                  label: 'Message de confirmation',
+                  defaultValue: 'Nous accusons bonne réception de votre demande. Nos équipes techniques l\'examinent actuellement avec la plus grande attention. Vous recevrez une réponse sous 24 à 48 heures ouvrées.',
+                  admin: {
+                    description: 'Corps principal du texte de confirmation.',
+                  },
+                },
+                {
+                  name: 'ackEmailHelpText',
+                  type: 'textarea',
+                  label: 'Texte d\'assistance / Contact urgent',
+                  defaultValue: 'Une question urgente ? Contactez directement nos équipes au +221 77 301 08 38 ou par e-mail à contact@nobtech.fr.',
+                  admin: {
+                    description: 'Mention de bas de message pour guider le destinataire.',
+                  },
+                },
+              ],
+            },
+            {
+              type: 'collapsible',
+              label: '2. Candidature Formation — Admission Validée & Acceptée',
+              admin: {
+                initCollapsed: false,
+                description: 'Email officiel envoyé au candidat lors de la validation de son dossier d\'admission.',
+              },
+              fields: [
+                {
+                  name: 'admissionAcceptedSubject',
+                  type: 'text',
+                  label: 'Sujet (Admission Acceptée)',
+                  defaultValue: '🎓 Félicitations ! Votre admission à la formation {{formationTitle}} est validée — NOB TECHNOLOGIES',
+                  admin: {
+                    description: 'Variables disponibles : {{formationTitle}}, {{candidateName}}, {{targetSession}}',
+                  },
+                },
+                {
+                  name: 'admissionAcceptedMessage',
+                  type: 'textarea',
+                  label: 'Message d\'admission (Introduction)',
+                  defaultValue: 'Nous avons le plaisir de vous informer que votre dossier de candidature a été examiné avec succès par notre comité pédagogique. Votre admission est officiellement validée.',
+                  admin: {
+                    description: 'Texte d\'annonce officiel précédant le récapitulatif de session et de cohorte.',
+                  },
+                },
+              ],
+            },
+            {
+              type: 'collapsible',
+              label: '3. Candidature Formation — Non Retenue / Liste d\'attente',
+              admin: {
+                initCollapsed: true,
+                description: 'Email envoyé au candidat lorsque la cohorte est complète ou le dossier non retenu.',
+              },
+              fields: [
+                {
+                  name: 'admissionDeclinedSubject',
+                  type: 'text',
+                  label: 'Sujet (Dossier Non Retenu)',
+                  defaultValue: 'Mise à jour concernant votre candidature — NOB TECHNOLOGIES',
+                  admin: {
+                    description: 'Variables disponibles : {{formationTitle}}, {{candidateName}}, {{targetSession}}',
+                  },
+                },
+                {
+                  name: 'admissionDeclinedMessage',
+                  type: 'textarea',
+                  label: 'Message explicatif',
+                  defaultValue: 'Après analyse attentive de votre dossier et au vu du nombre strictement limité de places par session sur nos infrastructures physiques, nous ne sommes malheureusement pas en mesure de donner une suite favorable à votre admission pour cette cohorte précise. Votre profil reste conservé dans notre base de talents pour les sessions ultérieures.',
+                  admin: {
+                    description: 'Explication bienveillante transmise au candidat.',
+                  },
+                },
+              ],
+            },
+            {
+              type: 'collapsible',
+              label: '4. Devis Commercial Officiel (Envoi de proposition chiffrée)',
+              admin: {
+                initCollapsed: true,
+                description: 'Email envoyé au client avec le récapitulatif et le lien d\'accès au document PDF du devis.',
+              },
+              fields: [
+                {
+                  name: 'quoteEmailSubject',
+                  type: 'text',
+                  label: 'Sujet de l\'email de Devis',
+                  defaultValue: 'Devis Officiel N° {{quoteNumber}} — NOB TECHNOLOGIES',
+                  admin: {
+                    description: 'Variables disponibles : {{quoteNumber}}, {{customerName}}, {{totalAmount}}',
+                  },
+                },
+                {
+                  name: 'quoteEmailMessage',
+                  type: 'textarea',
+                  label: 'Message d\'accompagnement du devis',
+                  defaultValue: 'Nous avons le plaisir de vous transmettre notre proposition commerciale concernant vos besoins d\'infrastructure et de services IT. Vous trouverez ci-dessous le récapitulatif détaillé ainsi que l\'accès direct au document officiel.',
+                  admin: {
+                    description: 'Texte accompagnant le devis chiffré.',
+                  },
+                },
+              ],
+            },
+            {
+              name: 'templateTestTool',
+              type: 'ui',
+              admin: {
+                components: {
+                  Field: '@/components/admin/EmailTestField#EmailTestField',
+                },
+              },
+            },
+          ],
+        },
+        {
           name: 'security',
           label: 'Sécurité & Google Authenticator (MFA / 2FA)',
           fields: [

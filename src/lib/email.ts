@@ -214,6 +214,52 @@ export async function getAdminRecipientEmails(payload?: any): Promise<string[]> 
   return Array.from(emailSet);
 }
 
+export interface EmailTemplatesConfig {
+  ackEmailSubject?: string;
+  ackEmailHeading?: string;
+  ackEmailMessage?: string;
+  ackEmailHelpText?: string;
+  admissionAcceptedSubject?: string;
+  admissionAcceptedMessage?: string;
+  admissionDeclinedSubject?: string;
+  admissionDeclinedMessage?: string;
+  quoteEmailSubject?: string;
+  quoteEmailMessage?: string;
+}
+
+/**
+ * Dynamically resolves custom email templates configured by administrators in SiteSettings.
+ */
+export async function resolveEmailTemplates(payloadInstance?: any): Promise<EmailTemplatesConfig> {
+  try {
+    let p = payloadInstance;
+    if (!p) {
+      const { getPayloadClient } = await import('@/lib/payload');
+      p = await getPayloadClient();
+    }
+    const settings = (await p.findGlobal({
+      slug: 'site-settings',
+      overrideAccess: true,
+    })) as any;
+
+    const t = settings?.emailTemplates || settings || {};
+    return {
+      ackEmailSubject: t.ackEmailSubject || settings?.email_templates_ack_email_subject,
+      ackEmailHeading: t.ackEmailHeading || settings?.email_templates_ack_email_heading,
+      ackEmailMessage: t.ackEmailMessage || settings?.email_templates_ack_email_message,
+      ackEmailHelpText: t.ackEmailHelpText || settings?.email_templates_ack_email_help_text,
+      admissionAcceptedSubject: t.admissionAcceptedSubject || settings?.email_templates_admission_accepted_subject,
+      admissionAcceptedMessage: t.admissionAcceptedMessage || settings?.email_templates_admission_accepted_message,
+      admissionDeclinedSubject: t.admissionDeclinedSubject || settings?.email_templates_admission_declined_subject,
+      admissionDeclinedMessage: t.admissionDeclinedMessage || settings?.email_templates_admission_declined_message,
+      quoteEmailSubject: t.quoteEmailSubject || settings?.email_templates_quote_email_subject,
+      quoteEmailMessage: t.quoteEmailMessage || settings?.email_templates_quote_email_message,
+    };
+  } catch {
+    return {};
+  }
+}
+
 /**
  * High-end branded HTML email template for client acknowledgment receipt (Accusé de réception).
  */
@@ -222,11 +268,22 @@ export function generateClientAcknowledgmentHtml(params: {
   subject: string;
   summary?: string;
   referenceId?: string;
+  customHeading?: string;
+  customMessage?: string;
+  customHelpText?: string;
 }) {
   const currentYear = new Date().getFullYear();
   const formattedSummary = params.summary
     ? escapeHtml(params.summary).replace(/\n/g, '<br/>')
     : '';
+
+  const headingText = params.customHeading || 'Bonjour ' + escapeHtml(params.name);
+  const mainMessageText = params.customMessage
+    ? escapeHtml(params.customMessage).replace(/\n/g, '<br/>')
+    : 'Nos ingénieurs et consultants étudient votre besoin avec la plus grande rigueur technique afin de vous apporter une réponse personnalisée et adaptée.';
+  const helpText = params.customHelpText
+    ? escapeHtml(params.customHelpText)
+    : 'Si vous avez des pièces complémentaires ou des précisions urgentes à apporter, vous pouvez répondre directement à cet email ou nous contacter au +221 77 301 08 38.';
 
   return `
 <!DOCTYPE html>
@@ -264,7 +321,7 @@ export function generateClientAcknowledgmentHtml(params: {
               </div>
 
               <h1 style="margin: 0 0 16px 0; font-size: 22px; font-weight: 700; color: #ffffff; line-height: 1.3;">
-                Bonjour ${escapeHtml(params.name)},
+                ${headingText}
               </h1>
 
               <p style="margin: 0 0 20px 0; font-size: 15px; line-height: 1.6; color: #94a3b8;">
@@ -305,7 +362,7 @@ export function generateClientAcknowledgmentHtml(params: {
                         Délai de traitement garanti sous 24h ouvrées
                       </div>
                       <div style="font-size: 13px; color: #94a3b8; line-height: 1.5;">
-                        Nos ingénieurs et consultants étudient votre besoin avec la plus grande rigueur technique afin de vous apporter une réponse personnalisée et adaptée.
+                        ${mainMessageText}
                       </div>
                     </td>
                   </tr>
@@ -313,7 +370,7 @@ export function generateClientAcknowledgmentHtml(params: {
               </div>
 
               <p style="margin: 0 0 24px 0; font-size: 14px; line-height: 1.6; color: #94a3b8;">
-                Si vous avez des pièces complémentaires ou des précisions urgentes à apporter, vous pouvez répondre directement à cet email.
+                ${helpText}
               </p>
 
               <div style="border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 20px; margin-top: 30px;">

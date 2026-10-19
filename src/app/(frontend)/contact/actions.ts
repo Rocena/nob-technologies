@@ -118,9 +118,11 @@ export async function submitContactForm(prevState: any, formData: FormData) {
         generateClientAcknowledgmentHtml,
         generateAdminNotificationHtml,
         getAdminRecipientEmails,
+        resolveEmailTemplates,
       } = await import("@/lib/email");
 
       const refId = createdMsg?.id ? String(createdMsg.id) : undefined;
+      const templates = await resolveEmailTemplates(payload);
 
       // Déterminer le type de formulaire pour le badge admin
       let formTypeLabel = "Formulaire de Contact";
@@ -140,11 +142,18 @@ export async function submitContactForm(prevState: any, formData: FormData) {
         subject: subject.trim(),
         summary: message.trim(),
         referenceId: refId,
+        customHeading: templates.ackEmailHeading,
+        customMessage: templates.ackEmailMessage,
+        customHelpText: templates.ackEmailHelpText,
       });
+
+      const ackSubj = templates.ackEmailSubject
+        ? templates.ackEmailSubject.replace(/\{\{subject\}\}/g, subject.trim())
+        : `Accusé de réception : ${subject.trim()} - NOB TECHNOLOGIES`;
 
       await sendEmail({
         to: email.trim(),
-        subject: `Accusé de réception : ${subject.trim()} - NOB TECHNOLOGIES`,
+        subject: ackSubj,
         html: clientHtml,
       });
 

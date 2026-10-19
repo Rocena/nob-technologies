@@ -91,8 +91,8 @@ export function verifyTOTP(secret: string, token: string): boolean {
   const cleanToken = token.trim().replace(/\s+/g, '');
   if (cleanToken.length !== 6 || !/^\d{6}$/.test(cleanToken)) return false;
 
-  // Check current window, -1 window (30s ago), and +1 window (30s future)
-  for (const window of [0, -1, 1]) {
+  // Check current window, -1 and +1 window (30s drift), and -2 and +2 window (60s drift)
+  for (const window of [0, -1, 1, -2, 2]) {
     const expected = calculateTOTP(secret, window);
     if (crypto.timingSafeEqual(Buffer.from(cleanToken), Buffer.from(expected))) {
       return true;

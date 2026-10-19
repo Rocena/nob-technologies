@@ -101,19 +101,20 @@ export const Users: CollectionConfig = {
     {
       name: 'mfaEnabled',
       type: 'checkbox',
-      label: 'Authentification à Deux Facteurs (MFA / 2FA)',
+      label: 'Double Authentification Active (MFA / 2FA)',
       defaultValue: false,
       admin: {
-        description: 'Sécurité renforcée par validation d’un code TOTP (Google Authenticator, Microsoft Authenticator, Authy).',
+        readOnly: true,
+        description: 'État d’activation du compte avec Google Authenticator.',
       },
     },
     {
-      name: 'mfaSecret',
-      type: 'text',
-      label: 'Clé secrète MFA (TOTP)',
+      name: 'mfaSetupUI',
+      type: 'ui',
       admin: {
-        readOnly: true,
-        condition: (data) => Boolean(data?.mfaEnabled || data?.mfaSecret),
+        components: {
+          Field: '@/components/admin/MfaSettingsField#MfaSettingsField',
+        },
       },
     },
   ],

@@ -92,9 +92,11 @@ export async function submitQuoteForm(prevState: any, formData: FormData) {
         generateClientAcknowledgmentHtml,
         generateAdminNotificationHtml,
         getAdminRecipientEmails,
+        resolveEmailTemplates,
       } = await import("@/lib/email");
 
       const refId = createdMsg?.id ? String(createdMsg.id) : undefined;
+      const templates = await resolveEmailTemplates(payload);
 
       // Accusé de réception professionnel au client avec résumé
       const clientHtml = generateClientAcknowledgmentHtml({
@@ -102,11 +104,18 @@ export async function submitQuoteForm(prevState: any, formData: FormData) {
         subject: `Demande de devis - Plan ${plan}`,
         summary: message.trim(),
         referenceId: refId,
+        customHeading: templates.ackEmailHeading,
+        customMessage: templates.ackEmailMessage,
+        customHelpText: templates.ackEmailHelpText,
       });
+
+      const ackSubj = templates.ackEmailSubject
+        ? templates.ackEmailSubject.replace(/\{\{subject\}\}/g, `Demande de devis (${plan})`)
+        : `Accusé de réception : Demande de devis (${plan}) - NOB TECHNOLOGIES`;
 
       await sendEmail({
         to: email.trim(),
-        subject: `Accusé de réception : Demande de devis (${plan}) - NOB TECHNOLOGIES`,
+        subject: ackSubj,
         html: clientHtml,
       });
 

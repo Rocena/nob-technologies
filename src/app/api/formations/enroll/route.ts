@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getPayloadClient } from '@/lib/payload';
-import { sendEmail, getAdminRecipientEmails } from '@/lib/email';
+import { sendEmail, getAdminRecipientEmails, resolveEmailTemplates } from '@/lib/email';
 
 export async function POST(req: Request) {
   try {
@@ -176,6 +176,17 @@ export async function POST(req: Request) {
 
     // 5. Send Immediate Confirmation / Receipt Email to Candidate
     try {
+      const templates = await resolveEmailTemplates(payload);
+      const ackHeading = templates.ackEmailHeading || 'Accusé de Réception de Candidature';
+      const ackMessage = templates.ackEmailMessage
+        ? templates.ackEmailMessage.replace(/\n/g, '<br/>')
+        : 'Notre équipe pédagogique examine actuellement les places disponibles et votre profil technique. <strong>Vous recevrez un email officiel sous 24 à 48 heures</strong> vous confirmant la décision d\'admission ainsi que les modalités de rentrée.';
+      const ackHelp = templates.ackEmailHelpText || 'En cas de question urgente ou pour planifier un entretien téléphonique direct avec un instructeur, nos équipes sont joignables au <strong style="color: #0284c7;">+221 77 301 08 38</strong>.';
+
+      const candidateSubject = templates.ackEmailSubject
+        ? templates.ackEmailSubject.replace(/\{\{subject\}\}/g, `Dossier d'admission ${formationTitle}`)
+        : `Confirmation de réception de votre dossier d'admission — NOB TECHNOLOGIES`;
+
       const candidateReceiptHtml = `
       <!DOCTYPE html>
       <html lang="fr">
@@ -186,7 +197,7 @@ export async function POST(req: Request) {
           <!-- BANNER HEADER -->
           <div style="background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%); padding: 32px 30px; text-align: center; color: #ffffff;">
             <h1 style="margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.5px;">NOB TECHNOLOGIES</h1>
-            <p style="margin: 6px 0 0; font-size: 13px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Accusé de Réception de Candidature</p>
+            <p style="margin: 6px 0 0; font-size: 13px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">${ackHeading}</p>
           </div>
 
           <!-- BODY -->
@@ -212,12 +223,12 @@ export async function POST(req: Request) {
               </div>
             </div>
 
-            <p style="font-size: 14px; line-height: 1.6; color: #334155; margin: 0 0 16px;">
-              Notre équipe pédagogique examine actuellement les places disponibles et votre profil technique. <strong>Vous recevrez un email officiel sous 24 à 48 heures</strong> vous confirmant la décision d'admission ainsi que les modalités de rentrée.
-            </p>
+            <div style="font-size: 14px; line-height: 1.6; color: #334155; margin: 0 0 16px;">
+              ${ackMessage}
+            </div>
 
             <p style="font-size: 14px; line-height: 1.6; color: #334155; margin: 0 0 24px;">
-              En cas de question urgente ou pour planifier un entretien téléphonique direct avec un instructeur, nos équipes sont joignables au <strong style="color: #0284c7;">+221 77 413 85 86</strong>.
+              ${ackHelp}
             </p>
 
             <div style="text-align: center; margin: 20px 0 10px;">
@@ -240,7 +251,7 @@ export async function POST(req: Request) {
 
       await sendEmail({
         to: email,
-        subject: `Confirmation de réception de votre dossier d'admission — NOB TECHNOLOGIES`,
+        subject: candidateSubject,
         html: candidateReceiptHtml,
         replyTo: 'contact@nobtech.fr',
       });
