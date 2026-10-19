@@ -325,7 +325,10 @@ export const statements: string[] = [
   "CREATE INDEX IF NOT EXISTS \"admissions_email_idx\" ON \"admissions\" USING btree (\"email\");",
   "CREATE TABLE IF NOT EXISTS \"formations_sessions\" (\"_order\" integer NOT NULL, \"_parent_id\" integer NOT NULL, \"id\" varchar PRIMARY KEY NOT NULL, \"name\" varchar NOT NULL, \"start_date\" timestamp(3) with time zone, \"schedule\" varchar, \"format\" varchar DEFAULT 'hybride', \"status\" varchar DEFAULT 'open', \"available_seats\" numeric DEFAULT 10, \"location\" varchar DEFAULT 'Campus NOB TECHNOLOGIES — Dakar', CONSTRAINT \"formations_sessions_parent_id_fk\" FOREIGN KEY (\"_parent_id\") REFERENCES \"formations\"(\"id\") ON DELETE cascade ON UPDATE no action);",
   "CREATE INDEX IF NOT EXISTS \"formations_sessions_order_idx\" ON \"formations_sessions\" USING btree (\"_order\");",
-  "CREATE INDEX IF NOT EXISTS \"formations_sessions_parent_id_idx\" ON \"formations_sessions\" USING btree (\"_parent_id\");"
+  "CREATE INDEX IF NOT EXISTS \"formations_sessions_parent_id_idx\" ON \"formations_sessions\" USING btree (\"_parent_id\");",
+  "ALTER TABLE \"users\" ADD COLUMN IF NOT EXISTS \"mfa_enabled\" boolean DEFAULT false;",
+  "ALTER TABLE \"users\" ADD COLUMN IF NOT EXISTS \"mfa_secret\" varchar;",
+  "ALTER TABLE \"payload_locked_documents_rels\" ADD COLUMN IF NOT EXISTS \"admissions_id\" integer;"
 ];
 
 export async function up({ db }: MigrateUpArgs): Promise<void> {

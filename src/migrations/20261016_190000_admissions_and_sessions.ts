@@ -61,6 +61,18 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   } catch {
     // Already exists
   }
+
+  // 4. Add mfa_enabled and mfa_secret to users table
+  try {
+    await db.run(sql`ALTER TABLE \`users\` ADD COLUMN \`mfa_enabled\` integer DEFAULT 0;`);
+  } catch {
+    // Already exists
+  }
+  try {
+    await db.run(sql`ALTER TABLE \`users\` ADD COLUMN \`mfa_secret\` text;`);
+  } catch {
+    // Already exists
+  }
 }
 
 export async function down({}: MigrateDownArgs): Promise<void> {
