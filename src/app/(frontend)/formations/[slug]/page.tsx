@@ -15,6 +15,7 @@ import { FormationVideoSection } from "@/components/formations/FormationVideoSec
 import { FormationPricingBox } from "@/components/formations/FormationPricingBox";
 import { FormationApplyButton } from "@/components/FormationApplyButton";
 import { SyllabusButton } from "@/components/formations/SyllabusButton";
+import { FormationPromoPopup } from "@/components/formations/FormationPromoPopup";
 import {
   Calendar,
   Clock,
@@ -64,6 +65,7 @@ export default async function FormationDetailPage({ params }: Props) {
   return (
     <>
       <Header />
+      <FormationPromoPopup formation={formation} />
       <main className="min-h-screen bg-slate-950 text-slate-100">
         {/* Hero Section */}
         <Section className="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden bg-gradient-to-b from-[#020617] via-[#030d24] to-[#020617]">

@@ -23,6 +23,7 @@ import Image from "next/image";
 import { FormationOfferingsSection } from "@/components/formations/FormationOfferingsSection";
 import { FormationVideoSection } from "@/components/formations/FormationVideoSection";
 import { FormationApplyButton } from "@/components/FormationApplyButton";
+import { FormationPromoPopup } from "@/components/formations/FormationPromoPopup";
 
 export const metadata: Metadata = {
   title: "Formations Professionnelles & Préparation aux Certifications | NOB TECHNOLOGIES",
@@ -33,9 +34,20 @@ export const metadata: Metadata = {
 export default async function FormationsCatalogPage() {
   const formations = await getAllFormations();
 
+  // Détection de la formation phare bénéficiant de l'offre de lancement (10 premières places)
+  // Si le quota de 10 inscrits est atteint, isPromoExpired est vrai et le popup ne s'affichera pas
+  const featuredPromoFormation = formations.find(
+    (f) => f.slug === "cisco-ccna" && f.pricing && !f.pricing.isPromoExpired && (f.pricing.remainingSpots ?? 0) > 0
+  ) || formations.find(
+    (f) => f.pricing && !f.pricing.isPromoExpired && (f.pricing.remainingSpots ?? 0) > 0 && f.pricing.launchSpots === 10
+  );
+
   return (
     <>
       <Header />
+      {featuredPromoFormation && (
+        <FormationPromoPopup formation={featuredPromoFormation} />
+      )}
       <main className="min-h-screen bg-slate-950 text-slate-100">
         {/* Hero Section */}
         <Section className="pt-32 pb-20 md:pt-44 md:pb-28 bg-[#020617] relative overflow-hidden">
