@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { FormationPricing } from "@/data/formations";
 import { CheckCircle2, Download, ArrowRight, Sparkles, Building2, User, Clock, ShieldCheck, Flame } from "lucide-react";
 import { useEngineerModal } from "@/components/EngineerModalContext";
+import { useFormationApplyModal } from "@/components/FormationApplyModalContext";
 import { BrochureDownloadModal } from "./BrochureDownloadModal";
 
 interface FormationPricingBoxProps {
@@ -22,6 +23,7 @@ export function FormationPricingBox({
   const [activeTab, setActiveTab] = useState<"particulier" | "entreprise">("particulier");
   const [brochureModalOpen, setBrochureModalOpen] = useState(false);
   const { openQuoteModal } = useEngineerModal();
+  const { openApplyModal } = useFormationApplyModal();
 
   const discountPercent = Math.round(
     ((pricing.publicPrice - pricing.launchPrice) / pricing.publicPrice) * 100
@@ -131,13 +133,14 @@ export function FormationPricingBox({
                   <Download size={16} />
                   <span>Télécharger la brochure PDF</span>
                 </button>
-                <a
-                  href="#candidature"
-                  className="py-3.5 px-5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-semibold text-xs text-center transition-all flex items-center justify-center gap-1.5"
+                <button
+                  type="button"
+                  onClick={() => openApplyModal({ formationTitle, formationSlug })}
+                  className="py-3.5 px-5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-semibold text-xs text-center transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                 >
-                  <span>S&apos;inscrire</span>
+                  <span>Postuler</span>
                   <ArrowRight size={14} />
-                </a>
+                </button>
               </div>
             </div>
 

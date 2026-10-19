@@ -3,6 +3,7 @@
 import React from "react";
 import { Building2, Zap, UserCheck, CheckCircle2, Clock, ArrowRight } from "lucide-react";
 import { useEngineerModal } from "@/components/EngineerModalContext";
+import { useFormationApplyModal } from "@/components/FormationApplyModalContext";
 
 interface FormationOfferingsSectionProps {
   formationTitle?: string;
@@ -10,6 +11,7 @@ interface FormationOfferingsSectionProps {
 
 export function FormationOfferingsSection({ formationTitle }: FormationOfferingsSectionProps) {
   const { openQuoteModal } = useEngineerModal();
+  const { openApplyModal } = useFormationApplyModal();
 
   const offerings = [
     {
@@ -56,11 +58,10 @@ export function FormationOfferingsSection({ formationTitle }: FormationOfferings
       ],
       ctaText: "Postuler au Bootcamp",
       action: () =>
-        openQuoteModal(
-          formationTitle
-            ? `Bootcamp Intensif: ${formationTitle}`
-            : "Bootcamp Intensif"
-        ),
+        openApplyModal({
+          formationTitle,
+          targetSession: "Cursus accéléré / Bootcamp",
+        }),
     },
     {
       id: "particulier",
@@ -79,13 +80,12 @@ export function FormationOfferingsSection({ formationTitle }: FormationOfferings
         "Parrainage technique et coaching individuel par un ingénieur senior",
         "Facilités de paiement mensuel échelonné sans frais",
       ],
-      ctaText: "Inscription Particulier",
+      ctaText: "Postuler à cette formation",
       action: () =>
-        openQuoteModal(
-          formationTitle
-            ? `Formation Particulier: ${formationTitle}`
-            : "Formation Particulier"
-        ),
+        openApplyModal({
+          formationTitle,
+          targetSession: "Prochaine Rentrée Officielle (dans les 30 jours)",
+        }),
     },
   ];
 

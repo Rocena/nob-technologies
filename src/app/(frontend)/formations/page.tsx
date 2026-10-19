@@ -22,6 +22,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FormationOfferingsSection } from "@/components/formations/FormationOfferingsSection";
 import { FormationVideoSection } from "@/components/formations/FormationVideoSection";
+import { FormationApplyButton } from "@/components/FormationApplyButton";
 
 export const metadata: Metadata = {
   title: "Formations Professionnelles & Préparation aux Certifications | NOB TECHNOLOGIES",
@@ -206,12 +207,12 @@ export default async function FormationsCatalogPage() {
                     </div>
 
                     <div className="pt-5 border-t border-white/10 space-y-2 mt-auto">
-                      <Link
-                        href={`/formations/${track.slug}#candidature`}
-                        className="inline-flex items-center justify-center w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-[#020617] font-bold text-xs hover:brightness-105 active:scale-95 transition-all shadow-[0_4px_14px_0_rgba(0,212,255,0.35)]"
+                      <FormationApplyButton
+                        formationTitle={track.title}
+                        formationSlug={track.slug}
                       >
-                        Postuler ou Demander un devis
-                      </Link>
+                        Postuler
+                      </FormationApplyButton>
 
                       <Link
                         href={`/formations/${track.slug}`}

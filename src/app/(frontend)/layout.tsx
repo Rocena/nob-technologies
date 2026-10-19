@@ -8,6 +8,7 @@ import StickyCallout from "@/components/StickyCallout";
 import { ChatBot } from "@/components/ChatBot";
 import { CommandPaletteProvider } from "@/components/CommandPaletteProvider";
 import { EngineerModalProvider } from "@/components/EngineerModalContext";
+import { FormationApplyModalProvider } from "@/components/FormationApplyModalContext";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -73,12 +74,14 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground overflow-x-hidden">
         <CommandPaletteProvider>
           <EngineerModalProvider>
-            <ScrollProgress />
-            {children}
-            <BackToTop />
-            <StickyCallout />
-            <CookieConsent />
-            <ChatBot />
+            <FormationApplyModalProvider>
+              <ScrollProgress />
+              {children}
+              <BackToTop />
+              <StickyCallout />
+              <CookieConsent />
+              <ChatBot />
+            </FormationApplyModalProvider>
           </EngineerModalProvider>
         </CommandPaletteProvider>
       </body>

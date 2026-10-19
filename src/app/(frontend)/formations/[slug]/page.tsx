@@ -13,6 +13,7 @@ import { CurriculumSyllabus } from "@/components/formations/CurriculumSyllabus";
 import { FormationOfferingsSection } from "@/components/formations/FormationOfferingsSection";
 import { FormationVideoSection } from "@/components/formations/FormationVideoSection";
 import { FormationPricingBox } from "@/components/formations/FormationPricingBox";
+import { FormationApplyButton } from "@/components/FormationApplyButton";
 import {
   Calendar,
   Clock,
@@ -95,13 +96,14 @@ export default async function FormationDetailPage({ params }: Props) {
 
               {/* Actions rapides d'inscription */}
               <div className="flex flex-wrap items-center gap-3.5 mb-8">
-                <a
-                  href="#candidature"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-sm shadow-[0_0_24px_rgba(0,212,255,0.3)] hover:shadow-[0_0_36px_rgba(0,212,255,0.45)] hover:scale-[1.02] active:scale-[0.98] transition-all"
+                <FormationApplyButton
+                  formationTitle={formation.title}
+                  formationSlug={formation.slug}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-sm shadow-[0_0_24px_rgba(0,212,255,0.3)] hover:shadow-[0_0_36px_rgba(0,212,255,0.45)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
                 >
-                  <span>S&apos;inscrire à cette formation</span>
+                  <span>Postuler</span>
                   <ArrowRight className="w-4 h-4" />
-                </a>
+                </FormationApplyButton>
                 <a
                   href="#candidature"
                   className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/5 border border-white/15 text-white font-semibold text-sm hover:bg-white/10 hover:border-cyan-400/40 transition-all"
@@ -196,13 +198,14 @@ export default async function FormationDetailPage({ params }: Props) {
 
             {/* Bouton stratégique d'inscription directe */}
             <div className="text-center mb-12">
-              <a
-                href="#candidature"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-sm shadow-[0_0_24px_rgba(0,212,255,0.3)] hover:shadow-[0_0_36px_rgba(0,212,255,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all"
+              <FormationApplyButton
+                formationTitle={formation.title}
+                formationSlug={formation.slug}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-sm shadow-[0_0_24px_rgba(0,212,255,0.3)] hover:shadow-[0_0_36px_rgba(0,212,255,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
               >
-                <span>S&apos;inscrire à la préparation de ces certifications</span>
+                <span>Postuler</span>
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </FormationApplyButton>
             </div>
 
             {/* Partner Logos */}
