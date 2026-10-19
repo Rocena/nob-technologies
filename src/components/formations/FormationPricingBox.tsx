@@ -116,10 +116,16 @@ export function FormationPricingBox({
                 </div>
               )}
 
-              {/* Échelonnement */}
+              {/* Échelonnement & Décomposition */}
               {pricing.paymentPlan && (
-                <div className="text-xs text-slate-300 bg-white/5 p-3 rounded-xl border border-white/10">
-                  <span className="text-cyan-400 font-bold">Facilité de paiement :</span> {pricing.paymentPlan}
+                <div className="text-xs text-slate-300 bg-white/5 p-3.5 rounded-xl border border-white/10 space-y-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-cyan-400 font-bold uppercase text-[10px] tracking-wider">Modalités de règlement :</span>
+                  </div>
+                  <p className="text-white font-semibold text-xs leading-relaxed">{pricing.paymentPlan}</p>
+                  {pricing.note && (
+                    <p className="text-[11px] text-slate-400 leading-normal">{pricing.note}</p>
+                  )}
                 </div>
               )}
 

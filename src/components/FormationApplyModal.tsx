@@ -32,7 +32,7 @@ export const FORMATION_CATALOG_OPTIONS: FormationOption[] = [
   {
     title: "Cisco CCNA 200-301 : Administration Réseaux & Certifications",
     slug: "cisco-ccna",
-    duration: "10 Semaines",
+    duration: "1 Mois",
     category: "Réseaux & Certifications",
   },
   {
