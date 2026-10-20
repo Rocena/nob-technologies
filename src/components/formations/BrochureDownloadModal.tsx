@@ -27,8 +27,8 @@ export function BrochureDownloadModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) {
-      setError("Veuillez renseigner votre adresse email.");
+    if (!name.trim() || !email.trim() || !phone.trim()) {
+      setError("Veuillez renseigner votre nom, email et numéro de téléphone.");
       return;
     }
 
@@ -40,7 +40,7 @@ export function BrochureDownloadModal({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: name.trim() || "Prospect Programme Complet",
+          name: name.trim(),
           email: email.trim(),
           phone: phone.trim(),
           profileType: "particulier",
@@ -174,12 +174,13 @@ export function BrochureDownloadModal({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="text-xs font-medium text-slate-300 block mb-1.5">
-                    Nom &amp; Prénom <span className="text-slate-500 text-[11px]">(optionnel)</span>
+                    Nom &amp; Prénom <span className="text-cyan-400">*</span>
                   </label>
                   <div className="relative">
                     <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
                     <input
                       type="text"
+                      required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Ex : Ousmane Diallo"
@@ -190,12 +191,13 @@ export function BrochureDownloadModal({
 
                 <div>
                   <label className="text-xs font-medium text-slate-300 block mb-1.5">
-                    Téléphone / WhatsApp <span className="text-slate-500 text-[11px]">(optionnel)</span>
+                    Téléphone / WhatsApp <span className="text-cyan-400">*</span>
                   </label>
                   <div className="relative">
                     <Phone size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
                     <input
                       type="tel"
+                      required
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="+221 77 000 00 00"

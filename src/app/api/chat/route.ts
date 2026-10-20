@@ -343,7 +343,7 @@ export function computeSuggestions(userMessage: string, botReply: string = ""): 
   // Cas où le bot ne comprend pas bien la demande ou propose d'échanger sur WhatsApp
   if (/pas tout a fait certain|pardonnez-moi|pas bien compris|ingenieur sur whatsapp/i.test(text)) {
     return [
-      "Échanger sur WhatsApp",
+      "WhatsApp (+221 77 301 08 38)",
       "Cybersécurité & Pare-feu",
       "Réseaux & Câblage",
       "Formations certifiantes",

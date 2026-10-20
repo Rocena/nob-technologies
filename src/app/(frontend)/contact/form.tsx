@@ -140,12 +140,13 @@ export function ContactForm({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div className="space-y-1.5">
             <label htmlFor="phone" className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">
-              Numéro de téléphone
+              Numéro de téléphone <span className="text-cyan-600 dark:text-cyan-400">*</span>
             </label>
             <input 
               type="tel" 
               id="phone" 
               name="phone" 
+              required
               autoComplete="tel"
               inputMode="tel"
               placeholder="+221 77 000 00 00"

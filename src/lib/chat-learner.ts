@@ -242,7 +242,7 @@ export function buildUnclearFallbackResponse(sessionId?: string): string {
 
   return (
     "Je ne suis pas tout à fait certain d'avoir bien compris votre demande, pardonnez-moi ! 😊 Pouvez-vous me la préciser en quelques mots ?\n\n" +
-    "Pour une meilleure prise en charge de votre demande, vous pouvez aussi me communiquer votre nom et numéro de téléphone directement ici dans notre échange, ou échanger directement sur WhatsApp avec l'un de nos ingénieurs :\n" +
-    `[Échanger avec un ingénieur sur WhatsApp](${waUrl})`
+    "Pour une meilleure prise en charge de votre demande, vous pouvez aussi me communiquer votre nom et numéro de téléphone directement ici dans notre échange, ou nous joindre sur WhatsApp :\n" +
+    `[WhatsApp : +221 77 301 08 38${refText}](${waUrl})`
   );
 }

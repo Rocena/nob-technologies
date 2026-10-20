@@ -60,6 +60,9 @@ export async function submitQuoteForm(prevState: any, formData: FormData) {
     if (!email || typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return { success: false, error: "L'adresse email est invalide." };
     }
+    if (!phone || typeof phone !== "string" || phone.trim().length < 6) {
+      return { success: false, error: "Le numéro de téléphone est obligatoire." };
+    }
     if (!needs || typeof needs !== "string" || needs.trim().length < 10) {
       return { success: false, error: "Veuillez détailler vos besoins (minimum 10 caractères)." };
     }

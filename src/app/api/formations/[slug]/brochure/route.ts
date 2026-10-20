@@ -17,27 +17,33 @@ export async function POST(
     const body = await req.json().catch(() => ({}));
     const { name, email, phone, profileType } = body;
 
+    // Validation des champs obligatoires
+    if (!name?.trim() || !email?.trim() || !phone?.trim()) {
+      return NextResponse.json(
+        { error: "Veuillez renseigner tous les champs obligatoires (nom, email et téléphone)." },
+        { status: 400 }
+      );
+    }
+
     // 1. Sauvegarde immédiate du lead dans le CRM / Formulaires
     let messageId: any = null;
-    if (email) {
-      try {
-        const payload = await getPayloadClient();
-        const contactDoc = await payload.create({
-          collection: "contact-messages",
-          data: {
-            name: name || "Prospect Syllabus",
-            email: email,
-            phone: phone || "",
-            company: profileType === "entreprise" ? "Entreprise / DSI" : "Particulier",
-            subject: `[Demande de Syllabus] ${formation.title}`,
-            message: `Demande de syllabus complet pour la formation : ${formation.title} (${formation.duration}). Profil : ${profileType || "Particulier"}. Téléphone / WhatsApp : ${phone || "Non renseigné"}.`,
-            status: "new",
-          },
-        });
-        messageId = contactDoc.id;
-      } catch (err) {
-        console.warn("Erreur enregistrement lead brochure:", err);
-      }
+    try {
+      const payload = await getPayloadClient();
+      const contactDoc = await payload.create({
+        collection: "contact-messages",
+        data: {
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          company: profileType === "entreprise" ? "Entreprise / DSI" : "Particulier",
+          subject: `[Demande de Syllabus] ${formation.title}`,
+          message: `Demande de syllabus complet pour la formation : ${formation.title} (${formation.duration}). Profil : ${profileType || "Particulier"}. Téléphone / WhatsApp : ${phone.trim()}.`,
+          status: "new",
+        },
+      });
+      messageId = contactDoc.id;
+    } catch (err) {
+      console.warn("Erreur enregistrement lead brochure:", err);
     }
 
     const origin = req.headers.get("origin") || process.env.NEXT_PUBLIC_SERVER_URL || "https://www.nobtech.fr";

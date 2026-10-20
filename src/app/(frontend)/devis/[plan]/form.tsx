@@ -77,9 +77,9 @@ export function DevisForm({ plan }: { plan: string }) {
 
         <div className="grid md:grid-cols-2 gap-6 relative z-10">
           <div className="space-y-2">
-            <label htmlFor="phone" className="text-sm font-semibold text-slate-300">Téléphone</label>
+            <label htmlFor="phone" className="text-sm font-semibold text-slate-300">Téléphone *</label>
             <input 
-              type="tel" id="phone" name="phone" placeholder="+221 77 000 00 00" disabled={isPending}
+              type="tel" id="phone" name="phone" required placeholder="+221 77 000 00 00" disabled={isPending}
               className="w-full px-5 py-4 rounded-xl border border-white/10 bg-white/5 text-white focus:bg-white/10 focus:ring-2 focus:ring-accent/50 focus:border-accent outline-none transition-all placeholder-slate-500" 
             />
           </div>

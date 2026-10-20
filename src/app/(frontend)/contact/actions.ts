@@ -83,8 +83,8 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     if (!email || typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 150) {
       return { success: false, error: "L'adresse email est invalide." };
     }
-    if (phone && (typeof phone !== "string" || phone.length > 30)) {
-      return { success: false, error: "Le numéro de téléphone est invalide (max 30 caractères)." };
+    if (!phone || typeof phone !== "string" || phone.trim().length < 6 || phone.length > 30) {
+      return { success: false, error: "Le numéro de téléphone est obligatoire (au moins 6 caractères)." };
     }
     if (company && (typeof company !== "string" || company.length > 150)) {
       return { success: false, error: "Le nom de l'entreprise est trop long (max 150 caractères)." };

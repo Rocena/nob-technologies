@@ -347,7 +347,7 @@ function fallbackSuggestions(text: string): string[] {
   const lower = text.toLowerCase();
   if (/pas tout a fait certain|pardonnez-moi|pas bien compris|whatsapp|ingenieur/i.test(lower)) {
     return [
-      "Échanger sur WhatsApp",
+      "WhatsApp (+221 77 301 08 38)",
       "Cybersécurité & Firewalls",
       "Réseaux & Câblage",
       "Formations certifiantes",
@@ -446,8 +446,8 @@ function getBotResponse(input: string, knowledge: KnowledgeItem[], currentSessio
 
   return (
     "Je ne suis pas tout à fait certain d'avoir bien compris votre demande, pardonnez-moi ! 😊 Pouvez-vous me la préciser en quelques mots ?\n\n" +
-    "Pour une meilleure prise en charge de votre demande, vous pouvez aussi me communiquer votre nom et numéro de téléphone directement ici dans notre échange, ou échanger directement sur WhatsApp avec l'un de nos ingénieurs :\n" +
-    `[Échanger avec un ingénieur sur WhatsApp](${waUrl})`
+    "Pour une meilleure prise en charge de votre demande, vous pouvez aussi me communiquer votre nom et numéro de téléphone directement ici dans notre échange, ou nous joindre sur WhatsApp :\n" +
+    `[WhatsApp : +221 77 301 08 38${refText}](${waUrl})`
   );
 }
 
@@ -1047,6 +1047,9 @@ export function ChatBot() {
               <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#00D4FF]/10 text-[#00D4FF] font-semibold border border-[#00D4FF]/25">
                 NOBTECH
               </span>
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/5 text-slate-300 border border-white/10" title="Identifiant de session">
+                #{sessionId}
+              </span>
             </div>
             <div className="text-[11px] text-slate-400 font-sans mt-0.5 truncate">
               {visitor.name ? (
@@ -1148,14 +1151,6 @@ export function ChatBot() {
 
             {/* Messages list */}
             <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3.5 scrollbar-thin scrollbar-thumb-white/10">
-              {/* Session opened banner */}
-              <div className="text-center py-1">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-[10px] font-mono text-slate-400">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF]/60" />
-                  Session #{sessionId} ouverte{visitor.name ? ` · ${visitor.name}` : ''}
-                </span>
-              </div>
-
               {messages.map((msg, i) => (
                 <div
                   key={msg.id}
