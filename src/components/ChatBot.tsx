@@ -66,6 +66,23 @@ function generateSessionId() {
   return `SES-${timePart}${randomPart}`;
 }
 
+// Logo public et officiel de WhatsApp (cercle avec combiné et bulle de discussion)
+export function WhatsAppIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      className={className}
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="WhatsApp"
+    >
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+    </svg>
+  );
+}
+
 // Illustration d'un jeune homme africain souriant avec coupe afro soignée, lunettes modernes et fond cyan radieux
 export function AssistantAvatar({ className = "w-6 h-6" }: { className?: string }) {
   return (
@@ -397,7 +414,7 @@ function getBotResponse(input: string, knowledge: KnowledgeItem[], currentSessio
     return "Vous pouvez nous écrire directement sur WhatsApp au **+221 77 301 08 38** 📲 ! [Cliquez ici pour démarrer la discussion](https://wa.me/221773010838?text=Bonjour%20Koffi,%20je%20souhaite%20obtenir%20des%20informations). Nos ingénieurs vous répondent très rapidement.";
   }
   if (/remplir un devis|demander un devis|devis gratuit|obtenir un devis|faire un devis|devis/i.test(lower)) {
-    return "Avec grand plaisir ! Chez **NOBTECH**, nos devis sont **100% gratuits, personnalisés et sans engagement** sous 24h ouvrées. 📋\n\nPour aller au plus vite, vous pouvez :\n• **M'en dire deux mots ici** (type de projet, nombre de postes ou locaux) et je transmets tout à nos ingénieurs.\n• Ou remplir notre formulaire guidé : [Ouvrir le formulaire de devis en ligne](/contact)\n\nQuel domaine vous intéresse en priorité ?";
+    return "Avec grand plaisir ! Chez **NOBTECH**, nos devis sont **100% gratuits, personnalisés et sans engagement** sous 24h ouvrées. 📋\n\nPour une meilleure prise en charge de votre demande, pourriez-vous me communiquer votre prénom ainsi qu'un numéro de téléphone ou adresse e-mail ? Vous pouvez simplement me l'écrire ici dans le chat 😊\n\nVous pouvez également remplir notre formulaire guidé : [Ouvrir le formulaire de devis en ligne](/contact)\n\nQuel domaine vous intéresse en priorité ?";
   }
 
   let bestMatch: KnowledgeItem | null = null;
@@ -429,8 +446,8 @@ function getBotResponse(input: string, knowledge: KnowledgeItem[], currentSessio
 
   return (
     "Je ne suis pas tout à fait certain d'avoir bien compris votre demande, pardonnez-moi ! 😊 Pouvez-vous me la préciser en quelques mots ?\n\n" +
-    "Si vous préférez, vous pouvez aussi échanger directement avec un de nos ingénieurs sur WhatsApp :\n" +
-    `[💬 Échanger avec un ingénieur sur WhatsApp](${waUrl})`
+    "Pour une meilleure prise en charge de votre demande, vous pouvez aussi me communiquer votre nom et numéro de téléphone directement ici dans notre échange, ou échanger directement sur WhatsApp avec l'un de nos ingénieurs :\n" +
+    `[Échanger avec un ingénieur sur WhatsApp](${waUrl})`
   );
 }
 
@@ -456,6 +473,23 @@ function renderText(text: string) {
       const label = match[1];
       const href = match[2];
       const isExternal = href.startsWith('http') || href.startsWith('tel:') || href.startsWith('mailto:');
+      const isWhatsApp = href.includes('wa.me') || href.includes('whatsapp');
+
+      if (isWhatsApp) {
+        return (
+          <a
+            key={i}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="my-1.5 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-xs shadow-md shadow-[#25D366]/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+          >
+            <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" />
+            <span>{label.replace(/^[💬📱\s]+/, '')}</span>
+          </a>
+        );
+      }
+
       return (
         <a
           key={i}
@@ -502,8 +536,6 @@ export function ChatBot() {
   const [isEndingSession, setIsEndingSession] = useState<boolean>(false);
   const [rating, setRating] = useState<number | null>(null);
   const [unreadCount, setUnreadCount] = useState<number>(0);
-  const [showContactForm, setShowContactForm] = useState<boolean>(false);
-  const [manualContactSaved, setManualContactSaved] = useState<boolean>(false);
 
   // Visitor contact state
   const [visitor, setVisitor] = useState<VisitorProfile>({
@@ -1034,8 +1066,9 @@ export function ChatBot() {
               target="_blank"
               rel="noopener noreferrer"
               title="Échanger avec un ingénieur sur WhatsApp"
-              className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-1 rounded bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366]/20 border border-[#25D366]/25 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[#25D366] text-white hover:bg-[#20bd5a] shadow-[0_2px_8px_rgba(37,211,102,0.35)] transition-all cursor-pointer"
             >
+              <WhatsAppIcon className="w-3.5 h-3.5 fill-current shrink-0" />
               <span>WhatsApp</span>
             </a>
 
@@ -1062,107 +1095,6 @@ export function ChatBot() {
             )}
           </div>
         </div>
-
-        {/* NON-BLOCKING PROGRESSIVE CONTACT COLLECTION BAR */}
-        {phase === 'active' && !visitor.phone && !visitor.email && (
-          <div className="px-3.5 py-2 bg-gradient-to-r from-[#00D4FF]/[0.08] via-white/[0.02] to-[#00D4FF]/[0.08] border-b border-[#00D4FF]/20 shrink-0">
-            {!showContactForm ? (
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-[11px] text-slate-300 flex items-center gap-1.5 truncate">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  <span>Discussion directe avec Koffi</span>
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setShowContactForm(true)}
-                  className="text-[11px] font-semibold text-[#00D4FF] hover:text-white underline underline-offset-2 decoration-[#00D4FF]/40 transition-colors shrink-0"
-                >
-                  Laisser mes coordonnées (facultatif)
-                </button>
-              </div>
-            ) : (
-              <div className="pt-1 pb-1 animate-in fade-in duration-200">
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[11px] font-medium text-slate-200">
-                    Pour être recontacté ou recevoir un chiffrage :
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setShowContactForm(false)}
-                    className="text-[10px] text-slate-400 hover:text-white"
-                  >
-                    Masquer ✕
-                  </button>
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  <input
-                    type="text"
-                    value={visitor.name}
-                    onChange={(e) => setVisitor({ ...visitor, name: e.target.value })}
-                    placeholder="Votre prénom / nom"
-                    className="bg-white/[0.06] border border-white/10 rounded-lg px-2.5 py-1 text-xs text-white placeholder-slate-500 outline-none focus:border-[#00D4FF]/60"
-                  />
-                  <input
-                    type="text"
-                    value={visitor.phone || visitor.email}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      if (val.includes('@')) {
-                        setVisitor({ ...visitor, email: val });
-                      } else {
-                        setVisitor({ ...visitor, phone: val });
-                      }
-                    }}
-                    placeholder="WhatsApp ou Email"
-                    className="bg-white/[0.06] border border-white/10 rounded-lg px-2.5 py-1 text-xs text-white placeholder-slate-500 outline-none focus:border-[#00D4FF]/60"
-                  />
-                </div>
-                <div className="mt-2 flex justify-end gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setShowContactForm(false)}
-                    className="px-2 py-0.5 text-[10.5px] text-slate-400 hover:text-white"
-                  >
-                    Annuler
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (visitor.name || visitor.phone || visitor.email) {
-                        try {
-                          localStorage.setItem(VISITOR_PROFILE_KEY, JSON.stringify(visitor));
-                        } catch {}
-                        syncSessionWithBackend({
-                          action: 'sync',
-                          updatedMessages: messages,
-                          updatedVisitor: visitor,
-                        });
-                        setManualContactSaved(true);
-                        setShowContactForm(false);
-                      }
-                    }}
-                    className="px-3 py-1 rounded-md bg-[#00D4FF] hover:bg-[#38BDF8] text-[#020617] text-[10.5px] font-bold transition-colors"
-                  >
-                    Enregistrer
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {phase === 'active' && manualContactSaved && (visitor.phone || visitor.email) && (
-          <div className="px-3.5 py-1.5 bg-emerald-500/10 border-b border-emerald-500/20 text-[11px] text-emerald-300 flex items-center justify-between shrink-0">
-            <span>✓ Coordonnées enregistrées pour nos ingénieurs</span>
-            <button
-              type="button"
-              onClick={() => setManualContactSaved(false)}
-              className="text-slate-400 hover:text-white text-[10px]"
-            >
-              ✕
-            </button>
-          </div>
-        )}
 
         {/* PHASE 2: ACTIVE CHAT SESSION */}
         {phase === 'active' && (
@@ -1257,17 +1189,26 @@ export function ChatBot() {
                             Suggestions rapides :
                           </p>
                           <div className="flex flex-wrap gap-1.5">
-                            {msg.suggestions.map((sug, idx) => (
-                              <button
-                                key={idx}
-                                type="button"
-                                onClick={() => sendMessage(sug)}
-                                disabled={isTyping}
-                                className="text-xs px-2.5 py-1 rounded-full bg-[#00D4FF]/10 hover:bg-[#00D4FF] text-[#00D4FF] hover:text-[#020617] border border-[#00D4FF]/30 hover:border-[#00D4FF] transition-all duration-200 font-medium active:scale-95 text-left disabled:opacity-50"
-                              >
-                                {sug}
-                              </button>
-                            ))}
+                            {msg.suggestions.map((sug, idx) => {
+                              const isWhatsApp = /whatsapp/i.test(sug);
+                              return (
+                                <button
+                                  key={idx}
+                                  type="button"
+                                  onClick={() => sendMessage(sug)}
+                                  disabled={isTyping}
+                                  className={cn(
+                                    "text-xs px-2.5 py-1 rounded-full transition-all duration-200 font-medium active:scale-95 text-left disabled:opacity-50 inline-flex items-center gap-1.5",
+                                    isWhatsApp
+                                      ? "bg-[#25D366]/15 hover:bg-[#25D366] text-[#25D366] hover:text-white border border-[#25D366]/40 hover:border-[#25D366]"
+                                      : "bg-[#00D4FF]/10 hover:bg-[#00D4FF] text-[#00D4FF] hover:text-[#020617] border border-[#00D4FF]/30 hover:border-[#00D4FF]"
+                                  )}
+                                >
+                                  {isWhatsApp && <WhatsAppIcon className="w-3.5 h-3.5 fill-current shrink-0" />}
+                                  <span>{sug}</span>
+                                </button>
+                              );
+                            })}
                           </div>
                         </div>
                       )}

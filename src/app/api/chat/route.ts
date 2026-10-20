@@ -239,7 +239,7 @@ function generateNaturalResponse(
   // 19. Nouveaux locaux à câbler
   if (/(nouveau|nouveaux|nouvelle)\s*(locaux|bureau|bureaux|batiment|immeuble|siege)/i.test(q)) {
     saveLearnedPattern(raw, "cablage-reseau");
-    return "Félicitations pour vos nouveaux locaux ! 🎉 C'est le moment parfait pour installer un câblage certifié Cat 6A et une baie de brassage propre avant l'arrivée des équipes.\n\nNos ingénieurs se déplacent gratuitement à Dakar pour visiter votre site, effectuer le relevé technique et vous transmettre un devis détaillé sous 24h.\n\nSouhaitez-vous planifier une visite sur place ou échanger par téléphone au **+221 77 301 08 38** ?";
+    return "Félicitations pour vos nouveaux locaux ! 🎉 C'est le moment parfait pour installer un câblage certifié Cat 6A et une baie de brassage propre avant l'arrivée des équipes.\n\nNos ingénieurs se déplacent gratuitement à Dakar pour visiter votre site, effectuer le relevé technique et vous transmettre un devis détaillé sous 24h.\n\nSouhaitez-vous planifier une visite sur place ou échanger par téléphone au **+221 77 301 08 38** ?" + contactPromptPill;
   }
 
   // 20. Demande générale de devis / "remplir un devis" / "demander un devis" / "prix"
@@ -250,12 +250,12 @@ function generateNaturalResponse(
 
   // 21. Wi-Fi & Problèmes réseau local
   if (/(wi-?fi|wifi|borne wifi|sans fil|roaming)/i.test(q) || (isOneWord && words[0] === "wifi")) {
-    return "Un Wi-Fi qui rame ou qui coupe en pleine réunion, c'est le cauchemar de toute entreprise ! 📶\n\nChez **NOBTECH**, nous déployons des bornes Wi-Fi professionnelles haute densité (Cisco Meraki, HPE Aruba, Ubiquiti UniFi) avec :\n• Couverture intégrale sans zone blanche (roaming fluide d'une pièce à l'autre).\n• Séparation étanche entre réseau salarié et réseau invité.\n• Limitation de bande passante pour empêcher les téléchargements abusifs.\n\nCombien d'utilisateurs ou de mètres carrés avez-vous environ ?";
+    return "Un Wi-Fi qui rame ou qui coupe en pleine réunion, c'est le cauchemar de toute entreprise ! 📶\n\nChez **NOBTECH**, nous déployons des bornes Wi-Fi professionnelles haute densité (Cisco Meraki, HPE Aruba, Ubiquiti UniFi) avec :\n• Couverture intégrale sans zone blanche (roaming fluide d'une pièce à l'autre).\n• Séparation étanche entre réseau salarié et réseau invité.\n• Limitation de bande passante pour empêcher les téléchargements abusifs.\n\nCombien d'utilisateurs ou de mètres carrés avez-vous environ ?" + contactPromptPill;
   }
 
   // 22. Vente de matériel
   if (/(vendez|vente|acheter|achat|fourniture|mat[eé]riel|pc|serveur|dell|switch|routeur|baie|onduleur|armoire)/i.test(q) || (isOneWord && ["serveur", "switch", "routeur", "dell"].includes(words[0]))) {
-    return "Oui, tout à fait ! Nous fournissons du matériel informatique d'entreprise garanti constructeur 🖥️ :\n\n• **Serveurs physiques** : Dell Technologies PowerEdge (tours et racks) configurés sur-mesure.\n• **Commutateurs & Routeurs** : Cisco Catalyst, HPE Aruba.\n• **Baies & Câblage** : Baies de brassage 19\" (12U à 42U), bandeaux, onduleurs APC/Eaton, jarretières optiques.\n• **Postes de travail** : PC professionnels et écrans pour équipes tertiaires.\n\nVous avez une référence précise en tête ou souhaitez-vous un conseil de dimensionnement ?";
+    return "Oui, tout à fait ! Nous fournissons du matériel informatique d'entreprise garanti constructeur 🖥️ :\n\n• **Serveurs physiques** : Dell Technologies PowerEdge (tours et racks) configurés sur-mesure.\n• **Commutateurs & Routeurs** : Cisco Catalyst, HPE Aruba.\n• **Baies & Câblage** : Baies de brassage 19\" (12U à 42U), bandeaux, onduleurs APC/Eaton, jarretières optiques.\n• **Postes de travail** : PC professionnels et écrans pour équipes tertiaires.\n\nVous avez une référence précise en tête ou souhaitez-vous un conseil de dimensionnement ?" + contactPromptPill;
   }
 
   // 23. Formations
@@ -281,22 +281,22 @@ function generateNaturalResponse(
     return "Pour digitaliser la gestion de votre activité, **NOBTECH** propose deux approches éprouvées 💼 :\n\n" +
       "1. **ERP 100% Sur-Mesure** : Nous codons votre outil selon vos processus métiers spécifiques.\n" +
       "2. **Intégration Odoo & Dolibarr** : Déploiement et paramétrage complet (devis, facturation conforme, stocks, achats, CRM et RH).\n\n" +
-      "Nous assurons également l'hébergement sécurisé, la migration de vos anciens fichiers Excel et la formation de vos collaborateurs. Quelle est votre activité ?";
+      "Nous assurons également l'hébergement sécurisé, la migration de vos anciens fichiers Excel et la formation de vos collaborateurs. Quelle est votre activité ?" + contactPromptPill;
   }
 
   // 25. Développement Web, Mobile & Réseaux Sociaux
   if (/(site web|site internet|site|application|mobile|flutter|d[eé]velopp|vitrine|e-commerce|boutique|instagram|facebook|reseaux sociaux|community)/i.test(q)) {
-    return "Nous concevons des sites web, applications mobiles et pilotons la présence digitale des entreprises 💻📱 !\n\n• **Exemple phare** : Nous avons développé la plateforme web officielle de l'Hôtel du Parc (Parc Exotique du Sénégal à Somone) et nous gérons leurs réseaux sociaux officiels (**Instagram** et **Facebook**) pour booster leurs réservations directes.\n• **Technologies** : Next.js, React, Flutter, hébergement Cloud sécurisé.\n\nQuel type de site ou d'application souhaitez-vous lancer ?";
+    return "Nous concevons des sites web, applications mobiles et pilotons la présence digitale des entreprises 💻📱 !\n\n• **Exemple phare** : Nous avons développé la plateforme web officielle de l'Hôtel du Parc (Parc Exotique du Sénégal à Somone) et nous gérons leurs réseaux sociaux officiels (**Instagram** et **Facebook**) pour booster leurs réservations directes.\n• **Technologies** : Next.js, React, Flutter, hébergement Cloud sécurisé.\n\nQuel type de site ou d'application souhaitez-vous lancer ?" + contactPromptPill;
   }
 
   // 26. Cybersécurité, Pare-feu, Sauvegardes
   if (/(cyber|s[eé]curit[eé]|firewall|pare-?feu|antivirus|ransomware|sophos|fortinet|acronis|wallix|kaspersky|ddos)/i.test(q) || (isOneWord && ["cyber", "firewall", "sophos", "fortinet", "securite"].includes(words[0]))) {
-    return "La cybersécurité, c'est notre spécialité numéro une ! 🛡️\n\n• **Pare-feux Next-Gen** : Sophos XGS et Fortinet FortiGate (filtrage web, VPN sécurisé, anti-intrusion).\n• **Sauvegardes anti-ransomware** : Acronis Cyber Protect (sauvegarde cloud immuable).\n• **Gestion des accès (PAM)** : Wallix Bastion pour verrouiller les comptes administrateurs.\n• **Audit & Tests de pénétration** : diagnostic complet de vos vulnérabilités.\n\nVous souhaitez auditer votre sécurité existante ou protéger un nouveau réseau ?";
+    return "La cybersécurité, c'est notre spécialité numéro une ! 🛡️\n\n• **Pare-feux Next-Gen** : Sophos XGS et Fortinet FortiGate (filtrage web, VPN sécurisé, anti-intrusion).\n• **Sauvegardes anti-ransomware** : Acronis Cyber Protect (sauvegarde cloud immuable).\n• **Gestion des accès (PAM)** : Wallix Bastion pour verrouiller les comptes administrateurs.\n• **Audit & Tests de pénétration** : diagnostic complet de vos vulnérabilités.\n\nVous souhaitez auditer votre sécurité existante ou protéger un nouveau réseau ?" + contactPromptPill;
   }
 
   // 27. Réseau & Câblage structuré
   if (/(r[eé]seau|c[aâ]blage|baie|brassage|fibre optique|cat 6|switch|cisco|aruba)/i.test(q) || (isOneWord && ["reseau", "cablage", "baie", "cisco"].includes(words[0]))) {
-    return "Pour vos réseaux d'entreprise, **NOBTECH** réalise des installations physiques aux normes internationales 🌐 :\n\n• Pose et certification de câblage cuivre Cat 6A / 7 et rocade fibre optique.\n• Montage et peignage de baies de brassage 42U (notamment notre réalisation pour le bureau de l'Union Européenne à Dakar).\n• Commutation d'entreprise Cisco Catalyst et HPE Aruba.\n• Recette technique avec testeur de certification Fluke Networks.\n\nCombien de prises réseau ou de bureaux devez-vous équiper ?";
+    return "Pour vos réseaux d'entreprise, **NOBTECH** réalise des installations physiques aux normes internationales 🌐 :\n\n• Pose et certification de câblage cuivre Cat 6A / 7 et rocade fibre optique.\n• Montage et peignage de baies de brassage 42U (notamment notre réalisation pour le bureau de l'Union Européenne à Dakar).\n• Commutation d'entreprise Cisco Catalyst et HPE Aruba.\n• Recette technique avec testeur de certification Fluke Networks.\n\nCombien de prises réseau ou de bureaux devez-vous équiper ?" + contactPromptPill;
   }
 
   // 28. Expérience, Fondateur & Historique

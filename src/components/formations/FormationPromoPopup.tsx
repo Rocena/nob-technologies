@@ -70,7 +70,6 @@ export function FormationPromoPopup({ formation }: FormationPromoPopupProps) {
     });
   };
 
-  const reservedSpots = Math.max(0, launchSpots - remainingSpots);
   const economyAmount = Math.max(0, pricing.publicPrice - pricing.launchPrice);
   const discountPercent = pricing.publicPrice > 0 ? Math.round((economyAmount / pricing.publicPrice) * 100) : 0;
 
@@ -121,7 +120,7 @@ export function FormationPromoPopup({ formation }: FormationPromoPopupProps) {
               {/* Badge d'Urgence Clarté Marketing */}
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[10px] sm:text-xs font-mono font-bold tracking-wider">
                 <Flame size={14} className="text-amber-400 shrink-0 animate-pulse" />
-                <span>OFFRE DE LANCEMENT • 10 PREMIÈRES PLACES SEULEMENT</span>
+                <span>OFFRE DE LANCEMENT • {remainingSpots <= 1 ? "DERNIÈRE PLACE DISPONIBLE" : `IL RESTE ${remainingSpots} PLACES`}</span>
               </div>
 
               {/* Titre & Promesse principale */}
@@ -146,7 +145,7 @@ export function FormationPromoPopup({ formation }: FormationPromoPopupProps) {
                 <div className="pt-2 border-t border-white/10 flex items-center justify-between">
                   <div>
                     <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold block">
-                      Tarif Spécial Lancement (10 places) :
+                      Tarif Spécial Lancement :
                     </span>
                     <div className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-cyan-300">
                       {pricing.launchPrice.toLocaleString("fr-FR")}{" "}
@@ -169,32 +168,15 @@ export function FormationPromoPopup({ formation }: FormationPromoPopupProps) {
                 )}
               </div>
 
-              {/* Compteur de Rareté Transparent */}
-              <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/25 space-y-2">
-                <div className="flex items-center justify-between text-xs font-bold text-amber-200">
-                  <span className="flex items-center gap-1.5">
-                    <Flame size={14} className="text-amber-400 shrink-0" />
-                    Places restantes à ce tarif préférentiel :
-                  </span>
-                  <span className="font-mono text-white text-xs sm:text-sm bg-amber-500/30 px-2 py-0.5 rounded font-black">
-                    {remainingSpots} / {launchSpots}
-                  </span>
-                </div>
-
-                {/* Barre de progression des attributions */}
-                <div className="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-amber-500/20">
-                  <div
-                    className="bg-gradient-to-r from-amber-400 via-amber-500 to-rose-500 h-full rounded-full transition-all duration-500"
-                    style={{
-                      width: `${Math.min(100, Math.round((reservedSpots / launchSpots) * 100))}%`,
-                    }}
-                  />
-                </div>
-
-                <div className="flex items-center justify-between text-[10px] text-slate-400 font-medium">
-                  <span>{reservedSpots} candidatures déjà reçues</span>
-                  <span className="text-slate-400">Attribution selon l&apos;ordre d&apos;arrivée</span>
-                </div>
+              {/* Compteur de Places Restantes */}
+              <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/25 flex items-center justify-between text-xs font-bold text-amber-200">
+                <span className="flex items-center gap-2">
+                  <Flame size={15} className="text-amber-400 shrink-0" />
+                  <span>Disponibilité de la session :</span>
+                </span>
+                <span className="font-mono text-white text-xs sm:text-sm bg-amber-500/30 px-3 py-1 rounded-full font-black text-amber-300 border border-amber-500/30 shrink-0">
+                  {remainingSpots <= 1 ? "Il ne reste qu'1 place" : `Il reste ${remainingSpots} places`}
+                </span>
               </div>
 
               {/* Les 3 Piliers de Valeur (Conversion & Rassurance) */}

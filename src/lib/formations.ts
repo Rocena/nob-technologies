@@ -82,11 +82,7 @@ function buildFormationFromCmsDoc(doc: any): Formation {
 function applyDynamicPricing(formation: Formation, count: number): Formation {
   if (!formation.pricing) return formation;
 
-  const launchSpots = formation.pricing.launchSpots;
-  if (!launchSpots || launchSpots <= 0) {
-    return formation;
-  }
-
+  const launchSpots = formation.pricing.launchSpots || 10;
   const applicationsCount = count;
   const remainingSpots = Math.max(0, launchSpots - applicationsCount);
   const isPromoExpired = remainingSpots <= 0;
@@ -99,16 +95,27 @@ function applyDynamicPricing(formation: Formation, count: number): Formation {
   };
 
   if (isPromoExpired) {
-    // Si les 10 places ont été atteintes, le prix de promotion disparaît
-    // On applique et affiche strictement le prix standard pour garantir l'absence de publicité mensongère
+    // Si toutes les places promotionnelles ont été attribuées, le tarif standard s'applique
     updatedPricing.launchPrice = formation.pricing.publicPrice;
     updatedPricing.promoPrice = undefined;
-    updatedPricing.note = `Offre de lancement expirée : les ${launchSpots} places au tarif préférentiel ont été pourvues. Inscriptions au tarif standard.`;
+    updatedPricing.note = `Session complète : toutes les places au tarif préférentiel ont été pourvues. Inscriptions au tarif standard.`;
   }
+
+  // Calcul dynamique des places restantes par session en arrière-plan
+  const updatedSessions = (formation.sessions || []).map((sess) => {
+    const sessionCapacity = typeof sess.availableSeats === "number" ? sess.availableSeats : 10;
+    const sessionRemaining = Math.max(0, sessionCapacity - applicationsCount);
+    return {
+      ...sess,
+      availableSeats: sessionRemaining,
+      status: sessionRemaining <= 2 ? (sessionRemaining === 0 ? "full" : "limited") : sess.status,
+    };
+  });
 
   return {
     ...formation,
     pricing: updatedPricing,
+    sessions: updatedSessions,
   };
 }
 

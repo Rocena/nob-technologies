@@ -197,7 +197,7 @@ export default async function FormationsCatalogPage() {
                                 </div>
                               </div>
                               <span className="text-[10px] font-mono font-bold px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300 shrink-0">
-                                Quota promo atteint ({track.pricing.launchSpots}/{track.pricing.launchSpots})
+                                Session complète (0 place restante)
                               </span>
                             </div>
                           ) : (
@@ -217,7 +217,7 @@ export default async function FormationsCatalogPage() {
                               </div>
                               {track.pricing.launchSpots && (
                                 <span className="text-[10px] font-mono font-bold px-2 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 shrink-0">
-                                  Plus que {track.pricing.remainingSpots ?? 3} places
+                                  {track.pricing.remainingSpots === 1 ? "Il ne reste qu'1 place" : `Il reste ${track.pricing.remainingSpots ?? 3} places`}
                                 </span>
                               )}
                             </div>

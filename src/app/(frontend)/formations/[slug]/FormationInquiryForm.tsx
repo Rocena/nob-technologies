@@ -237,8 +237,8 @@ export function FormationInquiryForm({
                         }`}
                       >
                         {sess.status === "limited"
-                          ? "Dernières places"
-                          : `${sess.availableSeats || 10} places`}
+                          ? "Il ne reste qu'1 place"
+                          : `Il reste ${sess.availableSeats || 10} places`}
                       </span>
                       {isSelected && (
                         <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />

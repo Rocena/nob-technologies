@@ -89,10 +89,10 @@ export function FormationPricingBox({
                   <div className="p-4 rounded-xl bg-slate-800/80 border border-amber-500/30 text-xs space-y-1.5">
                     <div className="flex items-center gap-2 text-amber-300 font-bold">
                       <Flame size={16} className="text-amber-400 shrink-0" />
-                      <span>Offre de lancement expirée ({pricing.launchSpots || 10}/{pricing.launchSpots || 10} places pourvues)</span>
+                      <span>Session complète (0 place restante à ce tarif)</span>
                     </div>
                     <p className="text-slate-300 text-[11px] leading-relaxed">
-                      Conformément à nos engagements d&apos;intégrité (zéro fausse promotion), les 10 premières places à tarif réduit ont été intégralement attribuées suite aux candidatures reçues. Les inscriptions sont désormais ouvertes au tarif public standard.
+                      Conformément à nos engagements d&apos;intégrité (zéro fausse promotion), toutes les places à tarif réduit ont été intégralement attribuées suite aux candidatures reçues. Les inscriptions sont désormais ouvertes au tarif public standard.
                     </p>
                   </div>
                 </>
@@ -131,31 +131,20 @@ export function FormationPricingBox({
                     )}
                   </div>
 
-                  {/* Places limitées avec vérification dynamique */}
+                  {/* Places restantes avec calcul dynamique en arrière-plan */}
                   {pricing.launchSpots && (
-                    <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-200 text-xs space-y-2">
+                    <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-200 text-xs flex items-center justify-between">
                       <div className="flex items-center gap-2.5">
                         <Flame size={18} className="text-amber-400 shrink-0" />
-                        <div>
-                          <span className="font-bold">
-                            {pricing.launchSpots} premières places seulement à ce tarif (Suivi en temps réel).
-                          </span>
-                          <span className="text-amber-300/80 block text-[11px]">
-                            {pricing.remainingSpots === 1
-                              ? "Dernière place disponible à ce tarif promotionnel avant clôture !"
-                              : `Plus que ${pricing.remainingSpots ?? 3} places disponibles avant passage au tarif standard (${pricing.publicPrice.toLocaleString("fr-FR")} FCFA).`}
-                          </span>
-                        </div>
+                        <span className="font-bold text-white text-xs sm:text-sm">
+                          {pricing.remainingSpots === 1
+                            ? "Il ne reste qu'une seule place disponible"
+                            : `Il reste ${pricing.remainingSpots ?? 3} places`}
+                        </span>
                       </div>
-                      {/* Barre de progression des places réservées */}
-                      <div className="w-full bg-slate-950/70 rounded-full h-1.5 overflow-hidden border border-amber-500/20">
-                        <div
-                          className="bg-gradient-to-r from-amber-400 to-rose-500 h-full rounded-full transition-all duration-500"
-                          style={{
-                            width: `${Math.min(100, Math.round(((pricing.launchSpots - (pricing.remainingSpots ?? 3)) / pricing.launchSpots) * 100))}%`,
-                          }}
-                        />
-                      </div>
+                      <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full font-bold bg-amber-500/25 text-amber-300 border border-amber-500/30 shrink-0">
+                        {pricing.remainingSpots === 1 ? "1 place restante" : `${pricing.remainingSpots ?? 3} places restantes`}
+                      </span>
                     </div>
                   )}
                 </>
