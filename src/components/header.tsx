@@ -253,6 +253,17 @@ export function Header() {
           const updatedNav = JSON.parse(JSON.stringify(DEFAULT_NAV));
 
           data.pages.forEach((p: any) => {
+            const pName = (p.name || '').toLowerCase().trim();
+            const pHref = (p.href || '').toLowerCase().trim();
+            if (
+              pName === 'home' ||
+              pName === 'accueil' ||
+              pHref === '/' ||
+              pHref === '/home' ||
+              pHref === '/accueil'
+            ) {
+              return;
+            }
             const existingIndex = updatedNav.findIndex((i: NavItem) => i.href === p.href);
             if (existingIndex === -1) {
               updatedNav.push({
@@ -779,7 +790,19 @@ export function Header() {
             </div>
 
             <nav className="flex flex-col gap-2.5">
-              {navItems.map((item) => {
+              {navItems
+                .filter((item) => {
+                  const nameLower = (item.name || '').toLowerCase().trim();
+                  const hrefLower = (item.href || '').toLowerCase().trim();
+                  return (
+                    nameLower !== 'home' &&
+                    nameLower !== 'accueil' &&
+                    hrefLower !== '/' &&
+                    hrefLower !== '/home' &&
+                    hrefLower !== '/accueil'
+                  );
+                })
+                .map((item) => {
                 const IconComponent = getNavIcon(item.name);
                 const hasChildren = Boolean(item.children && item.children.length > 0);
                 const isExpanded = openMobileSubmenu === item.name;

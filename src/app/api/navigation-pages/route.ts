@@ -17,14 +17,26 @@ export async function GET() {
       limit: 50,
     });
 
-    const pages = res.docs.map((p) => ({
-      name: p.title,
-      href: `/${p.slug}`,
-      desc: p.shortDescription || p.metaDescription || `Découvrez notre page ${p.title}.`,
-      placement: (p as any).menuPlacement || 'main',
-      parent: (p as any).parentItem || 'solutions',
-      order: (p as any).navOrder ?? 10,
-    }));
+    const pages = res.docs
+      .filter((p) => {
+        const slug = (p.slug || '').toLowerCase().trim();
+        const title = (p.title || '').toLowerCase().trim();
+        return (
+          slug !== 'home' &&
+          slug !== 'accueil' &&
+          slug !== '' &&
+          title !== 'home' &&
+          title !== 'accueil'
+        );
+      })
+      .map((p) => ({
+        name: p.title,
+        href: `/${p.slug}`,
+        desc: p.shortDescription || p.metaDescription || `Découvrez notre page ${p.title}.`,
+        placement: (p as any).menuPlacement || 'main',
+        parent: (p as any).parentItem || 'solutions',
+        order: (p as any).navOrder ?? 10,
+      }));
 
     return NextResponse.json({ pages });
   } catch (error) {
