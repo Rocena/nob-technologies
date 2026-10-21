@@ -3,6 +3,68 @@
 import React, { useState } from 'react';
 import { Mail, Send, CheckCircle2, AlertTriangle, Loader2, Sparkles } from 'lucide-react';
 
+const EMAIL_STUDIO_CSS = `
+  .nob-email-studio {
+    --es-bg: #ffffff;
+    --es-bg-sub: #f8fafc;
+    --es-border: #e2e8f0;
+    --es-text: #0f172a;
+    --es-text-sub: #475569;
+    --es-text-muted: #64748b;
+    --es-input-bg: #ffffff;
+    --es-input-border: #cbd5e1;
+
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--es-bg);
+    border: 1px solid var(--es-border);
+    border-radius: 18px;
+    padding: 24px;
+    color: var(--es-text);
+    max-width: 880px;
+    margin-top: 16px;
+    box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.05);
+  }
+
+  html[data-nob-theme="dark"] .nob-email-studio {
+    --es-bg: #0f172a;
+    --es-bg-sub: #1e293b;
+    --es-border: rgba(255, 255, 255, 0.1);
+    --es-text: #f8fafc;
+    --es-text-sub: #cbd5e1;
+    --es-text-muted: #94a3b8;
+    --es-input-bg: #020617;
+    --es-input-border: rgba(148, 163, 184, 0.28);
+    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.35);
+  }
+
+  .nob-email-studio h4 {
+    margin: 0 !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    color: var(--es-text) !important;
+  }
+
+  .nob-email-studio select.nob-es-select,
+  .nob-email-studio input.nob-es-input {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 11px 14px !important;
+    border-radius: 10px !important;
+    background: var(--es-input-bg) !important;
+    border: 1px solid var(--es-input-border) !important;
+    color: var(--es-text) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    outline: none !important;
+  }
+
+  .nob-email-studio select.nob-es-select:focus,
+  .nob-email-studio input.nob-es-input:focus {
+    border-color: #0284c7 !important;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.14) !important;
+  }
+`;
+
 const TEMPLATE_OPTIONS = [
   {
     id: 'diagnostic',
@@ -95,39 +157,29 @@ export const EmailTestField: React.FC = () => {
   };
 
   return (
-    <div
-      style={{
-        fontFamily: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-        background: 'linear-gradient(145deg, #0b1120 0%, #0f172a 100%)',
-        border: '1px solid rgba(56, 189, 248, 0.2)',
-        borderRadius: '20px',
-        padding: '24px',
-        color: '#f8fafc',
-        maxWidth: '880px',
-        marginTop: '16px',
-      }}
-    >
+    <div className="nob-email-studio">
+      <style dangerouslySetInnerHTML={{ __html: EMAIL_STUDIO_CSS }} />
+
       <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
         <div
           style={{
             width: '44px',
             height: '44px',
             borderRadius: '12px',
-            background: 'rgba(0, 212, 255, 0.12)',
-            border: '1px solid rgba(0, 212, 255, 0.28)',
+            background: 'rgba(2, 132, 199, 0.1)',
+            border: '1px solid rgba(2, 132, 199, 0.25)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#00D4FF',
+            color: '#0284c7',
+            flexShrink: 0,
           }}
         >
           <Mail size={22} />
         </div>
         <div>
-          <h4 style={{ margin: 0, fontSize: '16px', fontWeight: 800, color: '#ffffff' }}>
-            Console de Test SMTP &amp; Modèles d&apos;E-mails en Direct
-          </h4>
-          <p style={{ margin: '4px 0 0', fontSize: '12px', color: '#94a3b8' }}>
+          <h4>Console de Test SMTP &amp; Modèles d&apos;E-mails en Direct</h4>
+          <p style={{ margin: '4px 0 0', fontSize: '12.5px', color: 'var(--es-text-sub)' }}>
             Envoyez un e-mail réel pour vérifier votre configuration SMTP ou prévisualiser vos modèles personnalisés.
           </p>
         </div>
@@ -137,19 +189,20 @@ export const EmailTestField: React.FC = () => {
         style={{
           padding: '12px 16px',
           borderRadius: '12px',
-          background: 'rgba(255,255,255,0.03)',
-          border: '1px solid rgba(255,255,255,0.08)',
-          fontSize: '12px',
-          color: '#cbd5e1',
+          background: 'var(--es-bg-sub)',
+          border: '1px solid var(--es-border)',
+          fontSize: '12.5px',
+          color: 'var(--es-text-sub)',
           marginBottom: '18px',
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
         }}
       >
-        <Sparkles size={15} color="#00D4FF" style={{ flexShrink: 0 }} />
+        <Sparkles size={15} color="#0284c7" style={{ flexShrink: 0 }} />
         <span>
-          Si vous venez de modifier un paramètre SMTP ou un texte ci-dessus, cliquez d&apos;abord sur <strong>« Enregistrer »</strong> en haut à droite avant de lancer le test.
+          Si vous venez de modifier un paramètre SMTP ou un texte ci-dessus, cliquez d&apos;abord sur{' '}
+          <strong style={{ color: 'var(--es-text)' }}>« Enregistrer »</strong> en haut à droite avant de lancer le test.
         </span>
       </div>
 
@@ -162,38 +215,48 @@ export const EmailTestField: React.FC = () => {
         }}
       >
         <div>
-          <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#cbd5e1', marginBottom: '6px' }}>
+          <label
+            style={{
+              display: 'block',
+              fontSize: '12.5px',
+              fontWeight: 700,
+              color: 'var(--es-text)',
+              marginBottom: '6px',
+            }}
+          >
             Modèle d&apos;e-mail à tester :
           </label>
           <select
+            className="nob-es-select"
             value={templateType}
             onChange={(e) => setTemplateType(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '10px 12px',
-              borderRadius: '10px',
-              background: '#020617',
-              border: '1px solid rgba(148,163,184,0.28)',
-              color: '#ffffff',
-              fontSize: '12.5px',
-              fontWeight: 600,
-            }}
           >
             {TEMPLATE_OPTIONS.map((opt) => (
-              <option key={opt.id} value={opt.id} style={{ background: '#0f172a', color: '#ffffff' }}>
+              <option key={opt.id} value={opt.id}>
                 {opt.label}
               </option>
             ))}
           </select>
-          <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '6px' }}>{selectedTemplate.description}</div>
+          <div style={{ fontSize: '11.5px', color: 'var(--es-text-muted)', marginTop: '6px' }}>
+            {selectedTemplate.description}
+          </div>
         </div>
 
         <div>
-          <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#cbd5e1', marginBottom: '6px' }}>
+          <label
+            style={{
+              display: 'block',
+              fontSize: '12.5px',
+              fontWeight: 700,
+              color: 'var(--es-text)',
+              marginBottom: '6px',
+            }}
+          >
             Adresse email destinataire du test :
           </label>
           <input
             type="email"
+            className="nob-es-input"
             value={recipient}
             onChange={(e) => setRecipient(e.target.value)}
             onKeyDown={(e) => {
@@ -204,18 +267,8 @@ export const EmailTestField: React.FC = () => {
               }
             }}
             placeholder="ex: contact@nobtech.fr (ou laissez vide pour votre email)"
-            style={{
-              width: '100%',
-              boxSizing: 'border-box',
-              padding: '10px 12px',
-              borderRadius: '10px',
-              background: '#020617',
-              border: '1px solid rgba(148,163,184,0.28)',
-              color: '#ffffff',
-              fontSize: '12.5px',
-            }}
           />
-          <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '6px' }}>
+          <div style={{ fontSize: '11.5px', color: 'var(--es-text-muted)', marginTop: '6px' }}>
             Laissez vide pour envoyer par défaut à votre adresse administrateur connectée.
           </div>
         </div>
@@ -233,12 +286,12 @@ export const EmailTestField: React.FC = () => {
           alignItems: 'center',
           gap: '8px',
           padding: '11px 20px',
-          borderRadius: '12px',
-          background: 'linear-gradient(135deg, #00D4FF 0%, #0284C7 100%)',
-          color: '#020617',
-          fontSize: '12.5px',
+          borderRadius: '11px',
+          background: '#0284c7',
+          color: '#ffffff',
+          fontSize: '13px',
           fontWeight: 800,
-          boxShadow: '0 8px 20px -6px rgba(0, 212, 255, 0.45)',
+          boxShadow: '0 6px 16px -4px rgba(2, 132, 199, 0.35)',
         }}
       >
         {sending ? <Loader2 size={15} /> : <Send size={15} />}
@@ -251,10 +304,10 @@ export const EmailTestField: React.FC = () => {
             marginTop: '16px',
             padding: '14px 16px',
             borderRadius: '12px',
-            background: result.success ? 'rgba(16, 185, 129, 0.12)' : 'rgba(244, 63, 94, 0.12)',
-            border: `1px solid ${result.success ? 'rgba(16, 185, 129, 0.35)' : 'rgba(244, 63, 94, 0.35)'}`,
-            color: result.success ? '#6ee7b7' : '#fda4af',
-            fontSize: '12.5px',
+            background: result.success ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+            border: `1px solid ${result.success ? 'rgba(16, 185, 129, 0.35)' : 'rgba(239, 68, 68, 0.35)'}`,
+            color: result.success ? '#059669' : '#e11d48',
+            fontSize: '13px',
             display: 'flex',
             alignItems: 'center',
             gap: '10px',

@@ -3,8 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   ShieldCheck,
-  ShieldAlert,
-  KeyRound,
   QrCode,
   CheckCircle2,
   AlertTriangle,
@@ -14,8 +12,8 @@ import {
   Smartphone,
   RefreshCw,
   Lock,
-  Sparkles,
   ArrowLeft,
+  HelpCircle,
 } from 'lucide-react';
 
 export const MfaSettingsField: React.FC = () => {
@@ -27,6 +25,7 @@ export const MfaSettingsField: React.FC = () => {
   const [verifying, setVerifying] = useState(false);
   const [testingLive, setTestingLive] = useState(false);
   const [showLiveTest, setShowLiveTest] = useState(false);
+  const [showManualKey, setShowManualKey] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -34,7 +33,6 @@ export const MfaSettingsField: React.FC = () => {
   const [confirmDisable, setConfirmDisable] = useState(false);
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-
   const code = digits.join('');
 
   const fetchStatus = async () => {
@@ -65,7 +63,7 @@ export const MfaSettingsField: React.FC = () => {
     setDigits(['', '', '', '', '', '']);
     setTimeout(() => {
       inputRefs.current[0]?.focus();
-    }, 60);
+    }, 80);
   };
 
   const handleStartSetup = async (e?: React.MouseEvent) => {
@@ -79,6 +77,7 @@ export const MfaSettingsField: React.FC = () => {
       setSuccessMsg(null);
       setShowLiveTest(false);
       setConfirmDisable(false);
+      setShowManualKey(false);
 
       const res = await fetch('/api/admin/mfa/setup', {
         method: 'POST',
@@ -90,7 +89,7 @@ export const MfaSettingsField: React.FC = () => {
         if (data.email) setUserEmail(data.email);
         resetDigits();
       } else {
-        setError(data.error || 'Erreur lors de la génération de la clé Google Authenticator.');
+        setError(data.error || 'Erreur lors de la génération du QR Code.');
       }
     } catch {
       setError('Erreur réseau lors de l’initialisation MFA.');
@@ -102,7 +101,7 @@ export const MfaSettingsField: React.FC = () => {
   const submitVerification = async (sixDigitCode: string, isLiveTest = false) => {
     const clean = sixDigitCode.replace(/\D/g, '');
     if (clean.length !== 6) {
-      setError('Veuillez saisir les 6 chiffres affichés dans Google Authenticator.');
+      setError('Veuillez entrer les 6 chiffres affichés sur votre téléphone.');
       return;
     }
 
@@ -133,12 +132,12 @@ export const MfaSettingsField: React.FC = () => {
         setDigits(['', '', '', '', '', '']);
         setSuccessMsg(
           data.message ||
-            'Protection Google Authenticator (2FA) activée et vérifiée avec succès !'
+            'Parfait ! Google Authenticator est maintenant activé sur votre compte.'
         );
       } else {
         setError(
           data.error ||
-            'Code à 6 chiffres invalide ou expiré. Vérifiez que l’heure de votre téléphone est automatique.'
+            'Code incorrect ou expiré. Vérifiez les 6 chiffres actuels sur votre téléphone.'
         );
       }
     } catch {
@@ -160,7 +159,6 @@ export const MfaSettingsField: React.FC = () => {
       inputRefs.current[idx + 1]?.focus();
     }
 
-    // Auto-submit when all 6 digits are filled
     const joined = next.join('');
     if (joined.length === 6 && next.every((d) => d.length === 1)) {
       submitVerification(joined, showLiveTest);
@@ -221,7 +219,7 @@ export const MfaSettingsField: React.FC = () => {
         setSetupData(null);
         setConfirmDisable(false);
         setShowLiveTest(false);
-        setSuccessMsg('La double authentification a été désactivée sur votre compte.');
+        setSuccessMsg('La double authentification a été désactivée.');
       } else {
         setError(data.error || 'Erreur lors de la désactivation.');
       }
@@ -247,97 +245,160 @@ export const MfaSettingsField: React.FC = () => {
     : '';
 
   return (
-    <div className="nob-mfa-studio">
+    <div className="nob-mfa-wrap">
       <style>{`
-        .nob-mfa-studio {
+        .nob-mfa-wrap {
           font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-          background: linear-gradient(145deg, #0b1120 0%, #0f172a 100%);
-          border: 1px solid rgba(56, 189, 248, 0.2);
-          border-radius: 22px;
+          background: #ffffff;
+          border: 1px solid #e2e8f0;
+          border-radius: 20px;
           padding: 28px;
-          color: #f8fafc;
-          max-width: 880px;
-          box-shadow: 0 24px 60px -15px rgba(2, 6, 23, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-          margin: 12px 0;
+          color: #0f172a;
+          max-width: 820px;
+          box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.06);
+          margin: 8px 0;
+          box-sizing: border-box;
         }
-        .nob-mfa-header {
+        html[data-nob-theme="dark"] .nob-mfa-wrap {
+          background: #0f172a;
+          border-color: rgba(255, 255, 255, 0.1);
+          color: #f8fafc;
+          box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        .nob-mfa-top {
           display: flex;
           flex-wrap: wrap;
           align-items: center;
           justify-content: space-between;
           gap: 16px;
-          padding-bottom: 22px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          padding-bottom: 20px;
+          border-bottom: 1px solid #f1f5f9;
           margin-bottom: 24px;
         }
-        .nob-mfa-title-wrap {
+        html[data-nob-theme="dark"] .nob-mfa-top {
+          border-bottom-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .nob-mfa-top-left {
           display: flex;
           align-items: center;
-          gap: 16px;
+          gap: 14px;
         }
-        .nob-mfa-badge-icon {
-          width: 52px;
-          height: 52px;
-          border-radius: 16px;
+        .nob-mfa-icon {
+          width: 48px;
+          height: 48px;
+          border-radius: 14px;
           display: flex;
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
         }
-        .nob-mfa-badge-icon.active {
-          background: rgba(16, 185, 129, 0.14);
-          border: 1px solid rgba(16, 185, 129, 0.35);
+        .nob-mfa-icon.on {
+          background: #ecfdf5;
+          color: #059669;
+          border: 1px solid #a7f3d0;
+        }
+        html[data-nob-theme="dark"] .nob-mfa-icon.on {
+          background: rgba(16, 185, 129, 0.15);
           color: #34d399;
-          box-shadow: 0 0 25px rgba(16, 185, 129, 0.2);
+          border-color: rgba(16, 185, 129, 0.3);
         }
-        .nob-mfa-badge-icon.inactive {
-          background: rgba(56, 189, 248, 0.12);
-          border: 1px solid rgba(56, 189, 248, 0.3);
+        .nob-mfa-icon.off {
+          background: #f0f9ff;
+          color: #0284c7;
+          border: 1px solid #bae6fd;
+        }
+        html[data-nob-theme="dark"] .nob-mfa-icon.off {
+          background: rgba(56, 189, 248, 0.14);
           color: #38bdf8;
+          border-color: rgba(56, 189, 248, 0.3);
         }
-        .nob-mfa-pill {
+
+        .nob-mfa-heading {
+          font-size: 18px;
+          font-weight: 800;
+          line-height: 1.25;
+          color: #0f172a;
+          margin: 0;
+        }
+        html[data-nob-theme="dark"] .nob-mfa-heading {
+          color: #ffffff;
+        }
+        .nob-mfa-sub {
+          font-size: 13.5px;
+          color: #64748b;
+          margin: 3px 0 0;
+        }
+        html[data-nob-theme="dark"] .nob-mfa-sub {
+          color: #94a3b8;
+        }
+
+        .nob-mfa-status-badge {
           display: inline-flex;
           align-items: center;
-          gap: 6px;
-          padding: 5px 12px;
+          gap: 7px;
+          padding: 6px 14px;
           border-radius: 999px;
-          font-size: 11px;
-          font-weight: 800;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
+          font-size: 12.5px;
+          font-weight: 700;
         }
-        .nob-mfa-pill.active {
+        .nob-mfa-status-badge.on {
+          background: #ecfdf5;
+          color: #047857;
+          border: 1px solid #a7f3d0;
+        }
+        html[data-nob-theme="dark"] .nob-mfa-status-badge.on {
           background: rgba(16, 185, 129, 0.16);
-          border: 1px solid rgba(16, 185, 129, 0.4);
-          color: #6ee7b7;
+          color: #34d399;
+          border-color: rgba(16, 185, 129, 0.35);
         }
-        .nob-mfa-pill.inactive {
-          background: rgba(245, 158, 11, 0.16);
-          border: 1px solid rgba(245, 158, 11, 0.35);
-          color: #fcd34d;
+        .nob-mfa-status-badge.off {
+          background: #f8fafc;
+          color: #475569;
+          border: 1px solid #cbd5e1;
         }
-        .nob-mfa-alert {
+        html[data-nob-theme="dark"] .nob-mfa-status-badge.off {
+          background: rgba(255, 255, 255, 0.05);
+          color: #cbd5e1;
+          border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        /* Alertes */
+        .nob-mfa-banner {
           display: flex;
           align-items: center;
           gap: 12px;
-          padding: 14px 18px;
+          padding: 14px 16px;
           border-radius: 14px;
           font-size: 13.5px;
           font-weight: 600;
           margin-bottom: 20px;
-          line-height: 1.5;
+          line-height: 1.45;
         }
-        .nob-mfa-alert.success {
-          background: rgba(16, 185, 129, 0.12);
-          border: 1px solid rgba(16, 185, 129, 0.35);
+        .nob-mfa-banner.ok {
+          background: #ecfdf5;
+          border: 1px solid #a7f3d0;
+          color: #065f46;
+        }
+        html[data-nob-theme="dark"] .nob-mfa-banner.ok {
+          background: rgba(16, 185, 129, 0.14);
+          border-color: rgba(16, 185, 129, 0.35);
           color: #6ee7b7;
         }
-        .nob-mfa-alert.error {
-          background: rgba(244, 63, 94, 0.12);
-          border: 1px solid rgba(244, 63, 94, 0.35);
-          color: #fda4af;
+        .nob-mfa-banner.err {
+          background: #fef2f2;
+          border: 1px solid #fecaca;
+          color: #991b1b;
         }
-        .nob-mfa-btn-primary {
+        html[data-nob-theme="dark"] .nob-mfa-banner.err {
+          background: rgba(239, 68, 68, 0.14);
+          border-color: rgba(239, 68, 68, 0.35);
+          color: #fca5a5;
+        }
+
+        /* Boutons ergonomiques */
+        .nob-mfa-btn {
           all: unset;
           box-sizing: border-box;
           cursor: pointer;
@@ -346,586 +407,680 @@ export const MfaSettingsField: React.FC = () => {
           justify-content: center;
           gap: 9px;
           padding: 12px 22px;
-          border-radius: 13px;
-          background: linear-gradient(135deg, #00D4FF 0%, #0284C7 100%);
-          color: #020617;
-          font-size: 13px;
-          font-weight: 800;
-          letter-spacing: 0.01em;
-          box-shadow: 0 10px 25px -6px rgba(0, 212, 255, 0.45);
-          transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
+          border-radius: 12px;
+          font-size: 14px;
+          font-weight: 700;
+          transition: all 0.18s ease;
+          user-select: none;
         }
-        .nob-mfa-btn-primary:hover:not(:disabled) {
-          transform: translateY(-1px);
-          box-shadow: 0 14px 30px -6px rgba(0, 212, 255, 0.6);
-        }
-        .nob-mfa-btn-primary:disabled {
-          opacity: 0.5;
+        .nob-mfa-btn:disabled {
+          opacity: 0.55;
           cursor: not-allowed;
         }
-        .nob-mfa-btn-secondary {
-          all: unset;
-          box-sizing: border-box;
-          cursor: pointer;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          padding: 11px 18px;
-          border-radius: 12px;
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.12);
+        .nob-mfa-btn.primary {
+          background: #0284c7;
+          color: #ffffff;
+          box-shadow: 0 6px 18px -4px rgba(2, 132, 199, 0.4);
+        }
+        .nob-mfa-btn.primary:hover:not(:disabled) {
+          background: #0369a1;
+          transform: translateY(-1px);
+        }
+        .nob-mfa-btn.success {
+          background: #059669;
+          color: #ffffff;
+          box-shadow: 0 6px 18px -4px rgba(5, 150, 105, 0.4);
+        }
+        .nob-mfa-btn.success:hover:not(:disabled) {
+          background: #047857;
+          transform: translateY(-1px);
+        }
+        .nob-mfa-btn.outline {
+          background: #f8fafc;
+          border: 1px solid #cbd5e1;
+          color: #334155;
+        }
+        .nob-mfa-btn.outline:hover:not(:disabled) {
+          background: #f1f5f9;
+          border-color: #94a3b8;
+          color: #0f172a;
+        }
+        html[data-nob-theme="dark"] .nob-mfa-btn.outline {
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.14);
           color: #e2e8f0;
-          font-size: 12.5px;
-          font-weight: 700;
-          transition: background 0.18s ease, border-color 0.18s ease;
         }
-        .nob-mfa-btn-secondary:hover {
-          background: rgba(255, 255, 255, 0.11);
-          border-color: rgba(255, 255, 255, 0.22);
+        html[data-nob-theme="dark"] .nob-mfa-btn.outline:hover:not(:disabled) {
+          background: rgba(255, 255, 255, 0.1);
+          color: #ffffff;
         }
-        .nob-mfa-btn-danger {
-          all: unset;
-          box-sizing: border-box;
-          cursor: pointer;
-          display: inline-flex;
+        .nob-mfa-btn.danger {
+          background: #fef2f2;
+          border: 1px solid #fecaca;
+          color: #dc2626;
+        }
+        .nob-mfa-btn.danger:hover:not(:disabled) {
+          background: #fee2e2;
+        }
+        html[data-nob-theme="dark"] .nob-mfa-btn.danger {
+          background: rgba(239, 68, 68, 0.12);
+          border-color: rgba(239, 68, 68, 0.3);
+          color: #f87171;
+        }
+
+        /* Grille d'étapes 1 - 2 - 3 */
+        .nob-mfa-steps-bar {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
+          margin-bottom: 22px;
+        }
+        .nob-mfa-step-pill {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 12px 14px;
+          border-radius: 12px;
+          background: #f8fafc;
+          border: 1px solid #e2e8f0;
+          font-size: 13px;
+          font-weight: 600;
+          color: #334155;
+        }
+        html[data-nob-theme="dark"] .nob-mfa-step-pill {
+          background: rgba(255, 255, 255, 0.03);
+          border-color: rgba(255, 255, 255, 0.08);
+          color: #cbd5e1;
+        }
+        .nob-mfa-step-num {
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          background: #0284c7;
+          color: #ffffff;
+          font-size: 12px;
+          font-weight: 800;
+          display: flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
-          padding: 11px 18px;
-          border-radius: 12px;
-          background: rgba(244, 63, 94, 0.12);
-          border: 1px solid rgba(244, 63, 94, 0.3);
-          color: #fda4af;
-          font-size: 12.5px;
-          font-weight: 700;
-          transition: background 0.18s ease;
+          flex-shrink: 0;
         }
-        .nob-mfa-btn-danger:hover {
-          background: rgba(244, 63, 94, 0.22);
-        }
-        .nob-mfa-setup-grid {
+
+        /* Zone de configuration 2 colonnes */
+        .nob-mfa-wizard-grid {
           display: grid;
-          grid-template-columns: 240px 1fr;
-          gap: 28px;
-          align-items: center;
-          background: rgba(2, 6, 23, 0.65);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 18px;
-          padding: 24px;
+          grid-template-columns: 260px 1fr;
+          gap: 24px;
+          align-items: stretch;
         }
         @media (max-width: 720px) {
-          .nob-mfa-setup-grid {
+          .nob-mfa-steps-bar {
+            grid-template-columns: 1fr;
+          }
+          .nob-mfa-wizard-grid {
             grid-template-columns: 1fr;
           }
         }
-        .nob-mfa-qr-box {
-          background: #ffffff;
-          border-radius: 18px;
-          padding: 16px;
+
+        .nob-mfa-qr-panel {
+          background: #f8fafc;
+          border: 1px solid #e2e8f0;
+          border-radius: 16px;
+          padding: 20px;
           display: flex;
           flex-direction: column;
           align-items: center;
+          text-align: center;
           justify-content: center;
-          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
         }
+        html[data-nob-theme="dark"] .nob-mfa-qr-panel {
+          background: rgba(255, 255, 255, 0.03);
+          border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .nob-mfa-qr-box {
+          background: #ffffff;
+          padding: 12px;
+          border-radius: 14px;
+          border: 1px solid #e2e8f0;
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+          margin-bottom: 12px;
+        }
+
+        .nob-mfa-verify-panel {
+          background: #f8fafc;
+          border: 1px solid #e2e8f0;
+          border-radius: 16px;
+          padding: 24px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        html[data-nob-theme="dark"] .nob-mfa-verify-panel {
+          background: rgba(255, 255, 255, 0.03);
+          border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        /* 6 cases OTP protégées contre .field-type input de Payload */
         .nob-mfa-otp-row {
           display: flex;
           gap: 10px;
-          margin: 14px 0 18px;
+          justify-content: flex-start;
+          margin: 16px 0 20px;
           flex-wrap: wrap;
         }
-        .nob-mfa-otp-digit {
-          width: 48px;
-          height: 56px;
-          border-radius: 12px;
-          background: #0f172a !important;
-          border: 1.5px solid rgba(148, 163, 184, 0.3) !important;
-          color: #00D4FF !important;
-          font-family: 'JetBrains Mono', monospace;
-          font-size: 22px;
-          font-weight: 800;
-          text-align: center;
-          outline: none;
-          transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+        .nob-mfa-wrap input.nob-mfa-otp-digit {
+          width: 52px !important;
+          min-width: 52px !important;
+          max-width: 52px !important;
+          height: 60px !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          border-radius: 12px !important;
+          background: #ffffff !important;
+          border: 2px solid #cbd5e1 !important;
+          color: #0f172a !important;
+          font-family: 'JetBrains Mono', monospace !important;
+          font-size: 24px !important;
+          font-weight: 800 !important;
+          text-align: center !important;
+          outline: none !important;
+          transition: all 0.15s ease !important;
+          box-sizing: border-box !important;
+          box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
         }
-        .nob-mfa-otp-digit:focus {
-          border-color: #00D4FF !important;
-          box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.22);
-          transform: translateY(-1px);
+        html[data-nob-theme="dark"] .nob-mfa-wrap input.nob-mfa-otp-digit {
+          background: #020617 !important;
+          border-color: rgba(255, 255, 255, 0.2) !important;
+          color: #ffffff !important;
+        }
+        .nob-mfa-wrap input.nob-mfa-otp-digit:focus {
+          border-color: #0284c7 !important;
+          box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.18) !important;
+          transform: translateY(-2px);
+        }
+        html[data-nob-theme="dark"] .nob-mfa-wrap input.nob-mfa-otp-digit:focus {
+          border-color: #38bdf8 !important;
+          box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.22) !important;
+        }
+        .nob-mfa-wrap input.nob-mfa-otp-digit.filled {
+          border-color: #0284c7 !important;
+          background: #f0f9ff !important;
+        }
+        html[data-nob-theme="dark"] .nob-mfa-wrap input.nob-mfa-otp-digit.filled {
+          border-color: #38bdf8 !important;
+          background: rgba(56, 189, 248, 0.1) !important;
         }
       `}</style>
 
-      {/* HEADER */}
-      <div className="nob-mfa-header">
-        <div className="nob-mfa-title-wrap">
-          <div className={`nob-mfa-badge-icon ${mfaEnabled ? 'active' : 'inactive'}`}>
-            {mfaEnabled ? <ShieldCheck size={26} /> : <Lock size={26} />}
+      {/* EN-TÊTE CLAIR ET RASSURANT */}
+      <div className="nob-mfa-top">
+        <div className="nob-mfa-top-left">
+          <div className={`nob-mfa-icon ${mfaEnabled ? 'on' : 'off'}`}>
+            {mfaEnabled ? <ShieldCheck size={24} /> : <Smartphone size={24} />}
           </div>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-              <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#ffffff' }}>
-                Double Authentification Google Authenticator (2FA)
-              </h3>
-              <span className={`nob-mfa-pill ${mfaEnabled ? 'active' : 'inactive'}`}>
-                <span
-                  style={{
-                    width: '7px',
-                    height: '7px',
-                    borderRadius: '50%',
-                    background: mfaEnabled ? '#10b981' : '#f59e0b',
-                  }}
-                />
-                {mfaEnabled ? 'PROTECTION ACTIVE' : 'NON CONFIGURÉ'}
-              </span>
+            <div className="nob-mfa-heading">
+              Double Authentification (Google Authenticator)
             </div>
-            <p style={{ margin: '5px 0 0', fontSize: '12.5px', color: '#94a3b8' }}>
-              Standard TOTP RFC 6238 • Compatible Google Authenticator, Microsoft Authenticator, Authy &amp; Apple Mot de passe
-              {userEmail ? ` (${userEmail})` : ''}
-            </p>
+            <div className="nob-mfa-sub">
+              {userEmail
+                ? `Protection du compte administrateur ${userEmail}`
+                : 'Protection de votre accès administrateur par code temporaire à 6 chiffres'}
+            </div>
           </div>
+        </div>
+
+        <div className={`nob-mfa-status-badge ${mfaEnabled ? 'on' : 'off'}`}>
+          <span
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: '50%',
+              background: mfaEnabled ? '#10b981' : '#94a3b8',
+            }}
+          />
+          <span>{mfaEnabled ? 'Protection activée' : 'Non activée'}</span>
         </div>
       </div>
 
-      {loading && (
-        <div style={{ padding: '32px', textAlign: 'center', color: '#94a3b8', fontSize: '13.5px' }}>
-          <Loader2 size={24} style={{ margin: '0 auto 10px', color: '#00D4FF' }} />
-          <div>Synchronisation de l&apos;état de sécurité MFA...</div>
-        </div>
-      )}
-
-      {!loading && successMsg && (
-        <div className="nob-mfa-alert success">
+      {/* MESSAGES DE CONFIRMATION OU D'ERREUR */}
+      {successMsg && (
+        <div className="nob-mfa-banner ok" role="status">
           <CheckCircle2 size={20} style={{ flexShrink: 0 }} />
           <span>{successMsg}</span>
         </div>
       )}
 
-      {!loading && error && (
-        <div className="nob-mfa-alert error">
+      {error && (
+        <div className="nob-mfa-banner err" role="alert">
           <AlertTriangle size={20} style={{ flexShrink: 0 }} />
           <span>{error}</span>
         </div>
       )}
 
-      {/* CAS 1 : MFA ACTIF (ET PAS EN COURS DE RECONFIGURATION) */}
-      {!loading && mfaEnabled && !setupData && (
-        <div>
-          <div
-            style={{
-              padding: '20px',
-              borderRadius: '16px',
-              background: 'rgba(16, 185, 129, 0.06)',
-              border: '1px solid rgba(16, 185, 129, 0.22)',
-              marginBottom: '20px',
-            }}
-          >
-            <div style={{ fontSize: '14.5px', fontWeight: 800, color: '#ecfdf5', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <CheckCircle2 size={18} color="#10b981" />
-              <span>Votre compte administrateur est protégé par Google Authenticator.</span>
-            </div>
-            <p style={{ margin: 0, fontSize: '13px', color: '#94a3b8', lineHeight: 1.55 }}>
-              À chaque connexion sur <code>/root</code>, un code temporaire à 6 chiffres généré sur votre téléphone est demandé après votre mot de passe.
-            </p>
-          </div>
-
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'center' }}>
-            <button
-              type="button"
-              className="nob-mfa-btn-secondary"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setShowLiveTest((v) => !v);
-                setError(null);
-                setSuccessMsg(null);
-                resetDigits();
-              }}
-            >
-              <Smartphone size={15} color="#00D4FF" />
-              <span>{showLiveTest ? 'Fermer le testeur' : 'Tester un code à 6 chiffres en direct'}</span>
-            </button>
-
-            <button
-              type="button"
-              className="nob-mfa-btn-secondary"
-              onClick={handleStartSetup}
-            >
-              <RefreshCw size={15} />
-              <span>Changer de téléphone / Nouveau QR Code</span>
-            </button>
-
-            {!confirmDisable ? (
-              <button
-                type="button"
-                className="nob-mfa-btn-danger"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setConfirmDisable(true);
-                }}
-              >
-                <ShieldAlert size={15} />
-                <span>Désactiver la 2FA</span>
-              </button>
-            ) : (
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(244,63,94,0.1)', padding: '6px 12px', borderRadius: '12px', border: '1px solid rgba(244,63,94,0.3)' }}>
-                <span style={{ fontSize: '12px', color: '#fda4af', fontWeight: 700 }}>Confirmer la désactivation ?</span>
-                <button
-                  type="button"
-                  onClick={handleDisable}
-                  disabled={disabling}
-                  style={{
-                    all: 'unset',
-                    cursor: 'pointer',
-                    padding: '5px 12px',
-                    borderRadius: '8px',
-                    background: '#e11d48',
-                    color: '#fff',
-                    fontSize: '11.5px',
-                    fontWeight: 800,
-                  }}
-                >
-                  {disabling ? 'Désactivation...' : 'Oui, désactiver'}
-                </button>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setConfirmDisable(false);
-                  }}
-                  style={{
-                    all: 'unset',
-                    cursor: 'pointer',
-                    padding: '5px 10px',
-                    fontSize: '11.5px',
-                    color: '#94a3b8',
-                  }}
-                >
-                  Annuler
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Zone de test en direct */}
-          {showLiveTest && (
+      {loading ? (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '24px 0', color: '#64748b', fontSize: 14 }}>
+          <Loader2 size={18} />
+          <span>Chargement de votre configuration de sécurité...</span>
+        </div>
+      ) : (
+        <>
+          {/* CAS 1 : MFA NON ACTIVÉ ET PAS ENCORE EN COURS DE CONFIGURATION */}
+          {!mfaEnabled && !setupData && (
             <div
               style={{
-                marginTop: '20px',
-                padding: '20px',
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '20px',
+                padding: '22px',
                 borderRadius: '16px',
-                background: 'rgba(2, 6, 23, 0.7)',
-                border: '1px solid rgba(0, 212, 255, 0.25)',
+                background: 'rgba(2, 132, 199, 0.05)',
+                border: '1px solid rgba(2, 132, 199, 0.18)',
               }}
             >
-              <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
-                Vérification en direct de votre application Google Authenticator
-              </div>
-              <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '12px' }}>
-                Saisissez le code actuel à 6 chiffres affiché sur votre téléphone pour vérifier la synchronisation :
-              </div>
-
-              <div className="nob-mfa-otp-row">
-                {digits.map((d, idx) => (
-                  <input
-                    key={idx}
-                    ref={(el) => {
-                      inputRefs.current[idx] = el;
-                    }}
-                    type="text"
-                    inputMode="numeric"
-                    maxLength={1}
-                    value={d}
-                    onChange={(e) => handleDigitChange(idx, e.target.value)}
-                    onKeyDown={(e) => handleKeyDown(idx, e)}
-                    onPaste={handlePaste}
-                    className="nob-mfa-otp-digit"
-                  />
-                ))}
+              <div style={{ maxWidth: 480 }}>
+                <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 6 }}>
+                  Protégez votre compte en moins d&apos;une minute
+                </div>
+                <div style={{ fontSize: 13.5, color: '#64748b', lineHeight: 1.55 }}>
+                  Lors de votre connexion sur <strong>/root</strong>, un code à 6 chiffres généré par l&apos;application <strong>Google Authenticator</strong> sur votre téléphone vous sera demandé en plus de votre mot de passe.
+                </div>
               </div>
 
               <button
                 type="button"
-                disabled={testingLive || code.length !== 6}
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  submitVerification(code, true);
-                }}
-                className="nob-mfa-btn-primary"
+                onClick={handleStartSetup}
+                className="nob-mfa-btn primary"
               >
-                <ShieldCheck size={16} />
-                <span>{testingLive ? 'Vérification...' : 'Tester ce code maintenant'}</span>
+                <QrCode size={18} />
+                <span>Configurer Google Authenticator</span>
               </button>
             </div>
           )}
-        </div>
-      )}
 
-      {/* CAS 2 : ASSISTANT DE CONFIGURATION EN 3 ÉTAPES */}
-      {!loading && setupData && (
-        <div>
-          {/* 3 Steps Strip */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
-              gap: '12px',
-              marginBottom: '22px',
-            }}
-          >
-            {[
-              {
-                step: 'ÉTAPE 1',
-                title: 'Ouvrez Google Authenticator',
-                desc: 'Sur votre iPhone ou Android, appuyez sur le bouton « + » en bas à droite.',
-              },
-              {
-                step: 'ÉTAPE 2',
-                title: 'Scannez le QR Code',
-                desc: 'Choisissez « Scanner un code QR » ou collez la clé secrète ci-dessous.',
-              },
-              {
-                step: 'ÉTAPE 3',
-                title: 'Saisissez les 6 chiffres',
-                desc: 'Entrez le code temporaire affiché sur votre téléphone pour activer la 2FA.',
-              },
-            ].map((s, i) => (
-              <div
-                key={i}
-                style={{
-                  padding: '14px 16px',
-                  borderRadius: '14px',
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                }}
-              >
-                <div style={{ fontSize: '10px', fontWeight: 800, color: '#00D4FF', letterSpacing: '0.08em' }}>
-                  {s.step}
-                </div>
-                <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#ffffff', marginTop: '3px' }}>
-                  {s.title}
-                </div>
-                <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '4px', lineHeight: 1.45 }}>
-                  {s.desc}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="nob-mfa-setup-grid">
-            {/* Left : QR Code */}
-            <div className="nob-mfa-qr-box">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={setupData.qrCodeDataUrl}
-                alt="QR Code Google Authenticator"
-                style={{ width: '196px', height: '196px', display: 'block', borderRadius: '8px' }}
-              />
-              <div
-                style={{
-                  marginTop: '10px',
-                  fontSize: '11px',
-                  fontWeight: 800,
-                  color: '#0f172a',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '5px',
-                }}
-              >
-                <QrCode size={13} color="#0284c7" />
-                <span>Scannez avec l&apos;application</span>
-              </div>
-            </div>
-
-            {/* Right : Secret & 6-Digit Pin */}
+          {/* CAS 2 : ASSISTANT GUIDÉ EN 3 ÉTAPES SIMPLES */}
+          {setupData && (
             <div>
-              <div style={{ marginBottom: '18px' }}>
-                <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#94a3b8', marginBottom: '6px' }}>
-                  Clé d&apos;enregistrement manuelle (si vous ne pouvez pas scanner) :
+              {/* Barre des 3 étapes */}
+              <div className="nob-mfa-steps-bar">
+                <div className="nob-mfa-step-pill">
+                  <span className="nob-mfa-step-num">1</span>
+                  <span>Ouvrez Google Authenticator</span>
                 </div>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: '10px',
-                    padding: '10px 14px',
-                    borderRadius: '12px',
-                    background: '#0f172a',
-                    border: '1px solid rgba(56, 189, 248, 0.25)',
-                  }}
-                >
-                  <code
-                    style={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: '13.5px',
-                      fontWeight: 800,
-                      color: '#38bdf8',
-                      letterSpacing: '0.06em',
-                      wordBreak: 'break-all',
-                    }}
-                  >
-                    {formattedSecret}
-                  </code>
-                  <button
-                    type="button"
-                    onClick={copySecret}
-                    className="nob-mfa-btn-secondary"
-                    style={{ padding: '6px 12px', fontSize: '11.5px', flexShrink: 0 }}
-                  >
-                    {copied ? <Check size={14} color="#10b981" /> : <Copy size={14} />}
-                    <span>{copied ? 'Copié' : 'Copier'}</span>
-                  </button>
+                <div className="nob-mfa-step-pill">
+                  <span className="nob-mfa-step-num">2</span>
+                  <span>Scannez le QR Code</span>
+                </div>
+                <div className="nob-mfa-step-pill">
+                  <span className="nob-mfa-step-num">3</span>
+                  <span>Tapez les 6 chiffres</span>
                 </div>
               </div>
 
-              <div>
-                <div style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff', marginBottom: '4px' }}>
-                  Code de vérification à 6 chiffres :
-                </div>
-                <div style={{ fontSize: '12px', color: '#94a3b8' }}>
-                  Saisissez les 6 chiffres générés par Google Authenticator (validation automatique dès le 6e chiffre) :
-                </div>
-
-                <div className="nob-mfa-otp-row">
-                  {digits.map((d, idx) => (
-                    <input
-                      key={idx}
-                      ref={(el) => {
-                        inputRefs.current[idx] = el;
-                      }}
-                      type="text"
-                      inputMode="numeric"
-                      maxLength={1}
-                      value={d}
-                      onChange={(e) => handleDigitChange(idx, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(idx, e)}
-                      onPaste={handlePaste}
-                      className="nob-mfa-otp-digit"
+              <div className="nob-mfa-wizard-grid">
+                {/* Colonne Gauche : QR Code */}
+                <div className="nob-mfa-qr-panel">
+                  <div className="nob-mfa-qr-box">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={setupData.qrCodeDataUrl}
+                      alt="QR Code Google Authenticator"
+                      width={180}
+                      height={180}
+                      style={{ display: 'block', width: 180, height: 180 }}
                     />
-                  ))}
+                  </div>
+                  <div style={{ fontSize: 12.5, fontWeight: 600, marginBottom: 8 }}>
+                    Scannez avec votre téléphone
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setShowManualKey((v) => !v);
+                    }}
+                    style={{
+                      all: 'unset',
+                      cursor: 'pointer',
+                      fontSize: 12,
+                      color: '#0284c7',
+                      fontWeight: 600,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 4,
+                    }}
+                  >
+                    <HelpCircle size={13} />
+                    <span>{showManualKey ? 'Masquer la clé manuelle' : 'Impossible de scanner ?'}</span>
+                  </button>
+
+                  {showManualKey && (
+                    <div
+                      style={{
+                        marginTop: 10,
+                        padding: '10px',
+                        borderRadius: 10,
+                        background: 'rgba(15, 23, 42, 0.06)',
+                        width: '100%',
+                        boxSizing: 'border-box',
+                      }}
+                    >
+                      <div style={{ fontSize: 11, color: '#64748b', marginBottom: 4 }}>
+                        Clé de saisie manuelle :
+                      </div>
+                      <div style={{ fontFamily: 'monospace', fontSize: 12, fontWeight: 700, wordBreak: 'break-all', marginBottom: 6 }}>
+                        {formattedSecret}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={copySecret}
+                        className="nob-mfa-btn outline"
+                        style={{ padding: '6px 12px', fontSize: 11.5, width: '100%' }}
+                      >
+                        {copied ? <Check size={13} /> : <Copy size={13} />}
+                        <span>{copied ? 'Clé copiée !' : 'Copier la clé'}</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'center' }}>
-                  <button
-                    type="button"
-                    disabled={verifying || code.length !== 6}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      submitVerification(code, false);
-                    }}
-                    className="nob-mfa-btn-primary"
-                  >
-                    <ShieldCheck size={17} />
-                    <span>{verifying ? 'Activation en cours...' : 'Valider & Activer Google Authenticator'}</span>
-                  </button>
+                {/* Colonne Droite : Saisie des 6 chiffres */}
+                <div className="nob-mfa-verify-panel">
+                  <div>
+                    <div style={{ fontSize: 16, fontWeight: 800, marginBottom: 6 }}>
+                      Entrez le code à 6 chiffres affiché sur votre téléphone
+                    </div>
+                    <div style={{ fontSize: 13.5, color: '#64748b', lineHeight: 1.5 }}>
+                      Une fois le QR code scanné, Google Authenticator affiche un code à 6 chiffres qui change toutes les 30 secondes. Tapez-le ci-dessous :
+                    </div>
 
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setSetupData(null);
-                      setError(null);
-                    }}
-                    className="nob-mfa-btn-secondary"
-                  >
-                    <span>Annuler</span>
-                  </button>
+                    <div className="nob-mfa-otp-row" onPaste={handlePaste}>
+                      {digits.map((d, idx) => (
+                        <input
+                          key={idx}
+                          ref={(el) => {
+                            inputRefs.current[idx] = el;
+                          }}
+                          type="text"
+                          inputMode="numeric"
+                          autoComplete="one-time-code"
+                          maxLength={1}
+                          value={d}
+                          onChange={(e) => handleDigitChange(idx, e.target.value)}
+                          onKeyDown={(e) => handleKeyDown(idx, e)}
+                          className={`nob-mfa-otp-digit ${d ? 'filled' : ''}`}
+                          aria-label={`Chiffre ${idx + 1}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10, paddingTop: 12, borderTop: '1px solid rgba(100,116,139,0.15)' }}>
+                    <button
+                      type="button"
+                      disabled={verifying || code.length !== 6}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        submitVerification(code, false);
+                      }}
+                      className="nob-mfa-btn success"
+                    >
+                      {verifying ? <Loader2 size={17} /> : <CheckCircle2 size={17} />}
+                      <span>{verifying ? 'Vérification...' : 'Valider et activer'}</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      disabled={verifying}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setSetupData(null);
+                        setError(null);
+                      }}
+                      className="nob-mfa-btn outline"
+                    >
+                      <span>Annuler</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          )}
 
-      {/* CAS 3 : MFA INACTIF ET PAS EN COURS DE CONFIGURATION */}
-      {!loading && !mfaEnabled && !setupData && (
-        <div>
-          <div
-            style={{
-              padding: '18px 20px',
-              borderRadius: '16px',
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              marginBottom: '20px',
-              fontSize: '13.5px',
-              color: '#cbd5e1',
-              lineHeight: 1.6,
-            }}
-          >
-            Ajoutez une couche de sécurité supplémentaire à votre compte administrateur <strong>Nobtech OS</strong>. Une fois activée, un code dynamique à 6 chiffres renouvelé toutes les 30 secondes sur votre téléphone sera demandé lors de la connexion.
-          </div>
+          {/* CAS 3 : MFA DÉJÀ ACTIVÉ */}
+          {mfaEnabled && !setupData && (
+            <div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 16,
+                  padding: '20px 22px',
+                  borderRadius: 16,
+                  background: 'rgba(16, 185, 129, 0.08)',
+                  border: '1px solid rgba(16, 185, 129, 0.25)',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                  <div
+                    style={{
+                      width: 42,
+                      height: 42,
+                      borderRadius: 12,
+                      background: 'rgba(16, 185, 129, 0.18)',
+                      color: '#059669',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Lock size={20} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 15, fontWeight: 700 }}>
+                      Votre compte est protégé par Google Authenticator
+                    </div>
+                    <div style={{ fontSize: 13, color: '#64748b', marginTop: 2 }}>
+                      Un code à 6 chiffres vous sera demandé à chaque connexion sur <strong>/root</strong>.
+                    </div>
+                  </div>
+                </div>
 
-          <button type="button" onClick={handleStartSetup} className="nob-mfa-btn-primary">
-            <KeyRound size={17} />
-            <span>Configurer Google Authenticator maintenant</span>
-          </button>
-        </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setShowLiveTest((v) => !v);
+                      setConfirmDisable(false);
+                      setError(null);
+                      setSuccessMsg(null);
+                      resetDigits();
+                    }}
+                    className="nob-mfa-btn outline"
+                    style={{ padding: '9px 15px', fontSize: 13 }}
+                  >
+                    <Smartphone size={15} />
+                    <span>{showLiveTest ? 'Fermer le test' : 'Tester un code'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleStartSetup}
+                    className="nob-mfa-btn outline"
+                    style={{ padding: '9px 15px', fontSize: 13 }}
+                  >
+                    <RefreshCw size={15} />
+                    <span>Changer de téléphone</span>
+                  </button>
+
+                  {!confirmDisable ? (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setConfirmDisable(true);
+                        setShowLiveTest(false);
+                      }}
+                      className="nob-mfa-btn danger"
+                      style={{ padding: '9px 15px', fontSize: 13 }}
+                    >
+                      <span>Désactiver</span>
+                    </button>
+                  ) : (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <button
+                        type="button"
+                        disabled={disabling}
+                        onClick={handleDisable}
+                        className="nob-mfa-btn danger"
+                        style={{ padding: '9px 14px', fontSize: 13 }}
+                      >
+                        <span>{disabling ? 'Désactivation...' : 'Confirmer la désactivation'}</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setConfirmDisable(false);
+                        }}
+                        className="nob-mfa-btn outline"
+                        style={{ padding: '9px 12px', fontSize: 13 }}
+                      >
+                        <span>Annuler</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Zone de test d'un code à 6 chiffres en direct */}
+              {showLiveTest && (
+                <div className="nob-mfa-verify-panel" style={{ marginTop: 16 }}>
+                  <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 4 }}>
+                    Vérifier que votre application Google Authenticator fonctionne
+                  </div>
+                  <div style={{ fontSize: 13, color: '#64748b' }}>
+                    Tapez le code à 6 chiffres actuellement affiché sur votre téléphone :
+                  </div>
+
+                  <div className="nob-mfa-otp-row" onPaste={handlePaste}>
+                    {digits.map((d, idx) => (
+                      <input
+                        key={idx}
+                        ref={(el) => {
+                          inputRefs.current[idx] = el;
+                        }}
+                        type="text"
+                        inputMode="numeric"
+                        maxLength={1}
+                        value={d}
+                        onChange={(e) => handleDigitChange(idx, e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(idx, e)}
+                        className={`nob-mfa-otp-digit ${d ? 'filled' : ''}`}
+                      />
+                    ))}
+                  </div>
+
+                  <div>
+                    <button
+                      type="button"
+                      disabled={testingLive || code.length !== 6}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        submitVerification(code, true);
+                      }}
+                      className="nob-mfa-btn primary"
+                    >
+                      {testingLive ? <Loader2 size={16} /> : <CheckCircle2 size={16} />}
+                      <span>{testingLive ? 'Vérification...' : 'Tester ce code'}</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </>
       )}
     </div>
   );
 };
 
-/**
- * Vue dédiée plein écran accessible sur /admin/mfa (depuis le menu utilisateur en haut à droite)
- */
 export const MfaSecurityView: React.FC = () => {
   return (
     <div
       style={{
-        minHeight: '100vh',
-        background: '#020617',
-        color: '#f8fafc',
-        padding: '88px 24px 110px',
+        maxWidth: '920px',
+        margin: '0 auto',
+        padding: '32px 24px 120px',
         fontFamily: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
-      <div style={{ maxWidth: '880px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-          <a
-            href="/admin"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '8px 14px',
-              borderRadius: '12px',
-              background: 'rgba(255,255,255,0.06)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              color: '#cbd5e1',
-              fontSize: '12.5px',
-              fontWeight: 700,
-              textDecoration: 'none',
-            }}
-          >
-            <ArrowLeft size={15} />
-            <span>Retour au tableau de bord</span>
-          </a>
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '12px',
+          marginBottom: '20px',
+        }}
+      >
+        <a
+          href="/admin"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '8px 14px',
+            borderRadius: '10px',
+            background: 'rgba(2, 132, 199, 0.1)',
+            color: '#0284c7',
+            fontSize: '13px',
+            fontWeight: 700,
+            textDecoration: 'none',
+          }}
+        >
+          <ArrowLeft size={15} />
+          <span>Retour au Launchpad</span>
+        </a>
 
-          <a
-            href="/admin/globals/site-settings"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              fontSize: '12.5px',
-              fontWeight: 600,
-              color: '#38bdf8',
-              textDecoration: 'none',
-            }}
-          >
-            <Sparkles size={14} />
-            <span>Voir tous les Paramètres du site &amp; SMTP</span>
-          </a>
-        </div>
-
-        <MfaSettingsField />
+        <a
+          href="/admin/globals/site-settings"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '8px 14px',
+            borderRadius: '10px',
+            border: '1px solid rgba(100, 116, 139, 0.25)',
+            color: 'inherit',
+            fontSize: '13px',
+            fontWeight: 600,
+            textDecoration: 'none',
+          }}
+        >
+          <span>Paramètres généraux du site</span>
+        </a>
       </div>
+
+      <MfaSettingsField />
     </div>
   );
 };
+
+export default MfaSettingsField;
