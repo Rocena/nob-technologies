@@ -1,11 +1,18 @@
 import { redirect } from 'next/navigation';
 import { isRedirectError } from 'next/dist/client/components/redirect-error';
 import { getPayloadClient } from '@/lib/payload';
-import { migrations } from '@/migrations';
 import { CustomCreateFirstUser } from '@/components/admin/CustomCreateFirstUser';
 import { cookies, headers } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata = {
+  title: 'Configuration Initiale | NOB TECHNOLOGIES',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function CreateFirstUserPage() {
   const cookieStore = await cookies();
@@ -27,25 +34,26 @@ export default async function CreateFirstUserPage() {
       }
     }
 
+    // Bloquer strictement l'accès dès qu'un utilisateur existe
     try {
       const { totalDocs } = await payload.count({
         collection: 'users',
       });
 
       if (totalDocs > 0) {
-        redirect('/login');
+        redirect('/root');
       }
     } catch (countError) {
       if (isRedirectError(countError)) {
         throw countError;
       }
-      // Si la table n'existe pas ou erreur schema, synchroniser le schéma Drizzle
+      // Si la table n'existe pas ou erreur schema, synchroniser le schéma
       try {
         const { ensureDatabaseSchema } = await import('@/lib/ensureSchema');
         await ensureDatabaseSchema(payload);
         const { totalDocs } = await payload.count({ collection: 'users' });
         if (totalDocs > 0) {
-          redirect('/login');
+          redirect('/root');
         }
       } catch (schemaErr) {
         if (isRedirectError(schemaErr)) throw schemaErr;
@@ -56,10 +64,8 @@ export default async function CreateFirstUserPage() {
     if (isRedirectError(error)) {
       throw error;
     }
-    // Erreur de connexion DB ou table manquante : on affiche la page de création sans bloquer en 500
     console.error('Initial user check error on server:', error);
   }
 
   return <CustomCreateFirstUser />;
 }
-

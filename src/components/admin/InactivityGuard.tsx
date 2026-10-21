@@ -35,7 +35,7 @@ export const InactivityGuard: React.FC = () => {
       await fetch('/api/users/logout', { method: 'POST', credentials: 'same-origin' })
     } catch { /* ignore */ }
     try { localStorage.removeItem(STORAGE_KEY) } catch { /* ignore */ }
-    window.location.href = '/login'
+    window.location.href = '/root'
   }, [])
 
   const refreshSession = useCallback(async () => {

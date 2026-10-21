@@ -17,6 +17,7 @@ interface PageProps {
 export const dynamic = 'force-dynamic';
 
 const RESERVED_AUTH_SLUGS = [
+  'root',
   'admin',
   'login',
   'create-first-user',
@@ -58,7 +59,7 @@ export default async function DynamicCMSPage({ params }: PageProps) {
   const { slug } = await params;
 
   if (RESERVED_AUTH_SLUGS.includes(slug)) {
-    if (slug === 'login') redirect('/login');
+    if (slug === 'root' || slug === 'login') redirect('/root');
     if (slug === 'create-first-user') redirect('/create-first-user');
     redirect('/admin');
   }

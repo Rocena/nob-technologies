@@ -5,7 +5,7 @@ import { LogOut, ShieldCheck, Lock } from 'lucide-react'
 
 export const LogoutButton: React.FC = () => {
   const [loggingOut, setLoggingOut] = useState(false)
-  const [stepText, setStepText] = useState('Chiffrement et purge de la session…')
+  const [stepText, setStepText] = useState('Déconnexion en cours…')
 
   const handleLogout = async (e: React.MouseEvent) => {
     e.preventDefault()
@@ -13,8 +13,8 @@ export const LogoutButton: React.FC = () => {
     setLoggingOut(true)
 
     try {
-      setTimeout(() => setStepText('Clôture des accès sécurisés…'), 500)
-      setTimeout(() => setStepText('Session fermée avec succès.'), 1000)
+      setTimeout(() => setStepText('Fermeture de la session…'), 500)
+      setTimeout(() => setStepText('Session terminée.'), 1000)
 
       await Promise.all([
         fetch('/api/users/logout', {
@@ -25,7 +25,7 @@ export const LogoutButton: React.FC = () => {
       ])
     } catch {}
 
-    window.location.href = '/login'
+    window.location.href = '/root'
   }
 
   return (

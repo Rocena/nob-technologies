@@ -4,13 +4,23 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { NobLogo } from '../NobLogo';
 import { TechConstellation } from './TechConstellation';
-import { Eye, EyeOff, ShieldCheck, Lock, ArrowLeft, ArrowRight, CheckCircle2, Mail, KeyRound } from 'lucide-react';
+import { Eye, EyeOff, ShieldCheck, Lock, ArrowLeft, CheckCircle2, Mail, KeyRound } from 'lucide-react';
 
-type View = 'LOGIN' | 'MFA_CHALLENGE' | 'AUTHENTICATING' | 'SUCCESS' | 'FORGOT' | 'FORGOT_SENDING' | 'FORGOT_SENT';
+type View =
+  | 'LOGIN'
+  | 'MFA_CHALLENGE'
+  | 'AUTHENTICATING'
+  | 'SUCCESS'
+  | 'FORGOT'
+  | 'FORGOT_SENDING'
+  | 'FORGOT_SENT'
+  | 'RESET_PASSWORD'
+  | 'RESET_SENDING'
+  | 'RESET_SUCCESS';
 
 const AUTH_STAGES = [
   'Vérification des identifiants…',
-  'Chiffrement de la session…',
+  'Initialisation de la session…',
   'Contrôle des autorisations…',
   'Préparation de votre espace…',
 ];
@@ -26,6 +36,26 @@ export const CustomLogin: React.FC = () => {
   const [mfaCode, setMfaCode] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+
+  // Password reset state
+  const [resetToken, setResetToken] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showNewPassword, setShowNewPassword] = useState(false);
+
+  // Check if user arrived with a reset password token in the URL
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const tokenParam = params.get('token');
+      const emailParam = params.get('email');
+      if (tokenParam) {
+        setResetToken(tokenParam);
+        if (emailParam) setEmail(emailParam);
+        setView('RESET_PASSWORD');
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (view !== 'AUTHENTICATING') return;
@@ -86,18 +116,65 @@ export const CustomLogin: React.FC = () => {
     setView('FORGOT_SENDING');
     setError('');
     try {
-      await Promise.all([
+      const [res] = await Promise.all([
         fetch('/api/users/forgot-password', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),
-        }).catch(() => null),
-        new Promise((r) => setTimeout(r, 1400)),
+        }),
+        new Promise((r) => setTimeout(r, 1200)),
       ]);
-      setView('FORGOT_SENT');
+
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setView('FORGOT_SENT');
+      } else {
+        setError(data.error || 'Erreur lors de l’envoi de la demande.');
+        setView('FORGOT');
+      }
     } catch {
       setError('Erreur de connexion au serveur.');
       setView('FORGOT');
+    }
+  };
+
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newPassword.length < 8) {
+      setError('Le mot de passe doit comporter au moins 8 caractères.');
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setError('Les mots de passe ne correspondent pas.');
+      return;
+    }
+
+    setView('RESET_SENDING');
+    setError('');
+
+    try {
+      const [res] = await Promise.all([
+        fetch('/api/users/reset-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: resetToken, password: newPassword }),
+        }),
+        new Promise((r) => setTimeout(r, 1000)),
+      ]);
+
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.success) {
+        setView('RESET_SUCCESS');
+      } else {
+        setError(
+          data.error ||
+            'Le lien de réinitialisation est invalide ou a expiré. Veuillez refaire une demande.'
+        );
+        setView('RESET_PASSWORD');
+      }
+    } catch {
+      setError('Erreur de connexion au serveur.');
+      setView('RESET_PASSWORD');
     }
   };
 
@@ -159,17 +236,6 @@ export const CustomLogin: React.FC = () => {
                 {errorBox}
                 <button type="submit" className={primaryBtn}>Se connecter</button>
               </form>
-
-              <div className="mt-8 pt-6 border-t border-slate-800/80 text-center">
-                <p className="text-xs text-slate-500 mb-2">Premier démarrage ou compte non initialisé ?</p>
-                <Link
-                  href="/create-first-user"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#00D4FF] hover:text-[#00F0FF] hover:underline transition-all"
-                >
-                  <span>Initialiser le compte Super-Admin</span>
-                  <ArrowRight size={13} />
-                </Link>
-              </div>
             </div>
           )}
 
@@ -237,7 +303,7 @@ export const CustomLogin: React.FC = () => {
                   <Lock size={30} className="text-[#00D4FF]" />
                 </div>
               </div>
-              <h2 className="text-xl font-bold text-white mb-2">Connexion sécurisée</h2>
+              <h2 className="text-xl font-bold text-white mb-2">Authentification</h2>
               <p key={stage} className="text-sm text-slate-400 animate-[fade-in_0.4s_ease-out_forwards]">{AUTH_STAGES[stage]}</p>
               <div className="mt-6 flex gap-2">
                 {AUTH_STAGES.map((_, i) => (
@@ -262,22 +328,22 @@ export const CustomLogin: React.FC = () => {
           {(view === 'FORGOT' || view === 'FORGOT_SENDING') && (
             <div className="animate-[slide-left_0.4s_ease-out_forwards]">
               <h1 className="mb-3 text-2xl font-bold text-white">Mot de passe oublié</h1>
-              <p className="text-sm text-slate-400 leading-relaxed mb-8">
-                Saisissez votre adresse email. Si un compte existe, vous recevrez un lien pour réinitialiser votre mot de passe.
+              <p className="text-sm text-slate-400 leading-relaxed mb-6">
+                Saisissez votre adresse email d'administration. Un lien pour définir votre nouveau mot de passe vous sera transmis par email.
               </p>
-              <form onSubmit={handleForgot} className="flex flex-col gap-5">
-                <div className="group flex flex-col gap-2">
-                  <label className="text-xs font-medium text-slate-400 group-focus-within:text-[#00D4FF] transition-colors">Adresse Email</label>
+              <form onSubmit={handleForgot} className="flex flex-col gap-4">
+                <div className="group flex flex-col gap-1.5">
+                  <label className="text-xs font-medium text-slate-300 group-focus-within:text-[#00D4FF] transition-colors">Adresse Email</label>
                   <input autoFocus type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="exemple@domaine.com" className={inputClass} />
                 </div>
                 {errorBox}
                 <button type="submit" disabled={view === 'FORGOT_SENDING'} className={primaryBtn + ' disabled:opacity-60 disabled:cursor-not-allowed'}>
                   {view === 'FORGOT_SENDING'
                     ? <span className="w-5 h-5 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-                    : 'Envoyer le lien'}
+                    : 'Recevoir le lien par email'}
                 </button>
-                <button type="button" onClick={() => setView('LOGIN')} className="flex items-center justify-center gap-2 text-sm text-slate-400 hover:text-white transition-colors">
-                  <ArrowLeft size={16} /> Retour à la connexion
+                <button type="button" onClick={() => { setError(''); setView('LOGIN'); }} className="mt-2 flex items-center justify-center gap-2 text-xs font-semibold text-slate-400 hover:text-white transition-colors">
+                  <ArrowLeft size={14} /> Retour à la connexion
                 </button>
               </form>
             </div>
@@ -289,12 +355,126 @@ export const CustomLogin: React.FC = () => {
               <div className="w-20 h-20 bg-[#00D4FF]/10 rounded-full flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(0,212,255,0.2)]">
                 <Mail size={36} className="text-[#00D4FF]" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-3">Vérifiez votre boîte mail</h2>
-              <p className="text-sm text-slate-400 leading-relaxed mb-8">
-                Si un compte est associé à <strong className="text-white">{email}</strong>, un lien de réinitialisation vient d'être envoyé.
+              <h2 className="text-2xl font-bold text-white mb-3">Vérifiez vos emails</h2>
+              <p className="text-sm text-slate-400 leading-relaxed mb-6">
+                Si un compte administrateur est associé à <strong className="text-white">{email}</strong>, un lien sécurisé de réinitialisation vient de vous être envoyé.
               </p>
-              <button onClick={() => setView('LOGIN')} className="group flex w-full items-center justify-center gap-2 rounded-xl bg-white/10 px-6 py-3.5 text-sm font-bold text-white transition-all hover:bg-white/15 border border-white/5">
+              <button
+                type="button"
+                onClick={() => { setError(''); setView('LOGIN'); }}
+                className="group flex w-full items-center justify-center gap-2 rounded-xl bg-white/10 px-6 py-3.5 text-sm font-bold text-white transition-all hover:bg-white/15 border border-white/5"
+              >
                 <ArrowLeft size={16} className="text-[#00D4FF]" /> Retour à la connexion
+              </button>
+            </div>
+          )}
+
+          {/* RESET PASSWORD */}
+          {(view === 'RESET_PASSWORD' || view === 'RESET_SENDING') && (
+            <div className="animate-[slide-up_0.5s_ease-out_forwards]">
+              <h1 className="mb-2 text-2xl sm:text-3xl font-extrabold text-white">
+                Nouveau mot de passe
+              </h1>
+              <p className="text-xs text-slate-400 leading-relaxed mb-6">
+                Définissez votre nouveau mot de passe pour le compte {email ? <strong className="text-[#00D4FF]">{email}</strong> : "administrateur"}.
+              </p>
+              <form onSubmit={handleResetPassword} className="flex flex-col gap-4">
+                <div className="group flex flex-col gap-1.5">
+                  <label className="text-xs font-medium text-slate-300 group-focus-within:text-[#00D4FF] transition-colors">
+                    Nouveau mot de passe (8 caractères min.)
+                  </label>
+                  <div className="relative">
+                    <input
+                      autoFocus
+                      type={showNewPassword ? 'text' : 'password'}
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      required
+                      minLength={8}
+                      placeholder="••••••••"
+                      className={inputClass + ' pr-12'}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowNewPassword(!showNewPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-slate-500 hover:text-[#00D4FF] transition-colors"
+                    >
+                      {showNewPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="group flex flex-col gap-1.5">
+                  <label className="text-xs font-medium text-slate-300 group-focus-within:text-[#00D4FF] transition-colors">
+                    Confirmer le nouveau mot de passe
+                  </label>
+                  <input
+                    type={showNewPassword ? 'text' : 'password'}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                    minLength={8}
+                    placeholder="••••••••"
+                    className={inputClass}
+                  />
+                </div>
+
+                {errorBox}
+
+                <button
+                  type="submit"
+                  disabled={view === 'RESET_SENDING'}
+                  className={primaryBtn + ' disabled:opacity-60 disabled:cursor-not-allowed'}
+                >
+                  {view === 'RESET_SENDING' ? (
+                    <span className="w-5 h-5 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                  ) : (
+                    'Enregistrer le nouveau mot de passe'
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setError('');
+                    setView('LOGIN');
+                    if (typeof window !== 'undefined') {
+                      window.history.replaceState({}, '', '/root');
+                    }
+                  }}
+                  className="mt-2 flex items-center justify-center gap-2 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+                >
+                  <ArrowLeft size={14} /> Retour à la connexion
+                </button>
+              </form>
+            </div>
+          )}
+
+          {/* RESET SUCCESS */}
+          {view === 'RESET_SUCCESS' && (
+            <div className="flex flex-col items-center text-center py-6 animate-[scale-in_0.5s_ease-out_forwards]">
+              <div className="w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(16,185,129,0.2)]">
+                <CheckCircle2 size={40} className="text-emerald-500" />
+              </div>
+              <h2 className="text-2xl font-bold text-white mb-2">Mot de passe réinitialisé !</h2>
+              <p className="text-sm text-slate-400 leading-relaxed mb-6">
+                Votre mot de passe a été mis à jour avec succès. Vous pouvez désormais vous connecter à Nobtech OS.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setError('');
+                  setPassword('');
+                  setNewPassword('');
+                  setConfirmPassword('');
+                  setView('LOGIN');
+                  if (typeof window !== 'undefined') {
+                    window.history.replaceState({}, '', '/root');
+                  }
+                }}
+                className={primaryBtn}
+              >
+                Se connecter
               </button>
             </div>
           )}
@@ -319,8 +499,8 @@ export const CustomLogin: React.FC = () => {
         <TechConstellation />
 
         <div className="absolute bottom-8 left-8 right-8 flex justify-between items-center text-xs text-slate-500 font-medium tracking-widest uppercase">
-          <span className="flex items-center gap-1.5 text-emerald-500">
-            <Lock size={14} /> Connexion Chiffrée
+          <span className="flex items-center gap-1.5 text-slate-400">
+            <Lock size={14} className="text-[#00D4FF]" /> Console d'administration
           </span>
           <span>Nobtech OS v3.9</span>
         </div>
