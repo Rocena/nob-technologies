@@ -10,6 +10,7 @@ import {
   Browsers,
   FilePlus,
   SquaresFour,
+  ChartBar,
 } from '@phosphor-icons/react';
 import { FormReportsWidget } from './FormReportsWidget';
 
@@ -28,9 +29,11 @@ const STATS: StatItem[] = [
   { slug: 'testimonials', label: 'Témoignages', Icon: ChatCircleText, href: '/admin/collections/testimonials', color: '#f59e0b' },
   { slug: 'admissions', label: 'Candidatures', Icon: UsersThree, href: '/admin/collections/admissions', color: '#10b981' },
   { slug: 'contact-messages', label: 'Messages reçus', Icon: ChatCircleText, href: '/admin/collections/contact-messages', color: '#0284c7' },
+  { slug: 'analytics-events', label: 'Audience & Clics', Icon: ChartBar, href: '/admin/analytics', color: '#38bdf8' },
 ];
 
 const QUICK = [
+  { label: 'Marketing & Analytics', Icon: ChartBar, href: '/admin/analytics' },
   { label: 'Gérer les Formations', Icon: Browsers, href: '/admin/collections/formations' },
   { label: 'Gérer les Réalisations', Icon: SquaresFour, href: '/admin/collections/projects' },
   { label: 'Gérer la Galerie Photos', Icon: Browsers, href: '/admin/collections/galleries' },

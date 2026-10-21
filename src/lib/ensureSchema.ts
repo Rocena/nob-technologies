@@ -113,6 +113,33 @@ const postgresPatchStatements: string[] = [
   'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_templates_admission_declined_message" text;',
   'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_templates_quote_email_subject" varchar;',
   'ALTER TABLE "site_settings" ADD COLUMN IF NOT EXISTS "email_templates_quote_email_message" text;',
+
+  // 7. Table analytics_events pour le tableau de bord Marketing & Analytics
+  `CREATE TABLE IF NOT EXISTS "analytics_events" (
+    "id" serial PRIMARY KEY NOT NULL,
+    "type" varchar DEFAULT 'pageview' NOT NULL,
+    "path" varchar NOT NULL,
+    "title" varchar,
+    "referrer" varchar,
+    "element_text" varchar,
+    "element_id" varchar,
+    "visitor_id" varchar,
+    "session_id" varchar,
+    "country" varchar,
+    "country_code" varchar,
+    "city" varchar,
+    "device" varchar DEFAULT 'desktop',
+    "browser" varchar,
+    "os" varchar,
+    "duration" numeric,
+    "updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+    "created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+  );`,
+  'CREATE INDEX IF NOT EXISTS "analytics_events_type_idx" ON "analytics_events" ("type");',
+  'CREATE INDEX IF NOT EXISTS "analytics_events_path_idx" ON "analytics_events" ("path");',
+  'CREATE INDEX IF NOT EXISTS "analytics_events_visitor_id_idx" ON "analytics_events" ("visitor_id");',
+  'CREATE INDEX IF NOT EXISTS "analytics_events_country_idx" ON "analytics_events" ("country");',
+  'CREATE INDEX IF NOT EXISTS "analytics_events_created_at_idx" ON "analytics_events" ("created_at");',
 ];
 
 export async function ensureDatabaseSchema(payload: Payload): Promise<{
@@ -287,6 +314,33 @@ export async function ensureDatabaseSchema(payload: Payload): Promise<{
           `);
         } catch {}
         try { await db.run(sql`ALTER TABLE \`payload_locked_documents_rels\` ADD COLUMN \`galleries_id\` integer;`); } catch {}
+
+        // 7. Table analytics_events (SQLite)
+        try {
+          await db.run(sql`
+            CREATE TABLE IF NOT EXISTS \`analytics_events\` (
+              \`id\` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+              \`type\` text DEFAULT 'pageview' NOT NULL,
+              \`path\` text NOT NULL,
+              \`title\` text,
+              \`referrer\` text,
+              \`element_text\` text,
+              \`element_id\` text,
+              \`visitor_id\` text,
+              \`session_id\` text,
+              \`country\` text,
+              \`country_code\` text,
+              \`city\` text,
+              \`device\` text DEFAULT 'desktop',
+              \`browser\` text,
+              \`os\` text,
+              \`duration\` numeric,
+              \`updated_at\` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL,
+              \`created_at\` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL
+            );
+          `);
+        } catch {}
+        try { await db.run(sql`ALTER TABLE \`payload_locked_documents_rels\` ADD COLUMN \`analytics_events_id\` integer;`); } catch {}
 
         console.log('[ensureDatabaseSchema] Schéma SQLite synchronisé avec succès.');
         return {

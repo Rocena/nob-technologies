@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { CookieConsent } from "@/components/CookieConsent";
+import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 import ScrollProgress from "@/components/ScrollProgress";
 import BackToTop from "@/components/BackToTop";
 import StickyCallout from "@/components/StickyCallout";
@@ -77,6 +78,7 @@ export default function RootLayout({
           <EngineerModalProvider>
             <FormationApplyModalProvider>
               <SyllabusModalProvider>
+                <AnalyticsTracker />
                 <ScrollProgress />
                 {children}
                 <BackToTop />

@@ -27,6 +27,7 @@ import { Invoices } from './collections/Invoices';
 import { Formations } from './collections/Formations';
 import { Admissions } from './collections/Admissions';
 import { Galleries } from './collections/Galleries';
+import { AnalyticsEvents } from './collections/AnalyticsEvents';
 import { SiteSettings } from './globals/SiteSettings';
 import { migrations, postgresMigrations } from './migrations';
 
@@ -67,6 +68,10 @@ export default buildConfig({
         Aide: {
           path: '/aide',
           Component: '@/components/admin/HelpWizard#HelpWizard',
+        },
+        Analytics: {
+          path: '/analytics',
+          Component: '@/components/admin/AnalyticsDashboard#AnalyticsDashboard',
         }
       }
     },
@@ -96,6 +101,7 @@ export default buildConfig({
     Formations,
     Admissions,
     Galleries,
+    AnalyticsEvents,
   ],
   editor: lexicalEditor({}),
   secret: process.env.PAYLOAD_SECRET || 'nobtech-super-secret-key-12345',

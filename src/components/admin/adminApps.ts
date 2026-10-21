@@ -20,6 +20,7 @@ import {
   Pulse,
   SlidersHorizontal,
   FileCode,
+  ChartBar,
   type Icon as PhosphorIcon,
 } from '@phosphor-icons/react';
 
@@ -86,6 +87,7 @@ export const appGroups: AdminAppGroup[] = [
     title: 'Interactions & Support',
     color: '#00B4D8',
     apps: [
+      { name: 'Analytics & Audience', Icon: ChartBar, href: '/admin/analytics' },
       { name: 'Messages Contact', Icon: ChatCircleText, href: '/admin/collections/contact-messages' },
       { name: 'Aide & Tutoriel', Icon: BookOpenText, href: '/admin/aide' },
     ],
