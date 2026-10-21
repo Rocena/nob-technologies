@@ -36,17 +36,20 @@ export function GlowButton({
     size === "sm"
       ? "h-9 sm:h-10 px-4 text-xs font-semibold"
       : size === "lg"
-      ? "h-12 sm:h-14 px-8 md:px-10 text-sm md:text-base font-bold"
-      : "h-11 sm:h-12 md:h-14 px-6 md:px-9 text-xs sm:text-sm md:text-base font-bold";
+      ? "h-12 sm:h-13 px-7 md:px-8 text-sm md:text-[15px] font-semibold"
+      : "h-11 sm:h-12 px-6 md:px-7 text-xs sm:text-sm font-semibold";
+
+  const baseStyle =
+    "group relative inline-flex items-center justify-center rounded-lg text-white font-semibold bg-[#0284C7] hover:bg-[#0369A1] border border-sky-400/30 shadow-[0_1px_2px_rgba(2,6,23,0.25),inset_0_1px_0_rgba(255,255,255,0.2)] transition-colors duration-200 cursor-pointer shrink-0";
 
   if (!href || href === "#devis" || href === "/devis" || href === "/tarifs" || href === "/contact") {
     return (
       <button
         type="button"
         onClick={handleClick}
-        className={`group relative inline-flex items-center justify-center rounded-xl text-[#020617] font-bold bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] hover:brightness-105 transition-all duration-300 hover:scale-[1.02] shadow-[0_4px_16px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_24px_rgba(16,231,96,0.35)] cursor-pointer active:scale-95 shrink-0 ${sizeClasses} ${className || ''}`}
+        className={`${baseStyle} ${sizeClasses} ${className || ""}`}
       >
-        <span className="relative z-10 flex items-center justify-center whitespace-nowrap font-bold">
+        <span className="relative z-10 flex items-center justify-center whitespace-nowrap">
           {children}
         </span>
       </button>
@@ -54,12 +57,12 @@ export function GlowButton({
   }
 
   return (
-    <Link 
-      href={href} 
-      onClick={onClick} 
-      className={`group relative inline-flex items-center justify-center rounded-xl text-[#020617] font-bold bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] hover:brightness-105 transition-all duration-300 hover:scale-[1.02] shadow-[0_4px_16px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_24px_rgba(16,231,96,0.35)] shrink-0 ${sizeClasses} ${className || ''}`}
+    <Link
+      href={href}
+      onClick={onClick}
+      className={`${baseStyle} ${sizeClasses} ${className || ""}`}
     >
-      <span className="relative z-10 flex items-center justify-center whitespace-nowrap font-bold">
+      <span className="relative z-10 flex items-center justify-center whitespace-nowrap">
         {children}
       </span>
     </Link>

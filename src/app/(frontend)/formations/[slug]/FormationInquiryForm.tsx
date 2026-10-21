@@ -456,7 +456,7 @@ export function FormationInquiryForm({
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-cyan-500/25 hover:opacity-95 hover:shadow-cyan-500/35 active:scale-95 disabled:opacity-50 cursor-pointer"
+          className="w-full py-4 px-6 rounded-2xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-black text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-cyan-500/25 hover:opacity-95 hover:shadow-cyan-500/35 active:scale-95 disabled:opacity-50 cursor-pointer"
         >
           {loading ? (
             <>

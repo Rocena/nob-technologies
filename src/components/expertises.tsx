@@ -1,21 +1,17 @@
 import React from "react";
 import { Container, Section } from "@/components/ui/layout";
-import { Heading, Text } from "@/components/ui/typography";
-import { 
-  ArrowRight, 
-  Shield, 
-  Wifi, 
-  Cloud, 
-  Code, 
-  MonitorCheck, 
-  Phone, 
-  BarChart3, 
-  Cpu, 
-  Key, 
-  GraduationCap, 
-  Smartphone
+import {
+  ArrowRight,
+  Shield,
+  Wifi,
+  Code,
+  MonitorCheck,
+  Phone,
+  BarChart3,
+  Key,
+  GraduationCap,
+  Smartphone,
 } from "lucide-react";
-import { FadeUp } from "@/components/animations";
 import Link from "next/link";
 import { QuoteRequestButton } from "@/components/QuoteRequestButton";
 
@@ -30,66 +26,84 @@ function isRecentlyCreated(createdAt?: string | Date) {
 
 const defaultServices = [
   {
-    id: "developpement-web-mobile",
-    title: "Développement Web & Mobile",
-    slug: "developpement-web-mobile",
-    description: "Conception de sites internet institutionnels, portails d'entreprise sur-mesure et applications mobiles iOS & Android fluides et sécurisées.",
-    icon: Smartphone,
-  },
-  {
-    id: "erp-digitalisation",
-    title: "Conception & Intégration d’ERP",
-    slug: "erp-digitalisation",
-    description: "Conception d’ERP sur-mesure et intégration experte (Odoo, Dolibarr) pour unifier facturation, stocks, CRM, RH et comptabilité d’entreprise.",
-    icon: Code,
-  },
-  {
-    id: "marketing-digital",
-    title: "Marketing Digital & Stratégie Web",
-    slug: "marketing-digital",
-    description: "SEO/SEA, gestion de campagnes publicitaires, acquisition de leads et renforcement de l’autorité de votre marque sur les canaux digitaux.",
-    icon: BarChart3,
-  },
-  {
     id: "cybersecurite-firewall",
     title: "Cybersécurité & Firewalls",
     slug: "cybersecurite",
-    description: "Solutions leaders Sophos et Fortinet (NGFW), protection des données Acronis, surveillance des menaces et audit de vulnérabilités.",
+    spec: "Sophos XGS · Fortinet NGFW · Acronis",
+    description:
+      "Déploiement de pare-feux nouvelle génération, segmentation réseau, protection anti-ransomware Acronis et audits de conformité.",
     icon: Shield,
-  },
-  {
-    id: "licences-materiel",
-    title: "Licences Office 365 & Matériels IT",
-    slug: "licences-materiels",
-    description: "Distribution officielle de licences Microsoft 365 (ESD & CSP), fourniture de serveurs Dell, routeurs Cisco et parcs informatiques complets.",
-    icon: Key,
-  },
-  {
-    id: "formations-certifications",
-    title: "Formations, IA & Préparation Certifications",
-    slug: "formations-ia",
-    description: "Formations personnalisées en cybersécurité, intégration d’IA & automatisation, et coaching intensif de préparation aux certifications internationales.",
-    icon: GraduationCap,
   },
   {
     id: "reseaux-cablage",
     title: "Câblage Structuré & Réseaux Télécoms",
     slug: "reseaux-telecoms",
-    description: "Réseaux locaux LAN/WAN, baies de brassage, liaisons fibre optique et architecture Wi-Fi professionnelle haute densité.",
+    spec: "Cat 6A/7 · Fibre Optique · Fluke",
+    description:
+      "Ingénierie LAN/WAN, montage et peignage méthodique de baies 42U, interconnexion optique et Wi-Fi professionnel haute densité.",
     icon: Wifi,
+  },
+  {
+    id: "erp-digitalisation",
+    title: "Conception & Intégration d’ERP",
+    slug: "erp-digitalisation",
+    spec: "Odoo · Dolibarr · Workflows B2B",
+    description:
+      "Déploiement d’ERP sur-mesure pour unifier facturation, gestion des stocks, CRM, ressources humaines et comptabilité d’entreprise.",
+    icon: Code,
+  },
+  {
+    id: "developpement-web-mobile",
+    title: "Développement Web & Mobile",
+    slug: "developpement-web-mobile",
+    spec: "Next.js · Portails Métier · iOS/Android",
+    description:
+      "Architecture de plateformes web institutionnelles, moteurs de réservation directs, portails B2B et applications mobiles sécurisées.",
+    icon: Smartphone,
+  },
+  {
+    id: "licences-materiel",
+    title: "Licences Microsoft 365 & Matériels IT",
+    slug: "licences-materiels",
+    spec: "Microsoft CSP · Dell EMC · Cisco",
+    description:
+      "Distribution officielle de licences Microsoft 365, fourniture de serveurs Dell PowerEdge, commutateurs Cisco et postes de travail.",
+    icon: Key,
   },
   {
     id: "telephonie-videosurveillance",
     title: "Téléphonie IP & Vidéosurveillance IP",
     slug: "telephonie-videosurveillance",
-    description: "IPBX Yeastar Série P, postes VoIP Cisco, visioconférence et caméras de vidéosurveillance intelligentes haute résolution.",
+    spec: "Yeastar Série P · SIP · Caméras IP",
+    description:
+      "Standards IPBX Yeastar, terminaux VoIP d'entreprise, interconnexion multi-sites et vidéosurveillance haute résolution.",
     icon: MonitorCheck,
   },
   {
+    id: "formations-certifications",
+    title: "Formations, IA & Certifications IT",
+    slug: "formations-ia",
+    spec: "CCNA · NSE 4 · Power BI · IA",
+    description:
+      "Programmes pratiques sur équipements réels en cybersécurité, réseaux, Business Intelligence et préparation aux examens officiels.",
+    icon: GraduationCap,
+  },
+  {
+    id: "marketing-digital",
+    title: "Acquisition & Stratégie Digitale",
+    slug: "marketing-digital",
+    spec: "SEO Technique · Analytics · Médias",
+    description:
+      "Référencement naturel et payant, pilotage des canaux sociaux officiels et optimisation des taux de conversion B2B/B2C.",
+    icon: BarChart3,
+  },
+  {
     id: "infogerance-support",
-    title: "Infogérance & Support 24/7",
+    title: "Infogérance & Maintenance 24/7",
     slug: "infogerance",
-    description: "Maintenance préventive, supervision proactive de vos serveurs et support technique réactif pour une disponibilité sans interruption.",
+    spec: "Supervision PRTG · SLA 24h · Dakar",
+    description:
+      "Maintenance préventive et curative sur site, supervision continue des serveurs et assistance technique dédiée aux équipes.",
     icon: Phone,
   },
 ];
@@ -98,63 +112,88 @@ export function Expertises({ services = [] }: { services: any[] }) {
   const displayServices = services.length > 0 ? services : defaultServices;
 
   return (
-    <Section id="solutions" className="bg-white dark:bg-[#020617] py-16 md:py-24 lg:py-32 border-b border-slate-100 dark:border-slate-800/80 transition-colors">
+    <Section
+      id="solutions"
+      className="bg-white dark:bg-[#060B14] py-20 md:py-28 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors"
+    >
       <Container>
-        <div className="text-center max-w-4xl mx-auto mb-16 md:mb-20">
-          <FadeUp>
-            <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold flex items-center justify-center gap-2 flex-wrap">
-              <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">&gt;<span className="text-[#10E760] animate-pulse">_</span></span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-                SOLUTIONS &bull; PÔLES D&apos;EXPERTISE
-              </span>
+        {/* Editorial Split Section Header — Left-aligned, zero generic AI eyebrow */}
+        <div className="grid lg:grid-cols-12 gap-8 items-end mb-14 md:mb-16 pb-8 border-b border-slate-200 dark:border-slate-800">
+          <div className="lg:col-span-7">
+            <div className="text-xs font-semibold text-sky-700 dark:text-sky-400 mb-2.5">
+              Domaines d&apos;intervention &amp; Ingénierie
+            </div>
+            <h2
+              className="font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12]"
+              style={{ fontSize: "clamp(1.85rem, 1.3rem + 2vw, 3rem)" }}
+            >
+              Une architecture complète, du câblage physique à la sécurité applicative.
+            </h2>
+          </div>
+          <div className="lg:col-span-5">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+              Chaque infrastructure est conçue, documentée et maintenue par nos ingénieurs à Dakar selon les normes constructeurs (Cisco, Sophos, Fortinet, Dell, Microsoft).
             </p>
-            <Heading level={2} className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
-              Nous construisons les fondations numériques des leaders de demain.
-            </Heading>
-            <Text className="text-base sm:text-lg lg:text-xl text-slate-800 md:text-slate-700 dark:text-slate-300 font-medium sm:font-normal leading-relaxed max-w-3xl mx-auto">
-              Chez NOB TECHNOLOGIES, nous ne nous contentons pas de fournir des services IT. Nous architecturons des écosystèmes complets, résilients et évolutifs. Face à la complexité croissante des réseaux et à l&apos;évolution des cybermenaces, notre mission est de vous offrir un socle technologique infaillible.
-            </Text>
-          </FadeUp>
+          </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {/* Architectural Specification Grid (Hairline 1px borders instead of floating SaaS cards) */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 border-t border-l border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-xs">
           {displayServices.map((service: any, idx: number) => {
             const Icon = service.icon || Shield;
             const href = service.slug ? `/services/${service.slug}` : "/services";
             const showNewBadge = isRecentlyCreated(service.createdAt);
+            const fallbackSpec = defaultServices[idx % defaultServices.length]?.spec;
+
             return (
-              <FadeUp key={service.id || idx} delay={0.04 * idx}>
-                <div className="group flex flex-col h-full bg-slate-50 hover:bg-white dark:bg-[#0b1329] dark:hover:bg-[#0f1d3d] border border-slate-200/80 hover:border-cyan-400 dark:border-slate-800 dark:hover:border-cyan-400/80 rounded-2xl p-7 md:p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden">
-                  {showNewBadge && (
-                    <span className="absolute top-4 right-4 text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded bg-cyan-100 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800/60">
-                      NOUVEAU
-                    </span>
-                  )}
-                  <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-500/20 group-hover:scale-110 transition-all duration-300">
-                    <Icon className="w-6 h-6 text-cyan-600 dark:text-cyan-400" />
+              <div
+                key={service.id || idx}
+                className="group flex flex-col justify-between bg-white hover:bg-slate-50/80 dark:bg-[#0B132B] dark:hover:bg-[#0F1B38] border-r border-b border-slate-200 dark:border-slate-800 p-7 md:p-8 transition-colors duration-200 relative"
+              >
+                {showNewBadge && (
+                  <span className="absolute top-5 right-5 text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
+                    Nouveau
+                  </span>
+                )}
+
+                <div>
+                  <div className="flex items-center justify-between gap-3 mb-5">
+                    <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 flex items-center justify-center text-slate-800 dark:text-sky-400 group-hover:bg-[#0284C7] group-hover:text-white group-hover:border-[#0284C7] transition-colors duration-200">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    {(service.spec || fallbackSpec) && (
+                      <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400">
+                        {service.spec || fallbackSpec}
+                      </span>
+                    )}
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2.5 group-hover:text-[#0284C7] dark:group-hover:text-sky-400 transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm flex-1">
+
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm">
                     {service.description || service.excerpt}
                   </p>
-                  <div className="flex items-center justify-between gap-2 mt-6 pt-4 border-t border-slate-200/60 dark:border-slate-800">
-                    <QuoteRequestButton
-                      service={service.title}
-                      className="text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors cursor-pointer text-left"
-                    >
-                      Demander un devis &rarr;
-                    </QuoteRequestButton>
-                    <Link 
-                      href={href} 
-                      className="flex items-center gap-1 text-cyan-600 hover:text-cyan-700 text-xs font-semibold hover:underline"
-                    >
-                      En savoir plus <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
                 </div>
-              </FadeUp>
+
+                <div className="flex items-center justify-between gap-3 mt-7 pt-4 border-t border-slate-100 dark:border-slate-800/80">
+                  <QuoteRequestButton
+                    service={service.title}
+                    className="text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-[#0284C7] dark:hover:text-sky-400 transition-colors cursor-pointer text-left"
+                  >
+                    Demander un chiffrage
+                  </QuoteRequestButton>
+
+                  <Link
+                    href={href}
+                    className="inline-flex items-center gap-1.5 text-[#0284C7] dark:text-sky-400 hover:text-[#0369A1] text-xs font-semibold"
+                  >
+                    <span>Détails</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                  </Link>
+                </div>
+              </div>
             );
           })}
         </div>

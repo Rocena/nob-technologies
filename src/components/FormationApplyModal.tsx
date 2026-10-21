@@ -626,7 +626,7 @@ export function FormationApplyModal({
                       <button
                         type="submit"
                         disabled={loading}
-                        className="w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-cyan-500/25 hover:opacity-95 hover:shadow-cyan-500/35 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer order-1 sm:order-2 flex items-center justify-center gap-2"
+                        className="w-full sm:w-auto px-7 py-3.5 bg-[#0284C7] hover:bg-[#0369A1] text-white font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-cyan-500/25 hover:opacity-95 hover:shadow-cyan-500/35 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer order-1 sm:order-2 flex items-center justify-center gap-2"
                       >
                         {loading ? (
                           <>

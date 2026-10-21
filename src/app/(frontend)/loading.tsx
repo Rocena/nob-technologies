@@ -41,7 +41,7 @@ export default function Loading() {
         {/* Senior Brand Logotype */}
         <div className="flex items-center font-sans font-black tracking-[-0.03em] leading-none mb-3 text-2xl sm:text-3xl">
           <span className="text-white">NOB</span>
-          <span className="bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] bg-clip-text text-transparent">TECH</span>
+          <span className="text-[#0284C7] dark:text-sky-400">TECH</span>
         </div>
 
         {/* Official Slogan: subtle, balanced, understated elegance */}
@@ -51,7 +51,7 @@ export default function Loading() {
 
         {/* Minimal Precision Progress Micro-Bar (2px sleek line) */}
         <div className="w-40 sm:w-48 h-[2px] rounded-full bg-white/[0.08] overflow-hidden relative">
-          <div className="absolute top-0 bottom-0 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] animate-precision-bar shadow-[0_0_8px_rgba(0,212,255,0.6)]" />
+          <div className="absolute top-0 bottom-0 rounded-full bg-[#0284C7] animate-precision-bar shadow-[0_0_8px_rgba(0,212,255,0.6)]" />
         </div>
       </div>
 

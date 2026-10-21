@@ -41,7 +41,7 @@ function AnimatedCounter({
   }, [inView, value]);
 
   return (
-    <span className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+    <span className="text-5xl md:text-6xl font-black text-[#0284C7] dark:text-sky-400">
       {count}
       {suffix}
     </span>

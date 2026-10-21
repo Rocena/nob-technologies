@@ -32,7 +32,7 @@ export function FormationApplyButton({
       }
       className={
         className ||
-        "inline-flex items-center justify-center w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-[#020617] font-bold text-xs hover:brightness-105 active:scale-95 transition-all shadow-[0_4px_14px_0_rgba(0,212,255,0.35)] cursor-pointer"
+        "inline-flex items-center justify-center w-full py-2.5 px-4 rounded-xl bg-[#0284C7] text-[#020617] font-bold text-xs hover:brightness-105 active:scale-95 transition-all shadow-[0_4px_14px_0_rgba(0,212,255,0.35)] cursor-pointer"
       }
     >
       {children}

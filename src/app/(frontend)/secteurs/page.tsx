@@ -46,13 +46,13 @@ export default function SectorsPage() {
           <Container>
             <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
               <FadeUp>
-                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-[#0284C7] dark:text-sky-400">
                   APPROCHE MÉTIER &bull; AUDIT SUR-MESURE
                 </p>
                 <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight mb-8">
                   La technologie n'est pas générique.
                 </h2>
-                <div className="w-16 h-1.5 bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] rounded-full mb-8 mx-auto"></div>
+                <div className="w-16 h-1.5 bg-[#0284C7] rounded-full mb-8 mx-auto"></div>
                 <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
                   Chaque secteur d'activité possède son propre rythme, ses propres menaces et ses propres normes. Chez NOB TECHNOLOGIES, nous n'appliquons pas de solutions toutes faites. Nous réalisons un audit précis de vos processus métiers pour concevoir, déployer et infogérer des solutions réseaux, télécoms et logicielles parfaitement alignées avec vos ambitions stratégiques.
                 </p>

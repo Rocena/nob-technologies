@@ -236,7 +236,7 @@ export default function PartenairesPage() {
             <TextReveal>
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6 text-balance">
                 Partenaires Technologiques :{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                <span className="text-[#0284C7] dark:text-sky-400">
                   Les Leaders Mondiaux à Vos Côtés
                 </span>
               </h1>
@@ -272,7 +272,7 @@ export default function PartenairesPage() {
           <Container className="relative z-10">
             <FadeUp>
               <div className="text-center mb-12">
-                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-[#0284C7] dark:text-sky-400">
                   ALLIANCES CLÉS &bull; INFRASTRUCTURE &amp; CYBERDÉFENSE
                 </p>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
@@ -346,7 +346,7 @@ export default function PartenairesPage() {
           <Container>
             <FadeUp>
               <div className="text-center mb-16">
-                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-[#0284C7] dark:text-sky-400">
                   CATALOGUE DE PARTENAIRES OFFICIELS
                 </p>
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
@@ -418,7 +418,7 @@ export default function PartenairesPage() {
           <Container>
             <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-900 border border-cyan-500/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
               <div>
-                <span className="font-mono text-xs tracking-[0.2em] uppercase mb-2 block font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                <span className="font-mono text-xs tracking-[0.2em] uppercase mb-2 block font-extrabold text-[#0284C7] dark:text-sky-400">
                   MONTÉE EN COMPÉTENCES
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">

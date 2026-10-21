@@ -145,7 +145,7 @@ export default function EtudesDeCasPage() {
 
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15] mb-6">
                 Études de Cas &{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                <span className="text-[#0284C7] dark:text-sky-400">
                   Résultats Chiffrés
                 </span>
               </h1>
@@ -290,7 +290,7 @@ export default function EtudesDeCasPage() {
               </p>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-sm shadow-md hover:brightness-105 transition-all"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold text-sm shadow-md hover:brightness-105 transition-all"
               >
                 <span>Demander une étude personnalisée</span>
                 <ArrowRight className="w-4 h-4" />

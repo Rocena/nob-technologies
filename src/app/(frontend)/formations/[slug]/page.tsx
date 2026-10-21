@@ -122,7 +122,7 @@ export default async function FormationDetailPage({ params }: Props) {
                 <FormationApplyButton
                   formationTitle={formation.title}
                   formationSlug={formation.slug}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-sm shadow-[0_0_24px_rgba(0,212,255,0.3)] hover:shadow-[0_0_36px_rgba(0,212,255,0.45)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold text-sm shadow-[0_0_24px_rgba(0,212,255,0.3)] hover:shadow-[0_0_36px_rgba(0,212,255,0.45)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
                 >
                   <span>Postuler</span>
                   <ArrowRight className="w-4 h-4" />
@@ -224,7 +224,7 @@ export default async function FormationDetailPage({ params }: Props) {
               <FormationApplyButton
                 formationTitle={formation.title}
                 formationSlug={formation.slug}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-sm shadow-[0_0_24px_rgba(0,212,255,0.3)] hover:shadow-[0_0_36px_rgba(0,212,255,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold text-sm shadow-[0_0_24px_rgba(0,212,255,0.3)] hover:shadow-[0_0_36px_rgba(0,212,255,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
               >
                 <span>Postuler</span>
                 <ArrowRight className="w-4 h-4" />
@@ -279,7 +279,7 @@ export default async function FormationDetailPage({ params }: Props) {
         <Section className="py-20 bg-slate-900 border-t border-white/10">
           <Container>
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+              <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-[#0284C7] dark:text-sky-400">
                 TARIFS &bull; MODALITÉS D&apos;INSCRIPTION
               </p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3">
@@ -536,7 +536,7 @@ export default async function FormationDetailPage({ params }: Props) {
         <Section className="py-16 bg-slate-900 border-t border-white/10">
           <Container>
             <div className="text-center max-w-2xl mx-auto mb-10">
-              <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+              <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold text-[#0284C7] dark:text-sky-400">
                 DÉCOUVRIR LES AUTRES PARCOURS
               </p>
               <h2 className="text-2xl font-extrabold text-white">

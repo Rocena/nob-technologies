@@ -34,7 +34,7 @@ export function FormationVideoSection({
             <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">
               &gt;<span className="text-[#10E760] animate-pulse">_</span>
             </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+            <span className="text-[#0284C7] dark:text-sky-400">
               {eyebrow}
             </span>
           </div>
@@ -43,7 +43,7 @@ export function FormationVideoSection({
             {title.includes(":") ? (
               <>
                 {title.split(":")[0]} :{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                <span className="text-[#0284C7] dark:text-sky-400">
                   {title.split(":")[1]}
                 </span>
               </>
@@ -119,7 +119,7 @@ export function FormationVideoSection({
                       {/* Pulse rings */}
                       <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-[#00D4FF] to-[#10E760] opacity-40 blur-md group-hover:opacity-75 transition-opacity duration-300 animate-pulse" />
                       
-                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] p-0.5 shadow-2xl">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#0284C7] p-0.5 shadow-2xl">
                         <div className="w-full h-full rounded-full bg-slate-950/90 flex items-center justify-center group-hover:bg-slate-950/70 transition-colors">
                           <Play className="w-7 h-7 sm:w-8 sm:h-8 text-[#00D4FF] ml-1 fill-[#00D4FF] transition-transform duration-300 group-hover:scale-110" />
                         </div>
