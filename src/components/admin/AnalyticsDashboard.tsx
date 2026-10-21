@@ -15,7 +15,8 @@ import {
   MapPin,
   ShareNetwork,
   Clock,
-  CheckCircle,
+  Globe,
+  ArrowUpRight,
 } from '@phosphor-icons/react';
 
 type Period = 'today' | '7d' | '30d' | 'all';
@@ -26,6 +27,7 @@ export const AnalyticsDashboard: React.FC = () => {
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [activeGeoTab, setActiveGeoTab] = useState<'cities' | 'countries'>('cities');
+  const [hoveredBar, setHoveredBar] = useState<number | null>(null);
 
   const fetchData = async (selectedPeriod: Period) => {
     setLoading(true);
@@ -33,6 +35,7 @@ export const AnalyticsDashboard: React.FC = () => {
     try {
       const res = await fetch(`/api/admin/analytics/stats?period=${selectedPeriod}`, {
         credentials: 'same-origin',
+        cache: 'no-store',
       });
       if (res.ok) {
         const json = await res.json();
@@ -54,7 +57,7 @@ export const AnalyticsDashboard: React.FC = () => {
   const handleExportCSV = () => {
     if (!data) return;
     const rows = [
-      ['Rapport Analytics NOBTECH', `Periode: ${period}`],
+      ['Rapport Analytics NOB TECHNOLOGIES', `Periode: ${period}`],
       [],
       ['KPIs'],
       ['Visiteurs Uniques', data.kpis.uniqueVisitors],
@@ -63,16 +66,16 @@ export const AnalyticsDashboard: React.FC = () => {
       ['Taux Engagement', `${data.kpis.engagementRate}%`],
       [],
       ['Top Pages'],
-      ['Chemin', 'Titre', 'Vues', 'Visiteurs Uniques'],
-      ...data.topPages.map((p: any) => [p.path, p.title, p.views, p.uniqueVisitors]),
+      ['Chemin', 'Titre', 'Vues', 'Visiteurs Uniques', 'Part (%)'],
+      ...(data.topPages || []).map((p: any) => [p.path, p.title, p.views, p.uniqueVisitors, `${p.percentage}%`]),
       [],
       ['Top Clics & CTAs'],
-      ['Libellé Élément', 'Type', 'Page', 'Clics'],
-      ...data.topClicks.map((c: any) => [c.elementText, c.type, c.path, c.count]),
+      ['Libelle Element', 'Type', 'Page', 'Clics', 'Part (%)'],
+      ...(data.topClicks || []).map((c: any) => [c.elementText, c.type, c.path, c.count, `${c.percentage}%`]),
       [],
       ['Top Villes'],
-      ['Ville', 'Pays', 'Interactions', 'Part'],
-      ...data.locations.cities.map((ci: any) => [ci.city, ci.country, ci.count, `${ci.percentage}%`]),
+      ['Ville', 'Pays', 'Visites', 'Part (%)'],
+      ...(data.locations?.cities || []).map((ci: any) => [ci.city, ci.country, ci.count, `${ci.percentage}%`]),
     ];
 
     const csvContent = 'data:text/csv;charset=utf-8,' + rows.map((e) => e.join(';')).join('\n');
@@ -93,253 +96,636 @@ export const AnalyticsDashboard: React.FC = () => {
     avgPagesPerVisitor: '1.0',
   };
 
+  const timeline: any[] = data?.timeline || [];
   const maxTimelineVal = Math.max(
-    ...(data?.timeline?.map((t: any) => Math.max(t.pageviews, t.clicks)) || [10]),
-    1
+    ...timeline.map((t: any) => Math.max(Number(t.pageviews) || 0, Number(t.clicks) || 0)),
+    10
   );
 
   return (
-    <div className="min-h-screen bg-[#070D1F] text-slate-100 p-4 sm:p-6 lg:p-8 font-sans selection:bg-[#00D4FF]/30">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="nob-an-root">
+      <style>{`
+        .nob-an-root {
+          min-height: 100vh;
+          background: radial-gradient(circle at 15% 0%, rgba(2, 132, 199, 0.12), transparent 40%),
+                      radial-gradient(circle at 85% 10%, rgba(16, 185, 129, 0.08), transparent 35%),
+                      #020617;
+          color: #f8fafc;
+          padding: 84px 28px 115px;
+          font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+          box-sizing: border-box;
+        }
+        .nob-an-container {
+          max-width: 1420px;
+          margin: 0 auto;
+        }
+        .nob-an-header {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          gap: 18px;
+          padding-bottom: 22px;
+          margin-bottom: 26px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .nob-an-brand {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+        }
+        .nob-an-logo-box {
+          width: 48px;
+          height: 48px;
+          border-radius: 14px;
+          background: linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, rgba(2, 132, 199, 0.3) 100%);
+          border: 1px solid rgba(0, 212, 255, 0.4);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #00D4FF;
+          box-shadow: 0 10px 25px -5px rgba(0, 212, 255, 0.25);
+          flex-shrink: 0;
+        }
+        .nob-an-live-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 3px 10px;
+          border-radius: 999px;
+          background: rgba(16, 185, 129, 0.14);
+          border: 1px solid rgba(16, 185, 129, 0.35);
+          color: #34d399;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+        }
+        .nob-an-live-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #10b981;
+          box-shadow: 0 0 8px #10b981;
+        }
+        .nob-an-controls {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 10px;
+        }
+        .nob-an-segmented {
+          display: inline-flex;
+          background: rgba(15, 23, 42, 0.9);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          padding: 4px;
+          border-radius: 13px;
+          gap: 4px;
+        }
+        .nob-an-seg-btn {
+          all: unset;
+          cursor: pointer;
+          padding: 7px 14px;
+          border-radius: 9px;
+          font-size: 12.5px;
+          font-weight: 700;
+          color: #94a3b8;
+          transition: all 0.18s ease;
+        }
+        .nob-an-seg-btn:hover {
+          color: #ffffff;
+        }
+        .nob-an-seg-btn.active {
+          background: linear-gradient(135deg, #00D4FF 0%, #0284C7 100%);
+          color: #020617;
+          font-weight: 800;
+          box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+        }
+        .nob-an-action-btn {
+          all: unset;
+          box-sizing: border-box;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          height: 38px;
+          padding: 0 14px;
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.11);
+          color: #e2e8f0;
+          font-size: 12.5px;
+          font-weight: 700;
+          text-decoration: none;
+          transition: all 0.18s ease;
+        }
+        .nob-an-action-btn:hover {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(0, 212, 255, 0.4);
+          color: #ffffff;
+        }
+        .nob-an-kpi-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 16px;
+          margin-bottom: 22px;
+        }
+        .nob-an-kpi-card {
+          background: linear-gradient(145deg, rgba(15, 23, 42, 0.85) 0%, rgba(11, 17, 32, 0.92) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.09);
+          border-radius: 18px;
+          padding: 20px 22px;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 0 18px 40px -15px rgba(0, 0, 0, 0.5);
+        }
+        .nob-an-card {
+          background: linear-gradient(145deg, rgba(15, 23, 42, 0.82) 0%, rgba(11, 17, 32, 0.9) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.09);
+          border-radius: 20px;
+          padding: 24px;
+          box-shadow: 0 20px 45px -18px rgba(0, 0, 0, 0.55);
+        }
+        .nob-an-split {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+          gap: 20px;
+          margin-bottom: 20px;
+        }
+        @media (max-width: 640px) {
+          .nob-an-root {
+            padding: 74px 14px 100px;
+          }
+          .nob-an-split {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
 
-        {/* 1. Header Toolbar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#00D4FF]/20 to-[#0284C7]/30 border border-[#00D4FF]/40 flex items-center justify-center text-[#00D4FF] shadow-[0_0_20px_rgba(0,212,255,0.2)]">
-              <ChartBar size={28} weight="duotone" />
+      <div className="nob-an-container">
+        {/* 1. HEADER TOOLBAR */}
+        <div className="nob-an-header">
+          <div className="nob-an-brand">
+            <div className="nob-an-logo-box">
+              <ChartBar size={26} weight="duotone" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
-                  Marketing &amp; Analytics
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                <h1 style={{ margin: 0, fontSize: '23px', fontWeight: 800, letterSpacing: '-0.02em', color: '#ffffff' }}>
+                  Audience, Clics &amp; Intelligence Marketing
                 </h1>
-                <span className="px-2 py-0.5 text-[10px] font-mono font-bold rounded-full bg-[#00D4FF]/10 text-[#00D4FF] border border-[#00D4FF]/25">
-                  Live
+                <span className="nob-an-live-pill">
+                  <span className="nob-an-live-dot" />
+                  <span>Temps réel</span>
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
-                Suivi en temps réel de votre audience, vos pages les plus consultées, vos clics et la localisation de vos visiteurs.
+              <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#94a3b8' }}>
+                Analyse des visiteurs, pages favorites, clics sur boutons (WhatsApp, Devis, Formations) et géolocalisation.
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 flex-wrap">
-            {/* Period Switcher */}
-            <div className="bg-slate-900/90 border border-white/10 p-1 rounded-xl flex items-center gap-1 text-xs">
-              <button
-                type="button"
-                onClick={() => setPeriod('today')}
-                className={`px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer ${
-                  period === 'today'
-                    ? 'bg-[#00D4FF] text-[#020617] shadow-sm'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                Aujourd’hui
-              </button>
-              <button
-                type="button"
-                onClick={() => setPeriod('7d')}
-                className={`px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer ${
-                  period === '7d'
-                    ? 'bg-[#00D4FF] text-[#020617] shadow-sm'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                7 jours
-              </button>
-              <button
-                type="button"
-                onClick={() => setPeriod('30d')}
-                className={`px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer ${
-                  period === '30d'
-                    ? 'bg-[#00D4FF] text-[#020617] shadow-sm'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                30 jours
-              </button>
-              <button
-                type="button"
-                onClick={() => setPeriod('all')}
-                className={`px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer ${
-                  period === 'all'
-                    ? 'bg-[#00D4FF] text-[#020617] shadow-sm'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                Historique
-              </button>
+          <div className="nob-an-controls">
+            <div className="nob-an-segmented">
+              {[
+                { id: 'today', label: "Aujourd'hui" },
+                { id: '7d', label: '7 jours' },
+                { id: '30d', label: '30 jours' },
+                { id: 'all', label: 'Historique' },
+              ].map((p) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => setPeriod(p.id as Period)}
+                  className={`nob-an-seg-btn ${period === p.id ? 'active' : ''}`}
+                >
+                  {p.label}
+                </button>
+              ))}
             </div>
 
-            {/* Refresh */}
             <button
               type="button"
               onClick={() => fetchData(period)}
+              className="nob-an-action-btn"
               title="Rafraîchir les données"
-              className="p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-colors cursor-pointer"
             >
-              <ArrowClockwise size={16} className={loading ? 'animate-spin text-[#00D4FF]' : ''} />
+              <ArrowClockwise size={16} color="#00D4FF" />
+              <span>Actualiser</span>
             </button>
 
-            {/* Export CSV */}
             <button
               type="button"
               onClick={handleExportCSV}
               disabled={!data}
-              title="Exporter le rapport au format CSV"
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-slate-200 hover:text-white transition-all cursor-pointer disabled:opacity-50"
+              className="nob-an-action-btn"
+              title="Exporter en CSV (Excel)"
             >
-              <DownloadSimple size={15} className="text-[#00D4FF]" />
-              <span className="hidden sm:inline">Exporter CSV</span>
+              <DownloadSimple size={16} color="#10E760" />
+              <span>Exporter CSV</span>
             </button>
+
+            <a
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nob-an-action-btn"
+              title="Ouvrir le site internet dans un nouvel onglet"
+            >
+              <Globe size={16} color="#00D4FF" />
+              <span>Voir le site</span>
+            </a>
           </div>
         </div>
 
         {error && (
-          <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-sm">
+          <div
+            style={{
+              padding: '14px 18px',
+              borderRadius: '14px',
+              background: 'rgba(244, 63, 94, 0.12)',
+              border: '1px solid rgba(244, 63, 94, 0.35)',
+              color: '#fda4af',
+              fontSize: '13px',
+              fontWeight: 600,
+              marginBottom: '20px',
+            }}
+          >
             {error}
           </div>
         )}
 
-        {/* 2. Key Performance Indicators (Cards) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-
-          {/* KPI 1 : Visiteurs Uniques */}
-          <div className="p-5 rounded-2xl bg-slate-900/60 border border-white/10 relative overflow-hidden backdrop-blur-md">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 font-mono">
-                Visiteurs Uniques
-              </span>
-              <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
-                <UsersThree size={20} weight="duotone" />
+        {/* 2. KPI BENTO CARDS */}
+        <div className="nob-an-kpi-grid">
+          {[
+            {
+              label: 'Visiteurs Uniques',
+              value: kpis.uniqueVisitors.toLocaleString('fr-FR'),
+              sub: 'Audience distincte sur la période',
+              badge: '+18.4%',
+              color: '#00D4FF',
+              Icon: UsersThree,
+            },
+            {
+              label: 'Pages Consultées',
+              value: kpis.totalPageviews.toLocaleString('fr-FR'),
+              sub: `Moyenne : ${kpis.avgPagesPerVisitor} pages / visiteur`,
+              badge: 'Navigation active',
+              color: '#38bdf8',
+              Icon: Eye,
+            },
+            {
+              label: 'Clics & Actions Marketing',
+              value: kpis.totalClicks.toLocaleString('fr-FR'),
+              sub: 'WhatsApp, Devis, Appels & Syllabus',
+              badge: 'Conversions',
+              color: '#10E760',
+              Icon: CursorClick,
+            },
+            {
+              label: "Taux d'Engagement",
+              value: `${kpis.engagementRate}%`,
+              sub: 'Part des visiteurs ayant cliqué un CTA',
+              badge: 'Performance',
+              color: '#a855f7',
+              Icon: TrendUp,
+            },
+          ].map((item, i) => (
+            <div key={i} className="nob-an-kpi-card">
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '3px',
+                  background: item.color,
+                }}
+              />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                  {item.label}
+                </span>
+                <div
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '10px',
+                    background: `${item.color}18`,
+                    border: `1px solid ${item.color}40`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: item.color,
+                  }}
+                >
+                  <item.Icon size={20} weight="duotone" />
+                </div>
+              </div>
+              <div
+                style={{
+                  fontSize: '32px',
+                  fontWeight: 900,
+                  color: '#ffffff',
+                  letterSpacing: '-0.03em',
+                  fontVariantNumeric: 'tabular-nums',
+                  lineHeight: 1.1,
+                }}
+              >
+                {item.value}
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '10px', fontSize: '12px' }}>
+                <span style={{ color: '#94a3b8' }}>{item.sub}</span>
+                <span
+                  style={{
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    color: item.color,
+                    background: `${item.color}15`,
+                    padding: '2px 8px',
+                    borderRadius: '999px',
+                  }}
+                >
+                  {item.badge}
+                </span>
               </div>
             </div>
-            <div className="text-3xl font-black text-white">
-              {kpis.uniqueVisitors.toLocaleString()}
-            </div>
-            <div className="flex items-center gap-1.5 mt-2 text-xs text-slate-400">
-              <span className="text-emerald-400 font-bold flex items-center gap-0.5">
-                <TrendUp size={14} /> +18.4%
-              </span>
-              <span>vs période préc.</span>
-            </div>
-          </div>
-
-          {/* KPI 2 : Pages Vues */}
-          <div className="p-5 rounded-2xl bg-slate-900/60 border border-white/10 relative overflow-hidden backdrop-blur-md">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 font-mono">
-                Pages Consultées
-              </span>
-              <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
-                <Eye size={20} weight="duotone" />
-              </div>
-            </div>
-            <div className="text-3xl font-black text-white">
-              {kpis.totalPageviews.toLocaleString()}
-            </div>
-            <div className="flex items-center gap-1.5 mt-2 text-xs text-slate-400">
-              <span className="text-slate-300 font-semibold">{kpis.avgPagesPerVisitor}</span>
-              <span>pages / visiteur</span>
-            </div>
-          </div>
-
-          {/* KPI 3 : Clics & Actions Marketing */}
-          <div className="p-5 rounded-2xl bg-slate-900/60 border border-white/10 relative overflow-hidden backdrop-blur-md">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 font-mono">
-                Clics &amp; Actions Marketing
-              </span>
-              <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-                <CursorClick size={20} weight="duotone" />
-              </div>
-            </div>
-            <div className="text-3xl font-black text-emerald-400">
-              {kpis.totalClicks.toLocaleString()}
-            </div>
-            <div className="flex items-center gap-1.5 mt-2 text-xs text-slate-400">
-              <span className="text-emerald-400 font-semibold">Devis, WhatsApp, Formations</span>
-            </div>
-          </div>
-
-          {/* KPI 4 : Taux d'engagement */}
-          <div className="p-5 rounded-2xl bg-slate-900/60 border border-white/10 relative overflow-hidden backdrop-blur-md">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 font-mono">
-                Taux d'Engagement
-              </span>
-              <div className="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
-                <TrendUp size={20} weight="duotone" />
-              </div>
-            </div>
-            <div className="text-3xl font-black text-white">
-              {kpis.engagementRate}%
-            </div>
-            <div className="flex items-center gap-1.5 mt-2 text-xs text-slate-400">
-              <span className="text-slate-300 font-semibold">Proportion de visiteurs actifs</span>
-            </div>
-          </div>
-
+          ))}
         </div>
 
-        {/* 3. Graphique d'évolution du trafic */}
-        <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-md space-y-4">
-          <div className="flex items-center justify-between flex-wrap gap-2">
+        {/* 3. TIMELINE CHART */}
+        <div className="nob-an-card" style={{ marginBottom: '20px' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
             <div>
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <span>Évolution du Trafic &amp; des Clics</span>
+              <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, color: '#ffffff' }}>
+                Courbe d&apos;Audience &amp; Conversions Quotidiennes
               </h3>
-              <p className="text-xs text-slate-400 mt-0.5">
-                Comparatif quotidien entre les consultations de pages (bleu) et les interactions sur les boutons d&apos;action (vert).
+              <p style={{ margin: '4px 0 0', fontSize: '12.5px', color: '#94a3b8' }}>
+                Comparaison jour par jour entre le volume de pages vues et les clics d&apos;engagement commercial.
               </p>
             </div>
-            <div className="flex items-center gap-4 text-xs">
-              <span className="flex items-center gap-1.5 text-slate-300">
-                <span className="w-3 h-3 rounded-sm bg-[#00D4FF]" />
-                Pages Vues
+            <div style={{ display: 'flex', alignItems: 'center', gap: '18px', fontSize: '12.5px', fontWeight: 600 }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', color: '#e2e8f0' }}>
+                <span style={{ width: '12px', height: '12px', borderRadius: '4px', background: '#00D4FF', display: 'inline-block' }} />
+                <span>Pages consultées</span>
               </span>
-              <span className="flex items-center gap-1.5 text-slate-300">
-                <span className="w-3 h-3 rounded-sm bg-[#10E760]" />
-                Clics / Conversions
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', color: '#e2e8f0' }}>
+                <span style={{ width: '12px', height: '12px', borderRadius: '4px', background: '#10E760', display: 'inline-block' }} />
+                <span>Clics &amp; Actions (CTAs)</span>
               </span>
             </div>
           </div>
 
-          {/* Histogram Chart */}
-          <div className="pt-4 pb-2">
-            <div className="h-48 flex items-end gap-2 sm:gap-3 border-b border-white/10 pb-2">
-              {data?.timeline?.map((t: any, idx: number) => {
-                const pvHeight = Math.max(Math.round((t.pageviews / maxTimelineVal) * 100), 6);
-                const clHeight = Math.max(Math.round((t.clicks / maxTimelineVal) * 100), 4);
+          <div
+            style={{
+              height: '210px',
+              display: 'flex',
+              alignItems: 'flex-end',
+              gap: '10px',
+              padding: '28px 8px 8px',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+              position: 'relative',
+            }}
+          >
+            {timeline.map((t: any, idx: number) => {
+              const pvPx = Math.max(Math.round(((Number(t.pageviews) || 0) / maxTimelineVal) * 150), 8);
+              const clPx = Math.max(Math.round(((Number(t.clicks) || 0) / maxTimelineVal) * 150), 5);
+              const isHovered = hoveredBar === idx;
+
+              return (
+                <div
+                  key={idx}
+                  onMouseEnter={() => setHoveredBar(idx)}
+                  onMouseLeave={() => setHoveredBar(null)}
+                  style={{
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'flex-end',
+                    height: '100%',
+                    position: 'relative',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {isHovered && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: '100%',
+                        marginBottom: '6px',
+                        background: '#020617',
+                        border: '1px solid rgba(0, 212, 255, 0.4)',
+                        borderRadius: '10px',
+                        padding: '8px 12px',
+                        fontSize: '11px',
+                        whiteSpace: 'nowrap',
+                        zIndex: 30,
+                        boxShadow: '0 12px 28px rgba(0,0,0,0.6)',
+                      }}
+                    >
+                      <div style={{ fontWeight: 800, color: '#ffffff', marginBottom: '3px' }}>{t.label}</div>
+                      <div style={{ color: '#00D4FF', fontWeight: 700 }}>{t.pageviews} pages vues ({t.visitors} visiteurs)</div>
+                      <div style={{ color: '#10E760', fontWeight: 700 }}>{t.clicks} clics marketing</div>
+                    </div>
+                  )}
+
+                  <div style={{ width: '100%', maxWidth: '42px', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: '4px' }}>
+                    <div
+                      style={{
+                        flex: 1,
+                        height: `${pvPx}px`,
+                        borderRadius: '6px 6px 2px 2px',
+                        background: 'linear-gradient(180deg, #00D4FF 0%, #0284C7 100%)',
+                        opacity: isHovered ? 1 : 0.88,
+                        transition: 'height 0.25s ease, opacity 0.15s ease',
+                      }}
+                    />
+                    <div
+                      style={{
+                        flex: 1,
+                        height: `${clPx}px`,
+                        borderRadius: '6px 6px 2px 2px',
+                        background: 'linear-gradient(180deg, #10E760 0%, #059669 100%)',
+                        opacity: isHovered ? 1 : 0.88,
+                        transition: 'height 0.25s ease, opacity 0.15s ease',
+                      }}
+                    />
+                  </div>
+
+                  <div
+                    style={{
+                      marginTop: '8px',
+                      fontSize: '11px',
+                      fontFamily: "'JetBrains Mono', monospace",
+                      color: isHovered ? '#ffffff' : '#94a3b8',
+                      fontWeight: isHovered ? 700 : 500,
+                    }}
+                  >
+                    {t.label}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* 4. SPLIT ROW 1 : TOP PAGES & TOP CLICS */}
+        <div className="nob-an-split">
+          {/* Pages les plus aimées */}
+          <div className="nob-an-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '14px', marginBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Eye size={20} color="#00D4FF" weight="duotone" />
+                <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, color: '#ffffff' }}>
+                  Pages les plus visitées &amp; appréciées
+                </h3>
+              </div>
+              <span style={{ fontSize: '11.5px', fontFamily: 'monospace', color: '#64748b', fontWeight: 700 }}>
+                TOP 10 PAGES
+              </span>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '13px' }}>
+              {(data?.topPages || []).map((p: any, idx: number) => (
+                <div key={idx}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px', marginBottom: '6px', fontSize: '13px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                      <span
+                        style={{
+                          width: '22px',
+                          height: '22px',
+                          borderRadius: '6px',
+                          background: idx < 3 ? 'rgba(0, 212, 255, 0.16)' : 'rgba(255,255,255,0.05)',
+                          color: idx < 3 ? '#00D4FF' : '#94a3b8',
+                          fontSize: '11px',
+                          fontWeight: 800,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                          fontFamily: 'monospace',
+                        }}
+                      >
+                        {idx + 1}
+                      </span>
+                      <a
+                        href={p.path}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          color: '#38bdf8',
+                          fontFamily: "'JetBrains Mono', monospace",
+                          fontSize: '12.5px',
+                          fontWeight: 700,
+                          textDecoration: 'none',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {p.path}
+                      </a>
+                      <span style={{ color: '#94a3b8', fontSize: '12px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        — {p.title}
+                      </span>
+                    </div>
+                    <div style={{ flexShrink: 0, fontFamily: 'monospace', fontSize: '12.5px' }}>
+                      <strong style={{ color: '#ffffff' }}>{p.views} vues</strong>{' '}
+                      <span style={{ color: '#64748b' }}>({p.percentage}%)</span>
+                    </div>
+                  </div>
+                  <div style={{ height: '6px', borderRadius: '999px', background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
+                    <div
+                      style={{
+                        width: `${Math.max(Number(p.percentage) || 0, 4)}%`,
+                        height: '100%',
+                        borderRadius: '999px',
+                        background: 'linear-gradient(90deg, #00D4FF 0%, #0284C7 100%)',
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Boutons & Zones avec le plus de clics */}
+          <div className="nob-an-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '14px', marginBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <CursorClick size={20} color="#10E760" weight="duotone" />
+                <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, color: '#ffffff' }}>
+                  Zones &amp; Boutons avec le plus de clics
+                </h3>
+              </div>
+              <span style={{ fontSize: '11.5px', fontFamily: 'monospace', color: '#10E760', fontWeight: 700 }}>
+                HEATMAP ACTIONS
+              </span>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '13px' }}>
+              {(data?.topClicks || []).map((c: any, idx: number) => {
+                const isWhatsApp = c.type === 'whatsapp_click';
+                const isBrochure = c.type === 'download_brochure';
+                const isCall = c.type === 'call_click';
+
+                const badgeLabel = isWhatsApp
+                  ? 'WHATSAPP'
+                  : isBrochure
+                  ? 'SYLLABUS PDF'
+                  : isCall
+                  ? 'APPEL DIRECT'
+                  : 'BOUTON CTA';
+                const badgeColor = isWhatsApp ? '#25D366' : isBrochure ? '#00D4FF' : '#10E760';
 
                 return (
-                  <div key={idx} className="flex-1 flex flex-col items-center justify-end h-full group relative">
-                    {/* Tooltip on hover */}
-                    <div className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center z-20 pointer-events-none">
-                      <div className="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-white/20 text-[10px] text-white shadow-xl whitespace-nowrap">
-                        <strong className="block text-slate-300 mb-0.5">{t.label}</strong>
-                        <div className="text-[#00D4FF] font-semibold">{t.pageviews} vues ({t.visitors} visiteurs)</div>
-                        <div className="text-[#10E760] font-semibold">{t.clicks} clics &amp; actions</div>
+                  <div key={idx}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px', marginBottom: '6px', fontSize: '13px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                        <span
+                          style={{
+                            padding: '2px 8px',
+                            borderRadius: '6px',
+                            background: `${badgeColor}20`,
+                            border: `1px solid ${badgeColor}45`,
+                            color: badgeColor,
+                            fontSize: '10px',
+                            fontWeight: 800,
+                            fontFamily: 'monospace',
+                            flexShrink: 0,
+                          }}
+                        >
+                          {badgeLabel}
+                        </span>
+                        <span
+                          style={{
+                            color: '#f1f5f9',
+                            fontWeight: 700,
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}
+                          title={c.elementText}
+                        >
+                          {c.elementText}
+                        </span>
                       </div>
-                      <div className="w-2 h-2 bg-slate-950 border-r border-b border-white/20 rotate-45 -mt-1" />
+                      <div style={{ flexShrink: 0, fontFamily: 'monospace', fontSize: '12.5px' }}>
+                        <strong style={{ color: badgeColor }}>{c.count} clics</strong>{' '}
+                        <span style={{ color: '#64748b' }}>({c.percentage}%)</span>
+                      </div>
                     </div>
-
-                    <div className="w-full flex items-end justify-center gap-1">
-                      {/* Pageviews bar */}
+                    <div style={{ height: '6px', borderRadius: '999px', background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
                       <div
-                        style={{ height: `${pvHeight}%` }}
-                        className="w-1/2 rounded-t-md bg-gradient-to-t from-[#0077b6] to-[#00D4FF] group-hover:brightness-125 transition-all"
-                      />
-                      {/* Clicks bar */}
-                      <div
-                        style={{ height: `${clHeight}%` }}
-                        className="w-1/2 rounded-t-md bg-gradient-to-t from-emerald-600 to-[#10E760] group-hover:brightness-125 transition-all"
+                        style={{
+                          width: `${Math.max(Number(c.percentage) || 0, 4)}%`,
+                          height: '100%',
+                          borderRadius: '999px',
+                          background: badgeColor,
+                        }}
                       />
                     </div>
-                    <span className="text-[10px] text-slate-400 font-mono mt-2 truncate w-full text-center">
-                      {t.label}
-                    </span>
                   </div>
                 );
               })}
@@ -347,192 +733,99 @@ export const AnalyticsDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* 4. Split Row 1 : Top Pages & Top Clics */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-          {/* Left: Pages les plus vues */}
-          <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-md flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
-                <div className="flex items-center gap-2">
-                  <Eye size={18} className="text-[#00D4FF]" />
-                  <h3 className="text-base font-bold text-white">Pages les plus visitées</h3>
-                </div>
-                <span className="text-xs text-slate-400 font-mono">Top 10</span>
+        {/* 5. SPLIT ROW 2 : GÉOLOCALISATION & APPAREILS / SOURCES */}
+        <div className="nob-an-split">
+          {/* Géolocalisation */}
+          <div className="nob-an-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '14px', marginBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <GlobeHemisphereWest size={20} color="#00D4FF" weight="duotone" />
+                <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, color: '#ffffff' }}>
+                  Géolocalisation des Visiteurs
+                </h3>
               </div>
 
-              <div className="space-y-3.5">
-                {data?.topPages?.map((p: any, idx: number) => (
-                  <div key={idx} className="space-y-1.5">
-                    <div className="flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-2 min-w-0 pr-2">
-                        <span className="w-5 h-5 rounded-full bg-white/5 border border-white/10 flex items-center justify-center font-mono text-[10px] font-bold text-slate-400 shrink-0">
-                          {idx + 1}
-                        </span>
-                        <span className="font-mono text-cyan-300 font-medium truncate" title={p.path}>
-                          {p.path}
-                        </span>
-                        <span className="text-slate-400 truncate hidden sm:inline" title={p.title}>
-                          &bull; {p.title}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 shrink-0 font-mono">
-                        <strong className="text-white">{p.views}</strong>
-                        <span className="text-slate-500">({p.percentage}%)</span>
-                      </div>
-                    </div>
-                    {/* Progress bar */}
-                    <div className="w-full h-1.5 rounded-full bg-white/5 overflow-hidden">
-                      <div
-                        style={{ width: `${Math.max(p.percentage, 3)}%` }}
-                        className="h-full rounded-full bg-gradient-to-r from-[#00D4FF] to-[#0284c7]"
-                      />
-                    </div>
-                  </div>
-                ))}
-
-                {(!data?.topPages || data.topPages.length === 0) && (
-                  <p className="text-xs text-slate-500 py-6 text-center">Aucune visite enregistrée pour cette période.</p>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Right: Zones & Boutons les plus cliqués */}
-          <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-md flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
-                <div className="flex items-center gap-2">
-                  <CursorClick size={18} className="text-[#10E760]" />
-                  <h3 className="text-base font-bold text-white">Boutons &amp; Actions les plus cliqués</h3>
-                </div>
-                <span className="text-xs text-slate-400 font-mono">Conversions</span>
-              </div>
-
-              <div className="space-y-3.5">
-                {data?.topClicks?.map((c: any, idx: number) => {
-                  const isWhatsApp = c.type === 'whatsapp_click';
-                  const isBrochure = c.type === 'download_brochure';
-
-                  return (
-                    <div key={idx} className="space-y-1.5">
-                      <div className="flex items-center justify-between text-xs">
-                        <div className="flex items-center gap-2 min-w-0 pr-2">
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold shrink-0 ${
-                            isWhatsApp
-                              ? 'bg-[#25D366]/20 text-[#25D366] border border-[#25D366]/30'
-                              : isBrochure
-                              ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
-                              : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                          }`}>
-                            {isWhatsApp ? 'WhatsApp' : isBrochure ? 'Syllabus PDF' : 'Bouton CTA'}
-                          </span>
-                          <span className="font-semibold text-slate-200 truncate" title={c.elementText}>
-                            {c.elementText}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2 shrink-0 font-mono">
-                          <strong className="text-emerald-400">{c.count} clics</strong>
-                          <span className="text-slate-500">({c.percentage}%)</span>
-                        </div>
-                      </div>
-                      {/* Progress bar */}
-                      <div className="w-full h-1.5 rounded-full bg-white/5 overflow-hidden">
-                        <div
-                          style={{ width: `${Math.max(c.percentage, 3)}%` }}
-                          className={`h-full rounded-full ${
-                            isWhatsApp
-                              ? 'bg-[#25D366]'
-                              : 'bg-gradient-to-r from-emerald-500 to-[#10E760]'
-                          }`}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-
-                {(!data?.topClicks || data.topClicks.length === 0) && (
-                  <p className="text-xs text-slate-500 py-6 text-center">Aucun clic enregistré pour cette période.</p>
-                )}
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        {/* 5. Split Row 2 : Localisations & Appareils / Canaux */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-          {/* Left: Localisations des visiteurs (Dakar, Thiès, Paris, etc.) */}
-          <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-md">
-            <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
-              <div className="flex items-center gap-2">
-                <GlobeHemisphereWest size={18} className="text-[#00D4FF]" />
-                <h3 className="text-base font-bold text-white">Localisation des Visiteurs</h3>
-              </div>
-              <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-lg text-xs font-mono">
+              <div className="nob-an-segmented" style={{ padding: '3px' }}>
                 <button
                   type="button"
                   onClick={() => setActiveGeoTab('cities')}
-                  className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
-                    activeGeoTab === 'cities' ? 'bg-[#00D4FF] text-slate-950 font-bold' : 'text-slate-400'
-                  }`}
+                  className={`nob-an-seg-btn ${activeGeoTab === 'cities' ? 'active' : ''}`}
+                  style={{ padding: '4px 12px', fontSize: '11.5px' }}
                 >
-                  Villes
+                  Par Ville
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveGeoTab('countries')}
-                  className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
-                    activeGeoTab === 'countries' ? 'bg-[#00D4FF] text-slate-950 font-bold' : 'text-slate-400'
-                  }`}
+                  className={`nob-an-seg-btn ${activeGeoTab === 'countries' ? 'active' : ''}`}
+                  style={{ padding: '4px 12px', fontSize: '11.5px' }}
                 >
-                  Pays
+                  Par Pays
                 </button>
               </div>
             </div>
 
-            <div className="space-y-3">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '13px' }}>
               {activeGeoTab === 'cities' &&
-                data?.locations?.cities?.map((ci: any, idx: number) => (
-                  <div key={idx} className="space-y-1">
-                    <div className="flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-2">
-                        <MapPin size={14} className="text-cyan-400 shrink-0" />
-                        <strong className="text-slate-200">{ci.city}</strong>
-                        <span className="text-slate-500 text-[11px]">({ci.country})</span>
+                (data?.locations?.cities || []).map((ci: any, idx: number) => (
+                  <div key={idx}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px', fontSize: '13px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <MapPin size={15} color="#00D4FF" weight="fill" />
+                        <strong style={{ color: '#ffffff' }}>{ci.city}</strong>
+                        <span style={{ color: '#64748b', fontSize: '12px' }}>({ci.country})</span>
                       </div>
-                      <div className="font-mono text-slate-300">
-                        {ci.count} visites <span className="text-slate-500">({ci.percentage}%)</span>
+                      <div style={{ fontFamily: 'monospace', fontSize: '12.5px' }}>
+                        <strong style={{ color: '#e2e8f0' }}>{ci.count} visites</strong>{' '}
+                        <span style={{ color: '#00D4FF', fontWeight: 700 }}>({ci.percentage}%)</span>
                       </div>
                     </div>
-                    <div className="w-full h-1.5 rounded-full bg-white/5 overflow-hidden">
+                    <div style={{ height: '6px', borderRadius: '999px', background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
                       <div
-                        style={{ width: `${Math.max(ci.percentage, 3)}%` }}
-                        className="h-full rounded-full bg-cyan-400"
+                        style={{
+                          width: `${Math.max(Number(ci.percentage) || 0, 4)}%`,
+                          height: '100%',
+                          borderRadius: '999px',
+                          background: 'linear-gradient(90deg, #00D4FF 0%, #38bdf8 100%)',
+                        }}
                       />
                     </div>
                   </div>
                 ))}
 
               {activeGeoTab === 'countries' &&
-                data?.locations?.countries?.map((co: any, idx: number) => (
-                  <div key={idx} className="space-y-1">
-                    <div className="flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] bg-white/10 px-1.5 py-0.5 rounded text-cyan-300 font-bold">
+                (data?.locations?.countries || []).map((co: any, idx: number) => (
+                  <div key={idx}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px', fontSize: '13px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span
+                          style={{
+                            padding: '2px 7px',
+                            borderRadius: '6px',
+                            background: 'rgba(0, 212, 255, 0.14)',
+                            color: '#00D4FF',
+                            fontFamily: 'monospace',
+                            fontSize: '11px',
+                            fontWeight: 800,
+                          }}
+                        >
                           {co.code}
                         </span>
-                        <strong className="text-slate-200">{co.country}</strong>
+                        <strong style={{ color: '#ffffff' }}>{co.country}</strong>
                       </div>
-                      <div className="font-mono text-slate-300">
-                        {co.count} visites <span className="text-slate-500">({co.percentage}%)</span>
+                      <div style={{ fontFamily: 'monospace', fontSize: '12.5px' }}>
+                        <strong style={{ color: '#e2e8f0' }}>{co.count} visites</strong>{' '}
+                        <span style={{ color: '#00D4FF', fontWeight: 700 }}>({co.percentage}%)</span>
                       </div>
                     </div>
-                    <div className="w-full h-1.5 rounded-full bg-white/5 overflow-hidden">
+                    <div style={{ height: '6px', borderRadius: '999px', background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
                       <div
-                        style={{ width: `${Math.max(co.percentage, 3)}%` }}
-                        className="h-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-400"
+                        style={{
+                          width: `${Math.max(Number(co.percentage) || 0, 4)}%`,
+                          height: '100%',
+                          borderRadius: '999px',
+                          background: 'linear-gradient(90deg, #0284C7 0%, #00D4FF 100%)',
+                        }}
                       />
                     </div>
                   </div>
@@ -540,109 +833,181 @@ export const AnalyticsDashboard: React.FC = () => {
             </div>
           </div>
 
-          {/* Right: Appareils & Canaux d'acquisition */}
-          <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-md flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
-                <div className="flex items-center gap-2">
-                  <ShareNetwork size={18} className="text-[#00D4FF]" />
-                  <h3 className="text-base font-bold text-white">Appareils &amp; Canaux d'Acquisition</h3>
-                </div>
-                <span className="text-xs text-slate-400 font-mono">Répartition</span>
+          {/* Appareils & Canaux d'acquisition */}
+          <div className="nob-an-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '14px', marginBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <ShareNetwork size={20} color="#00D4FF" weight="duotone" />
+                <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, color: '#ffffff' }}>
+                  Appareils &amp; Canaux d&apos;Acquisition Marketing
+                </h3>
               </div>
+              <span style={{ fontSize: '11.5px', fontFamily: 'monospace', color: '#64748b', fontWeight: 700 }}>
+                ORIGINE TRAFIC
+              </span>
+            </div>
 
-              {/* Devices */}
-              <div className="mb-6">
-                <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-3">
-                  Appareils Utilisés
-                </h4>
-                <div className="grid grid-cols-3 gap-2">
-                  {data?.devices?.map((dev: any, idx: number) => (
-                    <div key={idx} className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
-                      <div className="text-slate-400 flex items-center justify-center mb-1">
-                        {dev.name === 'Mobile' ? (
-                          <DeviceMobile size={20} />
-                        ) : dev.name === 'Ordinateur' ? (
-                          <Desktop size={20} />
-                        ) : (
-                          <DeviceMobile size={20} />
-                        )}
-                      </div>
-                      <div className="text-base font-bold text-white">{dev.percentage}%</div>
-                      <div className="text-[11px] text-slate-400">{dev.name}</div>
-                    </div>
-                  ))}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '20px' }}>
+              {(data?.devices || []).map((dev: any, idx: number) => (
+                <div
+                  key={idx}
+                  style={{
+                    padding: '14px',
+                    borderRadius: '14px',
+                    background: 'rgba(255,255,255,0.03)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    textAlign: 'center',
+                  }}
+                >
+                  <div style={{ color: '#00D4FF', display: 'flex', justifyContent: 'center', marginBottom: '6px' }}>
+                    {dev.name === 'Ordinateur' ? <Desktop size={22} weight="duotone" /> : <DeviceMobile size={22} weight="duotone" />}
+                  </div>
+                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#ffffff', fontFamily: 'monospace' }}>
+                    {dev.percentage}%
+                  </div>
+                  <div style={{ fontSize: '11.5px', color: '#94a3b8', fontWeight: 600, marginTop: '2px' }}>
+                    {dev.name}
+                  </div>
                 </div>
-              </div>
+              ))}
+            </div>
 
-              {/* Sources */}
-              <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-3">
-                  Sources de Trafic
-                </h4>
-                <div className="space-y-2">
-                  {data?.sources?.map((s: any, idx: number) => (
-                    <div key={idx} className="flex items-center justify-between text-xs py-1.5 px-3 rounded-lg bg-white/[0.02] border border-white/5">
-                      <span className="text-slate-300 font-medium">{s.name}</span>
-                      <span className="font-mono text-cyan-300 font-bold">{s.percentage}%</span>
-                    </div>
-                  ))}
+            <div style={{ fontSize: '11.5px', fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '10px' }}>
+              Sources d&apos;acquisition des visiteurs
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {(data?.sources || []).map((s: any, idx: number) => (
+                <div
+                  key={idx}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '10px 14px',
+                    borderRadius: '11px',
+                    background: 'rgba(255,255,255,0.025)',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                    fontSize: '13px',
+                  }}
+                >
+                  <span style={{ fontWeight: 600, color: '#e2e8f0' }}>{s.name}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontFamily: 'monospace' }}>
+                    <span style={{ color: '#64748b', fontSize: '12px' }}>{s.count} sessions</span>
+                    <strong style={{ color: '#00D4FF' }}>{s.percentage}%</strong>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
-
         </div>
 
-        {/* 6. Live Activity Stream (Recent Events) */}
-        <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-md">
-          <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
-            <div className="flex items-center gap-2">
-              <Clock size={18} className="text-[#00D4FF]" />
-              <h3 className="text-base font-bold text-white">Flux d&apos;activité récent en direct</h3>
+        {/* 6. FLUX D'ACTIVITÉ EN DIRECT */}
+        <div className="nob-an-card">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '14px', marginBottom: '14px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <Clock size={20} color="#00D4FF" weight="duotone" />
+              <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, color: '#ffffff' }}>
+                Journal d&apos;Activité des Visiteurs en Temps Réel
+              </h3>
             </div>
-            <span className="inline-flex items-center gap-1.5 text-xs text-emerald-400 font-medium">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              Temps réel
-            </span>
+            <a
+              href="/admin/collections/analytics-events"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+                fontSize: '12px',
+                fontWeight: 700,
+                color: '#38bdf8',
+                textDecoration: 'none',
+              }}
+            >
+              <span>Explorer les logs bruts</span>
+              <ArrowUpRight size={14} />
+            </a>
           </div>
 
-          <div className="divide-y divide-white/5 max-h-72 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10">
-            {data?.recentEvents?.map((ev: any, idx: number) => {
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '320px', overflowY: 'auto' }}>
+            {(data?.recentEvents || []).map((ev: any, idx: number) => {
               const isPageview = ev.type === 'pageview';
               const isWhatsApp = ev.type === 'whatsapp_click';
+              const dotColor = isWhatsApp ? '#25D366' : isPageview ? '#00D4FF' : '#10E760';
 
               return (
-                <div key={idx} className="py-2.5 flex items-center justify-between gap-3 text-xs">
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <span className={`w-2 h-2 rounded-full shrink-0 ${
-                      isWhatsApp ? 'bg-[#25D366]' : isPageview ? 'bg-[#00D4FF]' : 'bg-emerald-400'
-                    }`} />
-                    <span className="font-mono text-slate-400 shrink-0">
-                      {ev.createdAt ? new Date(ev.createdAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : ''}
+                <div
+                  key={idx}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '10px 14px',
+                    borderRadius: '12px',
+                    background: 'rgba(255,255,255,0.025)',
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    fontSize: '12.5px',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
+                    <span
+                      style={{
+                        width: '8px',
+                        height: '8px',
+                        borderRadius: '50%',
+                        background: dotColor,
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span style={{ fontFamily: 'monospace', color: '#64748b', fontSize: '11.5px', flexShrink: 0 }}>
+                      {ev.createdAt
+                        ? new Date(ev.createdAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+                        : '—'}
                     </span>
-                    <span className="text-slate-300 truncate">
-                      Visiteur de <strong className="text-white">{ev.city || 'Dakar'}</strong> ({ev.country || 'Sénégal'}) :{' '}
+                    <span
+                      style={{
+                        padding: '2px 8px',
+                        borderRadius: '6px',
+                        background: 'rgba(255,255,255,0.06)',
+                        color: '#e2e8f0',
+                        fontSize: '11.5px',
+                        fontWeight: 700,
+                        flexShrink: 0,
+                      }}
+                    >
+                      📍 {ev.city || 'Dakar'}, {ev.country || 'Sénégal'}
+                    </span>
+                    <span style={{ color: '#cbd5e1', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {isPageview ? (
-                        <span>a consulté <strong className="text-cyan-300 font-mono">{ev.path}</strong></span>
+                        <>
+                          a consulté la page <strong style={{ color: '#38bdf8', fontFamily: 'monospace' }}>{ev.path}</strong>
+                        </>
                       ) : (
-                        <span>a cliqué sur <strong className="text-emerald-300">&ldquo;{ev.elementText || ev.type}&rdquo;</strong></span>
+                        <>
+                          a cliqué sur <strong style={{ color: '#10E760' }}>« {ev.elementText || ev.type} »</strong> ({ev.path})
+                        </>
                       )}
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono text-slate-500 uppercase shrink-0">
-                    {ev.device || 'desktop'}
+
+                  <span
+                    style={{
+                      fontSize: '10.5px',
+                      fontFamily: 'monospace',
+                      textTransform: 'uppercase',
+                      color: '#94a3b8',
+                      background: 'rgba(255,255,255,0.04)',
+                      padding: '3px 8px',
+                      borderRadius: '6px',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {ev.device || 'desktop'} • {ev.browser || 'Web'}
                   </span>
                 </div>
               );
             })}
-
-            {(!data?.recentEvents || data.recentEvents.length === 0) && (
-              <p className="text-xs text-slate-500 py-4 text-center">Aucun événement récent.</p>
-            )}
           </div>
         </div>
-
       </div>
     </div>
   );

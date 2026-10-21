@@ -35,7 +35,7 @@ import { CrmPipelineDashboard as CrmPipelineDashboard_01 } from '@/components/ad
 import { AdmissionActionsPanel as AdmissionActionsPanel_01 } from '@/components/admin/AdmissionActionsPanel'
 import { InvoiceActionsPanel as InvoiceActionsPanel_01 } from '@/components/admin/InvoiceActionsPanel'
 import { QuoteActionsPanel as QuoteActionsPanel_01 } from '@/components/admin/QuoteActionsPanel'
-import { MfaSettingsField as MfaSettingsField_01 } from '@/components/admin/MfaSettingsField'
+import { MfaSettingsField as MfaSettingsField_01, MfaSecurityView as MfaSecurityView_01 } from '@/components/admin/MfaSettingsField'
 import { EmailTestField as EmailTestField_01 } from '@/components/admin/EmailTestField'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
@@ -79,6 +79,7 @@ export const importMap = {
   "@/components/admin/InvoiceActionsPanel#InvoiceActionsPanel": InvoiceActionsPanel_01,
   "@/components/admin/QuoteActionsPanel#QuoteActionsPanel": QuoteActionsPanel_01,
   "@/components/admin/MfaSettingsField#MfaSettingsField": MfaSettingsField_01,
+  "@/components/admin/MfaSettingsField#MfaSecurityView": MfaSecurityView_01,
   "@/components/admin/EmailTestField#EmailTestField": EmailTestField_01,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPayloadClient } from '@/lib/payload';
-import { ensureCompleteSeed } from '@/lib/ensureSeed';
+import { getUserMfaState } from '@/lib/mfaDb';
 
 export async function GET(req: NextRequest) {
   try {
@@ -11,18 +11,12 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Non authentifié' }, { status: 401 });
     }
 
-    // Proactive background content seeding check
-    ensureCompleteSeed(payload).catch((err) => console.warn('[SEED CHECK]', err));
-
-    const currentUser = await payload.findByID({
-      collection: 'users',
-      id: user.id,
-    }) as any;
+    const mfaState = await getUserMfaState(payload, user.id);
 
     return NextResponse.json({
-      mfaEnabled: Boolean(currentUser?.mfaEnabled),
-      email: currentUser?.email,
-      name: currentUser?.name,
+      mfaEnabled: Boolean(mfaState?.mfaEnabled && mfaState?.mfaSecret),
+      email: mfaState?.email || user.email,
+      name: mfaState?.name || (user as any).name,
     });
   } catch (error: any) {
     return NextResponse.json({ error: error?.message || 'Erreur interne' }, { status: 500 });

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPayloadClient } from '@/lib/payload';
 import { verifyTOTP } from '@/lib/totp';
+import { getUserMfaState } from '@/lib/mfaDb';
 import { cookies } from 'next/headers';
 
 export async function POST(req: NextRequest) {
@@ -21,6 +22,7 @@ export async function POST(req: NextRequest) {
       },
       limit: 1,
       showHiddenFields: true,
+      overrideAccess: true,
     });
 
     if (!usersResult.docs || usersResult.docs.length === 0) {
@@ -47,9 +49,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Identifiants incorrects.' }, { status: 401 });
     }
 
-    // 3. Check if MFA is enabled
-    if (user.mfaEnabled && user.mfaSecret) {
-      // If code was not supplied, request MFA challenge
+    // 3. Lire l'état MFA garanti depuis mfaDb (SQL direct + Payload)
+    const mfaState = await getUserMfaState(payload, user.id);
+
+    if (mfaState?.mfaEnabled && mfaState?.mfaSecret) {
       if (!code) {
         return NextResponse.json({
           mfaRequired: true,
@@ -57,12 +60,14 @@ export async function POST(req: NextRequest) {
         });
       }
 
-      // If code was supplied, verify TOTP
-      const isValid = verifyTOTP(user.mfaSecret, code);
+      const isValid = verifyTOTP(mfaState.mfaSecret, String(code));
       if (!isValid) {
-        return NextResponse.json({
-          error: 'Code de sécurité à 6 chiffres incorrect ou expiré. Veuillez réessayer.',
-        }, { status: 400 });
+        return NextResponse.json(
+          {
+            error: 'Code de sécurité à 6 chiffres incorrect ou expiré. Veuillez réessayer.',
+          },
+          { status: 400 }
+        );
       }
     }
 
@@ -81,7 +86,7 @@ export async function POST(req: NextRequest) {
         collection: 'activity-logs',
         data: {
           action: 'LOGIN_SUCCESS',
-          details: `Connexion réussie${user.mfaEnabled ? ' avec validation MFA' : ''} pour ${user.email}`,
+          details: `Connexion réussie${mfaState?.mfaEnabled ? ' avec validation MFA' : ''} pour ${user.email}`,
           user: user.id,
         },
       });

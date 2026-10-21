@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPayloadClient } from '@/lib/payload';
 import { verifyTOTP } from '@/lib/totp';
+import { getUserMfaState, setUserMfaState } from '@/lib/mfaDb';
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,31 +14,21 @@ export async function POST(req: NextRequest) {
 
     const { code } = await req.json().catch(() => ({ code: '' }));
 
-    // Fetch user to get current secret
-    const currentUser = await payload.findByID({
-      collection: 'users',
-      id: user.id,
-    }) as any;
+    const mfaState = await getUserMfaState(payload, user.id);
 
-    if (!currentUser.mfaEnabled) {
+    if (!mfaState?.mfaEnabled) {
+      await setUserMfaState(payload, user.id, false, null);
       return NextResponse.json({ success: true, message: 'MFA déjà désactivé' });
     }
 
-    if (currentUser.mfaSecret && code) {
-      const isValid = verifyTOTP(currentUser.mfaSecret, code);
+    if (mfaState.mfaSecret && code) {
+      const isValid = verifyTOTP(mfaState.mfaSecret, code);
       if (!isValid) {
         return NextResponse.json({ error: 'Code de confirmation invalide' }, { status: 400 });
       }
     }
 
-    await payload.update({
-      collection: 'users',
-      id: user.id,
-      data: {
-        mfaEnabled: false,
-        mfaSecret: '',
-      } as any,
-    });
+    await setUserMfaState(payload, user.id, false, null);
 
     try {
       await payload.create({
@@ -52,7 +43,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'MFA désactivé avec succès',
+      mfaEnabled: false,
+      message: 'La double authentification a été désactivée avec succès.',
     });
   } catch (error: any) {
     return NextResponse.json({ error: error?.message || 'Erreur interne' }, { status: 500 });

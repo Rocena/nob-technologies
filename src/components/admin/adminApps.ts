@@ -22,6 +22,7 @@ import {
   FileCode,
   ChartBar,
   Kanban,
+  ShieldCheck,
   type Icon as PhosphorIcon,
 } from '@phosphor-icons/react';
 
@@ -99,6 +100,7 @@ export const appGroups: AdminAppGroup[] = [
     color: '#475569',
     adminOnly: true,
     apps: [
+      { name: 'Sécurité MFA (2FA)', Icon: ShieldCheck, href: '/admin/mfa' },
       { name: 'Utilisateurs', Icon: UserGear, href: '/admin/collections/users' },
       { name: "Journaux d'activité", Icon: Pulse, href: '/admin/collections/activity-logs' },
       { name: 'Paramètres du site', Icon: SlidersHorizontal, href: '/admin/globals/site-settings' },

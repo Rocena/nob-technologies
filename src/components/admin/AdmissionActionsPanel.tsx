@@ -42,19 +42,34 @@ export const AdmissionActionsPanel: React.FC = () => {
 
   if (!docId) {
     return (
-      <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400 text-center">
+      <div
+        style={{
+          padding: '16px',
+          borderRadius: '14px',
+          background: '#0f172a',
+          border: '1px solid rgba(255,255,255,0.1)',
+          color: '#94a3b8',
+          fontSize: '12px',
+          textAlign: 'center',
+          marginBottom: '16px',
+        }}
+      >
         Enregistrez le dossier pour débloquer les actions de validation, le certificat PDF et l&apos;envoi d&apos;email automatique.
       </div>
     );
   }
 
-  const handleTriggerDecision = (decision: 'accepted' | 'declined') => {
+  const handleTriggerDecision = (e: React.MouseEvent, decision: 'accepted' | 'declined') => {
+    e.preventDefault();
+    e.stopPropagation();
     setPendingDecision(decision);
     setShowFeedbackInput(true);
     setFeedback(null);
   };
 
-  const handleConfirmDecision = async () => {
+  const handleConfirmDecision = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (!pendingDecision) return;
 
     try {
@@ -102,7 +117,9 @@ export const AdmissionActionsPanel: React.FC = () => {
     }
   };
 
-  const handleSendCertificate = async () => {
+  const handleSendCertificate = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (!confirm(`Envoyer le Certificat Officiel de réussite par email à ${candidateEmail} ?`)) {
       return;
     }
@@ -141,83 +158,163 @@ export const AdmissionActionsPanel: React.FC = () => {
   };
 
   return (
-    <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 text-slate-100 space-y-4 mb-4 shadow-xl">
+    <div
+      style={{
+        padding: '16px',
+        borderRadius: '16px',
+        background: 'linear-gradient(145deg, #0b1120 0%, #0f172a 100%)',
+        border: '1px solid rgba(56, 189, 248, 0.2)',
+        color: '#f8fafc',
+        marginBottom: '16px',
+        boxShadow: '0 14px 32px -12px rgba(2, 6, 23, 0.6)',
+        fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
+      }}
+    >
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
-        <span className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
-          <GraduationCap size={16} className="text-[#00D4FF]" />
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+          paddingBottom: '10px',
+          marginBottom: '12px',
+        }}
+      >
+        <span
+          style={{
+            fontSize: '12px',
+            fontWeight: 800,
+            color: '#ffffff',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}
+        >
+          <GraduationCap size={16} color="#00D4FF" />
           Décision &amp; Certification
         </span>
         <span
-          className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider ${
-            currentStatus === 'accepted'
-              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-              : currentStatus === 'declined'
-              ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
-              : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-          }`}
+          style={{
+            fontSize: '10px',
+            fontFamily: 'monospace',
+            padding: '2px 9px',
+            borderRadius: '999px',
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            background:
+              currentStatus === 'accepted'
+                ? 'rgba(16, 185, 129, 0.2)'
+                : currentStatus === 'declined'
+                ? 'rgba(244, 63, 94, 0.2)'
+                : 'rgba(245, 158, 11, 0.2)',
+            color:
+              currentStatus === 'accepted'
+                ? '#34d399'
+                : currentStatus === 'declined'
+                ? '#fb7185'
+                : '#fbbf24',
+          }}
         >
           {currentStatus === 'accepted'
             ? 'Admis / Validé'
             : currentStatus === 'declined'
-            ? 'Candidature Déclinée'
-            : 'En attente d’examen'}
+            ? 'Déclinée'
+            : 'En attente'}
         </span>
       </div>
 
       {/* Target details reminder */}
-      <div className="text-[11px] text-slate-400 space-y-1 bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/80">
-        <div>
-          <span className="text-slate-500 font-mono">Candidat :</span>{' '}
-          <strong className="text-slate-200">{candidateName}</strong>
+      <div
+        style={{
+          fontSize: '11.5px',
+          color: '#94a3b8',
+          background: 'rgba(2, 6, 23, 0.6)',
+          padding: '10px 12px',
+          borderRadius: '11px',
+          border: '1px solid rgba(255,255,255,0.07)',
+          marginBottom: '12px',
+        }}
+      >
+        <div style={{ marginBottom: '4px' }}>
+          <span style={{ color: '#64748b', fontFamily: 'monospace' }}>Candidat :</span>{' '}
+          <strong style={{ color: '#e2e8f0' }}>{candidateName}</strong>
         </div>
         <div>
-          <span className="text-slate-500 font-mono">Session :</span>{' '}
-          <span className="text-cyan-400">{targetSession}</span>
+          <span style={{ color: '#64748b', fontFamily: 'monospace' }}>Session :</span>{' '}
+          <span style={{ color: '#38bdf8', fontWeight: 600 }}>{targetSession}</span>
         </div>
         {emailSentAt && (
-          <div className="text-[10px] text-slate-500 pt-1 border-t border-slate-800/50 flex items-center gap-1">
-            <Clock size={11} className="text-cyan-500" />
-            Dernier email envoyé le : {new Date(emailSentAt).toLocaleString('fr-FR')}
+          <div
+            style={{
+              fontSize: '10px',
+              color: '#64748b',
+              paddingTop: '6px',
+              marginTop: '6px',
+              borderTop: '1px solid rgba(255,255,255,0.06)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '5px',
+            }}
+          >
+            <Clock size={11} color="#00D4FF" />
+            Dernier email : {new Date(emailSentAt).toLocaleString('fr-FR')}
           </div>
         )}
       </div>
 
       {feedback && (
         <div
-          className={`p-3 rounded-xl text-xs flex items-center gap-2.5 ${
-            feedback.type === 'success'
-              ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-300'
-              : 'bg-rose-500/10 border border-rose-500/30 text-rose-300'
-          }`}
+          style={{
+            padding: '10px 12px',
+            borderRadius: '10px',
+            fontSize: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            marginBottom: '12px',
+            background: feedback.type === 'success' ? 'rgba(16, 185, 129, 0.14)' : 'rgba(244, 63, 94, 0.14)',
+            border: `1px solid ${feedback.type === 'success' ? 'rgba(16, 185, 129, 0.35)' : 'rgba(244, 63, 94, 0.35)'}`,
+            color: feedback.type === 'success' ? '#6ee7b7' : '#fda4af',
+          }}
         >
           {feedback.type === 'success' ? (
-            <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+            <CheckCircle2 size={16} color="#34d399" style={{ flexShrink: 0 }} />
           ) : (
-            <AlertCircle size={16} className="text-rose-400 shrink-0" />
+            <AlertCircle size={16} color="#fb7185" style={{ flexShrink: 0 }} />
           )}
-          <span className="leading-snug">{feedback.message}</span>
+          <span style={{ lineHeight: 1.4 }}>{feedback.message}</span>
         </div>
       )}
 
       {/* Decision confirmation modal / drawer */}
       {showFeedbackInput && pendingDecision && (
-        <div className="p-3.5 rounded-xl bg-slate-950 border border-cyan-500/30 space-y-3">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-white">
-            <Sparkles size={14} className="text-cyan-400" />
+        <div
+          style={{
+            padding: '14px',
+            borderRadius: '12px',
+            background: '#020617',
+            border: '1px solid rgba(0, 212, 255, 0.35)',
+            marginBottom: '8px',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+            <Sparkles size={14} color="#00D4FF" />
             <span>
               {pendingDecision === 'accepted'
                 ? 'Validation & Envoi de la convocation'
                 : 'Confirmation de refus & Notification'}
             </span>
           </div>
-          <p className="text-[11px] text-slate-400">
+          <p style={{ margin: '0 0 10px', fontSize: '11px', color: '#94a3b8' }}>
             Un email officiel corporate sera envoyé immédiatement à{' '}
-            <strong className="text-slate-200">{candidateEmail}</strong>.
+            <strong style={{ color: '#e2e8f0' }}>{candidateEmail}</strong>.
           </p>
 
-          <div>
-            <label className="block text-[10px] font-mono text-slate-400 uppercase mb-1">
+          <div style={{ marginBottom: '10px' }}>
+            <label style={{ display: 'block', fontSize: '10px', fontFamily: 'monospace', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '4px' }}>
               Instructions ou message personnalisé (Optionnel) :
             </label>
             <textarea
@@ -225,45 +322,69 @@ export const AdmissionActionsPanel: React.FC = () => {
               onChange={(e) => setCustomFeedback(e.target.value)}
               placeholder={
                 pendingDecision === 'accepted'
-                  ? 'Ex: Félicitations ! Votre entretien préliminaire est validé. Votre tuteur pédagogique sera M. Ndiaye.'
-                  : 'Ex: Votre profil est prometteur mais nécessite de consolider au préalable les bases réseau. Nous vous recommandons...'
+                  ? 'Ex: Félicitations ! Votre entretien préliminaire est validé...'
+                  : 'Ex: Votre profil est prometteur mais nécessite de consolider...'
               }
               rows={3}
-              className="w-full text-xs p-2 rounded-lg bg-slate-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 resize-none"
+              style={{
+                width: '100%',
+                fontSize: '12px',
+                padding: '8px',
+                borderRadius: '8px',
+                background: '#0f172a',
+                border: '1px solid rgba(255,255,255,0.15)',
+                color: '#ffffff',
+                resize: 'none',
+                boxSizing: 'border-box',
+              }}
             />
           </div>
 
-          <div className="flex items-center gap-2 pt-1">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <button
               type="button"
               disabled={loading}
               onClick={handleConfirmDecision}
-              className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
-                pendingDecision === 'accepted'
-                  ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-500/20'
-                  : 'bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white shadow-lg shadow-rose-500/20'
-              } disabled:opacity-50`}
+              style={{
+                flex: 1,
+                padding: '9px 12px',
+                borderRadius: '9px',
+                fontSize: '12px',
+                fontWeight: 700,
+                border: 'none',
+                color: '#ffffff',
+                cursor: loading ? 'wait' : 'pointer',
+                background:
+                  pendingDecision === 'accepted'
+                    ? 'linear-gradient(135deg, #059669 0%, #0d9488 100%)'
+                    : 'linear-gradient(135deg, #e11d48 0%, #dc2626 100%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px',
+              }}
             >
-              {loading ? (
-                <>
-                  <Loader2 size={13} className="animate-spin" />
-                  <span>Envoi en cours...</span>
-                </>
-              ) : (
-                <>
-                  <Send size={13} />
-                  <span>Confirmer &amp; Envoyer l&apos;email</span>
-                </>
-              )}
+              {loading ? <Loader2 size={13} /> : <Send size={13} />}
+              <span>{loading ? 'Envoi en cours...' : 'Confirmer & Envoyer'}</span>
             </button>
             <button
               type="button"
               disabled={loading}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 setShowFeedbackInput(false);
                 setPendingDecision(null);
               }}
-              className="py-2 px-3 rounded-lg text-xs text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 transition-colors"
+              style={{
+                padding: '9px 12px',
+                borderRadius: '9px',
+                fontSize: '12px',
+                color: '#cbd5e1',
+                background: 'rgba(255,255,255,0.08)',
+                border: 'none',
+                cursor: 'pointer',
+              }}
             >
               Annuler
             </button>
@@ -273,12 +394,26 @@ export const AdmissionActionsPanel: React.FC = () => {
 
       {/* Main 1-Click Action Buttons */}
       {!showFeedbackInput && (
-        <div className="space-y-2">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <button
             type="button"
-            onClick={() => handleTriggerDecision('accepted')}
+            onClick={(e) => handleTriggerDecision(e, 'accepted')}
             disabled={loading}
-            className="w-full py-2.5 px-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs tracking-wide transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 disabled:opacity-50"
+            style={{
+              width: '100%',
+              padding: '10px 14px',
+              borderRadius: '11px',
+              background: 'linear-gradient(135deg, #059669 0%, #0d9488 100%)',
+              border: 'none',
+              color: '#ffffff',
+              fontWeight: 800,
+              fontSize: '12px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+            }}
           >
             <CheckCircle2 size={15} />
             <span>Valider l&apos;admission &bull; Envoyer email</span>
@@ -286,17 +421,52 @@ export const AdmissionActionsPanel: React.FC = () => {
 
           <button
             type="button"
-            onClick={() => handleTriggerDecision('declined')}
+            onClick={(e) => handleTriggerDecision(e, 'declined')}
             disabled={loading}
-            className="w-full py-2 px-3.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 font-semibold text-xs transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+            style={{
+              width: '100%',
+              padding: '9px 14px',
+              borderRadius: '11px',
+              background: 'rgba(244, 63, 94, 0.12)',
+              border: '1px solid rgba(244, 63, 94, 0.3)',
+              color: '#fda4af',
+              fontWeight: 700,
+              fontSize: '12px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+            }}
           >
-            <XCircle size={15} className="text-rose-400" />
+            <XCircle size={15} color="#fb7185" />
             <span>Décliner la candidature &bull; Notifier</span>
           </button>
 
           {/* SECTION CERTIFICAT OFFICIEL NOBTECH ACADEMY */}
-          <div className="pt-2.5 mt-2.5 border-t border-slate-800 space-y-2">
-            <div className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider font-bold flex items-center gap-1.5">
+          <div
+            style={{
+              paddingTop: '10px',
+              marginTop: '6px',
+              borderTop: '1px solid rgba(255,255,255,0.08)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '8px',
+            }}
+          >
+            <div
+              style={{
+                fontSize: '10px',
+                fontFamily: 'monospace',
+                color: '#38bdf8',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                fontWeight: 700,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+              }}
+            >
               <Award size={13} />
               <span>Certificat &amp; Attestation PDF</span>
             </div>
@@ -305,20 +475,49 @@ export const AdmissionActionsPanel: React.FC = () => {
               href={`/document/certificat/${docId}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-2.5 px-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold transition-all flex items-center justify-center gap-2 group"
+              style={{
+                width: '100%',
+                padding: '10px 14px',
+                borderRadius: '11px',
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.12)',
+                color: '#ffffff',
+                fontSize: '12px',
+                fontWeight: 700,
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                boxSizing: 'border-box',
+              }}
             >
-              <Award size={14} className="text-[#00D4FF]" />
+              <Award size={14} color="#00D4FF" />
               <span>Générer / Imprimer le Certificat PDF</span>
-              <ExternalLink size={12} className="text-slate-500 group-hover:text-white transition-colors ml-auto" />
+              <ExternalLink size={12} color="#94a3b8" style={{ marginLeft: 'auto' }} />
             </a>
 
             <button
               type="button"
               onClick={handleSendCertificate}
               disabled={sendingCert}
-              className="w-full py-2 px-3.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-300 font-bold text-xs transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              style={{
+                width: '100%',
+                padding: '9px 14px',
+                borderRadius: '11px',
+                background: 'rgba(0, 212, 255, 0.14)',
+                border: '1px solid rgba(0, 212, 255, 0.3)',
+                color: '#7dd3fc',
+                fontWeight: 700,
+                fontSize: '12px',
+                cursor: sendingCert ? 'wait' : 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+              }}
             >
-              {sendingCert ? <Loader2 size={14} className="animate-spin" /> : <Send size={13} />}
+              {sendingCert ? <Loader2 size={14} /> : <Send size={13} />}
               <span>{sendingCert ? 'Envoi du certificat...' : 'Envoyer le Certificat par Email'}</span>
             </button>
           </div>
@@ -328,9 +527,24 @@ export const AdmissionActionsPanel: React.FC = () => {
               href={`mailto:${candidateEmail}?subject=${encodeURIComponent(
                 `[NOB TECHNOLOGIES] Votre candidature à la formation ${formationTitle}`
               )}`}
-              className="w-full py-2 px-3.5 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-slate-300 font-medium text-xs transition-colors flex items-center justify-center gap-2 border border-slate-700"
+              style={{
+                width: '100%',
+                padding: '8px 14px',
+                borderRadius: '11px',
+                background: 'rgba(30, 41, 59, 0.7)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                color: '#cbd5e1',
+                fontSize: '12px',
+                fontWeight: 600,
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                boxSizing: 'border-box',
+              }}
             >
-              <Mail size={14} className="text-slate-400" />
+              <Mail size={14} color="#94a3b8" />
               <span>Contacter directement par email</span>
             </a>
           )}

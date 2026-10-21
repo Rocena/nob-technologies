@@ -76,6 +76,10 @@ export default buildConfig({
         PipelineCRM: {
           path: '/crm-pipeline',
           Component: '@/components/admin/CrmPipelineDashboard#CrmPipelineDashboard',
+        },
+        MfaSecurity: {
+          path: '/mfa',
+          Component: '@/components/admin/MfaSettingsField#MfaSecurityView',
         }
       }
     },
