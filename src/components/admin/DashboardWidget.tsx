@@ -11,6 +11,8 @@ import {
   FilePlus,
   SquaresFour,
   ChartBar,
+  Globe,
+  Kanban,
 } from '@phosphor-icons/react';
 import { FormReportsWidget } from './FormReportsWidget';
 
@@ -33,6 +35,7 @@ const STATS: StatItem[] = [
 ];
 
 const QUICK = [
+  { label: 'Pipeline CRM & Rapports', Icon: Kanban, href: '/admin/crm-pipeline' },
   { label: 'Marketing & Analytics', Icon: ChartBar, href: '/admin/analytics' },
   { label: 'Gérer les Formations', Icon: Browsers, href: '/admin/collections/formations' },
   { label: 'Gérer les Réalisations', Icon: SquaresFour, href: '/admin/collections/projects' },
@@ -265,6 +268,9 @@ export const DashboardWidget: React.FC = () => {
         <button className="nh-btn primary" onClick={() => window.dispatchEvent(new Event('nob:open-launcher'))}>
           <SquaresFour size={16} weight="bold" /> Ouvrir les applications
         </button>
+        <a href="/" target="_blank" rel="noopener noreferrer" className="nh-btn" title="Ouvrir le site internet dans un nouvel onglet">
+          <Globe size={15} weight="duotone" /> Voir le site
+        </a>
         {QUICK.map((q) => (
           <a key={q.href} href={q.href} className="nh-btn"><q.Icon size={15} weight="duotone" /> {q.label}</a>
         ))}

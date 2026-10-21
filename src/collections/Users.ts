@@ -109,6 +109,14 @@ export const Users: CollectionConfig = {
       },
     },
     {
+      name: 'mfaSecret',
+      type: 'text',
+      hidden: true,
+      admin: {
+        hidden: true,
+      },
+    },
+    {
       name: 'mfaSetupUI',
       type: 'ui',
       admin: {

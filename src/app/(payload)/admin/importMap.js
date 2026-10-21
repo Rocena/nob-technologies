@@ -30,6 +30,13 @@ import { GlobalUIProvider as GlobalUIProvider_4a1f9bea054b698f96b971a7e05b3eeb }
 import { DynamicTitleEnhancer as DynamicTitleEnhancer_db218c422341bc29314ffb21a983b1a3 } from '@/components/admin/DynamicTitleEnhancer'
 import { DashboardWidget as DashboardWidget_c5192f80c64fc937341a06e8b5136d0d } from '@/components/admin/DashboardWidget'
 import { HelpWizard as HelpWizard_e0ecf4cd3c3ade80107fb97c508dc50f } from '@/components/admin/HelpWizard'
+import { AnalyticsDashboard as AnalyticsDashboard_01 } from '@/components/admin/AnalyticsDashboard'
+import { CrmPipelineDashboard as CrmPipelineDashboard_01 } from '@/components/admin/CrmPipelineDashboard'
+import { AdmissionActionsPanel as AdmissionActionsPanel_01 } from '@/components/admin/AdmissionActionsPanel'
+import { InvoiceActionsPanel as InvoiceActionsPanel_01 } from '@/components/admin/InvoiceActionsPanel'
+import { QuoteActionsPanel as QuoteActionsPanel_01 } from '@/components/admin/QuoteActionsPanel'
+import { MfaSettingsField as MfaSettingsField_01 } from '@/components/admin/MfaSettingsField'
+import { EmailTestField as EmailTestField_01 } from '@/components/admin/EmailTestField'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
@@ -66,5 +73,12 @@ export const importMap = {
   "@/components/admin/DynamicTitleEnhancer#DynamicTitleEnhancer": DynamicTitleEnhancer_db218c422341bc29314ffb21a983b1a3,
   "@/components/admin/DashboardWidget#DashboardWidget": DashboardWidget_c5192f80c64fc937341a06e8b5136d0d,
   "@/components/admin/HelpWizard#HelpWizard": HelpWizard_e0ecf4cd3c3ade80107fb97c508dc50f,
+  "@/components/admin/AnalyticsDashboard#AnalyticsDashboard": AnalyticsDashboard_01,
+  "@/components/admin/CrmPipelineDashboard#CrmPipelineDashboard": CrmPipelineDashboard_01,
+  "@/components/admin/AdmissionActionsPanel#AdmissionActionsPanel": AdmissionActionsPanel_01,
+  "@/components/admin/InvoiceActionsPanel#InvoiceActionsPanel": InvoiceActionsPanel_01,
+  "@/components/admin/QuoteActionsPanel#QuoteActionsPanel": QuoteActionsPanel_01,
+  "@/components/admin/MfaSettingsField#MfaSettingsField": MfaSettingsField_01,
+  "@/components/admin/EmailTestField#EmailTestField": EmailTestField_01,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

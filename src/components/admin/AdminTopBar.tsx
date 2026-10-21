@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@payloadcms/ui';
-import { Camera, LogOut, Moon, Sun, UserRound, Loader2, ShieldCheck } from 'lucide-react';
+import { Camera, LogOut, Moon, Sun, UserRound, Loader2, ShieldCheck, ExternalLink, Globe } from 'lucide-react';
 import { NobLogo } from '../NobLogo';
 
 type Props = { darkWallpaper?: boolean };
@@ -120,7 +120,12 @@ export const AdminTopBar: React.FC<Props> = ({ darkWallpaper = false }) => {
         body:has(.custom-os-dashboard) .ntb { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: none !important; }
         .ntb-logo { grid-column: 1; justify-self: start; display: inline-flex; align-items: center; padding: 6px 10px; border-radius: 12px; transition: transform .2s ease, opacity .2s ease; text-decoration: none; }
         .ntb-logo:hover { transform: scale(1.02); }
-        .ntb-right { grid-column: 2; justify-self: end; position: relative; }
+        .ntb-right { grid-column: 2; justify-self: end; position: relative; display: flex; align-items: center; gap: 10px; }
+        .ntb-site-btn { all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 13px; border-radius: 999px; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 12.5px; font-weight: 600; text-decoration: none !important; transition: all .2s ease; }
+        .ntb.is-light .ntb-site-btn { background: rgba(255,255,255,.85); color: #0F172A; border: 1px solid rgba(15,23,42,.12); box-shadow: 0 4px 12px -4px rgba(15,23,42,.08); }
+        .ntb.is-light .ntb-site-btn:hover { background: #fff; border-color: #0284C7; color: #0284C7; transform: translateY(-1px); }
+        .ntb.is-dark .ntb-site-btn { background: rgba(15,23,42,.75); color: #F8FAFC; border: 1px solid rgba(255,255,255,.15); box-shadow: 0 4px 14px -4px rgba(0,0,0,.5); }
+        .ntb.is-dark .ntb-site-btn:hover { background: rgba(30,41,59,.95); border-color: #38BDF8; color: #38BDF8; transform: translateY(-1px); }
         .ntb-trigger { all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; padding: 4px; border-radius: 999px; transition: background .15s ease, box-shadow .15s ease; }
         .ntb.is-light .ntb-trigger:hover, .ntb.is-light .ntb-trigger[aria-expanded="true"] { background: rgba(15,23,42,.06); }
         .ntb.is-dark .ntb-trigger:hover, .ntb.is-dark .ntb-trigger[aria-expanded="true"] { background: rgba(255,255,255,.1); }
@@ -158,6 +163,18 @@ export const AdminTopBar: React.FC<Props> = ({ darkWallpaper = false }) => {
         </a>
 
         <div className="ntb-right" ref={wrapRef}>
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ntb-site-btn"
+            title="Ouvrir le site internet dans un nouvel onglet"
+          >
+            <Globe size={14} className="text-[#00D4FF]" />
+            <span>Voir le site</span>
+            <ExternalLink size={12} style={{ opacity: 0.6 }} />
+          </a>
+
           <button
             type="button"
             className="ntb-trigger"

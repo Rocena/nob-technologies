@@ -72,6 +72,10 @@ export default buildConfig({
         Analytics: {
           path: '/analytics',
           Component: '@/components/admin/AnalyticsDashboard#AnalyticsDashboard',
+        },
+        PipelineCRM: {
+          path: '/crm-pipeline',
+          Component: '@/components/admin/CrmPipelineDashboard#CrmPipelineDashboard',
         }
       }
     },

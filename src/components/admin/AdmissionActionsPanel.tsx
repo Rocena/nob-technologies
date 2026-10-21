@@ -12,6 +12,8 @@ import {
   GraduationCap,
   AlertCircle,
   Sparkles,
+  Award,
+  ExternalLink,
 } from 'lucide-react';
 
 export const AdmissionActionsPanel: React.FC = () => {
@@ -22,9 +24,9 @@ export const AdmissionActionsPanel: React.FC = () => {
   const formationTitleField = useFormFields(([fields]) => fields.formationTitle);
   const targetSessionField = useFormFields(([fields]) => fields.targetSession);
   const emailSentAtField = useFormFields(([fields]) => fields.emailSentAt);
-  const adminFeedbackField = useFormFields(([fields]) => fields.adminFeedback);
 
   const [loading, setLoading] = useState(false);
+  const [sendingCert, setSendingCert] = useState(false);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [customFeedback, setCustomFeedback] = useState<string>('');
   const [showFeedbackInput, setShowFeedbackInput] = useState(false);
@@ -41,7 +43,7 @@ export const AdmissionActionsPanel: React.FC = () => {
   if (!docId) {
     return (
       <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400 text-center">
-        Enregistrez le dossier pour débloquer les actions de validation et l&apos;envoi d&apos;email automatique.
+        Enregistrez le dossier pour débloquer les actions de validation, le certificat PDF et l&apos;envoi d&apos;email automatique.
       </div>
     );
   }
@@ -81,7 +83,6 @@ export const AdmissionActionsPanel: React.FC = () => {
               : `Candidature déclinée. Email de notification envoyé à ${candidateEmail}.`,
         });
         setShowFeedbackInput(false);
-        // Refresh page after 1.5s to display updated CMS fields
         setTimeout(() => {
           window.location.reload();
         }, 1500);
@@ -101,13 +102,51 @@ export const AdmissionActionsPanel: React.FC = () => {
     }
   };
 
+  const handleSendCertificate = async () => {
+    if (!confirm(`Envoyer le Certificat Officiel de réussite par email à ${candidateEmail} ?`)) {
+      return;
+    }
+
+    try {
+      setSendingCert(true);
+      setFeedback(null);
+
+      const res = await fetch('/api/admin/admissions/send-certificate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ admissionId: docId }),
+        credentials: 'same-origin',
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.success) {
+        setFeedback({
+          type: 'success',
+          message: data.message || 'Certificat envoyé par email avec succès !',
+        });
+      } else {
+        setFeedback({
+          type: 'error',
+          message: data.error || "Erreur lors de l'envoi du certificat.",
+        });
+      }
+    } catch {
+      setFeedback({
+        type: 'error',
+        message: "Erreur réseau lors de l'envoi du certificat.",
+      });
+    } finally {
+      setSendingCert(false);
+    }
+  };
+
   return (
     <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 text-slate-100 space-y-4 mb-4 shadow-xl">
       {/* Header */}
       <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
         <span className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
           <GraduationCap size={16} className="text-[#00D4FF]" />
-          Décision Admission
+          Décision &amp; Certification
         </span>
         <span
           className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider ${
@@ -213,9 +252,7 @@ export const AdmissionActionsPanel: React.FC = () => {
               ) : (
                 <>
                   <Send size={13} />
-                  <span>
-                    Confirmer &amp; Envoyer l&apos;email
-                  </span>
+                  <span>Confirmer &amp; Envoyer l&apos;email</span>
                 </>
               )}
             </button>
@@ -237,7 +274,6 @@ export const AdmissionActionsPanel: React.FC = () => {
       {/* Main 1-Click Action Buttons */}
       {!showFeedbackInput && (
         <div className="space-y-2">
-          {/* Valider l'admission */}
           <button
             type="button"
             onClick={() => handleTriggerDecision('accepted')}
@@ -248,7 +284,6 @@ export const AdmissionActionsPanel: React.FC = () => {
             <span>Valider l&apos;admission &bull; Envoyer email</span>
           </button>
 
-          {/* Décliner la candidature */}
           <button
             type="button"
             onClick={() => handleTriggerDecision('declined')}
@@ -259,7 +294,35 @@ export const AdmissionActionsPanel: React.FC = () => {
             <span>Décliner la candidature &bull; Notifier</span>
           </button>
 
-          {/* Direct candidate email */}
+          {/* SECTION CERTIFICAT OFFICIEL NOBTECH ACADEMY */}
+          <div className="pt-2.5 mt-2.5 border-t border-slate-800 space-y-2">
+            <div className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider font-bold flex items-center gap-1.5">
+              <Award size={13} />
+              <span>Certificat &amp; Attestation PDF</span>
+            </div>
+
+            <a
+              href={`/document/certificat/${docId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-2.5 px-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold transition-all flex items-center justify-center gap-2 group"
+            >
+              <Award size={14} className="text-[#00D4FF]" />
+              <span>Générer / Imprimer le Certificat PDF</span>
+              <ExternalLink size={12} className="text-slate-500 group-hover:text-white transition-colors ml-auto" />
+            </a>
+
+            <button
+              type="button"
+              onClick={handleSendCertificate}
+              disabled={sendingCert}
+              className="w-full py-2 px-3.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-300 font-bold text-xs transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+            >
+              {sendingCert ? <Loader2 size={14} className="animate-spin" /> : <Send size={13} />}
+              <span>{sendingCert ? 'Envoi du certificat...' : 'Envoyer le Certificat par Email'}</span>
+            </button>
+          </div>
+
           {candidateEmail && (
             <a
               href={`mailto:${candidateEmail}?subject=${encodeURIComponent(

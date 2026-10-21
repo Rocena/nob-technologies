@@ -21,6 +21,7 @@ import {
   SlidersHorizontal,
   FileCode,
   ChartBar,
+  Kanban,
   type Icon as PhosphorIcon,
 } from '@phosphor-icons/react';
 
@@ -70,6 +71,7 @@ export const appGroups: AdminAppGroup[] = [
     title: 'CRM & Facturation',
     color: '#0369A1',
     apps: [
+      { name: 'Pipeline CRM & Rapports', Icon: Kanban, href: '/admin/crm-pipeline' },
       { name: 'Clients (CRM)', Icon: UsersThree, href: '/admin/collections/customers' },
       { name: 'Devis', Icon: FileText, href: '/admin/collections/quotes' },
       { name: 'Factures', Icon: Receipt, href: '/admin/collections/invoices' },

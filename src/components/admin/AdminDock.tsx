@@ -1,9 +1,9 @@
-﻿'use client'
+'use client'
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@payloadcms/ui';
-import { Home, LayoutGrid, Search, ArrowLeft, X, Moon, Sun } from 'lucide-react';
+import { Home, LayoutGrid, Search, ArrowLeft, X, Moon, Sun, Globe } from 'lucide-react';
 import { appGroups, findAppByPath, pushRecent, type AdminApp } from './adminApps';
 
 /**
@@ -312,6 +312,9 @@ export const AdminDock: React.FC<{ darkWallpaper?: boolean }> = ({ darkWallpaper
         </button>
         <a href="/admin" className={isHome ? 'active' : ''} aria-label="Accueil" title="Accueil">
           <Home size={18} /> <span className="label">Accueil</span>
+        </a>
+        <a href="/" target="_blank" rel="noopener noreferrer" aria-label="Voir le site" title="Ouvrir le site internet dans un nouvel onglet">
+          <Globe size={17} color="#00D4FF" /> <span className="label">Voir le site</span>
         </a>
         <button type="button" onClick={() => setOpen(true)} className={open ? 'active' : ''} aria-label="Toutes les applications" title="Applications (Ctrl+K)">
           <LayoutGrid size={18} /> <span className="label">Applications</span> <kbd>Ctrl K</kbd>

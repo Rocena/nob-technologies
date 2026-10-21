@@ -13,6 +13,16 @@ export const Invoices: CollectionConfig = {
   },
   fields: [
     {
+      name: 'invoiceActions',
+      type: 'ui',
+      admin: {
+        position: 'sidebar',
+        components: {
+          Field: '@/components/admin/InvoiceActionsPanel#InvoiceActionsPanel',
+        },
+      },
+    },
+    {
       type: 'tabs',
       tabs: [
         {

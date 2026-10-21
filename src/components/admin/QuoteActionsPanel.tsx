@@ -2,13 +2,15 @@
 
 import React, { useState } from 'react';
 import { useFormFields } from '@payloadcms/ui';
-import { FileText, Send, CheckCircle2, AlertTriangle, Loader2, ExternalLink } from 'lucide-react';
+import { FileText, Send, CheckCircle2, AlertTriangle, Loader2, ExternalLink, Receipt } from 'lucide-react';
 
 export const QuoteActionsPanel: React.FC = () => {
   const idField = useFormFields(([fields]) => fields.id);
   const statusField = useFormFields(([fields]) => fields.status);
-  
+
   const [sending, setSending] = useState(false);
+  const [converting, setConverting] = useState(false);
+  const [createdInvoiceId, setCreatedInvoiceId] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   const docId = idField?.value as string | undefined;
@@ -50,16 +52,52 @@ export const QuoteActionsPanel: React.FC = () => {
       } else {
         setFeedback({
           type: 'error',
-          message: data.error || 'Erreur lors de l\'envoi du devis.',
+          message: data.error || "Erreur lors de l'envoi du devis.",
         });
       }
     } catch {
       setFeedback({
         type: 'error',
-        message: 'Erreur réseau lors de l\'envoi du devis.',
+        message: "Erreur réseau lors de l'envoi du devis.",
       });
     } finally {
       setSending(false);
+    }
+  };
+
+  const handleConvertToInvoice = async () => {
+    try {
+      setConverting(true);
+      setFeedback(null);
+
+      const res = await fetch('/api/admin/quotes/convert-to-invoice', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ quoteId: docId }),
+        credentials: 'same-origin',
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.success) {
+        setCreatedInvoiceId(String(data.invoiceId));
+        setFeedback({
+          type: 'success',
+          message: data.message || 'Facture générée avec succès !',
+        });
+      } else {
+        setFeedback({
+          type: 'error',
+          message: data.error || 'Erreur lors de la conversion en facture.',
+        });
+      }
+    } catch {
+      setFeedback({
+        type: 'error',
+        message: 'Erreur réseau lors de la conversion.',
+      });
+    } finally {
+      setConverting(false);
     }
   };
 
@@ -115,10 +153,31 @@ export const QuoteActionsPanel: React.FC = () => {
           {sending ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
           <span>{sending ? 'Envoi en cours...' : 'Envoyer par email en 1 clic'}</span>
         </button>
+
+        {/* BOUTON 3 : CONVERTIR EN FACTURE EN 1 CLIC */}
+        <button
+          type="button"
+          onClick={handleConvertToInvoice}
+          disabled={converting}
+          className="w-full py-2 px-3.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 text-xs font-bold transition-all flex items-center justify-center gap-2"
+        >
+          {converting ? <Loader2 size={14} className="animate-spin" /> : <Receipt size={14} />}
+          <span>{converting ? 'Création...' : 'Convertir en Facture (1 clic)'}</span>
+        </button>
+
+        {createdInvoiceId && (
+          <a
+            href={`/admin/collections/invoices/${createdInvoiceId}`}
+            className="w-full py-2 px-3 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 text-xs font-bold flex items-center justify-center gap-1.5"
+          >
+            <span>Ouvrir la Facture générée</span>
+            <ExternalLink size={12} />
+          </a>
+        )}
       </div>
 
       <p className="text-[10px] text-slate-500 leading-normal pt-1">
-        L&apos;envoi automatique transmet le devis officiel avec récapitulatif détaillé au client et met à jour son statut.
+        L&apos;envoi automatique transmet le devis officiel au client. La conversion génère immédiatement la facture correspondante.
       </p>
     </div>
   );

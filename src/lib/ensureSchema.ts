@@ -140,6 +140,7 @@ const postgresPatchStatements: string[] = [
   'CREATE INDEX IF NOT EXISTS "analytics_events_visitor_id_idx" ON "analytics_events" ("visitor_id");',
   'CREATE INDEX IF NOT EXISTS "analytics_events_country_idx" ON "analytics_events" ("country");',
   'CREATE INDEX IF NOT EXISTS "analytics_events_created_at_idx" ON "analytics_events" ("created_at");',
+  'ALTER TABLE "payload_locked_documents_rels" ADD COLUMN IF NOT EXISTS "analytics_events_id" integer;',
 ];
 
 export async function ensureDatabaseSchema(payload: Payload): Promise<{
