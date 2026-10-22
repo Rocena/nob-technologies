@@ -226,16 +226,46 @@ const SERIALIZED_SERVICES: SerializedServiceItem[] = [
   },
 ];
 
+const LEGACY_OR_ALIAS_SLUGS = new Set([
+  'protection-de-reseau',
+  'securite-des-donnees',
+  'cablage',
+  'infogerance',
+  'cloud-virtualisation',
+  'developpement-erp',
+  'licences-materiels',
+  'telephonie-videosurveillance',
+  'erp-digitalisation',
+]);
+
 export default async function ServicesPage() {
+  let extraServices: SerializedServiceItem[] = [];
   try {
     const payload = await getPayloadClient();
-    await payload.find({
+    const res = await payload.find({
       collection: 'services',
       where: { status: { equals: 'published' } },
+      limit: 50,
     });
+    const baseSlugs = new Set(SERIALIZED_SERVICES.map((s) => s.slug));
+    extraServices = (res?.docs || [])
+      .filter((doc: any) => doc?.slug && !baseSlugs.has(doc.slug) && !LEGACY_OR_ALIAS_SLUGS.has(doc.slug))
+      .map((doc: any) => ({
+        slug: doc.slug,
+        title: doc.title,
+        category: 'Expertise NOBTECH',
+        group: 'securite-reseaux' as const,
+        description: doc.description || '',
+        iconName: 'shield',
+        features: Array.isArray(doc.prestations)
+          ? doc.prestations.map((p: any) => p.name).filter(Boolean).slice(0, 4)
+          : [],
+      }));
   } catch {
     // Fallback if db is unseeded
   }
+
+  const allCatalogServices = [...SERIALIZED_SERVICES, ...extraServices];
 
   return (
     <>
@@ -268,7 +298,7 @@ export default async function ServicesPage() {
         {/* Interactive Services Catalog (Filterable + Grid/List Display Mode) */}
         <Section className="py-12 md:py-20 bg-slate-50 dark:bg-[#020617]">
           <Container>
-            <ServicesCatalogView services={SERIALIZED_SERVICES} />
+            <ServicesCatalogView services={allCatalogServices} />
           </Container>
         </Section>
 

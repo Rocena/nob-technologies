@@ -32,7 +32,11 @@ const fallbackTestimonials = [
 ];
 
 export function Testimonials({ testimonials = [] }: { testimonials: any[] }) {
-  const displayTestimonials = testimonials.length > 0 ? testimonials : fallbackTestimonials;
+  const fallbackNames = new Set(fallbackTestimonials.map((t) => t.authorName.toLowerCase()));
+  const extraTestimonials = (testimonials || []).filter(
+    (t: any) => t?.authorName && !fallbackNames.has(String(t.authorName).toLowerCase())
+  );
+  const displayTestimonials = [...fallbackTestimonials, ...extraTestimonials];
 
   return (
     <Section className="bg-[#020617] py-16 md:py-24 lg:py-32 relative overflow-hidden">
@@ -52,7 +56,7 @@ export function Testimonials({ testimonials = [] }: { testimonials: any[] }) {
               Ce que disent nos clients.
             </Heading>
             <Text className="text-lg sm:text-xl text-slate-400 leading-relaxed font-light">
-              Retours d'expérience et témoignages de nos partenaires et clients institutionnels sur la qualité de nos interventions.
+              Retours d&apos;expérience et témoignages de nos partenaires et clients institutionnels sur la qualité de nos interventions.
             </Text>
           </FadeUp>
         </div>
@@ -66,7 +70,7 @@ export function Testimonials({ testimonials = [] }: { testimonials: any[] }) {
                 <Quote className="h-8 w-8 text-white/20 mb-6 transform rotate-180" />
                 
                 <p className="text-lg text-slate-200 mb-10 font-sans leading-relaxed flex-1 font-light">
-                  "{t.content}"
+                  &ldquo;{t.content}&rdquo;
                 </p>
                 
                 <div className="flex items-center gap-4 mt-auto">

@@ -5,12 +5,10 @@ import {
   ArrowRight, 
   Shield, 
   Wifi, 
-  Cloud, 
   Code, 
   MonitorCheck, 
   Phone, 
   BarChart3, 
-  Cpu, 
   Key, 
   GraduationCap, 
   Smartphone
@@ -27,6 +25,15 @@ function isRecentlyCreated(createdAt?: string | Date) {
   const now = Date.now();
   return now - created >= 0 && now - created <= ONE_WEEK_MS;
 }
+
+const LEGACY_SEED_SLUGS = new Set([
+  "protection-de-reseau",
+  "securite-des-donnees",
+  "cablage",
+  "infogerance",
+  "cloud-virtualisation",
+  "developpement-erp",
+]);
 
 const defaultServices = [
   {
@@ -95,7 +102,15 @@ const defaultServices = [
 ];
 
 export function Expertises({ services = [] }: { services: any[] }) {
-  const displayServices = services.length > 0 ? services : defaultServices;
+  const defaultSlugs = new Set(defaultServices.map((s) => s.slug));
+  const extraCmsServices = (services || []).filter(
+    (s: any) =>
+      s?.slug &&
+      !LEGACY_SEED_SLUGS.has(s.slug) &&
+      !defaultSlugs.has(s.slug) &&
+      s.status !== "draft"
+  );
+  const displayServices = [...defaultServices, ...extraCmsServices];
 
   return (
     <Section id="solutions" className="bg-white dark:bg-[#020617] py-16 md:py-24 lg:py-32 border-b border-slate-100 dark:border-slate-800/80 transition-colors">
@@ -119,11 +134,11 @@ export function Expertises({ services = [] }: { services: any[] }) {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {displayServices.map((service: any, idx: number) => {
-            const Icon = service.icon || Shield;
+            const Icon = typeof service.icon === "function" || typeof service.icon === "object" ? service.icon : Shield;
             const href = service.slug ? `/services/${service.slug}` : "/services";
-            const showNewBadge = isRecentlyCreated(service.createdAt);
+            const showNewBadge = Boolean(service.createdAt && isRecentlyCreated(service.createdAt));
             return (
-              <FadeUp key={service.id || idx} delay={0.04 * idx}>
+              <FadeUp key={service.id || service.slug || idx} delay={0.04 * idx}>
                 <div className="group flex flex-col h-full bg-slate-50 hover:bg-white dark:bg-[#0b1329] dark:hover:bg-[#0f1d3d] border border-slate-200/80 hover:border-cyan-400 dark:border-slate-800 dark:hover:border-cyan-400/80 rounded-2xl p-7 md:p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden">
                   {showNewBadge && (
                     <span className="absolute top-4 right-4 text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded bg-cyan-100 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800/60">

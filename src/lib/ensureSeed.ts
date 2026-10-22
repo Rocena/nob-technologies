@@ -326,83 +326,156 @@ export async function ensureCompleteSeed(payload: Payload) {
     }
 
     // =========================================================================
-    // 5. SEED SERVICES
+    // 5. SEED SERVICES (Catalogue complet des 10 expertises officielles)
     // =========================================================================
     try {
       const servicesCount = await payload.count({ collection: 'services' }).catch(() => ({ totalDocs: 0 }));
-      if (servicesCount.totalDocs === 0) {
-        console.log('[SEED] Aucun service trouvé. Insertion des services officiels...');
+      if (servicesCount.totalDocs < 10) {
+        console.log('[SEED] Synchronisation du catalogue complet des services officiels...');
         const initialServices = [
           {
-            title: 'Infogérance & Infogérance Cloud',
+            title: 'Développement Web & Mobile',
+            slug: 'developpement-web-mobile',
+            description: "Conception de sites internet institutionnels, portails d'entreprise sur-mesure et applications mobiles iOS & Android fluides et sécurisées.",
+            status: 'published',
+            availability: 'available',
+            problem: "Des outils digitaux obsolètes freinent votre visibilité commerciale et l'expérience de vos clients.",
+            prestations: [
+              { name: 'Plateformes web modernes et responsives (Next.js, React)' },
+              { name: 'Applications mobiles natives et hybrides iOS & Android (Flutter)' },
+              { name: 'Portails de réservation en ligne et extranets clients' },
+              { name: 'Intégration API, paiement en ligne et hébergement haute disponibilité' },
+            ],
+          },
+          {
+            title: 'Conception & Intégration d’ERP (Sur-Mesure, Odoo, Dolibarr)',
+            slug: 'erp-digitalisation',
+            description: "Conception d’ERP sur-mesure et intégration experte (Odoo, Dolibarr) pour unifier facturation, stocks, CRM, RH et comptabilité d’entreprise.",
+            status: 'published',
+            availability: 'available',
+            problem: "La dispersion des données entre fichiers Excel et logiciels isolés génère des erreurs et ralentit la prise de décision.",
+            prestations: [
+              { name: 'Conception et développement d\'ERP sur-mesure' },
+              { name: 'Intégration et paramétrage Odoo & Dolibarr' },
+              { name: 'Gestion commerciale, devis, facturation, stocks et achats' },
+              { name: 'Comptabilité, RH, tableaux de bord et formation des équipes' },
+            ],
+          },
+          {
+            title: 'Marketing Digital & Stratégie Web',
+            slug: 'marketing-digital',
+            description: "SEO/SEA, gestion de campagnes publicitaires, animation des réseaux sociaux, acquisition de leads et renforcement de l’autorité de votre marque.",
+            status: 'published',
+            availability: 'available',
+            problem: "Même la meilleure offre reste invisible sans une stratégie d'acquisition digitale structurée et mesurable.",
+            prestations: [
+              { name: 'Référencement naturel SEO et campagnes Google Ads (SEA)' },
+              { name: 'Gestion et animation professionnelle des réseaux sociaux (Instagram, Facebook, LinkedIn)' },
+              { name: 'Stratégie de contenu, identité visuelle et génération de leads' },
+              { name: 'Analyse d\'audience, suivi des conversions et reporting' },
+            ],
+          },
+          {
+            title: 'Cybersécurité, Protection des Données & Firewalls',
+            slug: 'cybersecurite',
+            description: "Solutions leaders Sophos et Fortinet (NGFW), protection des données anti-ransomware Acronis, gestion des accès à privilèges (Wallix) et audits de vulnérabilités.",
+            status: 'published',
+            availability: 'available',
+            problem: "Une seule cyberattaque ou fuite de données peut interrompre durablement les opérations d'une organisation.",
+            prestations: [
+              { name: 'Déploiement de pare-feux NGFW Sophos XGS et Fortinet FortiGate' },
+              { name: 'Sauvegardes cloud hybrides anti-ransomware Acronis & PRA/PCA' },
+              { name: 'Gestion des identités et accès à privilèges (PAM/IAM Wallix)' },
+              { name: 'Segmentation réseau Zero Trust, VPN IPsec/SSL et audits de sécurité' },
+            ],
+          },
+          {
+            title: 'Licences Office 365 (ESD & CSP) & Matériels IT',
+            slug: 'licences-materiels',
+            description: "Distribution officielle de licences Microsoft 365 (ESD & CSP), fourniture de serveurs Dell PowerEdge, équipements Cisco et parcs informatiques complets.",
+            status: 'published',
+            availability: 'available',
+            problem: "L'utilisation de licences non conformes ou de matériel non garanti expose l'entreprise à des risques juridiques et opérationnels.",
+            prestations: [
+              { name: 'Licences officielles Microsoft 365 Business & Enterprise (ESD & CSP)' },
+              { name: 'Serveurs rackables Dell Technologies et solutions de stockage' },
+              { name: 'Postes de travail professionnels, onduleurs APC/Eaton et périphériques' },
+              { name: 'Équipements actifs Cisco, HP Enterprise et Ubiquiti sous garantie' },
+            ],
+          },
+          {
+            title: 'Formations, IA & Préparation aux Certifications',
+            slug: 'formations-ia',
+            description: "Formations pratiques sur matériel réel en cybersécurité, réseaux (Cisco CCNA, Fortinet NSE 4), Power BI, automatisation et Intelligence Artificielle.",
+            status: 'published',
+            availability: 'available',
+            problem: "La montée en compétences des équipes techniques nécessite un apprentissage pratique sur de véritables équipements d'entreprise.",
+            prestations: [
+              { name: 'Préparation officielle aux certifications Cisco CCNA, Fortinet NSE 4, Sophos et ISO 27001' },
+              { name: 'Cursus Microsoft Power BI, analyse de données et Business Intelligence' },
+              { name: 'Ateliers d\'automatisation des processus et Intelligence Artificielle en entreprise' },
+              { name: 'Sensibilisation anti-phishing et hygiène numérique des collaborateurs' },
+            ],
+          },
+          {
+            title: 'Câblage Structuré, Fibre Optique & Réseaux Télécoms',
+            slug: 'reseaux-telecoms',
+            description: "Conception et déploiement d'infrastructures LAN/WAN, câblage cuivre Cat 6A/7, liaisons fibre optique, baies de brassage 42U et Wi-Fi haute densité.",
+            status: 'published',
+            availability: 'available',
+            problem: "Un câblage vétuste ou mal organisé est la cause de plus de 70% des lenteurs et coupures réseau en entreprise.",
+            prestations: [
+              { name: 'Câblage cuivre structuré Catégorie 6A et Catégorie 7' },
+              { name: 'Raccordement, épissurage et réflectométrie fibre optique' },
+              { name: 'Montage, peignage méthodique et étiquetage de baies 42U' },
+              { name: 'Architecture Wi-Fi professionnelle haute densité et certification Fluke' },
+            ],
+          },
+          {
+            title: 'Téléphonie IP (VoIP) & Vidéosurveillance IP',
+            slug: 'telephonie-videosurveillance',
+            description: "Standards IPBX Yeastar Série P, postes VoIP Cisco, communications unifiées, caméras de vidéosurveillance IP haute définition et contrôle d’accès.",
+            status: 'published',
+            availability: 'available',
+            problem: "Des systèmes de téléphonie et de sécurité physique vieillissants alourdissent vos coûts et réduisent votre réactivité.",
+            prestations: [
+              { name: 'Standards téléphoniques IPBX Yeastar Série P et postes VoIP Cisco' },
+              { name: 'Serveur vocal interactif (SVI), interconnexion multi-sites et softphones' },
+              { name: 'Caméras de vidéosurveillance IP jour/nuit et enregistreurs NVR RAID' },
+              { name: 'Contrôle d\'accès biométrique et par badges RFID' },
+            ],
+          },
+          {
+            title: 'Infogérance, Maintenance & Support 24/7',
             slug: 'infogerance',
-            description: "Supervision proactive 24/7, maintenance préventive et corrective, gestion des incidents en temps réel et support helpdesk. Vous bénéficiez d'un interlocuteur unique et d'une infrastructure toujours opérationnelle.",
+            description: "Supervision proactive 24/7 (PRTG), maintenance préventive et curative sur site, gestion des incidents en temps réel et support helpdesk dédié.",
             status: 'published',
             availability: 'available',
             problem: "Votre équipe perd un temps précieux à gérer les pannes et les mises à jour au lieu de se concentrer sur votre cœur de métier.",
             prestations: [
-              { name: 'Surveillance et monitoring 24/7' },
-              { name: 'Maintenance préventive et corrective' },
-              { name: 'Gestion des incidents et tickets d\'intervention' },
-              { name: 'Support utilisateurs (Helpdesk N1/N2/N3)' },
-              { name: 'Gestion des mises à jour et correctifs de sécurité' },
-              { name: 'Rapport mensuel d\'activité et indicateurs SLA' },
-            ],
-          },
-          {
-            title: 'Câblage Réseau & Électrique Haute Performance',
-            slug: 'cablage',
-            description: "Conception et déploiement d'infrastructures de câblage structuré conformes aux normes TIA-568-D et ISO/IEC 11801. Cuivre Cat. 6A/7 et fibre optique pour vos réseaux LAN/WAN, baies de brassage et onduleurs.",
-            status: 'published',
-            availability: 'available',
-            problem: "Un câblage vétuste ou non structuré est la cause de plus de 70% des lenteurs et pannes réseau en entreprise.",
-            prestations: [
-              { name: 'Câblage cuivre Catégorie 6A et Catégorie 7' },
-              { name: 'Fibre optique monomode et multimode' },
-              { name: 'Montage et réorganisation de baies de brassage' },
-              { name: 'Étiquetage normé TIA-606 et schéma de câblage' },
-              { name: 'Certification réflectométrique et tests de performance' },
-            ],
-          },
-          {
-            title: 'Sécurité des Données & Continuité d\'Activité',
-            slug: 'securite-des-donnees',
-            description: "Protection complète de vos données sensibles contre les ransomwares, les fuites et les sinistres. Chiffrement AES-256, gestion des identités (IAM), politique 3-2-1 et plans de reprise d'activité (PRA/PCA).",
-            status: 'published',
-            availability: 'available',
-            problem: "Une seule cyberattaque ou panne matérielle peut interrompre définitivement les activités d'une organisation non préparée.",
-            prestations: [
-              { name: 'Audit de sécurité des données et cartographie des risques' },
-              { name: 'Chiffrement des postes et des disques de stockage' },
-              { name: 'Stratégie de sauvegarde 3-2-1 automatisée et chiffrée' },
-              { name: 'Mise en œuvre de Plan de Reprise d\'Activité (PRA)' },
-              { name: 'Sensibilisation et formation anti-phishing des équipes' },
-            ],
-          },
-          {
-            title: 'Protection Réseau & Firewalls NGFW',
-            slug: 'protection-de-reseau',
-            description: "Déploiement de pare-feu de nouvelle génération (Fortinet FortiGate, Sophos XGS), systèmes de détection et prévention des intrusions (IDS/IPS), VPN sécurisés et segmentation réseau Zero Trust.",
-            status: 'published',
-            availability: 'available',
-            problem: "L'ouverture des systèmes au télétravail et au Cloud multiplie les vecteurs d'intrusion opportunistes.",
-            prestations: [
-              { name: 'Déploiement de pare-feu NGFW Fortinet et Sophos' },
-              { name: 'Inspection SSL approfondie et filtrage Web dynamique' },
-              { name: 'Mise en place de VPN IPsec et VPN SSL nomades' },
-              { name: 'Segmentation réseau VLANs et politiques Zero Trust' },
-              { name: 'Protection antivirus de passerelle et blocage des botnets' },
+              { name: 'Supervision réseau et serveurs proactive 24/7 (PRTG / Paessler)' },
+              { name: 'Maintenance préventive et curative sur site et à distance' },
+              { name: 'Support utilisateurs réactif (Helpdesk N1/N2/N3)' },
+              { name: 'Gestion des sauvegardes, correctifs de sécurité et rapports SLA' },
             ],
           },
         ];
 
         for (const s of initialServices) {
-          await payload.create({
+          const existing = await payload.find({
             collection: 'services',
-            data: s as any,
-          });
+            where: { slug: { equals: s.slug } },
+            limit: 1,
+          }).catch(() => ({ docs: [] }));
+
+          if (existing.docs.length === 0) {
+            await payload.create({
+              collection: 'services',
+              data: s as any,
+            });
+          }
         }
-        console.log('[SEED] 4 services majeurs ajoutés dans le CMS !');
+        console.log('[SEED] Catalogue complet des services synchronisé dans le CMS !');
       }
     } catch (err: any) {
       console.warn('[SEED SERVICES WARNING]:', err?.message || err);
