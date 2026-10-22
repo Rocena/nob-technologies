@@ -503,13 +503,13 @@ export function Header() {
             )}
           >
             {activeNavItem && (
-              <div className="bg-white/98 dark:bg-[#070d1f]/98 backdrop-blur-2xl border border-slate-200/90 dark:border-slate-800 shadow-corporate-floating rounded-2xl overflow-hidden ring-1 ring-slate-900/5 dark:ring-white/10">
+              <div className="bg-white/98 dark:bg-slate-900/98 backdrop-blur-2xl border border-slate-200/90 dark:border-slate-800 shadow-corporate-floating rounded-2xl overflow-hidden ring-1 ring-slate-900/5 dark:ring-white/10">
                 {activeNavItem.children && activeNavItem.children.length > 0 ? (
                   <div>
                     {/* Top Section Header Bar */}
                     <div className="px-6 py-4 bg-slate-50/70 dark:bg-slate-900/60 border-b border-slate-200/70 dark:border-slate-800/80 flex items-center justify-between gap-4">
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-9 h-9 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 flex items-center justify-center shrink-0">
+                        <div className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700 flex items-center justify-center shrink-0">
                           <ActiveParentIcon className="w-4 h-4" />
                         </div>
                         <div className="min-w-0">
@@ -517,7 +517,7 @@ export function Header() {
                             <span className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
                               {getHeaderCategoryLabel(activeNavItem.id || activeNavItem.name)}
                             </span>
-                            <span className="text-[11px] text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-200/60 dark:border-cyan-800/60 px-2 py-0.5 rounded-full font-medium">
+                            <span className="text-[11px] text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 border border-slate-200/70 dark:border-slate-700 px-2 py-0.5 rounded-full font-medium">
                               {activeNavItem.children.length} rubriques
                             </span>
                           </div>
@@ -560,15 +560,15 @@ export function Header() {
                               className={cn(
                                 "group/item relative rounded-xl p-3 transition-all duration-150 flex items-start gap-3.5 border",
                                 isChildActive
-                                  ? "bg-cyan-50/70 dark:bg-cyan-950/30 border-cyan-300/80 dark:border-cyan-500/40"
-                                  : "bg-transparent hover:bg-slate-50/90 dark:hover:bg-slate-900/80 border-transparent hover:border-slate-200/80 dark:hover:border-slate-800"
+                                  ? "bg-slate-100/90 dark:bg-slate-800/70 border-slate-300/80 dark:border-slate-700"
+                                  : "bg-transparent hover:bg-slate-50/90 dark:hover:bg-slate-800/50 border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80"
                               )}
                             >
                               <div className={cn(
                                 "w-9 h-9 rounded-lg border flex items-center justify-center shrink-0 mt-0.5 transition-all duration-150",
                                 isChildActive
-                                  ? "bg-cyan-600 text-white border-cyan-600"
-                                  : "bg-slate-50 dark:bg-slate-800/90 border-slate-200/80 dark:border-slate-700 text-slate-700 dark:text-slate-300 group-hover/item:bg-cyan-600 group-hover/item:text-white group-hover/item:border-cyan-600 dark:group-hover/item:bg-cyan-500 dark:group-hover/item:text-slate-950"
+                                  ? "bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-slate-900"
+                                  : "bg-slate-50 dark:bg-slate-800/90 border-slate-200/80 dark:border-slate-700 text-slate-700 dark:text-slate-300 group-hover/item:bg-slate-900 group-hover/item:text-white group-hover/item:border-slate-900 dark:group-hover/item:bg-white dark:group-hover/item:text-slate-900"
                               )}>
                                 <ChildIcon className="w-4 h-4 stroke-[2]" />
                               </div>
@@ -592,49 +592,46 @@ export function Header() {
                         })}
                       </div>
 
-                      {/* Right Zone: Dynamic Context & Spotlight Card (4 cols) */}
+                      {/* Right Zone: Sober Corporate Details & Spotlight Card (4 cols) */}
                       {activeSpotlight && (
-                        <div className="col-span-4 p-5 bg-slate-50/40 dark:bg-slate-900/30 flex flex-col justify-between">
-                          <div className="rounded-xl bg-gradient-to-br from-[#020617] via-[#071126] to-[#0A2540] text-white p-4.5 border border-slate-800 shadow-lg relative overflow-hidden flex-1 flex flex-col justify-between">
-                            <div className="absolute -right-8 -bottom-8 w-36 h-36 bg-cyan-500/15 rounded-full blur-2xl pointer-events-none" />
-
+                        <div className="col-span-4 p-5 bg-slate-50/60 dark:bg-slate-900/50 flex flex-col justify-between">
+                          <div className="rounded-xl bg-white dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 p-4.5 border border-slate-200/90 dark:border-slate-700/80 shadow-xs relative overflow-hidden flex-1 flex flex-col justify-between">
                             <div className="relative z-10">
                               <div className="flex items-center justify-between gap-2 mb-3">
-                                <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-cyan-300 bg-cyan-950/80 border border-cyan-700/50 px-2.5 py-0.5 rounded-full">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                                <span className="inline-flex items-center text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700/70 border border-slate-200/80 dark:border-slate-600/60 px-2.5 py-0.5 rounded-md">
                                   {hoveredSubItem?.tag || activeSpotlight.badge}
                                 </span>
                               </div>
 
-                              <h5 className="text-sm font-bold text-white leading-snug">
+                              <h5 className="text-sm font-bold text-slate-900 dark:text-white leading-snug">
                                 {hoveredSubItem ? hoveredSubItem.name : activeSpotlight.title}
                               </h5>
-                              <p className="text-xs text-slate-300 leading-relaxed mt-1.5">
+                              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-1.5">
                                 {hoveredSubItem?.desc || activeSpotlight.desc}
                               </p>
 
                               {/* Key highlights list */}
-                              <ul className="mt-3.5 pt-3 border-t border-white/10 space-y-1.5">
+                              <ul className="mt-3.5 pt-3 border-t border-slate-100 dark:border-slate-700/70 space-y-1.5">
                                 {activeSpotlight.highlights.map((pt, idx) => (
-                                  <li key={idx} className="flex items-center gap-2 text-[11px] text-slate-300">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
+                                  <li key={idx} className="flex items-center gap-2 text-[11px] text-slate-600 dark:text-slate-300">
+                                    <span className="w-1 h-1 rounded-full bg-slate-400 dark:bg-slate-500 shrink-0" />
                                     <span>{pt}</span>
                                   </li>
                                 ))}
                               </ul>
                             </div>
 
-                            <div className="relative z-10 pt-3.5 mt-4 border-t border-white/10 flex items-center justify-between">
-                              <span className="text-[10.5px] text-slate-400 font-medium">
+                            <div className="relative z-10 pt-3.5 mt-4 border-t border-slate-100 dark:border-slate-700/70 flex items-center justify-between">
+                              <span className="text-[10.5px] text-slate-500 dark:text-slate-400 font-medium">
                                 {activeSpotlight.tag}
                               </span>
                               <Link
                                 href={hoveredSubItem ? hoveredSubItem.href : activeSpotlight.href}
                                 onClick={() => setActiveHover(null)}
-                                className="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-300 hover:text-white transition-colors"
+                                className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
                               >
                                 <span>{hoveredSubItem ? "Consulter la page" : activeSpotlight.linkText}</span>
-                                <ArrowRight className="w-3.5 h-3.5 text-cyan-400" />
+                                <ArrowRight className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
                               </Link>
                             </div>
                           </div>
@@ -642,11 +639,10 @@ export function Header() {
                       )}
                     </div>
 
-                    {/* Bottom Action Bar: 1-Click Direct Actions */}
+                    {/* Bottom Action Bar: 1-Click Direct Actions (No green dot) */}
                     <div className="px-6 py-3 bg-slate-50/90 dark:bg-slate-900/90 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between gap-4 text-xs">
                       <div className="flex items-center gap-4 text-slate-600 dark:text-slate-300">
-                        <span className="inline-flex items-center gap-1.5 font-semibold text-slate-800 dark:text-slate-200">
-                          <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                        <span className="font-semibold text-slate-700 dark:text-slate-200">
                           Ingénieurs disponibles à Dakar
                         </span>
                         <span className="text-slate-300 dark:text-slate-700">|</span>
@@ -655,7 +651,7 @@ export function Header() {
                           onClick={() => setActiveHover(null)}
                           className="inline-flex items-center gap-1.5 font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
                         >
-                          <CalendarCheck className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+                          <CalendarCheck className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                           <span>Réserver un audit sur site</span>
                         </Link>
                         <span className="text-slate-300 dark:text-slate-700">|</span>
@@ -663,9 +659,9 @@ export function Header() {
                           href="https://wa.me/221773010838"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                          className="inline-flex items-center gap-1.5 font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
                         >
-                          <MessageSquare className="w-3.5 h-3.5 text-emerald-500" />
+                          <MessageSquare className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                           <span>WhatsApp Direct (+221 77 301 08 38)</span>
                         </a>
                       </div>
@@ -676,7 +672,7 @@ export function Header() {
                           setActiveHover(null);
                           openQuoteModal(activeNavItem.name);
                         }}
-                        className="font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 flex items-center gap-1.5 cursor-pointer shrink-0"
+                        className="font-bold text-slate-900 dark:text-white hover:text-cyan-600 dark:hover:text-cyan-400 flex items-center gap-1.5 cursor-pointer shrink-0"
                       >
                         <span>Chiffrer un projet ({activeNavItem.name})</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -688,15 +684,14 @@ export function Header() {
                   <div className="p-6">
                     <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-100 dark:border-slate-800">
                       <div>
-                        <span className="text-xs font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-400">
+                        <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                           Contact Direct &bull; Siège Dakar
                         </span>
                         <h5 className="text-base font-bold text-slate-900 dark:text-white mt-0.5">
                           Échangez avec un ingénieur Nob Technologies
                         </h5>
                       </div>
-                      <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/70">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                      <span className="inline-flex items-center text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                         Réponse sous 24h
                       </span>
                     </div>
