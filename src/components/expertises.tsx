@@ -144,7 +144,7 @@ export function Expertises({ services = [] }: { services: any[] }) {
                       service={service.title}
                       className="text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors cursor-pointer text-left"
                     >
-                      Demander un devis &rarr;
+                      Demander un devis
                     </QuoteRequestButton>
                     <Link 
                       href={href} 
