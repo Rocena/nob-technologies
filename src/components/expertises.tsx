@@ -17,15 +17,6 @@ import { FadeUp } from "@/components/animations";
 import Link from "next/link";
 import { QuoteRequestButton } from "@/components/QuoteRequestButton";
 
-function isRecentlyCreated(createdAt?: string | Date) {
-  if (!createdAt) return false;
-  const created = new Date(createdAt).getTime();
-  if (isNaN(created)) return false;
-  const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
-  const now = Date.now();
-  return now - created >= 0 && now - created <= ONE_WEEK_MS;
-}
-
 const LEGACY_SEED_SLUGS = new Set([
   "protection-de-reseau",
   "securite-des-donnees",
@@ -136,15 +127,9 @@ export function Expertises({ services = [] }: { services: any[] }) {
           {displayServices.map((service: any, idx: number) => {
             const Icon = typeof service.icon === "function" || typeof service.icon === "object" ? service.icon : Shield;
             const href = service.slug ? `/services/${service.slug}` : "/services";
-            const showNewBadge = Boolean(service.createdAt && isRecentlyCreated(service.createdAt));
             return (
               <FadeUp key={service.id || service.slug || idx} delay={0.04 * idx}>
                 <div className="group flex flex-col h-full bg-slate-50 hover:bg-white dark:bg-[#0b1329] dark:hover:bg-[#0f1d3d] border border-slate-200/80 hover:border-cyan-400 dark:border-slate-800 dark:hover:border-cyan-400/80 rounded-2xl p-7 md:p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden">
-                  {showNewBadge && (
-                    <span className="absolute top-4 right-4 text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded bg-cyan-100 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800/60">
-                      NOUVEAU
-                    </span>
-                  )}
                   <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-500/20 group-hover:scale-110 transition-all duration-300">
                     <Icon className="w-6 h-6 text-cyan-600 dark:text-cyan-400" />
                   </div>
