@@ -254,14 +254,22 @@ export function Header() {
             if (
               pName === 'home' ||
               pName === 'accueil' ||
+              pName.includes('partenaire') ||
+              pName.includes('certification') ||
               pHref === '/' ||
               pHref === '/home' ||
-              pHref === '/accueil'
+              pHref === '/accueil' ||
+              pHref === '/certifications' ||
+              pHref === '/partenaires'
             ) {
               return;
             }
-            const existingIndex = updatedNav.findIndex((i: NavItem) => i.href === p.href);
-            if (existingIndex === -1) {
+            const existsInMainOrChildren = updatedNav.some(
+              (i: NavItem) =>
+                i.href === p.href ||
+                (i.children && i.children.some((c: SubItem) => c.href === p.href))
+            );
+            if (!existsInMainOrChildren) {
               updatedNav.push({
                 name: p.name,
                 href: p.href,

@@ -24,9 +24,12 @@ export async function GET() {
         return (
           slug !== 'home' &&
           slug !== 'accueil' &&
+          slug !== 'certifications' &&
+          slug !== 'partenaires' &&
           slug !== '' &&
           title !== 'home' &&
-          title !== 'accueil'
+          title !== 'accueil' &&
+          !title.includes('partenaires & certifications')
         );
       })
       .map((p) => ({

@@ -538,8 +538,9 @@ export async function ensureCompleteSeed(payload: Payload) {
             ],
           },
           {
-            title: 'Partenaires & Certifications',
-            slug: 'certifications',
+            title: 'Partenaires Technologiques',
+            slug: 'partenaires',
+            addToNav: false,
             layout: [
               {
                 blockType: 'hero',
