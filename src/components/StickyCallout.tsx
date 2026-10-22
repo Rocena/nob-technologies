@@ -1,16 +1,14 @@
 'use client';
 
 import { useEffect, useCallback, useState } from 'react';
-import Link from 'next/link';
-import { Phone, ArrowRight, X } from 'lucide-react';
-import { useQuoteModal } from '@/components/EngineerModalContext';
+import { GlowButton } from '@/components/GlowButton';
 
 export default function StickyCallout() {
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
-  const { openQuoteModal } = useQuoteModal();
 
   useEffect(() => {
+    // Check sessionStorage on mount
     if (typeof window !== 'undefined') {
       const wasDismissed = sessionStorage.getItem('stickyCalloutDismissed') === 'true';
       if (wasDismissed) setDismissed(true);
@@ -21,7 +19,7 @@ export default function StickyCallout() {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = docHeight > 0 ? scrollTop / docHeight : 0;
-    setVisible(progress >= 0.35);
+    setVisible(progress >= 0.4);
   }, []);
 
   useEffect(() => {
@@ -39,62 +37,55 @@ export default function StickyCallout() {
   return (
     <div
       role="complementary"
-      aria-label="Accès rapide devis et ingénieur"
+      aria-label="Démarrer un projet"
       className={[
-        'fixed bottom-4 left-4 sm:bottom-6 sm:left-6 right-20 sm:right-auto z-40 max-w-md',
-        'rounded-2xl border border-white/15',
-        'bg-[#020617]/95 backdrop-blur-xl shadow-corporate-floating',
-        'transition-all duration-300 ease-out',
+        'fixed bottom-0 left-0 right-0 z-40',
+        'border-t border-white/10',
+        'bg-[#020617]/95 backdrop-blur-md',
+        'transition-all duration-500 ease-out',
         visible
           ? 'opacity-100 translate-y-0 pointer-events-auto'
-          : 'opacity-0 translate-y-6 pointer-events-none',
+          : 'opacity-0 translate-y-full pointer-events-none',
       ].join(' ')}
     >
-      <div className="px-4 py-3 flex items-center justify-between gap-3">
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
-            <p className="text-xs sm:text-sm font-bold text-white truncate">
-              Un projet réseau, sécurité ou ERP ?
-            </p>
-          </div>
-          <p className="text-[11px] text-slate-400 truncate mt-0.5 hidden sm:block">
-            Devis détaillé &amp; réponse d&apos;un ingénieur sous 24h.
+      <div className="max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-6">
+        <div className="text-center sm:text-left">
+          <p className="text-sm sm:text-base font-medium text-white">
+            Besoin d&apos;une solution informatique sur mesure&nbsp;?
+          </p>
+          <p className="text-xs sm:text-sm text-white/50 hidden sm:block">
+            Nos experts répondent sous 24h.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 shrink-0">
-          <a
-            href="tel:+221773010838"
-            title="Appeler le +221 77 301 08 38"
-            className="hidden md:inline-flex items-center justify-center w-8 h-8 rounded-xl bg-white/5 hover:bg-emerald-500/20 text-emerald-400 border border-white/10 hover:border-emerald-500/40 transition-colors"
-          >
-            <Phone className="w-3.5 h-3.5" />
-          </a>
-
-          <button
-            type="button"
-            onClick={() => openQuoteModal()}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#00D4FF] hover:bg-[#38BDF8] text-[#020617] font-bold text-xs transition-all cursor-pointer shadow-sm"
-          >
-            <span>Devis 24h</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-
-          <Link
+        <div className="flex items-center gap-4">
+          <GlowButton
             href="/contact"
-            className="hidden sm:inline-flex items-center px-2.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 text-xs font-semibold border border-white/10 transition-colors"
+            className="!h-10 !px-6 !text-sm"
           >
-            Contact
-          </Link>
+            Démarrer un projet
+          </GlowButton>
 
           <button
-            type="button"
             onClick={dismiss}
             aria-label="Fermer"
-            className="p-1 text-slate-400 hover:text-white transition-colors rounded-lg hover:bg-white/10 shrink-0 cursor-pointer"
+            className="text-white/40 hover:text-white/80 transition-colors flex-shrink-0"
           >
-            <X className="w-4 h-4" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg>
           </button>
         </div>
       </div>
