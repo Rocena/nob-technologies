@@ -138,11 +138,6 @@ export default function EtudesDeCasPage() {
                 className="mb-8"
               />
 
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-800 text-cyan-400 text-xs font-mono font-bold uppercase tracking-wider mb-6">
-                <Target className="w-3.5 h-3.5" />
-                <span>Analyses Techniques & Métriques Vérifiées</span>
-              </div>
-
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15] mb-6">
                 Études de Cas &{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">

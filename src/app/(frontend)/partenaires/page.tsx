@@ -247,20 +247,22 @@ export default function PartenairesPage() {
               </p>
             </FadeUp>
 
-            {/* Badges */}
+            {/* Key Commitments */}
             <FadeUp delay={0.3}>
-              <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
+              <div className="mt-10 pt-8 border-t border-white/10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-medium text-slate-300">
+                <div className="flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-cyan-400" />
-                  Intégrations officielles certifiées
+                  <span>Intégrations officielles certifiées</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
-                  <Award className="w-4 h-4 text-emerald-400" />
-                  Vente de licences officielles (ESD &amp; CSP)
+                <span className="hidden sm:inline text-slate-600">&bull;</span>
+                <div className="flex items-center gap-2">
+                  <Award className="w-4 h-4 text-cyan-400" />
+                  <span>Vente de licences officielles (ESD &amp; CSP)</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
-                  <Cpu className="w-4 h-4 text-blue-400" />
-                  Support technique &amp; maintenance 24/7
+                <span className="hidden sm:inline text-slate-600">&bull;</span>
+                <div className="flex items-center gap-2">
+                  <Cpu className="w-4 h-4 text-cyan-400" />
+                  <span>Support technique &amp; maintenance 24/7</span>
                 </div>
               </div>
             </FadeUp>
@@ -287,7 +289,7 @@ export default function PartenairesPage() {
                   <div className={`h-full rounded-2xl bg-gradient-to-b from-white/10 to-white/5 border ${partner.border} p-7 md:p-8 flex flex-col justify-between shadow-xl backdrop-blur-sm relative overflow-hidden group hover:border-cyan-400/80 transition-all duration-300`}>
                     <div className="relative z-10">
                       <div className="flex items-center justify-between mb-4">
-                        <span className="text-[11px] font-mono font-bold tracking-wider px-2.5 py-1 rounded bg-black/40 border border-white/10 text-cyan-300">
+                        <span className="text-[11px] font-mono font-bold tracking-wider uppercase text-cyan-300">
                           {partner.badge}
                         </span>
                         <a
@@ -366,7 +368,7 @@ export default function PartenairesPage() {
                   >
                     <div>
                       <div className="flex items-center justify-between mb-3">
-                        <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-black tracking-widest border bg-white dark:bg-slate-800 text-cyan-700 dark:text-cyan-400 border-slate-200 dark:border-slate-700">
+                        <span className="text-[10.5px] font-bold uppercase tracking-widest text-cyan-700 dark:text-cyan-400">
                           {partner.badge}
                         </span>
                         {partner.url && (

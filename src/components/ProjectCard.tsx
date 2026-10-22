@@ -32,7 +32,7 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
     <div className="group flex flex-col bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-slate-300 transition-all duration-300 overflow-hidden">
       {/* Top Corporate Metadata Bar */}
       <div className="px-5 py-3.5 bg-slate-50/80 border-b border-slate-100 flex items-center justify-between gap-3">
-        <span className="text-[11px] font-semibold tracking-wide uppercase text-slate-700 bg-white px-2.5 py-1 rounded-md border border-slate-200/80 shadow-2xs">
+        <span className="text-[11px] font-semibold tracking-wide uppercase text-slate-600">
           {project.sector || "Ingénierie & Systèmes"}
         </span>
 
@@ -47,12 +47,7 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
               className="max-h-4.5 max-w-[85px] w-auto h-auto object-contain"
             />
           </div>
-        ) : (
-          <div className="flex items-center gap-1.5 text-[11px] font-medium text-emerald-700 bg-emerald-50/80 px-2.5 py-0.5 rounded-md border border-emerald-200/60">
-            <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
-            <span>Déployé</span>
-          </div>
-        )}
+        ) : null}
       </div>
 
       {/* Visual / Screenshot Area */}
@@ -72,12 +67,6 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
             <p className="text-xs font-semibold">{project.title}</p>
           </div>
         )}
-
-        {/* Status Badge */}
-        <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-slate-950/80 backdrop-blur-md text-white text-[10.5px] font-medium border border-slate-800 flex items-center gap-1.5 shadow-md">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-          <span>Infrastructure Active</span>
-        </div>
 
         {/* Direct link button if website */}
         {project.websiteUrl && (

@@ -1043,19 +1043,12 @@ export function ChatBot() {
             <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#00D4FF]/25 to-[#0284c7]/35 border border-[#00D4FF]/50 flex items-center justify-center p-0.5 shadow-md">
               <AssistantAvatar className="w-9 h-9" />
             </div>
-            {/* L'unique point vert indiquant la présence en ligne */}
-            <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#020617]" />
           </div>
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5 flex-wrap">
               <span className="text-sm font-bold text-white leading-tight">Koffi</span>
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#00D4FF]/10 text-[#00D4FF] font-semibold border border-[#00D4FF]/25">
-                NOBTECH
-              </span>
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/5 text-slate-300 border border-white/10" title="Identifiant de session">
-                #{sessionId}
-              </span>
+              <span className="text-xs text-slate-400">&bull; NOBTECH</span>
             </div>
             <div className="text-[11px] text-slate-400 font-sans mt-0.5 truncate">
               {visitor.name ? (
@@ -1063,7 +1056,7 @@ export function ChatBot() {
                   À votre écoute, <strong className="text-slate-200 font-medium">{visitor.name.split(' ')[0]}</strong>
                 </span>
               ) : (
-                <span>Conseiller en ligne · À votre écoute</span>
+                <span>Conseiller virtuel · À votre écoute</span>
               )}
             </div>
           </div>
@@ -1330,10 +1323,6 @@ export function ChatBot() {
               <div className="w-12 h-12 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-3">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
-
-              <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-400 mb-2">
-                Discussion terminée
-              </span>
 
               <h3 className="text-base font-bold text-white">
                 Merci pour votre échange{visitor.name ? `, ${visitor.name.split(' ')[0]}` : ''} !

@@ -261,14 +261,6 @@ export default async function ProjectsPage() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-cyan-100/80 text-cyan-800 border border-cyan-200">
-                  Satisfaction 100% Client
-                </span>
-                <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-emerald-100/80 text-emerald-800 border border-emerald-200">
-                  100% En Production
-                </span>
-              </div>
             </div>
           </Container>
         </Section>

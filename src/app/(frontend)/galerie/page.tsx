@@ -66,16 +66,17 @@ export default async function GaleriePage() {
               </p>
             </FadeUp>
 
-            {/* Quality Badges */}
+            {/* Quality Summary */}
             <FadeUp delay={0.3}>
-              <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
+              <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center justify-center gap-6 text-xs font-medium text-slate-300">
+                <div className="flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-cyan-400" />
-                  Câblage certifié Cat 6A / 7
+                  <span>Câblage certifié Cat 6A / 7</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  Baies normalisées 19 pouces
+                <span className="text-slate-600">&bull;</span>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-cyan-400" />
+                  <span>Baies normalisées 19 pouces</span>
                 </div>
               </div>
             </FadeUp>

@@ -83,14 +83,10 @@ export function ServicesCatalogView({ services }: { services: SerializedServiceI
       {/* Interactive Filter, Search & Display Mode Toolbar */}
       <div className="bg-white dark:bg-[#0b1329] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-4 sm:p-5 shadow-corporate-elevated">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          {/* Category Filter Pills */}
+          {/* Category Filter Tabs */}
           <div className="flex items-center gap-1.5 overflow-x-auto custom-scrollbar pb-1 lg:pb-0">
             {FILTER_TABS.map((tab) => {
               const isActive = activeTab === tab.id;
-              const count =
-                tab.id === 'all'
-                  ? services.length
-                  : services.filter((s) => s.group === tab.id).length;
 
               return (
                 <button
@@ -105,16 +101,6 @@ export function ServicesCatalogView({ services }: { services: SerializedServiceI
                   )}
                 >
                   <span>{tab.label}</span>
-                  <span
-                    className={cn(
-                      'text-[11px] px-1.5 py-0.2 rounded-full font-bold',
-                      isActive
-                        ? 'bg-white/20 text-white dark:bg-slate-950/20 dark:text-slate-950'
-                        : 'bg-slate-200/80 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
-                    )}
-                  >
-                    {count}
-                  </span>
                 </button>
               );
             })}
@@ -218,10 +204,6 @@ export function ServicesCatalogView({ services }: { services: SerializedServiceI
                     <div className="w-11 h-11 rounded-xl bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-100 dark:border-cyan-800/80 flex items-center justify-center text-cyan-600 dark:text-cyan-400 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-all duration-300">
                       <Icon className="w-5 h-5" />
                     </div>
-
-                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-slate-100/80 dark:bg-slate-800/70 px-2.5 py-1 rounded-full">
-                      {service.category}
-                    </span>
                   </div>
 
                   <Link href={`/services/${service.slug}`} className="block">
@@ -251,15 +233,8 @@ export function ServicesCatalogView({ services }: { services: SerializedServiceI
                 {/* Partners / Tech stack tags & Actions */}
                 <div>
                   {service.partners && service.partners.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mb-4 pt-3 border-t border-slate-100 dark:border-slate-800">
-                      {service.partners.map((p, i) => (
-                        <span
-                          key={i}
-                          className="text-[11px] font-medium text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800/90 px-2.5 py-0.5 rounded-md"
-                        >
-                          {p}
-                        </span>
-                      ))}
+                    <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-4 pt-3 border-t border-slate-100 dark:border-slate-800">
+                      {service.partners.join(' • ')}
                     </div>
                   )}
 
@@ -300,19 +275,14 @@ export function ServicesCatalogView({ services }: { services: SerializedServiceI
                     <Icon className="w-5 h-5" />
                   </div>
                   <div className="space-y-1.5">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/60 px-2.5 py-0.5 rounded-full">
-                        {service.category}
-                      </span>
-                      {service.partners &&
-                        service.partners.map((p, i) => (
-                          <span
-                            key={i}
-                            className="text-[11px] font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded"
-                          >
-                            {p}
-                          </span>
-                        ))}
+                    <div className="text-[11px] font-semibold uppercase tracking-wider text-cyan-700 dark:text-cyan-400">
+                      {service.category}
+                      {service.partners && service.partners.length > 0 && (
+                        <span className="text-slate-400 dark:text-slate-500 font-normal normal-case tracking-normal">
+                          {' '}
+                          &bull; {service.partners.join(' • ')}
+                        </span>
+                      )}
                     </div>
                     <Link href={`/services/${service.slug}`} className="block">
                       <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">

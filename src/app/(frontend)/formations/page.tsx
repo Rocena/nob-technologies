@@ -72,24 +72,22 @@ export default async function FormationsCatalogPage() {
               </p>
             </FadeUp>
 
-            {/* Badges */}
+            {/* Key Highlights Bar */}
             <FadeUp delay={0.3}>
-              <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
+              <div className="mt-10 pt-8 border-t border-white/10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-medium text-slate-300">
+                <div className="flex items-center gap-2">
                   <GraduationCap className="w-4 h-4 text-cyan-400" />
-                  11 Formations &amp; Modules Pratiques
+                  <span>11 Formations &amp; Modules Pratiques</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-950/40 border border-cyan-500/30 text-xs text-cyan-300">
+                <span className="hidden sm:inline text-slate-600">&bull;</span>
+                <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-cyan-400" />
-                  Rythme allégé : max 6h / semaine (soirs ou samedis)
+                  <span>Rythme flexible : max 6h / semaine (soirs ou samedis)</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
-                  <Terminal className="w-4 h-4 text-emerald-400" />
-                  Labs pratiques sur matériel réel à Dakar
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">
-                  <ShieldCheck className="w-4 h-4 text-blue-400" />
-                  Entreprises &bull; Bootcamps &bull; Particuliers
+                <span className="hidden sm:inline text-slate-600">&bull;</span>
+                <div className="flex items-center gap-2">
+                  <Terminal className="w-4 h-4 text-cyan-400" />
+                  <span>Labs pratiques sur matériel réel à Dakar</span>
                 </div>
               </div>
             </FadeUp>

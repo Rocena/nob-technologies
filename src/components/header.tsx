@@ -517,9 +517,6 @@ export function Header() {
                             <span className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
                               {getHeaderCategoryLabel(activeNavItem.id || activeNavItem.name)}
                             </span>
-                            <span className="text-[11px] text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 border border-slate-200/70 dark:border-slate-700 px-2 py-0.5 rounded-full font-medium">
-                              {activeNavItem.children.length} rubriques
-                            </span>
                           </div>
                           <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">
                             {activeNavItem.desc}
@@ -597,10 +594,8 @@ export function Header() {
                         <div className="col-span-4 p-5 bg-slate-50/60 dark:bg-slate-900/50 flex flex-col justify-between">
                           <div className="rounded-xl bg-white dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 p-4.5 border border-slate-200/90 dark:border-slate-700/80 shadow-xs relative overflow-hidden flex-1 flex flex-col justify-between">
                             <div className="relative z-10">
-                              <div className="flex items-center justify-between gap-2 mb-3">
-                                <span className="inline-flex items-center text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700/70 border border-slate-200/80 dark:border-slate-600/60 px-2.5 py-0.5 rounded-md">
-                                  {hoveredSubItem?.tag || activeSpotlight.badge}
-                                </span>
+                              <div className="text-[10.5px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-400 mb-1.5">
+                                {hoveredSubItem?.tag || activeSpotlight.badge}
                               </div>
 
                               <h5 className="text-sm font-bold text-slate-900 dark:text-white leading-snug">
@@ -691,7 +686,7 @@ export function Header() {
                           Échangez avec un ingénieur Nob Technologies
                         </h5>
                       </div>
-                      <span className="inline-flex items-center text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                      <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
                         Réponse sous 24h
                       </span>
                     </div>

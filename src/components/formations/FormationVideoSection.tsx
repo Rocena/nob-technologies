@@ -76,7 +76,6 @@ export function FormationVideoSection({
                 </span>
               </div>
               <div className="flex items-center gap-2 text-cyan-400 font-medium">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block" />
                 <span>Cas Réels &bull; Prévention Phishing</span>
               </div>
             </div>
@@ -97,17 +96,6 @@ export function FormationVideoSection({
                   
                   {/* Dark Vignette Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/30" />
-
-                  {/* Corner Badges */}
-                  <div className="absolute top-4 left-4 z-10 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/85 backdrop-blur-md border border-white/10 text-xs text-slate-200">
-                    <ShieldCheck className="w-3.5 h-3.5 text-[#00D4FF]" />
-                    <span>Sensibilisation Phishing &bull; Dakar</span>
-                  </div>
-
-                  <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-600/90 backdrop-blur-md text-white text-xs font-bold tracking-wide">
-                    <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                    <span>EXTRAIT VIDÉO EN DIRECT</span>
-                  </div>
 
                   {/* Central Interactive Play Button */}
                   <button

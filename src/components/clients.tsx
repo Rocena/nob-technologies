@@ -290,12 +290,9 @@ export function Clients({ clients = [] }: { clients: any[] }) {
                 title={`Visiter le site officiel de ${brand.name}`}
                 className="group relative bg-white hover:bg-slate-50/90 dark:bg-[#0b1329] dark:hover:bg-[#0f1d3d] rounded-2xl border border-slate-200/90 hover:border-cyan-500/80 dark:border-slate-800 dark:hover:border-cyan-400 p-3.5 sm:p-4 flex flex-col justify-between items-center text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1 h-full min-h-[140px]"
               >
-                {/* Top Badge & External Link Icon */}
-                <div className="w-full flex items-center justify-between gap-1 mb-2.5">
-                  <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700 group-hover:bg-cyan-50 dark:group-hover:bg-cyan-950/60 group-hover:text-cyan-700 dark:group-hover:text-cyan-300 group-hover:border-cyan-200 dark:group-hover:border-cyan-800 transition-colors truncate max-w-[85px]">
-                    {brand.badge}
-                  </span>
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-cyan-600 transition-colors opacity-70 group-hover:opacity-100 shrink-0" />
+                {/* Top External Link Icon */}
+                <div className="w-full flex items-center justify-end mb-1.5">
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-cyan-600 transition-colors opacity-60 group-hover:opacity-100 shrink-0" />
                 </div>
 
                 {/* Real Authentic Logo with dark mode contrast backing */}
@@ -351,12 +348,10 @@ export function Clients({ clients = [] }: { clients: any[] }) {
                 >
                   {/* Top sector & quick view indicator */}
                   <div className="w-full flex items-center justify-between gap-2 mb-3">
-                    <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border truncate max-w-[130px] ${client.badgeColor}`}>
+                    <span className="text-[10.5px] font-semibold uppercase tracking-wide text-slate-500 truncate">
                       {client.sector}
                     </span>
-                    <span className="w-6 h-6 rounded-full bg-slate-100 group-hover:bg-cyan-50 text-slate-400 group-hover:text-cyan-600 border border-slate-200/70 group-hover:border-cyan-200 flex items-center justify-center shrink-0 transition-colors">
-                      <Eye className="w-3 h-3" />
-                    </span>
+                    <Eye className="w-3.5 h-3.5 text-slate-400 group-hover:text-cyan-600 shrink-0 transition-colors" />
                   </div>
 
                   {/* Logo Center Frame */}
@@ -441,11 +436,12 @@ export function Clients({ clients = [] }: { clients: any[] }) {
                     </div>
 
                     <div className="mt-4">
-                      <div className="flex flex-wrap items-center gap-2 mb-2">
-                        <span className="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border bg-white/10 text-cyan-300 border-cyan-400/30">
+                      <div className="flex flex-wrap items-center gap-2 mb-2 text-xs text-slate-300 font-medium">
+                        <span className="text-cyan-300 font-semibold uppercase tracking-wider text-[11px]">
                           {selectedClient.sector}
                         </span>
-                        <span className="inline-flex items-center gap-1 text-[11px] text-slate-300 font-medium">
+                        <span className="text-slate-600">&bull;</span>
+                        <span className="inline-flex items-center gap-1 text-[11px] text-slate-300">
                           <MapPin className="w-3 h-3 text-cyan-400" />
                           {selectedClient.location}
                         </span>

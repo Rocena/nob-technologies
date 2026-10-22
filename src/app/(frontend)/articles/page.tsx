@@ -56,10 +56,7 @@ export default async function ArticlesPage() {
 
               {/* Key Stats Bar */}
               <div className="mt-10 pt-8 border-t border-white/10 flex flex-wrap items-center justify-center gap-8 sm:gap-14 text-xs font-mono text-slate-400">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span>{articles.length} ANALYSES PUBLIÉES</span>
-                </div>
+                <div>{articles.length} ANALYSES PUBLIÉES</div>
                 <div>•</div>
                 <div>EXPÉRIENCE TERRAIN 100% VÉRIFIÉE</div>
                 <div className="hidden sm:block">•</div>

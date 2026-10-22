@@ -120,10 +120,6 @@ export default async function ContactPage({
               <FadeUp className="lg:col-span-5 space-y-6">
                 <div className="bg-white dark:bg-[#0b1329] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-6 sm:p-7 shadow-corporate-elevated space-y-5">
                   <div>
-                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-700 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/60 px-3 py-1 rounded-full mb-3">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                      Siège Dakar &bull; Lignes Directes
-                    </span>
                     <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                       Coordonnées directes
                     </h2>
