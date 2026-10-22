@@ -267,7 +267,7 @@ export function Clients({ clients = [] }: { clients: any[] }) {
             <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold flex items-center justify-center gap-2 flex-wrap">
               <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">&gt;<span className="text-[#10E760] animate-pulse">_</span></span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
-                ÉCOSYSTÈME TECHNOLOGIQUE INTERNATIONAL
+                CONSTRUCTEURS &amp; ÉDITEURS &bull; PARTENARIATS CERTIFIÉS
               </span>
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-3">
