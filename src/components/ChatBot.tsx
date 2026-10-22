@@ -17,6 +17,8 @@ import {
   LogOut,
   Sparkles,
   MessageSquare,
+  Maximize2,
+  Minimize2,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -536,6 +538,7 @@ export function ChatBot() {
   const [isEndingSession, setIsEndingSession] = useState<boolean>(false);
   const [rating, setRating] = useState<number | null>(null);
   const [unreadCount, setUnreadCount] = useState<number>(0);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   // Visitor contact state
   const [visitor, setVisitor] = useState<VisitorProfile>({
@@ -1021,18 +1024,21 @@ export function ChatBot() {
       {/* Corporate Chat Widget Container */}
       <div
         className={cn(
-          'fixed bottom-20 right-3 sm:bottom-24 sm:right-8 z-[140] w-[calc(100vw-24px)] max-w-[410px] sm:w-[410px] rounded-2xl border border-white/10 shadow-[0_24px_64px_rgba(0,0,0,0.65)] backdrop-blur-xl bg-[#020617]/95 flex flex-col overflow-hidden transition-all duration-300 origin-bottom-right',
+          'fixed bottom-20 right-3 sm:bottom-24 sm:right-6 z-[140] w-[calc(100vw-24px)] rounded-2xl border border-white/15 shadow-[0_24px_64px_rgba(0,0,0,0.7),0_0_0_1px_rgba(0,212,255,0.08)] backdrop-blur-xl bg-[#020617]/95 flex flex-col overflow-hidden transition-all duration-300 origin-bottom-right',
+          isExpanded
+            ? 'max-w-[520px] sm:w-[520px]'
+            : 'max-w-[420px] sm:w-[420px]',
           open
             ? 'opacity-100 scale-100 pointer-events-auto translate-y-0'
             : 'opacity-0 scale-95 pointer-events-none translate-y-4'
         )}
-        style={{ height: '560px', maxHeight: '84vh' }}
+        style={{ height: isExpanded ? '660px' : '560px', maxHeight: '84vh' }}
         role="dialog"
         aria-label="Discussion avec Koffi, conseiller virtuel NOBTECH"
         aria-modal="false"
       >
         {/* Corporate Header */}
-        <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10 bg-gradient-to-r from-[#0A2540]/80 via-[#020617] to-[#0A2540]/80 shrink-0">
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10 bg-gradient-to-r from-[#0A2540]/85 via-[#020617] to-[#0A2540]/85 shrink-0">
           <div className="relative">
             <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#00D4FF]/25 to-[#0284c7]/35 border border-[#00D4FF]/50 flex items-center justify-center p-0.5 shadow-md">
               <AssistantAvatar className="w-9 h-9" />
@@ -1062,18 +1068,28 @@ export function ChatBot() {
             </div>
           </div>
 
-          {/* Header Controls: WhatsApp direct + Minimize (—) + Terminer (✕) */}
-          <div className="flex items-center gap-1.5 shrink-0">
+          {/* Header Controls: WhatsApp direct + Expand/Compact + Minimize (—) + Terminer (✕) */}
+          <div className="flex items-center gap-1 shrink-0">
             <a
               href={`https://wa.me/221773010838?text=Bonjour,%20j'%C3%A9changeais%20sur%20le%20site%20NOBTECH%20(R%C3%A9f.%20%23${sessionId})%20et%20je%20souhaite%20parler%20%C3%A0%20un%20ing%C3%A9nieur`}
               target="_blank"
               rel="noopener noreferrer"
               title="Échanger avec un ingénieur sur WhatsApp"
-              className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[#25D366] text-white hover:bg-[#20bd5a] shadow-[0_2px_8px_rgba(37,211,102,0.35)] transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[#25D366] text-white hover:bg-[#20bd5a] shadow-[0_2px_8px_rgba(37,211,102,0.35)] transition-all cursor-pointer mr-0.5"
             >
               <WhatsAppIcon className="w-3.5 h-3.5 fill-current shrink-0" />
               <span>WhatsApp</span>
             </a>
+
+            <button
+              type="button"
+              onClick={() => setIsExpanded((v) => !v)}
+              title={isExpanded ? 'Mode standard' : 'Agrandir la fenêtre'}
+              className="hidden sm:inline-flex text-slate-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/10"
+              aria-label={isExpanded ? 'Mode standard' : 'Agrandir la fenêtre'}
+            >
+              {isExpanded ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
+            </button>
 
             <button
               type="button"
@@ -1098,6 +1114,28 @@ export function ChatBot() {
             )}
           </div>
         </div>
+
+        {/* Executive Quick-Action Strip (1-Click Navigation & Requests) */}
+        {phase === 'active' && (
+          <div className="px-3.5 py-2 bg-white/[0.02] border-b border-white/10 flex items-center gap-1.5 overflow-x-auto custom-scrollbar-dark shrink-0">
+            {[
+              { label: 'Devis sous 24h', prompt: 'Je souhaite obtenir un devis personnalisé sous 24h' },
+              { label: 'Audit Réseau & Sécurité', prompt: 'Comment réserver un audit réseau et cybersécurité sur site ?' },
+              { label: 'Formations & Tarifs', prompt: 'Quels sont vos programmes de formation et tarifs ?' },
+              { label: 'Parler à un ingénieur', prompt: 'Je souhaite être rappelé par un ingénieur' },
+            ].map((action) => (
+              <button
+                key={action.label}
+                type="button"
+                disabled={isTyping}
+                onClick={() => sendMessage(action.prompt)}
+                className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-white/[0.04] hover:bg-[#00D4FF]/15 text-slate-300 hover:text-[#00D4FF] border border-white/10 hover:border-[#00D4FF]/40 transition-colors whitespace-nowrap shrink-0 cursor-pointer disabled:opacity-50"
+              >
+                {action.label}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* PHASE 2: ACTIVE CHAT SESSION */}
         {phase === 'active' && (
@@ -1150,7 +1188,7 @@ export function ChatBot() {
             )}
 
             {/* Messages list */}
-            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3.5 scrollbar-thin scrollbar-thumb-white/10">
+            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3.5 custom-scrollbar-dark">
               {messages.map((msg, i) => (
                 <div
                   key={msg.id}
@@ -1166,10 +1204,10 @@ export function ChatBot() {
                   )}
                   <div
                     className={cn(
-                      'max-w-[82%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed',
+                      'max-w-[84%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed text-pretty',
                       msg.role === 'user'
                         ? 'bg-[#00D4FF] text-[#020617] rounded-tr-sm font-medium shadow-sm'
-                        : 'bg-white/[0.06] text-slate-200 rounded-tl-sm border border-white/10'
+                        : 'bg-white/[0.06] text-slate-200 rounded-tl-sm border border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.2)]'
                     )}
                   >
                     <div className="whitespace-pre-line">{renderText(msg.text)}</div>

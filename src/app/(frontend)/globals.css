@@ -22,6 +22,21 @@
   --success: #10E760;
   --warning: #F59E0B;
   --error: #EF4444;
+
+  /* Standard Scrollbar Tokens (modern-web-guidance: customize-scrollbar-color-and-thickness) */
+  --scrollbar-thumb: #94A3B8;
+  --scrollbar-track: #F1F5F9;
+
+  /* Progressive Color Space Interpolation Fallbacks (modern-web-guidance: visual-effects) */
+  --in-oklab: ;
+  --in-oklch: ;
+}
+
+@supports (background: linear-gradient(in oklab, white, black)) {
+  :root {
+    --in-oklab: in oklab;
+    --in-oklch: in oklch;
+  }
 }
 
 @theme inline {
@@ -48,9 +63,81 @@
   --animate-spin-slow: spin 4s linear infinite;
 }
 
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
 body {
   background: var(--background);
   color: var(--text);
+}
+
+/* ==========================================================================
+   TYPOGRAPHIC BALANCE & LEGIBILITY (modern-web-guidance: improve-text-layout-and-legibility)
+   Targeted to headings and body copy to eliminate orphan words without layout thrashing
+   ========================================================================== */
+h1,
+h2,
+h3,
+.text-balance {
+  text-wrap: balance;
+}
+
+main p,
+article p,
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* ==========================================================================
+   CUSTOM SCROLLBARS (modern-web-guidance: customize-scrollbar-color-and-thickness)
+   Standard W3C CSS Scrollbars Level 1 with progressive WebKit fallback
+   ========================================================================== */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+.custom-scrollbar-dark {
+  --scrollbar-thumb: rgba(148, 163, 184, 0.35);
+  --scrollbar-track: rgba(2, 6, 23, 0.4);
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+@supports not (scrollbar-color: auto) {
+  .custom-scrollbar::-webkit-scrollbar,
+  .custom-scrollbar-dark::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track,
+  .custom-scrollbar-dark::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb,
+  .custom-scrollbar-dark::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 9999px;
+  }
+}
+
+/* ==========================================================================
+   REALISTIC LAYERED DEPTH SHADOWS & INTERPOLATED GRADIENTS (modern-web-guidance: visual-effects)
+   ========================================================================== */
+.shadow-corporate-elevated {
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 8px 24px -4px rgba(15, 23, 42, 0.08),
+    0 20px 48px -12px rgba(15, 23, 42, 0.12);
+}
+
+.shadow-corporate-floating {
+  box-shadow:
+    0 0 0 1px rgba(15, 23, 42, 0.06),
+    0 4px 12px rgba(15, 23, 42, 0.08),
+    0 24px 60px -12px rgba(15, 23, 42, 0.22);
 }
 
 @keyframes shimmer { 100% { transform: translateX(100%); } }
@@ -70,6 +157,8 @@ body {
     --text: #F8FAFC;
     --muted: #94A3B8;
     --border: #1E293B;
+    --scrollbar-thumb: #334155;
+    --scrollbar-track: #020617;
   }
 
   body {

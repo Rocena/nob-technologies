@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { 
   Menu, X, ArrowRight, Phone, Mail, Layers, Globe, Star, Info, ChevronDown, Camera,
   ShieldCheck, Network, Cpu, Code2, PhoneCall, Server, GraduationCap, Award, ShieldAlert, Sparkles,
-  Building2, Newspaper, HelpCircle, Users, Smartphone, MapPin, FileText, Activity, Lock
+  Building2, Newspaper, HelpCircle, Users, Smartphone, MapPin, Activity, Lock, CalendarCheck, MessageSquare
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AnimatedLogo } from "./AnimatedLogo";
@@ -36,48 +37,54 @@ interface SpotlightInfo {
   linkText: string;
   href: string;
   tag: string;
+  highlights: string[];
 }
 
 const SPOTLIGHTS: Record<string, SpotlightInfo> = {
   solutions: {
-    badge: "AUDIT SUR SITE",
+    badge: "INTERVENTION SUR SITE",
     title: "Diagnostic Réseau & Sécurité",
-    desc: "Évaluation de vos baies, pare-feux et conformité réglementaire CDP sous 24h à 48h.",
-    linkText: "Réserver un audit",
+    desc: "Inspection complète de vos baies, pare-feux et conformité réglementaire CDP sous 24h à 48h.",
+    linkText: "Planifier un audit sur site",
     href: "/reserver-audit",
     tag: "Dakar & Régions",
+    highlights: ["Rapport d'audit détaillé", "Tests de charge & failover", "Plan de remédiation chiffré"],
   },
   formations: {
-    badge: "PROGRAMMES 2025",
-    title: "Fortinet NSE 4 & Cisco CCNA",
-    desc: "Sessions intensives sur bancs physiques et préparation aux examens internationaux.",
-    linkText: "Découvrir les cursus",
+    badge: "CURSUS CERTIFIANTS",
+    title: "Fortinet NSE 4, Cisco CCNA & Power BI",
+    desc: "Sessions pratiques sur équipements physiques à Dakar et préparation intensive aux examens.",
+    linkText: "Explorer le catalogue",
     href: "/formations",
-    tag: "Certifications Officielles",
+    tag: "Certifications Internationales",
+    highlights: ["Labs sur matériel réel", "Rythme soir ou week-end", "Coaching jusqu'à l'examen"],
   },
   partenaires: {
-    badge: "ALLIANCES STRATÉGIQUES",
-    title: "Constructeurs Mondiaux",
-    desc: "Partenariats certifiés Sophos, Fortinet, Cisco, Dell Technologies & Microsoft 365.",
-    linkText: "Consulter l'écosystème",
+    badge: "ALLIANCES CONSTRUCTEURS",
+    title: "Écosystème Technologique Certifié",
+    desc: "Déploiement officiel Sophos, Fortinet, Cisco, Dell Technologies, Yeastar & Microsoft 365.",
+    linkText: "Voir nos accréditations",
     href: "/partenaires",
-    tag: "Support & Matériel Garanti",
+    tag: "Garantie Constructeur",
+    highlights: ["Licences CSP/ESD officielles", "Matériel garanti d'origine", "Support escalade niveau 3"],
   },
   realisations: {
-    badge: "RETOURS D'EXPÉRIENCE",
-    title: "Études de Cas & Chiffres Clés",
-    desc: "Analyses complètes : Union Européenne, SETER (TER), Polyclinique P2A, Parc Exotique.",
+    badge: "RÉFÉRENCES EN PRODUCTION",
+    title: "Études de Cas & Architectures",
+    desc: "Découvrez nos déploiements pour l'Union Européenne, la SETER (TER), P2A et le Parc Exotique.",
     linkText: "Consulter les études de cas",
     href: "/etudes-de-cas",
-    tag: "100% Résultats Prouvés",
+    tag: "Projets Livrés à 100%",
+    highlights: ["Indicateurs de disponibilité", "Photos réelles des baies", "Témoignages DSI & Directions"],
   },
   'a-propos': {
     badge: "CABINET D'INGÉNIERIE",
-    title: "À Propos de Nobtech",
-    desc: "Notre histoire, nos ingénieurs certifiés et nos standards d’excellence à Dakar.",
-    linkText: "Découvrir notre entreprise",
+    title: "L'Excellence IT au Sénégal",
+    desc: "Une équipe d'ingénieurs réseaux, sécurité et développeurs seniors mobilisés pour votre continuité.",
+    linkText: "Découvrir Nob Technologies",
     href: "/a-propos",
-    tag: "Excellence & Proximité",
+    tag: "Proximité & Réactivité",
+    highlights: ["Astreinte technique 24/7", "SLA contractuel garanti", "Basé Route de l'Aéroport, Dakar"],
   },
 };
 
@@ -91,11 +98,11 @@ const DEFAULT_NAV: NavItem[] = [
     children: [
       { name: 'Cybersécurité & Firewalls', href: '/services/cybersecurite', desc: 'Protection périmétrique Sophos & Fortinet, audits et SOC managé', tag: 'Sophos • Fortinet' },
       { name: 'Réseaux & Câblage', href: '/services/reseaux-telecoms', desc: 'Câblage structuré cat 6A/7, fibre optique, Cisco & HPE Aruba', tag: 'Cat 6A • Fibre • Cisco' },
-      { name: 'Réserver un Audit Réseau', href: '/reserver-audit', desc: 'Diagnostic complet sur site : baies, règles de filtrage et rapport de conformité', tag: 'Intervention 24h' },
+      { name: 'Réserver un Audit Réseau', href: '/reserver-audit', desc: 'Diagnostic complet sur site : baies, règles de filtrage et conformité', tag: 'Intervention 24h' },
       { name: 'ERP & Digitalisation', href: '/services/erp-digitalisation', desc: 'Intégration Dolibarr & Odoo, automatisation et workflows métiers', tag: 'Dolibarr • Odoo' },
       { name: 'Développement Web & Mobile', href: '/services/developpement-web-mobile', desc: 'Portails d’entreprise, applications sur-mesure & plateformes SaaS', tag: 'SaaS • Web & Mobile' },
       { name: 'Téléphonie IP & VoIP', href: '/services/telephone-ip', desc: 'Autocommutateurs IPBX Yeastar, communications unifiées & SIP', tag: 'Yeastar • IPBX & SIP' },
-      { name: 'Matériel & Licences IT', href: '/services/vente-materiels-licences', desc: 'Serveurs Dell EMC, baies de serveurs et licences Microsoft 365', tag: 'Dell EMC • Microsoft 365' },
+      { name: 'Matériel & Licences IT', href: '/services/vente-materiels-licences', desc: 'Serveurs Dell EMC, baies de brassage et licences Microsoft 365', tag: 'Dell EMC • Microsoft 365' },
     ]
   },
   { 
@@ -105,10 +112,10 @@ const DEFAULT_NAV: NavItem[] = [
     desc: 'Cursus d’immersion pratique et préparation aux certifications d’élite',
     order: 2,
     children: [
-      { name: 'Catalogue Formations', href: '/formations', desc: 'Cursus d’excellence et ateliers pratiques à Dakar (rythme flexible)', tag: 'Pratique & Certifications' },
-      { name: 'Préparation Certifications IT', href: '/formations/cisco-ccna', desc: 'Préparation officielle Cisco CCNA, Fortinet NSE, Sophos & CompTIA', tag: 'CCNA • NSE 4 • Sophos' },
+      { name: 'Catalogue Formations', href: '/formations', desc: 'Cursus opérationnels et ateliers pratiques à Dakar (rythme flexible)', tag: 'Pratique & Certifications' },
+      { name: 'Certifications Réseaux & Sécurité', href: '/formations/cisco-ccna', desc: 'Préparation officielle Cisco CCNA, Fortinet NSE, Sophos & CompTIA', tag: 'CCNA • NSE 4 • Sophos' },
       { name: 'Business Intelligence & Power BI', href: '/formations/power-bi', desc: 'Modélisation DAX, tableaux de bord interactifs et reporting décisionnel', tag: 'Power BI • DAX' },
-      { name: 'Automatisation & IA', href: '/formations/initiation-intelligence-artificielle', desc: 'Workflows Make, scripting Python, agents IA et productivité', tag: 'Make • Python • IA' },
+      { name: 'Automatisation & IA', href: '/formations/initiation-intelligence-artificielle', desc: 'Workflows Make, scripting Python, agents IA et productivité métier', tag: 'Make • Python • IA' },
     ]
   },
   { 
@@ -119,7 +126,7 @@ const DEFAULT_NAV: NavItem[] = [
     order: 3,
     children: [
       { name: 'Partenaires Constructeurs', href: '/partenaires', desc: 'Alliances avec Sophos, Fortinet, Cisco, Dell, Microsoft 365, Acronis', tag: 'Constructeurs Mondiaux' },
-      { name: 'Secteurs d’Activité', href: '/secteurs', desc: 'Solutions spécialisées pour PME, Banques, Écoles, Hôpitaux & Commerces', tag: 'PME • Banques • Santé' },
+      { name: 'Secteurs d’Activité', href: '/secteurs', desc: 'Solutions dédiées pour Banques, Institutions, Santé, Industrie & PME', tag: 'PME • Banques • Santé' },
     ]
   },
   { 
@@ -129,9 +136,9 @@ const DEFAULT_NAV: NavItem[] = [
     desc: 'Déploiements d’infrastructures critiques et plateformes web en production',
     order: 4,
     children: [
-      { name: 'Études de Cas & Résultats', href: '/etudes-de-cas', desc: 'Analyses détaillées : défis, architectures déployées et métriques chiffrées', tag: 'Cas Clients Chiffrés' },
-      { name: 'Projets & Déploiements', href: '/realisations', desc: 'Présentation des chantiers : Union Européenne, SETER, P2A, Parc Exotique', tag: 'Références Terrain' },
-      { name: 'Galerie d’Installations', href: '/galerie', desc: 'Photos réelles de baies de brassage, salles serveurs et câblage', tag: '100% Photos Réelles' },
+      { name: 'Études de Cas & Résultats', href: '/etudes-de-cas', desc: 'Analyses détaillées : défis, architectures déployées et résultats', tag: 'Cas Clients Chiffrés' },
+      { name: 'Projets & Déploiements', href: '/realisations', desc: 'Chantiers livrés : Union Européenne, SETER, P2A, Parc Exotique', tag: 'Références Terrain' },
+      { name: 'Galerie d’Installations', href: '/galerie', desc: 'Photos réelles de nos baies de brassage, salles serveurs et câblages', tag: 'Photos Terrain' },
     ]
   },
   { 
@@ -141,10 +148,10 @@ const DEFAULT_NAV: NavItem[] = [
     desc: 'Présentation de Nob Technologies et de notre équipe d’ingénieurs',
     order: 5,
     children: [
-      { name: 'À Propos de Nobtech', href: '/a-propos', desc: 'Notre histoire, nos valeurs et nos standards d’excellence à Dakar', tag: 'Cabinet Dakar' },
-      { name: 'Actualités & Blog', href: '/articles', desc: 'Veille technologique, bonnes pratiques et annonces', tag: 'Veille & Actualités' },
-      { name: 'Foire Aux Questions (FAQ)', href: '/faq', desc: 'Réponses à vos questions sur les délais, contrats et garanties SLA', tag: 'SLA & Garanties' },
-      { name: 'Carrières & Recrutement', href: '/carrieres', desc: 'Rejoindre notre équipe d’ingénieurs réseaux et consultants IT', tag: 'Recrutement' },
+      { name: 'À Propos de Nobtech', href: '/a-propos', desc: 'Notre histoire, nos engagements et nos standards d’ingénierie à Dakar', tag: 'Cabinet Dakar' },
+      { name: 'Actualités & Articles', href: '/articles', desc: 'Analyses techniques, conseils en cybersécurité et vie du cabinet', tag: 'Veille & Analyses' },
+      { name: 'Foire Aux Questions (FAQ)', href: '/faq', desc: 'Modalités d’intervention, garanties matériel et contrats de support', tag: 'SLA & Garanties' },
+      { name: 'Carrières & Recrutement', href: '/carrieres', desc: 'Rejoignez notre équipe d’ingénieurs réseaux et développeurs', tag: 'Recrutement' },
     ]
   },
   { 
@@ -169,11 +176,11 @@ const getNavIcon = (name: string) => {
 
 const getHeaderCategoryLabel = (idOrName: string) => {
   const s = idOrName.toLowerCase();
-  if (s.includes('solution') || s.includes('service')) return "Solutions & Infrastructures d'Entreprise";
+  if (s.includes('solution') || s.includes('service')) return "Ingénierie & Infrastructures d'Entreprise";
   if (s.includes('format')) return "Programmes de Formation & Certifications";
   if (s.includes('partenaire')) return "Alliances Stratégiques & Constructeurs";
   if (s.includes('réalis') || s.includes('realis')) return "Déploiements & Références en Production";
-  if (s.includes('propos') || s.includes('entreprise')) return "Cabinet d'Ingénierie & Organisation";
+  if (s.includes('propos') || s.includes('entreprise')) return "Le Cabinet Nob Technologies";
   return idOrName;
 };
 
@@ -195,35 +202,20 @@ const getSubItemIcon = (name: string, href: string = "") => {
   if (n.includes('secteur')) return Globe;
   if (n.includes('galerie')) return Camera;
   if (n.includes('étude') || n.includes('etude') || n.includes('cas') || n.includes('projet') || n.includes('déploiement') || n.includes('realis')) return Layers;
-  if (n.includes('actualit') || n.includes('blog')) return Newspaper;
+  if (n.includes('actualit') || n.includes('blog') || n.includes('article')) return Newspaper;
   if (n.includes('faq') || n.includes('question')) return HelpCircle;
   if (n.includes('carrière') || n.includes('carriere') || n.includes('recrut')) return Users;
   if (n.includes('propos')) return Info;
   return ArrowRight;
 };
 
-const getDropdownWidth = (item: NavItem) => {
-  if (item.id === 'solutions') return "w-[820px] xl:w-[880px]";
-  if (item.id === 'formations') return "w-[760px] xl:w-[820px]";
-  if (item.id === 'a-propos') return "w-[820px] xl:w-[880px]";
-  if (item.id === 'partenaires' || item.id === 'realisations') return "w-[740px] xl:w-[780px]";
-  if (item.id === 'contact') return "w-[380px]";
-  return item.children && item.children.length > 2 ? "w-[760px]" : "w-[540px]";
-};
-
-const getDropdownAlign = (index: number, total: number) => {
-  if (index === 0) return "left-0";
-  if (index === 1) return "left-[-80px]";
-  if (index === 2) return "left-1/2 -translate-x-1/2";
-  if (index >= total - 2) return "right-0";
-  return "left-1/2 -translate-x-1/2";
-};
-
 export function Header() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [openMobileSubmenu, setOpenMobileSubmenu] = useState<string | null>(null);
   const [navItems, setNavItems] = useState<NavItem[]>(DEFAULT_NAV);
   const [activeHover, setActiveHover] = useState<string | null>(null);
+  const [hoveredSubItem, setHoveredSubItem] = useState<SubItem | null>(null);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { openQuoteModal } = useQuoteModal();
 
@@ -231,6 +223,9 @@ export function Header() {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
       closeTimeoutRef.current = null;
+    }
+    if (activeHover !== id) {
+      setHoveredSubItem(null);
     }
     setActiveHover(id);
   };
@@ -241,7 +236,8 @@ export function Header() {
     }
     closeTimeoutRef.current = setTimeout(() => {
       setActiveHover(null);
-    }, 140);
+      setHoveredSubItem(null);
+    }, 150);
   };
 
   // Fetch dynamic pages marked to be included in navigation from CMS
@@ -275,7 +271,6 @@ export function Header() {
             }
           });
 
-          // Sort by order
           updatedNav.sort((a: NavItem, b: NavItem) => (a.order ?? 10) - (b.order ?? 10));
           setNavItems(updatedNav);
         }
@@ -304,6 +299,7 @@ export function Header() {
       if (e.key === "Escape") {
         setIsOpen(false);
         setActiveHover(null);
+        setHoveredSubItem(null);
       }
     };
     window.addEventListener("keydown", handleEsc);
@@ -314,21 +310,29 @@ export function Header() {
     setIsOpen(false);
     setOpenMobileSubmenu(null);
     setActiveHover(null);
+    setHoveredSubItem(null);
   };
+
+  const activeNavItem = navItems.find((item) => (item.id || item.name) === activeHover) || null;
+  const activeSpotlight = activeNavItem?.id ? SPOTLIGHTS[activeNavItem.id] : null;
+  const ActiveParentIcon = activeNavItem ? getNavIcon(activeNavItem.name) : Layers;
 
   return (
     <>
-      {/* Subtle Backdrop Dim Layer - Silicon Valley / Tesla pattern */}
+      {/* Subtle Backdrop Dim Layer */}
       <div 
         className={cn(
-          "fixed inset-0 top-[96px] sm:top-[112px] bg-slate-950/25 backdrop-blur-[2px] pointer-events-none transition-opacity duration-300 z-40 hidden lg:block",
+          "fixed inset-0 top-[96px] sm:top-[112px] bg-slate-950/20 backdrop-blur-[2px] pointer-events-none transition-opacity duration-200 z-40 hidden lg:block",
           activeHover ? "opacity-100" : "opacity-0"
         )}
         aria-hidden="true"
       />
 
-      {/* Main Header Bar - Corporate Silicon Valley Standard */}
-      <header className="fixed top-0 inset-x-0 z-50 w-full bg-white/95 dark:bg-[#020617]/95 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 shadow-[0_4px_25px_rgba(15,23,42,0.03)] dark:shadow-[0_4px_25px_rgba(0,0,0,0.5)] transition-all duration-300">
+      {/* Main Header Bar */}
+      <header 
+        onMouseLeave={handleMenuLeave}
+        className="fixed top-0 inset-x-0 z-50 w-full bg-white/95 dark:bg-[#020617]/95 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 shadow-[0_4px_25px_rgba(15,23,42,0.03)] dark:shadow-[0_4px_25px_rgba(0,0,0,0.5)] transition-all duration-300"
+      >
         {/* Executive Top Utility Bar - Direct Corporate Contacts */}
         <div className="w-full bg-[#030712] border-b border-slate-800/80 text-slate-300">
           <div className="w-full max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -357,7 +361,6 @@ export function Header() {
 
               {/* Right: Direct Contacts (Tél Direct, Fixe, Mail) */}
               <div className="flex items-center gap-2.5 sm:gap-4 md:gap-5 shrink-0">
-                {/* Tél Direct (+221 77 301 08 38) */}
                 <a 
                   href="tel:+221773010838"
                   className="flex items-center gap-1.5 text-slate-300 hover:text-emerald-400 transition-colors group"
@@ -368,10 +371,8 @@ export function Header() {
                   <span className="font-semibold text-slate-200 group-hover:text-emerald-400 whitespace-nowrap text-[10.5px] sm:text-xs">+221 77 301 08 38</span>
                 </a>
 
-                {/* Séparateur pour écran tablette/desktop */}
                 <span className="text-slate-700 hidden sm:inline select-none" aria-hidden="true">|</span>
 
-                {/* Fixe Dakar (+221 33 814 04 35) - Visible dès sm: pour laisser toute la place à l'adresse sur mobile */}
                 <a 
                   href="tel:+221338140435"
                   className="hidden sm:flex items-center gap-1.5 text-slate-300 hover:text-cyan-400 transition-colors group"
@@ -384,7 +385,6 @@ export function Header() {
 
                 <span className="text-slate-700 hidden lg:inline select-none" aria-hidden="true">|</span>
 
-                {/* Email Direct */}
                 <a 
                   href="mailto:contact@nobtech.fr"
                   className="hidden lg:flex items-center gap-1.5 text-slate-300 hover:text-cyan-400 transition-colors group"
@@ -398,7 +398,7 @@ export function Header() {
           </div>
         </div>
 
-        <div className="w-full max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="flex h-16 sm:h-20 items-center justify-between gap-3 sm:gap-4">
             {/* Brand Logo */}
             <div className="flex items-center shrink-0">
@@ -406,34 +406,37 @@ export function Header() {
             </div>
             
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5">
-              {navItems.map((item, index) => {
+            <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5" aria-label="Navigation principale">
+              {navItems.map((item) => {
                 const hasChildren = Boolean(item.children && item.children.length > 0);
-                const ParentIcon = getNavIcon(item.name);
-                const isHovered = activeHover === (item.id || item.name);
-                const spotlight = item.id ? SPOTLIGHTS[item.id] : null;
+                const itemKey = item.id || item.name;
+                const isHovered = activeHover === itemKey;
+                const isActiveRoute = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href + '/'));
 
                 return (
                   <div 
                     key={item.name} 
                     className="relative"
-                    onMouseEnter={() => handleMenuEnter(item.id || item.name)}
-                    onMouseLeave={handleMenuLeave}
+                    onMouseEnter={() => handleMenuEnter(itemKey)}
                   >
                     <Link 
                       href={item.href} 
+                      onFocus={() => handleMenuEnter(itemKey)}
+                      aria-expanded={hasChildren || item.id === 'contact' ? isHovered : undefined}
                       className={cn(
-                        "text-[13.5px] xl:text-[14px] font-semibold transition-colors py-5 px-0.5 flex items-center",
-                        isHovered 
+                        "text-[13.5px] xl:text-[14px] font-semibold transition-colors py-4 px-0.5 flex items-center",
+                        isHovered || isActiveRoute
                           ? "text-cyan-600 dark:text-cyan-400" 
                           : "text-slate-800 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-400"
                       )}
                     >
                       <span className={cn(
-                        "px-2.5 xl:px-3 py-1.5 rounded-lg transition-all flex items-center gap-1 xl:gap-1.5 whitespace-nowrap",
+                        "px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 whitespace-nowrap relative",
                         isHovered 
-                          ? "bg-slate-100 dark:bg-slate-800/80 text-cyan-600 dark:text-cyan-400" 
-                          : "hover:bg-slate-100/80 dark:hover:bg-slate-800/60"
+                          ? "bg-slate-100/90 dark:bg-slate-800/90 text-cyan-600 dark:text-cyan-400" 
+                          : isActiveRoute
+                            ? "bg-cyan-50/70 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300"
+                            : "hover:bg-slate-100/70 dark:hover:bg-slate-800/50"
                       )}>
                         <span>{item.name}</span>
                         {(hasChildren || item.id === 'contact') && (
@@ -444,292 +447,12 @@ export function Header() {
                         )}
                       </span>
                     </Link>
-
-                    {/* Desktop Mega-Menu Panel */}
-                    {hasChildren ? (
-                      <div className={cn(
-                        "absolute top-full pt-2 transition-all duration-200 z-50",
-                        isHovered 
-                          ? "opacity-100 translate-y-0 pointer-events-auto" 
-                          : "opacity-0 translate-y-2 pointer-events-none",
-                        getDropdownAlign(index, navItems.length),
-                        getDropdownWidth(item)
-                      )}>
-                        <div className="bg-white/98 dark:bg-[#070d1f]/98 backdrop-blur-2xl border border-slate-200/90 dark:border-slate-800 shadow-[0_24px_50px_-12px_rgba(15,23,42,0.18),0_0_0_1px_rgba(15,23,42,0.04)] dark:shadow-[0_24px_50px_-12px_rgba(0,0,0,0.6)] rounded-2xl p-5 sm:p-6 relative overflow-hidden ring-1 ring-slate-900/5 dark:ring-white/10">
-                          {/* Discrete NOBTECH Shield Watermark in top-right */}
-                          <div className="absolute -top-3 -right-3 w-28 h-28 opacity-[0.05] dark:opacity-[0.08] pointer-events-none select-none overflow-hidden">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img 
-                              src="/images/nobtech-shield.png" 
-                              alt="" 
-                              className="w-full h-full object-contain" 
-                            />
-                          </div>
-                          
-                          <div className="relative z-10">
-                            {/* Dropdown Header Banner (Clean Corporate, Zero "Pôle") */}
-                            <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-100 dark:border-slate-800">
-                              <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 flex items-center justify-center font-bold text-xs shrink-0">
-                                  <ParentIcon className="w-4 h-4" />
-                                </div>
-                                <div>
-                                  <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-400">
-                                    {getHeaderCategoryLabel(item.id || item.name)}
-                                  </div>
-                                  <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">
-                                    {item.desc}
-                                  </p>
-                                </div>
-                              </div>
-                              <Link
-                                href={item.href}
-                                onClick={() => setActiveHover(null)}
-                                className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-50 dark:hover:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200/70 dark:border-slate-700 transition-colors shrink-0"
-                              >
-                                <span>Voir tout</span>
-                                <ArrowRight className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-                              </Link>
-                            </div>
-
-                            {/* Bento Box Grid: Modular Cells (Left) + Silicon Valley Spotlight Card (Right) */}
-                            <div className="grid grid-cols-12 gap-3.5 items-stretch">
-                              {/* Left: Interactive Bento Cells */}
-                              <div className={cn(
-                                spotlight ? "col-span-8" : "col-span-12",
-                                item.children!.length === 2 
-                                  ? "grid grid-cols-1 sm:grid-cols-2 gap-3" 
-                                  : "grid grid-cols-2 gap-2.5"
-                              )}>
-                                {item.children!.map((child) => {
-                                  const ChildIcon = getSubItemIcon(child.name, child.href);
-
-                                  return (
-                                    <Link
-                                      key={child.href}
-                                      href={child.href}
-                                      onClick={() => setActiveHover(null)}
-                                      className="group/bento relative rounded-xl p-3 sm:p-3.5 bg-slate-50/70 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-[#0b1329] border border-slate-200/70 dark:border-slate-800 hover:border-cyan-300 dark:hover:border-cyan-500/50 hover:shadow-[0_8px_20px_-6px_rgba(0,212,255,0.16),0_2px_6px_-1px_rgba(15,23,42,0.04)] transition-all duration-200 flex flex-col justify-between overflow-hidden"
-                                    >
-                                      {/* Micro top shine edge on hover */}
-                                      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover/bento:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-                                      <div>
-                                        {/* Header of Bento Card: Icon + Micro Tag */}
-                                        <div className="flex items-center justify-between gap-2">
-                                          <div className="w-8 h-8 rounded-lg bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-2xs flex items-center justify-center text-slate-700 dark:text-slate-300 group-hover/bento:text-cyan-600 dark:group-hover/bento:text-cyan-400 group-hover/bento:border-cyan-200 dark:group-hover/bento:border-cyan-500/40 transition-colors shrink-0">
-                                            <ChildIcon className="w-4 h-4 stroke-[2]" />
-                                          </div>
-                                          {child.tag && (
-                                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-300 group-hover/bento:text-cyan-700 dark:group-hover/bento:text-cyan-300 bg-white/90 dark:bg-slate-800 group-hover/bento:bg-cyan-50/80 dark:group-hover/bento:bg-cyan-950/60 border border-slate-200/60 dark:border-slate-700 group-hover/bento:border-cyan-200/60 dark:group-hover/bento:border-cyan-500/30 px-2 py-0.5 rounded-md transition-colors truncate max-w-[150px]">
-                                              {child.tag}
-                                            </span>
-                                          )}
-                                        </div>
-
-                                        {/* Title & Arrow */}
-                                        <div className="flex items-center justify-between gap-1 mt-2.5">
-                                          <span className="text-[13px] font-bold text-slate-900 dark:text-white group-hover/bento:text-cyan-600 dark:group-hover/bento:text-cyan-400 transition-colors leading-snug">
-                                            {child.name}
-                                          </span>
-                                          <ArrowRight className="w-3 h-3 text-slate-300 dark:text-slate-600 opacity-0 group-hover/bento:opacity-100 group-hover/bento:translate-x-0.5 group-hover/bento:text-cyan-600 dark:group-hover/bento:text-cyan-400 transition-all shrink-0" />
-                                        </div>
-
-                                        {/* Description */}
-                                        {child.desc && (
-                                          <p className="text-[11px] text-slate-500 dark:text-slate-400 group-hover/bento:text-slate-600 dark:group-hover/bento:text-slate-300 leading-snug mt-1 font-normal line-clamp-2">
-                                            {child.desc}
-                                          </p>
-                                        )}
-                                      </div>
-                                    </Link>
-                                  );
-                                })}
-                              </div>
-
-                              {/* Right: Signature Tesla / Silicon Valley Spotlight Bento Card */}
-                              {spotlight && (
-                                <div className="col-span-4 rounded-xl bg-gradient-to-br from-[#020617] via-slate-900 to-[#0B1528] text-white p-4 sm:p-4.5 border border-slate-800 shadow-xl flex flex-col justify-between relative overflow-hidden group/spotlight">
-                                  {/* Ambient radial glow inside the Bento Spotlight */}
-                                  <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-gradient-to-tr from-cyan-500/20 to-emerald-500/15 rounded-full blur-2xl pointer-events-none group-hover/spotlight:scale-125 transition-transform duration-500" />
-                                  <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-cyan-500 via-sky-400 to-emerald-400 opacity-80" />
-
-                                  <div className="relative z-10">
-                                    <div className="flex items-center justify-between gap-2">
-                                      <span className="inline-block text-[9.5px] font-mono font-bold uppercase tracking-wider text-cyan-300 bg-cyan-950/80 border border-cyan-700/60 px-2 py-0.5 rounded-md shadow-xs">
-                                        {spotlight.badge}
-                                      </span>
-                                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                                    </div>
-
-                                    <h5 className="text-[13.5px] font-bold text-white mt-3 leading-snug group-hover/spotlight:text-cyan-200 transition-colors">
-                                      {spotlight.title}
-                                    </h5>
-                                    <p className="text-[11.5px] text-slate-300 leading-relaxed mt-1.5 font-normal">
-                                      {spotlight.desc}
-                                    </p>
-                                  </div>
-
-                                  <div className="relative z-10 pt-3.5 border-t border-slate-800/80 mt-4 flex items-center justify-between">
-                                    <span className="text-[10px] font-mono text-slate-400">
-                                      {spotlight.tag}
-                                    </span>
-                                    <Link
-                                      href={spotlight.href}
-                                      onClick={() => setActiveHover(null)}
-                                      className="inline-flex items-center gap-1.5 text-[11px] font-bold text-cyan-300 hover:text-cyan-200 transition-colors group-hover/spotlight:translate-x-0.5"
-                                    >
-                                      <span>{spotlight.linkText}</span>
-                                      <ArrowRight className="w-3 h-3 text-cyan-400" />
-                                    </Link>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-
-                            {/* Dropdown Footer Strip */}
-                            <div className="mt-4 pt-3 border-t border-slate-100/90 dark:border-slate-800 -mx-5 -mb-5 sm:-mx-6 sm:-mb-6 px-5 sm:px-6 py-2.5 bg-slate-50/80 dark:bg-slate-900/90 rounded-b-2xl flex items-center justify-between text-xs text-slate-600 dark:text-slate-300">
-                              <span className="flex items-center gap-2">
-                                <span className="inline-flex items-center gap-1.5 font-semibold text-slate-800 dark:text-slate-200">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                                  Support Dakar 24/7
-                                </span>
-                                <span className="text-slate-400 dark:text-slate-500">&bull;</span>
-                                <span className="text-slate-500 dark:text-slate-400">Interventions garanties sous 24h</span>
-                              </span>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setActiveHover(null);
-                                  openQuoteModal(item.name);
-                                }}
-                                className="font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 flex items-center gap-1 hover:underline cursor-pointer"
-                              >
-                                <span>Demander un devis pour {item.name}</span>
-                                <ArrowRight className="w-3 h-3" />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ) : item.id === 'contact' ? (
-                      <div className={cn(
-                        "absolute top-full pt-2 transition-all duration-200 z-50",
-                        isHovered 
-                          ? "opacity-100 translate-y-0 pointer-events-auto" 
-                          : "opacity-0 translate-y-2 pointer-events-none",
-                        getDropdownAlign(index, navItems.length),
-                        getDropdownWidth(item)
-                      )}>
-                        <div className="bg-white/98 dark:bg-[#070d1f]/98 backdrop-blur-2xl border border-slate-200/90 dark:border-slate-800 shadow-[0_24px_50px_-12px_rgba(15,23,42,0.18)] dark:shadow-[0_24px_50px_-12px_rgba(0,0,0,0.6)] rounded-2xl p-5 relative overflow-hidden ring-1 ring-slate-900/5 dark:ring-white/10">
-                          <div className="relative z-10 space-y-3">
-                            <div className="pb-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                              <div>
-                                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-400">
-                                  Contact Direct &bull; Dakar
-                                </div>
-                                <h5 className="text-[14px] font-bold text-slate-900 dark:text-white mt-0.5">
-                                  Parlons de votre projet IT
-                                </h5>
-                              </div>
-                              <span className="inline-flex items-center gap-1.5 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/70">
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                                Support 24/7
-                              </span>
-                            </div>
-
-                            {/* Bento Contact Cards */}
-                            <div className="space-y-2 pt-0.5">
-                              <a
-                                href="tel:+221773010838"
-                                className="group/bento relative flex items-center gap-3 p-3 rounded-xl bg-slate-50/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-[#0b1329] border border-slate-200/70 dark:border-slate-800 hover:border-emerald-300 dark:hover:border-emerald-500/50 hover:shadow-md transition-all overflow-hidden"
-                              >
-                                <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent opacity-0 group-hover/bento:opacity-100 transition-opacity pointer-events-none" />
-                                <div className="w-8 h-8 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shadow-2xs shrink-0 group-hover/bento:border-emerald-200 dark:group-hover/bento:border-emerald-500/40">
-                                  <Smartphone className="w-4 h-4" />
-                                </div>
-                                <div className="min-w-0 flex-1">
-                                  <div className="flex items-center justify-between">
-                                    <span className="text-xs font-bold text-slate-900 dark:text-white group-hover/bento:text-emerald-600 dark:group-hover/bento:text-emerald-400 transition-colors">
-                                      +221 77 301 08 38
-                                    </span>
-                                    <span className="text-[9.5px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-100 dark:border-emerald-800/60">
-                                      Astreinte 24/7
-                                    </span>
-                                  </div>
-                                  <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                                    Portable direct & WhatsApp
-                                  </div>
-                                </div>
-                              </a>
-
-                              <a
-                                href="tel:+221338140435"
-                                className="group/bento relative flex items-center gap-3 p-3 rounded-xl bg-slate-50/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-[#0b1329] border border-slate-200/70 dark:border-slate-800 hover:border-cyan-300 dark:hover:border-cyan-500/50 hover:shadow-md transition-all overflow-hidden"
-                              >
-                                <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover/bento:opacity-100 transition-opacity pointer-events-none" />
-                                <div className="w-8 h-8 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-cyan-600 dark:text-cyan-400 shadow-2xs shrink-0 group-hover/bento:border-cyan-200 dark:group-hover/bento:border-cyan-500/40">
-                                  <Phone className="w-4 h-4" />
-                                </div>
-                                <div className="min-w-0 flex-1">
-                                  <div className="flex items-center justify-between">
-                                    <span className="text-xs font-bold text-slate-900 dark:text-white group-hover/bento:text-cyan-600 dark:group-hover/bento:text-cyan-400 transition-colors">
-                                      +221 33 814 04 35
-                                    </span>
-                                    <span className="text-[9.5px] font-mono text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/60 px-1.5 py-0.5 rounded border border-cyan-100 dark:border-cyan-800/60">
-                                      Standard Fixe
-                                    </span>
-                                  </div>
-                                  <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                                    Bureau Dakar • Route Aéroport
-                                  </div>
-                                </div>
-                              </a>
-
-                              <a
-                                href="mailto:contact@nobtech.fr"
-                                className="group/bento relative flex items-center gap-3 p-3 rounded-xl bg-slate-50/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-[#0b1329] border border-slate-200/70 dark:border-slate-800 hover:border-cyan-300 dark:hover:border-cyan-500/50 hover:shadow-md transition-all overflow-hidden"
-                              >
-                                <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover/bento:opacity-100 transition-opacity pointer-events-none" />
-                                <div className="w-8 h-8 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-cyan-600 dark:text-cyan-400 shadow-2xs shrink-0 group-hover/bento:border-cyan-200 dark:group-hover/bento:border-cyan-500/40">
-                                  <Mail className="w-4 h-4" />
-                                </div>
-                                <div className="min-w-0 flex-1">
-                                  <div className="flex items-center justify-between">
-                                    <span className="text-xs font-bold text-slate-900 dark:text-white group-hover/bento:text-cyan-600 dark:group-hover/bento:text-cyan-400 transition-colors">
-                                      contact@nobtech.fr
-                                    </span>
-                                    <span className="text-[9.5px] font-mono text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/60 px-1.5 py-0.5 rounded border border-cyan-100 dark:border-cyan-800/60">
-                                      Courriel Pro
-                                    </span>
-                                  </div>
-                                  <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                                    Devis & cahier des charges
-                                  </div>
-                                </div>
-                              </a>
-                            </div>
-
-                            <div className="pt-1">
-                              <Link
-                                href="/contact"
-                                onClick={() => setActiveHover(null)}
-                                className="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-cyan-600 dark:bg-cyan-600 dark:hover:bg-cyan-500 text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer"
-                              >
-                                <span>Ouvrir la page de contact</span>
-                                <ArrowRight className="w-3.5 h-3.5" />
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ) : null}
                   </div>
                 );
               })}
             </nav>
 
-            {/* Desktop Corporate Actions - Silicon Valley Executive Style */}
+            {/* Desktop Corporate Actions */}
             <div className="hidden lg:flex items-center gap-2.5 xl:gap-3 shrink-0">
               <SearchButton />
               
@@ -756,6 +479,297 @@ export function Header() {
               </button>
             </div>
           </div>
+
+          {/* ==========================================================================
+             UNIFIED DESKTOP MEGA MENU PANEL (Stripe / Linear / Cloudflare Architecture)
+             Zero horizontal jumping, instant visual hierarchy, live sub-item preview
+             ========================================================================== */}
+          <div
+            onMouseEnter={() => {
+              if (closeTimeoutRef.current) {
+                clearTimeout(closeTimeoutRef.current);
+                closeTimeoutRef.current = null;
+              }
+            }}
+            onMouseLeave={handleMenuLeave}
+            className={cn(
+              "hidden lg:block absolute left-1/2 -translate-x-1/2 top-full pt-2 z-50 transition-all duration-200 ease-out",
+              activeNavItem && (activeNavItem.children?.length || activeNavItem.id === 'contact')
+                ? "opacity-100 translate-y-0 pointer-events-auto"
+                : "opacity-0 -translate-y-1.5 pointer-events-none",
+              activeNavItem?.id === 'contact'
+                ? "w-[680px]"
+                : "w-[920px] xl:w-[980px]"
+            )}
+          >
+            {activeNavItem && (
+              <div className="bg-white/98 dark:bg-[#070d1f]/98 backdrop-blur-2xl border border-slate-200/90 dark:border-slate-800 shadow-corporate-floating rounded-2xl overflow-hidden ring-1 ring-slate-900/5 dark:ring-white/10">
+                {activeNavItem.children && activeNavItem.children.length > 0 ? (
+                  <div>
+                    {/* Top Section Header Bar */}
+                    <div className="px-6 py-4 bg-slate-50/70 dark:bg-slate-900/60 border-b border-slate-200/70 dark:border-slate-800/80 flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-9 h-9 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 flex items-center justify-center shrink-0">
+                          <ActiveParentIcon className="w-4 h-4" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
+                              {getHeaderCategoryLabel(activeNavItem.id || activeNavItem.name)}
+                            </span>
+                            <span className="text-[11px] text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-200/60 dark:border-cyan-800/60 px-2 py-0.5 rounded-full font-medium">
+                              {activeNavItem.children.length} rubriques
+                            </span>
+                          </div>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                            {activeNavItem.desc}
+                          </p>
+                        </div>
+                      </div>
+
+                      <Link
+                        href={activeNavItem.href}
+                        onClick={() => setActiveHover(null)}
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-400 bg-white dark:bg-slate-800/90 hover:bg-slate-50 dark:hover:bg-slate-800 px-3.5 py-2 rounded-xl border border-slate-200/80 dark:border-slate-700 transition-all shrink-0 shadow-2xs"
+                      >
+                        <span>Vue d&apos;ensemble {activeNavItem.name}</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+                      </Link>
+                    </div>
+
+                    {/* Main 2-Zone Executive Grid */}
+                    <div className="grid grid-cols-12 divide-x divide-slate-200/70 dark:divide-slate-800/80">
+                      {/* Left Zone: Scannable Navigation List (8 cols) */}
+                      <div className={cn(
+                        "p-5",
+                        activeSpotlight ? "col-span-8" : "col-span-12",
+                        activeNavItem.children.length <= 3
+                          ? "grid grid-cols-1 gap-2"
+                          : "grid grid-cols-2 gap-2"
+                      )}>
+                        {activeNavItem.children.map((child) => {
+                          const ChildIcon = getSubItemIcon(child.name, child.href);
+                          const isChildActive = pathname === child.href;
+
+                          return (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              onClick={() => setActiveHover(null)}
+                              onMouseEnter={() => setHoveredSubItem(child)}
+                              className={cn(
+                                "group/item relative rounded-xl p-3 transition-all duration-150 flex items-start gap-3.5 border",
+                                isChildActive
+                                  ? "bg-cyan-50/70 dark:bg-cyan-950/30 border-cyan-300/80 dark:border-cyan-500/40"
+                                  : "bg-transparent hover:bg-slate-50/90 dark:hover:bg-slate-900/80 border-transparent hover:border-slate-200/80 dark:hover:border-slate-800"
+                              )}
+                            >
+                              <div className={cn(
+                                "w-9 h-9 rounded-lg border flex items-center justify-center shrink-0 mt-0.5 transition-all duration-150",
+                                isChildActive
+                                  ? "bg-cyan-600 text-white border-cyan-600"
+                                  : "bg-slate-50 dark:bg-slate-800/90 border-slate-200/80 dark:border-slate-700 text-slate-700 dark:text-slate-300 group-hover/item:bg-cyan-600 group-hover/item:text-white group-hover/item:border-cyan-600 dark:group-hover/item:bg-cyan-500 dark:group-hover/item:text-slate-950"
+                              )}>
+                                <ChildIcon className="w-4 h-4 stroke-[2]" />
+                              </div>
+
+                              <div className="min-w-0 flex-1">
+                                <div className="flex items-center justify-between gap-2">
+                                  <span className="text-[13.5px] font-semibold text-slate-900 dark:text-white group-hover/item:text-cyan-600 dark:group-hover/item:text-cyan-400 transition-colors leading-snug">
+                                    {child.name}
+                                  </span>
+                                  <ArrowRight className="w-3.5 h-3.5 text-slate-400 opacity-0 -translate-x-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:text-cyan-600 dark:group-hover/item:text-cyan-400 transition-all shrink-0" />
+                                </div>
+
+                                {child.desc && (
+                                  <p className="text-[11.5px] text-slate-500 dark:text-slate-400 leading-relaxed mt-0.5 line-clamp-2">
+                                    {child.desc}
+                                  </p>
+                                )}
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+
+                      {/* Right Zone: Dynamic Context & Spotlight Card (4 cols) */}
+                      {activeSpotlight && (
+                        <div className="col-span-4 p-5 bg-slate-50/40 dark:bg-slate-900/30 flex flex-col justify-between">
+                          <div className="rounded-xl bg-gradient-to-br from-[#020617] via-[#071126] to-[#0A2540] text-white p-4.5 border border-slate-800 shadow-lg relative overflow-hidden flex-1 flex flex-col justify-between">
+                            <div className="absolute -right-8 -bottom-8 w-36 h-36 bg-cyan-500/15 rounded-full blur-2xl pointer-events-none" />
+
+                            <div className="relative z-10">
+                              <div className="flex items-center justify-between gap-2 mb-3">
+                                <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-cyan-300 bg-cyan-950/80 border border-cyan-700/50 px-2.5 py-0.5 rounded-full">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                                  {hoveredSubItem?.tag || activeSpotlight.badge}
+                                </span>
+                              </div>
+
+                              <h5 className="text-sm font-bold text-white leading-snug">
+                                {hoveredSubItem ? hoveredSubItem.name : activeSpotlight.title}
+                              </h5>
+                              <p className="text-xs text-slate-300 leading-relaxed mt-1.5">
+                                {hoveredSubItem?.desc || activeSpotlight.desc}
+                              </p>
+
+                              {/* Key highlights list */}
+                              <ul className="mt-3.5 pt-3 border-t border-white/10 space-y-1.5">
+                                {activeSpotlight.highlights.map((pt, idx) => (
+                                  <li key={idx} className="flex items-center gap-2 text-[11px] text-slate-300">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
+                                    <span>{pt}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            <div className="relative z-10 pt-3.5 mt-4 border-t border-white/10 flex items-center justify-between">
+                              <span className="text-[10.5px] text-slate-400 font-medium">
+                                {activeSpotlight.tag}
+                              </span>
+                              <Link
+                                href={hoveredSubItem ? hoveredSubItem.href : activeSpotlight.href}
+                                onClick={() => setActiveHover(null)}
+                                className="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-300 hover:text-white transition-colors"
+                              >
+                                <span>{hoveredSubItem ? "Consulter la page" : activeSpotlight.linkText}</span>
+                                <ArrowRight className="w-3.5 h-3.5 text-cyan-400" />
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Bottom Action Bar: 1-Click Direct Actions */}
+                    <div className="px-6 py-3 bg-slate-50/90 dark:bg-slate-900/90 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between gap-4 text-xs">
+                      <div className="flex items-center gap-4 text-slate-600 dark:text-slate-300">
+                        <span className="inline-flex items-center gap-1.5 font-semibold text-slate-800 dark:text-slate-200">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                          Ingénieurs disponibles à Dakar
+                        </span>
+                        <span className="text-slate-300 dark:text-slate-700">|</span>
+                        <Link
+                          href="/reserver-audit"
+                          onClick={() => setActiveHover(null)}
+                          className="inline-flex items-center gap-1.5 font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+                        >
+                          <CalendarCheck className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+                          <span>Réserver un audit sur site</span>
+                        </Link>
+                        <span className="text-slate-300 dark:text-slate-700">|</span>
+                        <a
+                          href="https://wa.me/221773010838"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                        >
+                          <MessageSquare className="w-3.5 h-3.5 text-emerald-500" />
+                          <span>WhatsApp Direct (+221 77 301 08 38)</span>
+                        </a>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setActiveHover(null);
+                          openQuoteModal(activeNavItem.name);
+                        }}
+                        className="font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 flex items-center gap-1.5 cursor-pointer shrink-0"
+                      >
+                        <span>Chiffrer un projet ({activeNavItem.name})</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ) : activeNavItem.id === 'contact' ? (
+                  /* Contact Mega Panel */
+                  <div className="p-6">
+                    <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-100 dark:border-slate-800">
+                      <div>
+                        <span className="text-xs font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-400">
+                          Contact Direct &bull; Siège Dakar
+                        </span>
+                        <h5 className="text-base font-bold text-slate-900 dark:text-white mt-0.5">
+                          Échangez avec un ingénieur Nob Technologies
+                        </h5>
+                      </div>
+                      <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/70">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                        Réponse sous 24h
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-3">
+                      <a
+                        href="tel:+221773010838"
+                        className="group/card p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-[#0b1329] border border-slate-200/80 dark:border-slate-800 hover:border-emerald-400 transition-all"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-2.5">
+                          <Smartphone className="w-4 h-4" />
+                        </div>
+                        <div className="text-xs font-bold text-slate-900 dark:text-white group-hover/card:text-emerald-600 dark:group-hover/card:text-emerald-400">
+                          +221 77 301 08 38
+                        </div>
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                          Ligne directe &amp; WhatsApp
+                        </div>
+                      </a>
+
+                      <a
+                        href="tel:+221338140435"
+                        className="group/card p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-[#0b1329] border border-slate-200/80 dark:border-slate-800 hover:border-cyan-400 transition-all"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-2.5">
+                          <Phone className="w-4 h-4" />
+                        </div>
+                        <div className="text-xs font-bold text-slate-900 dark:text-white group-hover/card:text-cyan-600 dark:group-hover/card:text-cyan-400">
+                          +221 33 814 04 35
+                        </div>
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                          Standard Fixe Dakar
+                        </div>
+                      </a>
+
+                      <a
+                        href="mailto:contact@nobtech.fr"
+                        className="group/card p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-[#0b1329] border border-slate-200/80 dark:border-slate-800 hover:border-cyan-400 transition-all"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-2.5">
+                          <Mail className="w-4 h-4" />
+                        </div>
+                        <div className="text-xs font-bold text-slate-900 dark:text-white group-hover/card:text-cyan-600 dark:group-hover/card:text-cyan-400">
+                          contact@nobtech.fr
+                        </div>
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                          Cahier des charges &amp; Devis
+                        </div>
+                      </a>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3">
+                      <Link
+                        href="/contact"
+                        onClick={() => setActiveHover(null)}
+                        className="flex-1 py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-cyan-600 dark:bg-cyan-600 dark:hover:bg-cyan-500 text-white text-xs font-bold transition-colors flex items-center justify-center gap-2"
+                      >
+                        <span>Ouvrir le formulaire de contact</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                      <Link
+                        href="/reserver-audit"
+                        onClick={() => setActiveHover(null)}
+                        className="py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold transition-colors"
+                      >
+                        Réserver un audit sur site
+                      </Link>
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
@@ -778,14 +792,17 @@ export function Header() {
         />
 
         <div className={cn(
-          "absolute inset-x-0 top-[96px] sm:top-[116px] bottom-0 bg-white dark:bg-[#070d1f] shadow-2xl flex flex-col justify-between overflow-y-auto transition-transform duration-300 ease-out",
+          "absolute inset-x-0 top-[96px] sm:top-[116px] bottom-0 bg-white dark:bg-[#070d1f] shadow-2xl flex flex-col justify-between overflow-y-auto custom-scrollbar transition-transform duration-300 ease-out",
           isOpen ? "translate-y-0" : "-translate-y-4"
         )}>
           {/* Main Navigation Links */}
           <div className="p-5 sm:p-8 max-w-3xl mx-auto w-full space-y-4">
             <div className="pb-2.5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                NAVIGATION
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Menu Principal
+              </span>
+              <span className="text-[11px] text-slate-400">
+                Touchez le logo pour revenir à l&apos;accueil
               </span>
             </div>
 
@@ -856,7 +873,7 @@ export function Header() {
                           onClick={closeMenu}
                           className="block p-2 rounded-lg text-xs font-bold text-cyan-700 dark:text-cyan-300 bg-cyan-50/50 dark:bg-cyan-950/40 hover:bg-cyan-100/60 dark:hover:bg-cyan-900/60 transition-colors"
                         >
-                          &rarr; Vue d’ensemble ({item.name})
+                          &rarr; Voir toute la rubrique {item.name}
                         </Link>
                         {item.children!.map((c) => {
                           const SubIcon = getSubItemIcon(c.name, c.href);
@@ -934,7 +951,7 @@ export function Header() {
                 href="https://www.google.com/maps/search/?api=1&query=QG3J%2BHP+Dakar"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-center text-[11px] text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 font-mono flex items-center justify-center gap-1.5 transition-colors group"
+                className="text-center text-[11px] text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 flex items-center justify-center gap-1.5 transition-colors group"
                 title="Localisation Google Maps : QG3J+HP Dakar"
               >
                 <MapPin className="w-3 h-3 text-cyan-500 shrink-0 group-hover:scale-110 transition-transform" />
