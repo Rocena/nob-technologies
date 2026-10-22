@@ -8,6 +8,7 @@ import {
   CursorClick,
   GlobeHemisphereWest,
   DeviceMobile,
+  DeviceTabletCamera,
   Desktop,
   ArrowClockwise,
   DownloadSimple,
@@ -17,10 +18,140 @@ import {
   ArrowUpRight,
   ArrowLeft,
   Sparkle,
+  Pulse,
+  Browsers,
+  Cpu,
 } from '@phosphor-icons/react';
 
 type Period = 'today' | '7d' | '30d' | 'all';
 type SectionTab = 'all' | 'pages' | 'clicks' | 'geo';
+
+const COUNTRY_NAME_TO_ISO: Record<string, string> = {
+  sénégal: 'sn',
+  senegal: 'sn',
+  france: 'fr',
+  "côte d'ivoire": 'ci',
+  'côte d’ivoire': 'ci',
+  mali: 'ml',
+  guinée: 'gn',
+  'burkina faso': 'bf',
+  cameroun: 'cm',
+  gabon: 'ga',
+  congo: 'cg',
+  'rd congo': 'cd',
+  togo: 'tg',
+  bénin: 'bj',
+  niger: 'ne',
+  mauritanie: 'mr',
+  maroc: 'ma',
+  algérie: 'dz',
+  tunisie: 'tn',
+  belgique: 'be',
+  suisse: 'ch',
+  canada: 'ca',
+  'états-unis': 'us',
+  'royaume-uni': 'gb',
+  allemagne: 'de',
+  espagne: 'es',
+  italie: 'it',
+  'émirats arabes unis': 'ae',
+};
+
+function resolveIsoCode(code?: string, countryName?: string): string {
+  const clean = (code || '').trim().toLowerCase();
+  if (clean.length === 2 && /^[a-z]{2}$/.test(clean)) {
+    return clean;
+  }
+  const lowerCountry = (countryName || '').trim().toLowerCase();
+  if (lowerCountry && COUNTRY_NAME_TO_ISO[lowerCountry]) {
+    return COUNTRY_NAME_TO_ISO[lowerCountry];
+  }
+  return 'sn';
+}
+
+const CountryFlag: React.FC<{ code?: string; country?: string; size?: number }> = ({
+  code,
+  country,
+  size = 26,
+}) => {
+  const [imgError, setImgError] = useState(false);
+  const iso = resolveIsoCode(code, country);
+  const height = Math.round(size * 0.72);
+
+  if (imgError) {
+    return (
+      <span
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: size,
+          height,
+          borderRadius: 4,
+          background: '#0284c7',
+          color: '#ffffff',
+          fontSize: 10,
+          fontWeight: 800,
+          textTransform: 'uppercase',
+          flexShrink: 0,
+        }}
+      >
+        {iso.toUpperCase()}
+      </span>
+    );
+  }
+
+  return (
+    <img
+      src={`https://flagcdn.com/w40/${iso}.png`}
+      srcSet={`https://flagcdn.com/w80/${iso}.png 2x`}
+      width={size}
+      height={height}
+      alt={country || iso.toUpperCase()}
+      title={country || iso.toUpperCase()}
+      onError={() => setImgError(true)}
+      style={{
+        width: size,
+        height,
+         objectFit: 'cover',
+        borderRadius: 4,
+        border: '1px solid rgba(100, 116, 139, 0.25)',
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12)',
+        flexShrink: 0,
+        display: 'block',
+      }}
+    />
+  );
+};
+
+function formatRelativeTime(isoDate?: string): string {
+  if (!isoDate) return 'À l’instant';
+  const diffSec = Math.max(0, Math.floor((Date.now() - new Date(isoDate).getTime()) / 1000));
+  if (diffSec < 60) return 'À l’instant';
+  const diffMin = Math.floor(diffSec / 60);
+  if (diffMin < 60) return `Il y a ${diffMin} min`;
+  const diffHours = Math.floor(diffMin / 60);
+  if (diffHours < 24) return `Il y a ${diffHours} h`;
+  const diffDays = Math.floor(diffHours / 24);
+  return `Il y a ${diffDays} j`;
+}
+
+function getActionBadgeLabel(type?: string): { label: string; color: string; bg: string } {
+  switch (type) {
+    case 'whatsapp_click':
+      return { label: 'WhatsApp', color: '#059669', bg: 'rgba(16, 185, 129, 0.14)' };
+    case 'call_click':
+      return { label: 'Appel téléphonique', color: '#0284c7', bg: 'rgba(2, 132, 199, 0.14)' };
+    case 'download_brochure':
+      return { label: 'Brochure PDF', color: '#7c3aed', bg: 'rgba(124, 58, 237, 0.14)' };
+    case 'form_submit':
+      return { label: 'Formulaire envoyé', color: '#d97706', bg: 'rgba(245, 158, 11, 0.15)' };
+    case 'pageview':
+      return { label: 'Page consultée', color: '#0284c7', bg: 'rgba(2, 132, 199, 0.12)' };
+    default:
+      return { label: 'Clic Bouton', color: '#059669', bg: 'rgba(16, 185, 129, 0.14)' };
+  }
+}
 
 export const AnalyticsDashboard: React.FC = () => {
   const [period, setPeriod] = useState<Period>('7d');
@@ -28,7 +159,7 @@ export const AnalyticsDashboard: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
-  const [activeGeoTab, setActiveGeoTab] = useState<'cities' | 'countries'>('cities');
+  const [activeGeoTab, setActiveGeoTab] = useState<'countries' | 'cities'>('countries');
   const [hoveredBar, setHoveredBar] = useState<number | null>(null);
 
   const fetchData = async (selectedPeriod: Period) => {
@@ -69,22 +200,51 @@ export const AnalyticsDashboard: React.FC = () => {
       [],
       ['Pages les plus aimees'],
       ['Chemin', 'Nom de la page', 'Vues', 'Visiteurs Uniques', 'Part (%)'],
-      ...(data.topPages || []).map((p: any) => [p.path, p.title, p.views, p.uniqueVisitors, `${p.percentage}%`]),
+      ...(data.topPages || []).map((p: any) => [
+        p.path,
+        p.title,
+        p.views,
+        p.uniqueVisitors,
+        `${p.percentage}%`,
+      ]),
       [],
       ['Boutons les plus cliques'],
       ['Bouton', 'Categorie', 'Page', 'Clics', 'Part (%)'],
-      ...(data.topClicks || []).map((c: any) => [c.elementText, c.type, c.path, c.count, `${c.percentage}%`]),
+      ...(data.topClicks || []).map((c: any) => [
+        c.elementText,
+        c.type,
+        c.path,
+        c.count,
+        `${c.percentage}%`,
+      ]),
+      [],
+      ['Pays des visiteurs'],
+      ['Pays', 'Code ISO', 'Visites', 'Part (%)'],
+      ...(data.locations?.countries || []).map((co: any) => [
+        co.country,
+        co.countryCode || co.code,
+        co.count,
+        `${co.percentage}%`,
+      ]),
       [],
       ['Villes des visiteurs'],
       ['Ville', 'Pays', 'Visites', 'Part (%)'],
-      ...(data.locations?.cities || []).map((ci: any) => [ci.city, ci.country, ci.count, `${ci.percentage}%`]),
+      ...(data.locations?.cities || []).map((ci: any) => [
+        ci.city,
+        ci.country,
+        ci.count,
+        `${ci.percentage}%`,
+      ]),
     ];
 
     const csvContent = 'data:text/csv;charset=utf-8,' + rows.map((e) => e.join(';')).join('\n');
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `nobtech-analytics-${period}-${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute(
+      'download',
+      `nobtech-analytics-${period}-${new Date().toISOString().split('T')[0]}.csv`
+    );
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -95,18 +255,19 @@ export const AnalyticsDashboard: React.FC = () => {
     totalPageviews: 0,
     totalClicks: 0,
     engagementRate: '0.0',
-    avgPagesPerVisitor: '1.0',
+    avgPagesPerVisitor: '0.0',
   };
 
   const timeline: any[] = data?.timeline || [];
   const maxTimelineVal = Math.max(
     ...timeline.map((t: any) => Math.max(Number(t.pageviews) || 0, Number(t.clicks) || 0)),
-    10
+    5
   );
 
-  const topCity = data?.locations?.cities?.[0]?.city || 'Dakar';
+  const topCountryObj = data?.locations?.countries?.[0];
+  const topCity = data?.locations?.cities?.[0]?.city || 'Aucune visite';
   const topPage = data?.topPages?.[0]?.title || 'Accueil';
-  const topClick = data?.topClicks?.[0]?.elementText || 'Demander un devis';
+  const topClick = data?.topClicks?.[0]?.elementText || 'Aucun clic enregistré';
 
   return (
     <div className="nob-an-page">
@@ -123,7 +284,6 @@ export const AnalyticsDashboard: React.FC = () => {
           color: #f8fafc;
         }
 
-        /* BARRE SUPÉRIEURE DE RETOUR & PÉRIODE */
         .nob-an-topbar {
           display: flex;
           flex-wrap: wrap;
@@ -153,7 +313,6 @@ export const AnalyticsDashboard: React.FC = () => {
           color: #38bdf8;
         }
 
-        /* BANNIÈRE PRINCIPALE ERGONOMIQUE */
         .nob-an-hero {
           border-radius: 22px;
           padding: 28px 30px;
@@ -193,7 +352,6 @@ export const AnalyticsDashboard: React.FC = () => {
           color: #94a3b8;
         }
 
-        /* SÉLECTEUR DE PÉRIODE */
         .nob-an-period-group {
           display: inline-flex;
           flex-wrap: wrap;
@@ -232,7 +390,6 @@ export const AnalyticsDashboard: React.FC = () => {
           box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
         }
 
-        /* BOUTONS OUTILS */
         .nob-an-btn {
           all: unset;
           box-sizing: border-box;
@@ -264,7 +421,6 @@ export const AnalyticsDashboard: React.FC = () => {
           color: #38bdf8;
         }
 
-        /* SYNTHÈSE MARKETING EN 1 CLIN D'ŒIL */
         .nob-an-summary-bar {
           display: flex;
           flex-wrap: wrap;
@@ -282,7 +438,6 @@ export const AnalyticsDashboard: React.FC = () => {
           border-color: rgba(56, 189, 248, 0.22);
         }
 
-        /* 4 CARTES DE CHIFFRES CLÉS */
         .nob-an-kpi-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -334,7 +489,6 @@ export const AnalyticsDashboard: React.FC = () => {
           color: #94a3b8;
         }
 
-        /* ONGLETS DE FILTRAGE POUR NAVIGATION FACILE */
         .nob-an-tabs {
           display: flex;
           flex-wrap: wrap;
@@ -372,7 +526,6 @@ export const AnalyticsDashboard: React.FC = () => {
           box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
         }
 
-        /* CARTES DE CONTENU */
         .nob-an-card {
           background: #ffffff;
           border: 1px solid #e2e8f0;
@@ -407,7 +560,6 @@ export const AnalyticsDashboard: React.FC = () => {
           color: #94a3b8;
         }
 
-        /* GRILLE 2 COLONNES */
         .nob-an-grid-2 {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
@@ -422,7 +574,6 @@ export const AnalyticsDashboard: React.FC = () => {
           }
         }
 
-        /* LIGNES DE CLASSEMENT FACILES À LIRE */
         .nob-an-row {
           padding: 14px 16px;
           border-radius: 14px;
@@ -459,7 +610,7 @@ export const AnalyticsDashboard: React.FC = () => {
 
           <button type="button" onClick={() => fetchData(period)} className="nob-an-btn">
             <ArrowClockwise size={16} />
-            <span>Actualiser</span>
+            <span>Actualiser les données</span>
           </button>
 
           <button type="button" onClick={handleExportCSV} className="nob-an-btn">
@@ -474,7 +625,7 @@ export const AnalyticsDashboard: React.FC = () => {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6, flexWrap: 'wrap' }}>
             <h1 className="nob-an-hero-title" style={{ margin: 0 }}>
-              Audience, Visites &amp; Performances Marketing
+              Audience, Visites &amp; Performances Marketing (Temps Réel)
             </h1>
             <span
               style={{
@@ -491,11 +642,11 @@ export const AnalyticsDashboard: React.FC = () => {
               }}
             >
               <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#10b981' }} />
-              <span>{data?.liveVisitors || 1} visiteur(s) en ligne</span>
+              <span>{data?.liveVisitors ?? 0} visiteur(s) actif(s) (15 min)</span>
             </span>
           </div>
           <p className="nob-an-hero-sub">
-            Suivez simplement combien de personnes visitent votre site, quelles pages les intéressent le plus et d&apos;où elles viennent.
+            Données 100% réelles collectées automatiquement par les détecteurs invisibles du site (pages vues, clics, appareils et géolocalisation IP).
           </p>
         </div>
 
@@ -542,15 +693,19 @@ export const AnalyticsDashboard: React.FC = () => {
           <span>Résumé rapide :</span>
         </span>
         <span>
-          Page la plus consultée : <strong>{topPage}</strong>
+          Page N°1 : <strong>{topPage}</strong>
         </span>
         <span style={{ opacity: 0.4 }}>•</span>
         <span>
-          Bouton le plus cliqué : <strong>{topClick}</strong>
+          Action N°1 : <strong>{topClick}</strong>
         </span>
         <span style={{ opacity: 0.4 }}>•</span>
-        <span>
-          Ville principale : <strong>{topCity}</strong>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+          <span>Provenance N°1 :</span>
+          {topCountryObj && (
+            <CountryFlag code={topCountryObj.countryCode || topCountryObj.code} country={topCountryObj.country} size={20} />
+          )}
+          <strong>{topCity}{topCountryObj ? ` (${topCountryObj.country})` : ''}</strong>
         </span>
       </div>
 
@@ -568,7 +723,7 @@ export const AnalyticsDashboard: React.FC = () => {
             {loading ? '...' : kpis.uniqueVisitors.toLocaleString('fr-FR')}
           </div>
           <div className="nob-an-kpi-help">
-            Visiteurs uniques sur la période choisie
+            Visiteurs uniques réels détectés sur la période
           </div>
         </div>
 
@@ -584,14 +739,14 @@ export const AnalyticsDashboard: React.FC = () => {
             {loading ? '...' : kpis.totalPageviews.toLocaleString('fr-FR')}
           </div>
           <div className="nob-an-kpi-help">
-            Environ <strong>{kpis.avgPagesPerVisitor} pages</strong> lues par visiteur
+            Moyenne de <strong>{kpis.avgPagesPerVisitor} page(s)</strong> par visiteur
           </div>
         </div>
 
         {/* 3. Clics */}
         <div className="nob-an-kpi">
           <div className="nob-an-kpi-top">
-            <span className="nob-an-kpi-label">3. Clics sur vos boutons</span>
+            <span className="nob-an-kpi-label">3. Clics &amp; Actions sur le site</span>
             <div style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(16, 185, 129, 0.12)', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <CursorClick size={20} weight="duotone" />
             </div>
@@ -600,7 +755,7 @@ export const AnalyticsDashboard: React.FC = () => {
             {loading ? '...' : kpis.totalClicks.toLocaleString('fr-FR')}
           </div>
           <div className="nob-an-kpi-help">
-            <strong>{kpis.engagementRate}%</strong> des visites génèrent un clic
+            <strong>{kpis.engagementRate}%</strong> des pages génèrent une action
           </div>
         </div>
 
@@ -612,11 +767,18 @@ export const AnalyticsDashboard: React.FC = () => {
               <GlobeHemisphereWest size={20} weight="duotone" />
             </div>
           </div>
-          <div className="nob-an-kpi-val">
-            {loading ? '...' : `${data?.locations?.cities?.length || 0} villes`}
+          <div className="nob-an-kpi-val" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            {topCountryObj && (
+              <CountryFlag
+                code={topCountryObj.countryCode || topCountryObj.code}
+                country={topCountryObj.country}
+                size={32}
+              />
+            )}
+            <span>{loading ? '...' : `${data?.locations?.countries?.length || 0} pays`}</span>
           </div>
           <div className="nob-an-kpi-help">
-            Réparties dans <strong>{data?.locations?.countries?.length || 0} pays</strong> (N°1 : {topCity})
+            <strong>{data?.locations?.cities?.length || 0} ville(s)</strong> détectée(s) ({topCity})
           </div>
         </div>
       </div>
@@ -625,9 +787,9 @@ export const AnalyticsDashboard: React.FC = () => {
       <div className="nob-an-tabs">
         {[
           { id: 'all', label: 'Vue complète', Icon: ChartBar },
+          { id: 'geo', label: 'Pays, Drapeaux & Appareils', Icon: MapPin },
           { id: 'pages', label: 'Pages les plus aimées', Icon: Eye },
           { id: 'clicks', label: 'Boutons les plus cliqués', Icon: CursorClick },
-          { id: 'geo', label: 'Localisation & Appareils', Icon: MapPin },
         ].map((tab) => (
           <button
             key={tab.id}
@@ -648,7 +810,7 @@ export const AnalyticsDashboard: React.FC = () => {
             <div>
               <div className="nob-an-card-title">
                 <ChartBar size={20} color="#0284c7" weight="duotone" />
-                <span>Évolution des visites jour par jour</span>
+                <span>Évolution des visites réelles jour par jour</span>
               </div>
               <div className="nob-an-card-sub" style={{ marginBottom: 0 }}>
                 Survolez une barre pour voir le détail exact des pages lues et des clics du jour.
@@ -680,8 +842,8 @@ export const AnalyticsDashboard: React.FC = () => {
             {timeline.map((item: any, idx: number) => {
               const pv = Number(item.pageviews) || 0;
               const cl = Number(item.clicks) || 0;
-              const pvPx = Math.max(Math.round((pv / maxTimelineVal) * 165), pv > 0 ? 10 : 4);
-              const clPx = Math.max(Math.round((cl / maxTimelineVal) * 165), cl > 0 ? 8 : 3);
+              const pvPx = Math.max(Math.round((pv / maxTimelineVal) * 165), pv > 0 ? 12 : 4);
+              const clPx = Math.max(Math.round((cl / maxTimelineVal) * 165), cl > 0 ? 10 : 3);
               const isHovered = hoveredBar === idx;
               const dateLabel = String(item.date || '').split('-').slice(1).reverse().join('/');
 
@@ -716,8 +878,9 @@ export const AnalyticsDashboard: React.FC = () => {
                       }}
                     >
                       <div style={{ fontWeight: 800, marginBottom: 2 }}>{dateLabel}</div>
-                      <div style={{ color: '#38bdf8' }}>{pv} pages vues</div>
-                      <div style={{ color: '#34d399' }}>{cl} clics</div>
+                      <div style={{ color: '#38bdf8' }}>{pv} page(s) vue(s)</div>
+                      <div style={{ color: '#34d399' }}>{cl} clic(s)</div>
+                      <div style={{ color: '#cbd5e1', fontSize: 10.5 }}>{item.visitors || 0} visiteur(s)</div>
                     </div>
                   )}
 
@@ -756,7 +919,284 @@ export const AnalyticsDashboard: React.FC = () => {
         </div>
       )}
 
-      {/* SECTION 1 & 2 : PAGES LES PLUS AIMÉES & BOUTONS LES PLUS CLIQUÉS */}
+      {/* SECTION LOCALISATION (DRAPEAUX PAYS & VILLES) & APPAREILS UTILISÉS */}
+      {(activeTab === 'all' || activeTab === 'geo') && (
+        <div className="nob-an-grid-2">
+          {/* LOCALISATION (PAYS AVEC DRAPEAUX & VILLES) */}
+          <div className="nob-an-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 16 }}>
+              <div>
+                <div className="nob-an-card-title">
+                  <MapPin size={20} color="#d97706" weight="duotone" />
+                  <span>Localisation &amp; Drapeaux des Pays</span>
+                </div>
+                <div className="nob-an-card-sub" style={{ marginBottom: 0 }}>
+                  Pays et villes réels détectés lors des visites sur le site.
+                </div>
+              </div>
+
+              <div className="nob-an-period-group">
+                <button
+                  type="button"
+                  onClick={() => setActiveGeoTab('countries')}
+                  className={`nob-an-period-btn ${activeGeoTab === 'countries' ? 'active' : ''}`}
+                  style={{ padding: '6px 12px', fontSize: 12 }}
+                >
+                  Par Pays ({data?.locations?.countries?.length || 0})
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveGeoTab('cities')}
+                  className={`nob-an-period-btn ${activeGeoTab === 'cities' ? 'active' : ''}`}
+                  style={{ padding: '6px 12px', fontSize: 12 }}
+                >
+                  Par Ville ({data?.locations?.cities?.length || 0})
+                </button>
+              </div>
+            </div>
+
+            {activeGeoTab === 'countries' ? (
+              (data?.locations?.countries || []).length === 0 ? (
+                <div style={{ padding: 24, textAlign: 'center', color: '#64748b', fontSize: 13.5 }}>
+                  Aucune donnée géographique sur cette période. Naviguez sur le site public pour voir apparaître votre visite en temps réel.
+                </div>
+              ) : (
+                (data?.locations?.countries || []).map((c: any, idx: number) => {
+                  const iso = c.countryCode || c.code || 'SN';
+                  return (
+                    <div key={`${c.country}-${idx}`} className="nob-an-row">
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                          <CountryFlag code={iso} country={c.country} size={30} />
+                          <div>
+                            <div style={{ fontSize: 14.5, fontWeight: 800, display: 'flex', alignItems: 'center', gap: 8 }}>
+                              <span>{c.country}</span>
+                              <span
+                                style={{
+                                  fontSize: 10.5,
+                                  fontWeight: 700,
+                                  padding: '1px 6px',
+                                  borderRadius: 5,
+                                  background: 'rgba(100, 116, 139, 0.14)',
+                                  color: '#64748b',
+                                }}
+                              >
+                                {String(iso).toUpperCase()}
+                              </span>
+                            </div>
+                            <div style={{ fontSize: 11.5, color: '#64748b' }}>
+                              {c.uniqueVisitors || 1} visiteur(s) unique(s)
+                            </div>
+                          </div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <div style={{ fontSize: 15, fontWeight: 800 }}>{c.count} visite(s)</div>
+                          <div style={{ fontSize: 12, color: '#0284c7', fontWeight: 800 }}>{c.percentage}%</div>
+                        </div>
+                      </div>
+                      <div style={{ height: 6, borderRadius: 999, background: 'rgba(100,116,139,0.15)', overflow: 'hidden' }}>
+                        <div style={{ height: '100%', width: `${Math.max(c.percentage, 4)}%`, background: '#f59e0b', borderRadius: 999 }} />
+                      </div>
+                    </div>
+                  );
+                })
+              )
+            ) : (data?.locations?.cities || []).length === 0 ? (
+              <div style={{ padding: 24, textAlign: 'center', color: '#64748b', fontSize: 13.5 }}>
+                Aucune ville détectée sur cette période.
+              </div>
+            ) : (
+              (data?.locations?.cities || []).map((loc: any, idx: number) => {
+                const iso = loc.countryCode || loc.code || 'SN';
+                return (
+                  <div key={`${loc.city}-${idx}`} className="nob-an-row">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                        <CountryFlag code={iso} country={loc.country} size={28} />
+                        <div>
+                          <div style={{ fontSize: 14.5, fontWeight: 800 }}>{loc.city}</div>
+                          <div style={{ fontSize: 11.5, color: '#64748b' }}>
+                            {loc.country} ({String(iso).toUpperCase()})
+                          </div>
+                        </div>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <div style={{ fontSize: 15, fontWeight: 800 }}>{loc.count} visite(s)</div>
+                        <div style={{ fontSize: 12, color: '#0284c7', fontWeight: 800 }}>{loc.percentage}%</div>
+                      </div>
+                    </div>
+                    <div style={{ height: 6, borderRadius: 999, background: 'rgba(100,116,139,0.15)', overflow: 'hidden' }}>
+                      <div style={{ height: '100%', width: `${Math.max(loc.percentage, 4)}%`, background: '#f59e0b', borderRadius: 999 }} />
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+
+          {/* APPAREILS UTILISÉS, SYSTÈMES D'EXPLOITATION & NAVIGATEURS */}
+          <div className="nob-an-card">
+            <div className="nob-an-card-title">
+              <Desktop size={20} color="#0284c7" weight="duotone" />
+              <span>Appareils utilisés par vos visiteurs</span>
+            </div>
+            <div className="nob-an-card-sub">
+              Répartition exacte par type d&apos;appareil (Ordinateur, Smartphone, Tablette), système et navigateur.
+            </div>
+
+            {/* 3 CARTES D'APPAREILS (Ordinateur, Mobile, Tablette) */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(135px, 1fr))', gap: 12, marginBottom: 22 }}>
+              {(data?.devices || [
+                { key: 'desktop', name: 'Ordinateur', count: 0, percentage: 0 },
+                { key: 'mobile', name: 'Mobile (Smartphone)', count: 0, percentage: 0 },
+                { key: 'tablet', name: 'Tablette', count: 0, percentage: 0 },
+              ]).map((dev: any, idx: number) => {
+                const label = dev.device || dev.name || 'Appareil';
+                const count = dev.count ?? dev.value ?? 0;
+                const pct = dev.percentage ?? 0;
+                const lowerKey = String(dev.key || label).toLowerCase();
+                const isMobile = lowerKey.includes('mobile') || lowerKey.includes('smartphone');
+                const isTablet = lowerKey.includes('tablet') || lowerKey.includes('tablette');
+                const Icon = isMobile ? DeviceMobile : isTablet ? DeviceTabletCamera : Desktop;
+                const accentColor = isMobile ? '#059669' : isTablet ? '#7c3aed' : '#0284c7';
+
+                return (
+                  <div
+                    key={idx}
+                    style={{
+                      padding: '16px 14px',
+                      borderRadius: 16,
+                      background: 'rgba(2, 132, 199, 0.05)',
+                      border: '1px solid rgba(2, 132, 199, 0.18)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      gap: 8,
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <div
+                        style={{
+                          width: 36,
+                          height: 36,
+                          borderRadius: 10,
+                          background: `${accentColor}18`,
+                          color: accentColor,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <Icon size={21} weight="duotone" />
+                      </div>
+                      <span style={{ fontSize: 22, fontWeight: 800, color: accentColor }}>{pct}%</span>
+                    </div>
+
+                    <div>
+                      <div style={{ fontSize: 13.5, fontWeight: 800 }}>{label}</div>
+                      <div style={{ fontSize: 12, color: '#64748b', fontWeight: 600 }}>
+                        {count} visite(s)
+                      </div>
+                    </div>
+
+                    <div style={{ height: 6, borderRadius: 999, background: 'rgba(100,116,139,0.16)', overflow: 'hidden' }}>
+                      <div
+                        style={{
+                          height: '100%',
+                          width: `${Math.max(pct, count > 0 ? 6 : 0)}%`,
+                          background: accentColor,
+                          borderRadius: 999,
+                        }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* SYSTÈMES D'EXPLOITATION & NAVIGATEURS */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14, marginBottom: 20 }}>
+              {/* OS */}
+              <div
+                style={{
+                  padding: 14,
+                  borderRadius: 14,
+                  background: 'rgba(100, 116, 139, 0.05)',
+                  border: '1px solid rgba(100, 116, 139, 0.16)',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 800, color: '#64748b', textTransform: 'uppercase', marginBottom: 10 }}>
+                  <Cpu size={15} color="#0284c7" weight="duotone" />
+                  <span>Systèmes (OS)</span>
+                </div>
+                {(data?.osList || []).length === 0 ? (
+                  <div style={{ fontSize: 12, color: '#64748b' }}>Aucun système détecté</div>
+                ) : (
+                  (data?.osList || []).map((os: any, i: number) => (
+                    <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 13, padding: '5px 0', borderBottom: i < (data?.osList?.length || 1) - 1 ? '1px solid rgba(100,116,139,0.12)' : 'none' }}>
+                      <span style={{ fontWeight: 700 }}>{os.name}</span>
+                      <span style={{ fontWeight: 800, color: '#0284c7' }}>
+                        {os.count} ({os.percentage}%)
+                      </span>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {/* Navigateurs */}
+              <div
+                style={{
+                  padding: 14,
+                  borderRadius: 14,
+                  background: 'rgba(100, 116, 139, 0.05)',
+                  border: '1px solid rgba(100, 116, 139, 0.16)',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 800, color: '#64748b', textTransform: 'uppercase', marginBottom: 10 }}>
+                  <Browsers size={15} color="#059669" weight="duotone" />
+                  <span>Navigateurs Web</span>
+                </div>
+                {(data?.browsers || []).length === 0 ? (
+                  <div style={{ fontSize: 12, color: '#64748b' }}>Aucun navigateur détecté</div>
+                ) : (
+                  (data?.browsers || []).map((br: any, i: number) => (
+                    <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 13, padding: '5px 0', borderBottom: i < (data?.browsers?.length || 1) - 1 ? '1px solid rgba(100,116,139,0.12)' : 'none' }}>
+                      <span style={{ fontWeight: 700 }}>{br.name}</span>
+                      <span style={{ fontWeight: 800, color: '#059669' }}>
+                        {br.count} ({br.percentage}%)
+                      </span>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+
+            {/* SOURCES D'ACQUISITION */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 800, color: '#64748b', textTransform: 'uppercase', marginBottom: 10 }}>
+              <ShareNetwork size={15} color="#0284c7" weight="duotone" />
+              <span>Canaux d&apos;acquisition (D&apos;où viennent-ils ?)</span>
+            </div>
+            {(data?.sources || []).map((s: any, idx: number) => {
+              const sourceLabel = s.source || s.name || 'Accès Direct';
+              return (
+                <div key={idx} className="nob-an-row" style={{ padding: '10px 14px', marginBottom: 8 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 }}>
+                    <span style={{ fontSize: 13, fontWeight: 700 }}>{sourceLabel}</span>
+                    <span style={{ fontSize: 12.5, fontWeight: 800, color: '#0284c7' }}>
+                      {s.count} visite(s) ({s.percentage}%)
+                    </span>
+                  </div>
+                  <div style={{ height: 5, borderRadius: 999, background: 'rgba(100,116,139,0.15)', overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${Math.max(s.percentage, s.count > 0 ? 4 : 0)}%`, background: '#0284c7', borderRadius: 999 }} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* SECTION PAGES LES PLUS AIMÉES & BOUTONS LES PLUS CLIQUÉS */}
       {(activeTab === 'all' || activeTab === 'pages' || activeTab === 'clicks') && (
         <div className={activeTab === 'all' ? 'nob-an-grid-2' : ''}>
           {/* PAGES LES PLUS AIMÉES */}
@@ -767,70 +1207,76 @@ export const AnalyticsDashboard: React.FC = () => {
                 <span>Pages les plus aimées par vos visiteurs</span>
               </div>
               <div className="nob-an-card-sub">
-                Classement des pages les plus consultées sur votre site internet.
+                Classement des pages réellement consultées sur votre site internet.
               </div>
 
-              {(data?.topPages || []).slice(0, activeTab === 'pages' ? 15 : 7).map((page: any, idx: number) => (
-                <div key={page.path} className="nob-an-row">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
-                      <span
-                        style={{
-                          width: 26,
-                          height: 26,
-                          borderRadius: 8,
-                          background: idx < 3 ? '#0284c7' : 'rgba(100,116,139,0.15)',
-                          color: idx < 3 ? '#ffffff' : 'inherit',
-                          fontSize: 12,
-                          fontWeight: 800,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          flexShrink: 0,
-                        }}
-                      >
-                        {idx + 1}
-                      </span>
-                      <div style={{ minWidth: 0 }}>
-                        <div style={{ fontSize: 14, fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                          {page.title}
-                        </div>
-                        <div style={{ fontSize: 11.5, color: '#64748b', display: 'flex', alignItems: 'center', gap: 6 }}>
-                          <span>{page.path}</span>
-                          <a
-                            href={page.path}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ color: '#0284c7', textDecoration: 'none', fontWeight: 700 }}
-                          >
-                            Ouvrir ↗
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                      <div style={{ fontSize: 15, fontWeight: 800, color: '#0284c7' }}>
-                        {page.views} vues
-                      </div>
-                      <div style={{ fontSize: 11.5, color: '#64748b' }}>
-                        {page.uniqueVisitors} visiteurs ({page.percentage}%)
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ height: 6, borderRadius: 999, background: 'rgba(100,116,139,0.15)', overflow: 'hidden' }}>
-                    <div
-                      style={{
-                        height: '100%',
-                        width: `${Math.max(page.percentage, 4)}%`,
-                        background: '#0284c7',
-                        borderRadius: 999,
-                      }}
-                    />
-                  </div>
+              {(data?.topPages || []).length === 0 ? (
+                <div style={{ padding: 24, textAlign: 'center', color: '#64748b', fontSize: 13.5 }}>
+                  Aucune page consultée sur cette période.
                 </div>
-              ))}
+              ) : (
+                (data?.topPages || []).slice(0, activeTab === 'pages' ? 15 : 7).map((page: any, idx: number) => (
+                  <div key={page.path} className="nob-an-row">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
+                        <span
+                          style={{
+                            width: 26,
+                            height: 26,
+                            borderRadius: 8,
+                            background: idx < 3 ? '#0284c7' : 'rgba(100,116,139,0.15)',
+                            color: idx < 3 ? '#ffffff' : 'inherit',
+                            fontSize: 12,
+                            fontWeight: 800,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                          }}
+                        >
+                          {idx + 1}
+                        </span>
+                        <div style={{ minWidth: 0 }}>
+                          <div style={{ fontSize: 14, fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {page.title}
+                          </div>
+                          <div style={{ fontSize: 11.5, color: '#64748b', display: 'flex', alignItems: 'center', gap: 6 }}>
+                            <span>{page.path}</span>
+                            <a
+                              href={page.path}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{ color: '#0284c7', textDecoration: 'none', fontWeight: 700 }}
+                            >
+                              Ouvrir ↗
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                        <div style={{ fontSize: 15, fontWeight: 800, color: '#0284c7' }}>
+                          {page.views} vue(s)
+                        </div>
+                        <div style={{ fontSize: 11.5, color: '#64748b' }}>
+                          {page.uniqueVisitors} visiteur(s) ({page.percentage}%)
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ height: 6, borderRadius: 999, background: 'rgba(100,116,139,0.15)', overflow: 'hidden' }}>
+                      <div
+                        style={{
+                          height: '100%',
+                          width: `${Math.max(page.percentage, 4)}%`,
+                          background: '#0284c7',
+                          borderRadius: 999,
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           )}
 
@@ -842,221 +1288,134 @@ export const AnalyticsDashboard: React.FC = () => {
                 <span>Où cliquent vos visiteurs ? (Boutons &amp; Actions)</span>
               </div>
               <div className="nob-an-card-sub">
-                Les appels à l&apos;action (Devis, WhatsApp, Formations, Audit) qui convertissent le mieux.
+                Les appels à l&apos;action (Devis, WhatsApp, Formations, Formulaires) déclenchés par vos visiteurs.
               </div>
 
-              {(data?.topClicks || []).slice(0, activeTab === 'clicks' ? 15 : 7).map((click: any, idx: number) => (
-                <div key={idx} className="nob-an-row">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                    <div style={{ minWidth: 0 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-                        <span
-                          style={{
-                            fontSize: 10.5,
-                            fontWeight: 800,
-                            padding: '2px 8px',
-                            borderRadius: 6,
-                            background: 'rgba(16, 185, 129, 0.14)',
-                            color: '#059669',
-                            textTransform: 'uppercase',
-                          }}
-                        >
-                          {click.type}
-                        </span>
-                        <span style={{ fontSize: 14, fontWeight: 700 }}>
-                          {click.elementText}
-                        </span>
-                      </div>
-                      <div style={{ fontSize: 11.5, color: '#64748b', marginTop: 3 }}>
-                        Cliqué depuis la page : <strong>{click.path}</strong>
-                      </div>
-                    </div>
-
-                    <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                      <div style={{ fontSize: 15, fontWeight: 800, color: '#059669' }}>
-                        {click.count} clics
-                      </div>
-                      <div style={{ fontSize: 11.5, color: '#64748b' }}>
-                        {click.percentage}% des clics
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ height: 6, borderRadius: 999, background: 'rgba(100,116,139,0.15)', overflow: 'hidden' }}>
-                    <div
-                      style={{
-                        height: '100%',
-                        width: `${Math.max(click.percentage, 4)}%`,
-                        background: '#10b981',
-                        borderRadius: 999,
-                      }}
-                    />
-                  </div>
+              {(data?.topClicks || []).length === 0 ? (
+                <div style={{ padding: 24, textAlign: 'center', color: '#64748b', fontSize: 13.5 }}>
+                  Aucun clic enregistré sur cette période.
                 </div>
-              ))}
+              ) : (
+                (data?.topClicks || []).slice(0, activeTab === 'clicks' ? 15 : 7).map((click: any, idx: number) => {
+                  const badge = getActionBadgeLabel(click.type);
+                  return (
+                    <div key={idx} className="nob-an-row">
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                        <div style={{ minWidth: 0 }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                            <span
+                              style={{
+                                fontSize: 10.5,
+                                fontWeight: 800,
+                                padding: '2px 8px',
+                                borderRadius: 6,
+                                background: badge.bg,
+                                color: badge.color,
+                                textTransform: 'uppercase',
+                              }}
+                            >
+                              {badge.label}
+                            </span>
+                            <span style={{ fontSize: 14, fontWeight: 700 }}>
+                              {click.elementText}
+                            </span>
+                          </div>
+                          <div style={{ fontSize: 11.5, color: '#64748b', marginTop: 3 }}>
+                            Cliqué sur la page : <strong>{click.path}</strong>
+                          </div>
+                        </div>
+
+                        <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                          <div style={{ fontSize: 15, fontWeight: 800, color: '#059669' }}>
+                            {click.count} clic(s)
+                          </div>
+                          <div style={{ fontSize: 11.5, color: '#64748b' }}>
+                            {click.percentage}% des clics
+                          </div>
+                        </div>
+                      </div>
+
+                      <div style={{ height: 6, borderRadius: 999, background: 'rgba(100,116,139,0.15)', overflow: 'hidden' }}>
+                        <div
+                          style={{
+                            height: '100%',
+                            width: `${Math.max(click.percentage, 4)}%`,
+                            background: '#10b981',
+                            borderRadius: 999,
+                          }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })
+              )}
             </div>
           )}
         </div>
       )}
 
-      {/* SECTION 3 : LOCALISATION & APPAREILS */}
-      {(activeTab === 'all' || activeTab === 'geo') && (
-        <div className="nob-an-grid-2">
-          {/* LOCALISATION (VILLES & PAYS) */}
-          <div className="nob-an-card">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 14 }}>
-              <div>
-                <div className="nob-an-card-title">
-                  <MapPin size={20} color="#d97706" weight="duotone" />
-                  <span>Localisation de vos visiteurs</span>
-                </div>
-                <div className="nob-an-card-sub" style={{ marginBottom: 0 }}>
-                  Villes et pays d&apos;où proviennent vos visiteurs.
-                </div>
-              </div>
-
-              <div className="nob-an-period-group">
-                <button
-                  type="button"
-                  onClick={() => setActiveGeoTab('cities')}
-                  className={`nob-an-period-btn ${activeGeoTab === 'cities' ? 'active' : ''}`}
-                  style={{ padding: '6px 12px', fontSize: 12 }}
-                >
-                  Par Ville
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveGeoTab('countries')}
-                  className={`nob-an-period-btn ${activeGeoTab === 'countries' ? 'active' : ''}`}
-                  style={{ padding: '6px 12px', fontSize: 12 }}
-                >
-                  Par Pays
-                </button>
-              </div>
-            </div>
-
-            {activeGeoTab === 'cities'
-              ? (data?.locations?.cities || []).map((loc: any, idx: number) => (
-                  <div key={idx} className="nob-an-row">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <span style={{ fontSize: 20 }}>{getCountryFlag(loc.countryCode)}</span>
-                        <div>
-                          <div style={{ fontSize: 14, fontWeight: 700 }}>{loc.city}</div>
-                          <div style={{ fontSize: 11.5, color: '#64748b' }}>{loc.country}</div>
-                        </div>
-                      </div>
-                      <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontSize: 14.5, fontWeight: 800 }}>{loc.count} visites</div>
-                        <div style={{ fontSize: 11.5, color: '#0284c7', fontWeight: 700 }}>{loc.percentage}%</div>
-                      </div>
-                    </div>
-                    <div style={{ height: 6, borderRadius: 999, background: 'rgba(100,116,139,0.15)', overflow: 'hidden' }}>
-                      <div style={{ height: '100%', width: `${Math.max(loc.percentage, 4)}%`, background: '#f59e0b', borderRadius: 999 }} />
-                    </div>
-                  </div>
-                ))
-              : (data?.locations?.countries || []).map((c: any, idx: number) => (
-                  <div key={idx} className="nob-an-row">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <span style={{ fontSize: 20 }}>{getCountryFlag(c.countryCode)}</span>
-                        <div style={{ fontSize: 14, fontWeight: 700 }}>{c.country}</div>
-                      </div>
-                      <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontSize: 14.5, fontWeight: 800 }}>{c.count} visites</div>
-                        <div style={{ fontSize: 11.5, color: '#0284c7', fontWeight: 700 }}>{c.percentage}%</div>
-                      </div>
-                    </div>
-                    <div style={{ height: 6, borderRadius: 999, background: 'rgba(100,116,139,0.15)', overflow: 'hidden' }}>
-                      <div style={{ height: '100%', width: `${Math.max(c.percentage, 4)}%`, background: '#f59e0b', borderRadius: 999 }} />
-                    </div>
-                  </div>
-                ))}
+      {/* JOURNAL EN DIRECT DES DERNIÈRES VISITES & ACTIONS RÉELLES */}
+      {activeTab === 'all' && (data?.recentEvents || []).length > 0 && (
+        <div className="nob-an-card">
+          <div className="nob-an-card-title">
+            <Pulse size={20} color="#10b981" weight="duotone" />
+            <span>Flux en direct des dernières visites &amp; actions réelles</span>
+          </div>
+          <div className="nob-an-card-sub">
+            Chaque ligne correspond à une action réelle captée par les détecteurs invisibles du site.
           </div>
 
-          {/* APPAREILS & SOURCES D'ACQUISITION */}
-          <div className="nob-an-card">
-            <div className="nob-an-card-title">
-              <ShareNetwork size={20} color="#0284c7" weight="duotone" />
-              <span>Appareils utilisés &amp; Provenance du trafic</span>
-            </div>
-            <div className="nob-an-card-sub">
-              Comment vos visiteurs accèdent à votre site (Téléphone vs Ordinateur, Google, Réseaux sociaux).
-            </div>
-
-            <div style={{ fontSize: 12.5, fontWeight: 800, color: '#64748b', textTransform: 'uppercase', marginBottom: 10 }}>
-              Appareils des visiteurs
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10, marginBottom: 22 }}>
-              {(data?.devices || []).map((dev: any, idx: number) => {
-                const isMobile = dev.device?.toLowerCase().includes('mobile');
-                const Icon = isMobile ? DeviceMobile : Desktop;
-                return (
-                  <div
-                    key={idx}
-                    style={{
-                      padding: 14,
-                      borderRadius: 14,
-                      background: 'rgba(2, 132, 199, 0.06)',
-                      border: '1px solid rgba(2, 132, 199, 0.18)',
-                      textAlign: 'center',
-                    }}
-                  >
-                    <Icon size={22} color="#0284c7" weight="duotone" />
-                    <div style={{ fontSize: 20, fontWeight: 800, marginTop: 4 }}>{dev.percentage}%</div>
-                    <div style={{ fontSize: 12, fontWeight: 700, textTransform: 'capitalize' }}>{dev.device}</div>
-                    <div style={{ fontSize: 11, color: '#64748b' }}>{dev.count} visites</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 10 }}>
+            {(data?.recentEvents || []).slice(0, 10).map((ev: any, idx: number) => {
+              const badge = getActionBadgeLabel(ev.type);
+              const devLabel =
+                ev.device === 'mobile'
+                  ? 'Mobile'
+                  : ev.device === 'tablet'
+                    ? 'Tablette'
+                    : 'Ordinateur';
+              return (
+                <div
+                  key={ev.id || idx}
+                  className="nob-an-row"
+                  style={{ marginBottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
+                    <CountryFlag code={ev.countryCode} country={ev.country} size={26} />
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontWeight: 800,
+                            padding: '2px 7px',
+                            borderRadius: 5,
+                            background: badge.bg,
+                            color: badge.color,
+                          }}
+                        >
+                          {badge.label}
+                        </span>
+                        <span style={{ fontSize: 13, fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {ev.type === 'pageview' ? ev.path : ev.elementText || ev.path}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: 11.5, color: '#64748b', marginTop: 2 }}>
+                        {ev.city}, {ev.country} • {devLabel} ({ev.os || 'OS'} / {ev.browser || 'Web'})
+                      </div>
+                    </div>
                   </div>
-                );
-              })}
-            </div>
-
-            <div style={{ fontSize: 12.5, fontWeight: 800, color: '#64748b', textTransform: 'uppercase', marginBottom: 10 }}>
-              Canaux d&apos;acquisition (D&apos;où viennent-ils ?)
-            </div>
-            {(data?.sources || []).map((s: any, idx: number) => (
-              <div key={idx} className="nob-an-row">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                  <span style={{ fontSize: 13.5, fontWeight: 700 }}>{s.source}</span>
-                  <span style={{ fontSize: 13, fontWeight: 800, color: '#0284c7' }}>
-                    {s.count} visites ({s.percentage}%)
+                  <span style={{ fontSize: 11, fontWeight: 700, color: '#64748b', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                    {formatRelativeTime(ev.createdAt)}
                   </span>
                 </div>
-                <div style={{ height: 6, borderRadius: 999, background: 'rgba(100,116,139,0.15)', overflow: 'hidden' }}>
-                  <div style={{ height: '100%', width: `${Math.max(s.percentage, 4)}%`, background: '#0284c7', borderRadius: 999 }} />
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
     </div>
   );
 };
-
-function getCountryFlag(countryCode: string): string {
-  const code = (countryCode || 'SN').toUpperCase();
-  const map: Record<string, string> = {
-    SN: '🇸🇳',
-    FR: '🇫🇷',
-    CI: '🇨🇮',
-    ML: '🇲🇱',
-    MA: '🇲🇦',
-    CA: '🇨🇦',
-    US: '🇺🇸',
-    BE: '🇧🇪',
-    CH: '🇨🇭',
-    GB: '🇬🇧',
-    DE: '🇩🇪',
-    GN: '🇬🇳',
-    BF: '🇧🇫',
-    TG: '🇹🇬',
-    BJ: '🇧🇯',
-    CM: '🇨🇲',
-    GA: '🇬🇦',
-  };
-  return map[code] || '🌍';
-}
 
 export default AnalyticsDashboard;

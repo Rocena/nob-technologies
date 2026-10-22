@@ -56,7 +56,7 @@ export default async function ContactPage({
               <TextReveal>
                 <h1 className="text-white mb-6 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-balance">
                   {title} :{" "}
-                  <span className="text-[#0284C7] dark:text-sky-400">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                     Concevons Votre Projet IT
                   </span>
                 </h1>
@@ -75,7 +75,7 @@ export default async function ContactPage({
             <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
               <FadeUp className="lg:col-span-1 space-y-8">
                 <div>
-                  <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold text-[#0284C7] dark:text-sky-400">
+                  <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                     CONTACT DIRECT &bull; DAKAR
                   </p>
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-3 tracking-tight">

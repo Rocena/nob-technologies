@@ -94,7 +94,8 @@ export function FormationOfferingsSection({ formationTitle }: FormationOfferings
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto mb-12">
         <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold flex items-center justify-center gap-2 flex-wrap">
-          <span className="text-[#0284C7] dark:text-sky-400">
+          <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">&gt;<span className="text-[#10E760] animate-pulse">_</span></span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
             ACCOMPAGNEMENT &bull; FLEXIBILITÉ
           </span>
         </p>
@@ -158,7 +159,7 @@ export function FormationOfferingsSection({ formationTitle }: FormationOfferings
               <button
                 type="button"
                 onClick={offering.action}
-                className="w-full py-3 px-4 rounded-xl text-white font-bold text-xs bg-[#0284C7] hover:bg-[#0369A1] hover:brightness-105 active:scale-95 transition-all shadow-[0_4px_14px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_20px_rgba(16,231,96,0.35)] flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3 px-4 rounded-xl text-[#020617] font-bold text-xs bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] hover:brightness-105 active:scale-95 transition-all shadow-[0_4px_14px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_20px_rgba(16,231,96,0.35)] flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>{offering.ctaText}</span>
                 <ArrowRight className="w-3.5 h-3.5 text-[#020617]" />

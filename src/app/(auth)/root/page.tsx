@@ -14,15 +14,22 @@ export const metadata = {
   },
 };
 
-export default async function RootLoginPage() {
+export default async function RootLoginPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const sp = searchParams ? await searchParams : {};
+  const hasResetToken = Boolean(sp?.token);
+
   const cookieStore = await cookies();
   const token = cookieStore.get('payload-token')?.value;
 
   try {
     const payload = await getPayloadClient();
 
-    // Si une session est déjà valide, rediriger directement vers /admin
-    if (token) {
+    // Si une session est déjà valide (et qu'on n'est pas en train de réinitialiser un mot de passe), rediriger vers /admin
+    if (token && !hasResetToken) {
       try {
         const reqHeaders = await headers();
         const { user } = await payload.auth({ headers: reqHeaders });

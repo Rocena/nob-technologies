@@ -42,7 +42,7 @@ export function FooterEmergeText() {
         style={{ opacity }}
         className="mt-2 sm:mt-4 flex items-center justify-center max-w-full px-4 select-none relative z-20 overflow-hidden whitespace-nowrap"
       >
-        <p className="font-semibold text-[#0284C7] dark:text-sky-400 text-[11px] xs:text-xs sm:text-sm md:text-base tracking-[0.2em] sm:tracking-[0.28em] uppercase text-center whitespace-nowrap drop-shadow-[0_0_12px_rgba(0,212,255,0.3)]">
+        <p className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-[11px] xs:text-xs sm:text-sm md:text-base tracking-[0.2em] sm:tracking-[0.28em] uppercase text-center whitespace-nowrap drop-shadow-[0_0_12px_rgba(0,212,255,0.3)]">
           LA TECHNOLOGIE À VOTRE PORTÉE
         </p>
       </motion.div>

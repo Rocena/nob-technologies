@@ -29,7 +29,7 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
               <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">
                 &gt;<span className="text-[#10E760] animate-pulse">_</span>
               </span>
-              <span className="text-[#0284C7] dark:text-sky-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                 DIRECTION &amp; LEADERSHIP TECHNIQUE
               </span>
             </div>
@@ -37,7 +37,7 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
             {/* Clean, Simple & Impactful Title */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white leading-tight mb-4 text-center">
               L’Ingénieur &amp; Visionnaire derrière{" "}
-              <span className="text-[#0284C7] dark:text-sky-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                 NOBTECH
               </span>
             </h2>
@@ -84,7 +84,7 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
                       Fondateur &amp; Lead Architecte IT
                     </p>
 
-                    <div className="w-16 h-0.5 bg-[#0284C7] mx-auto mb-5 rounded-full" />
+                    <div className="w-16 h-0.5 bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] mx-auto mb-5 rounded-full" />
                   </div>
 
                   {/* 3 Key Credentials Pills */}
@@ -138,7 +138,7 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
               <div className="pb-3 border-b border-white/10 text-center lg:text-left">
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug">
                   Mettre l’informatique au service de la{" "}
-                  <span className="text-[#0284C7] dark:text-sky-400">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                     performance réelle
                   </span>{" "}
                   et de la sérénité des organisations.
@@ -205,7 +205,7 @@ export function FounderBioSection({ photoSrc }: FounderBioSectionProps) {
                   <div className="flex-1">
                     <blockquote className="text-white font-bold text-lg sm:text-xl lg:text-2xl leading-snug">
                       « La technologie ne doit pas seulement accompagner l&apos;évolution des entreprises. Elle doit leur donner les moyens d&apos;
-                      <span className="text-[#0284C7] dark:text-sky-400">
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                         aller plus loin
                       </span>. »
                     </blockquote>

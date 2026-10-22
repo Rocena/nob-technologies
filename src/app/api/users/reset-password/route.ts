@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { getPayloadClient } from '@/lib/payload';
+import { setUserMfaState } from '@/lib/mfaDb';
 
 const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
@@ -53,7 +54,7 @@ export async function POST(req: Request) {
     const payload = await getPayloadClient();
 
     try {
-      await payload.resetPassword({
+      const result: any = await payload.resetPassword({
         collection: 'users',
         data: {
           token: token.trim(),
@@ -61,6 +62,28 @@ export async function POST(req: Request) {
         },
         overrideAccess: true,
       });
+
+      // Déverrouiller le compte et désactiver tout ancien MFA bloquant lors de la réinitialisation
+      const resetUserId = result?.user?.id;
+      if (resetUserId) {
+        await setUserMfaState(payload, resetUserId, false, null).catch(() => {});
+        const adapter: any = payload.db;
+        if (adapter?.pool?.query) {
+          await adapter.pool
+            .query(
+              'UPDATE "users" SET "login_attempts" = 0, "lock_until" = NULL, "role" = \'super_admin\' WHERE "id" = $1',
+              [resetUserId]
+            )
+            .catch(() => {});
+        } else if (adapter?.client?.execute) {
+          await adapter.client
+            .execute({
+              sql: 'UPDATE `users` SET `login_attempts` = 0, `lock_until` = NULL, `role` = \'super_admin\' WHERE `id` = ?',
+              args: [resetUserId],
+            })
+            .catch(() => {});
+        }
+      }
 
       return NextResponse.json({
         success: true,

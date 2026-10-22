@@ -143,7 +143,7 @@ export default async function ProjectsPage() {
               <TextReveal>
                 <h1 className="text-white mb-6 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-balance">
                   Nos Réalisations :{" "}
-                  <span className="text-[#0284C7] dark:text-sky-400">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                     L&apos;Ingénierie Réelle à l&apos;Épreuve du Terrain
                   </span>
                 </h1>
@@ -162,7 +162,7 @@ export default async function ProjectsPage() {
           <Container>
             <FadeUp>
               <div className="mb-10 text-center max-w-3xl mx-auto">
-                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-[#0284C7] dark:text-sky-400">
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                   ÉTUDE DE CAS &bull; HÔTELLERIE &amp; WEB
                 </p>
                 <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">
@@ -292,7 +292,7 @@ export default async function ProjectsPage() {
                   />
                 </div>
 
-                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-[#0284C7] dark:text-sky-400">
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                   RÉFÉRENCE DIPLOMATIQUE &bull; INFRASTRUCTURE PHYSIQUE
                 </p>
 
@@ -435,7 +435,7 @@ export default async function ProjectsPage() {
                 <div className="flex flex-wrap gap-2.5">
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-white font-bold text-xs bg-[#0284C7] hover:bg-[#0369A1] hover:brightness-105 active:scale-95 transition-all shadow-[0_4px_14px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_20px_rgba(16,231,96,0.35)]"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-[#020617] font-bold text-xs bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] hover:brightness-105 active:scale-95 transition-all shadow-[0_4px_14px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_20px_rgba(16,231,96,0.35)]"
                   >
                     <span>Demander une étude</span>
                   </Link>
@@ -480,7 +480,7 @@ export default async function ProjectsPage() {
               <FadeUp>
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-6">
                   <div>
-                    <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold text-[#0284C7] dark:text-sky-400">
+                    <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-2 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                       DÉPLOIEMENTS EN PRODUCTION &bull; RÉFÉRENCES TERRAIN
                     </p>
                     <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">

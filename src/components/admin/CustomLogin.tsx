@@ -127,7 +127,12 @@ export const CustomLogin: React.FC = () => {
 
       const data = await res.json().catch(() => ({}));
       if (res.ok) {
-        setView('FORGOT_SENT');
+        if (data.directResetToken) {
+          setResetToken(data.directResetToken);
+          setView('RESET_PASSWORD');
+        } else {
+          setView('FORGOT_SENT');
+        }
       } else {
         setError(data.error || 'Erreur lors de l’envoi de la demande.');
         setView('FORGOT');
@@ -283,9 +288,21 @@ export const CustomLogin: React.FC = () => {
                   onClick={() => {
                     setError('');
                     setMfaCode('');
+                    setView('FORGOT');
+                  }}
+                  className="mt-1 flex items-center justify-center gap-1.5 text-xs font-semibold text-[#00D4FF] hover:underline transition-colors"
+                >
+                  Plus accès à Google Authenticator ? Réinitialiser mon accès
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setError('');
+                    setMfaCode('');
                     setView('LOGIN');
                   }}
-                  className="mt-3 flex items-center justify-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+                  className="mt-2 flex items-center justify-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
                 >
                   <ArrowLeft size={13} /> Revenir aux identifiants
                 </button>

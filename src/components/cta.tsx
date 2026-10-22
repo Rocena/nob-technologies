@@ -1,96 +1,122 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Container, Section } from "@/components/ui/layout";
+import { Heading, Text } from "@/components/ui/typography";
 import { GlowButton } from "@/components/GlowButton";
-import { TalkToEngineerButton } from "@/components/TalkToEngineerButton";
-import { Phone, Mail, MapPin, ShieldCheck } from "lucide-react";
+import { FadeUp } from "@/components/animations";
+
+function NetworkBackground() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationId: number;
+    const nodes: { x: number; y: number; vx: number; vy: number }[] = [];
+    const count = 40;
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    for (let i = 0; i < count; i++) {
+      nodes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+      });
+    }
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const n of nodes) {
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+        if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+      }
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            ctx.strokeStyle = `rgba(0, 212, 255, ${0.08 * (1 - dist / 120)})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+          }
+        }
+        ctx.fillStyle = "rgba(0, 212, 255, 0.3)";
+        ctx.beginPath();
+        ctx.arc(nodes[i].x, nodes[i].y, 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      animationId = requestAnimationFrame(draw);
+    };
+    draw();
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full opacity-30"
+      aria-hidden="true"
+    />
+  );
+}
 
 export function CTA() {
   return (
-    <Section className="bg-[#0B1528] py-20 md:py-28 relative overflow-hidden border-t border-slate-800">
+    <Section data-cursor-binary="true" className="bg-[#020617] py-16 md:py-24 lg:py-32 relative overflow-hidden border-t border-white/5">
+      {/* Interactive Network Background */}
+      <NetworkBackground />
+
+      {/* Gradient overlays */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/80 via-transparent to-[#020617]/80 pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] lg:w-[1200px] h-[450px] lg:h-[600px] bg-gradient-to-tr from-[#00D4FF]/10 via-[#00F0FF]/8 to-[#10E760]/8 rounded-full blur-[130px] pointer-events-none"></div>
+
       <Container className="relative z-10">
-        <div className="rounded-2xl bg-[#060B14] border border-slate-800 p-8 sm:p-10 md:p-14">
-          <div className="grid lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 text-xs font-semibold text-sky-400 mb-3">
-                <ShieldCheck className="w-4 h-4" />
-                <span>Consultation &amp; Audit sur site à Dakar</span>
-              </div>
-              <h2
-                className="font-extrabold tracking-tight text-white leading-[1.12] mb-4"
-                style={{ fontSize: "clamp(1.75rem, 1.2rem + 2vw, 2.75rem)" }}
-              >
-                Un projet d&apos;infrastructure réseau, de cybersécurité ou de digitalisation ?
-              </h2>
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-[60ch] mb-7">
-                Nos ingénieurs certifiés évaluent votre existant sur site (baies de brassage, pare-feux, serveurs, parc applicatif) et vous remettent un cahier de recommandations chiffré sous 24h à 48h.
-              </p>
-
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
-                <GlowButton href="/contact" size="lg">
-                  Demander un chiffrage
-                </GlowButton>
-                <TalkToEngineerButton />
-              </div>
+        <div className="text-center max-w-4xl mx-auto">
+          <FadeUp>
+            <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-4 sm:mb-6 font-extrabold flex items-center justify-center gap-2 flex-wrap">
+              <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">&gt;<span className="text-[#10E760] animate-pulse">_</span></span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                ACCÉLÉRATION DIGITALE &bull; PASSEZ À L&apos;ACTION
+              </span>
+            </p>
+            <Heading level={2} className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+              Passez à la vitesse supérieure avec nos{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                infrastructures cloud et réseaux sécurisés.
+              </span>
+            </Heading>
+            <Text className="text-base sm:text-lg md:text-xl text-slate-400 mb-10 md:mb-12 leading-relaxed max-w-2xl mx-auto">
+              Nos ingénieurs certifiés analysent vos besoins et conçoivent une architecture sur-mesure. Premier audit offert, sans engagement.
+            </Text>
+          </FadeUp>
+          <FadeUp delay={0.2}>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <GlowButton href="/contact" className="w-full sm:w-auto px-8 md:px-12">
+                Démarrer un projet
+              </GlowButton>
             </div>
-
-            <div className="lg:col-span-5">
-              <div className="rounded-xl bg-[#0B1528] border border-slate-800 p-6 space-y-4">
-                <div className="text-xs font-mono uppercase text-slate-400 pb-3 border-b border-slate-800">
-                  Coordonnées directes · Siège Dakar
-                </div>
-
-                <a
-                  href="tel:+221773010838"
-                  className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-white/[0.06] border border-white/5 transition-colors"
-                >
-                  <div className="flex items-center gap-3">
-                    <Phone className="w-4 h-4 text-emerald-400" />
-                    <div>
-                      <div className="text-xs text-slate-400">Ligne directe &amp; WhatsApp</div>
-                      <div className="text-sm font-bold text-white">+221 77 301 08 38</div>
-                    </div>
-                  </div>
-                  <span className="font-mono text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
-                    24/7
-                  </span>
-                </a>
-
-                <a
-                  href="tel:+221338140435"
-                  className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-white/[0.06] border border-white/5 transition-colors"
-                >
-                  <div className="flex items-center gap-3">
-                    <Phone className="w-4 h-4 text-sky-400" />
-                    <div>
-                      <div className="text-xs text-slate-400">Standard fixe Dakar</div>
-                      <div className="text-sm font-bold text-white">+221 33 814 04 35</div>
-                    </div>
-                  </div>
-                  <span className="font-mono text-[10px] text-slate-400">Bureau</span>
-                </a>
-
-                <a
-                  href="mailto:contact@nobtech.fr"
-                  className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] hover:bg-white/[0.06] border border-white/5 transition-colors"
-                >
-                  <div className="flex items-center gap-3">
-                    <Mail className="w-4 h-4 text-sky-400" />
-                    <div>
-                      <div className="text-xs text-slate-400">Service commercial &amp; appels d&apos;offres</div>
-                      <div className="text-sm font-bold text-white">contact@nobtech.fr</div>
-                    </div>
-                  </div>
-                </a>
-
-                <div className="flex items-center gap-2 text-xs text-slate-400 pt-1">
-                  <MapPin className="w-3.5 h-3.5 text-sky-400 shrink-0" />
-                  <span>Route de l&apos;Aéroport LSS (QG3J+HP), Dakar, Sénégal</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          </FadeUp>
         </div>
       </Container>
     </Section>

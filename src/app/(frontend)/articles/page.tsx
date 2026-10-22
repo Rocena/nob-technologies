@@ -44,7 +44,7 @@ export default async function ArticlesPage() {
               {/* Main Headline */}
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 leading-[1.15] text-balance">
                 Chroniques d&apos;Ingénierie :{" "}
-                <span className="text-[#0284C7] dark:text-sky-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                   Retours d&apos;Expérience &amp; Décryptages
                 </span>
               </h1>

@@ -53,7 +53,7 @@ export function AnimatedHeroText() {
             <span className="text-[#00D4FF] mr-2 sm:mr-3 select-none font-mono font-black drop-shadow-[0_0_12px_rgba(0,212,255,0.4)]">
               &gt;
             </span>
-            <span className="text-[#0284C7] dark:text-sky-400 inline-block font-mono font-bold pb-1">
+            <span className="bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] bg-clip-text text-transparent inline-block font-mono font-bold pb-1">
               {displayedText}
             </span>
             {/* Terminal underscore cursor */}

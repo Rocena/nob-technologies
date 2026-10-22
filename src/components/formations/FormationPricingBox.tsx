@@ -39,7 +39,7 @@ export function FormationPricingBox({
             onClick={() => setActiveTab("particulier")}
             className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all ${
               activeTab === "particulier"
-                ? "bg-[#0284C7] hover:bg-[#0369A1] text-white shadow-md"
+                ? "bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 shadow-md"
                 : "text-slate-400 hover:text-white"
             }`}
           >
@@ -51,7 +51,7 @@ export function FormationPricingBox({
             onClick={() => setActiveTab("entreprise")}
             className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all ${
               activeTab === "entreprise"
-                ? "bg-[#0284C7] hover:bg-[#0369A1] text-white shadow-md"
+                ? "bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 shadow-md"
                 : "text-slate-400 hover:text-white"
             }`}
           >
@@ -168,7 +168,7 @@ export function FormationPricingBox({
                 <button
                   type="button"
                   onClick={() => setBrochureModalOpen(true)}
-                  className="flex-1 py-3.5 px-5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold text-xs uppercase tracking-wider hover:opacity-95 transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 cursor-pointer"
+                  className="flex-1 py-3.5 px-5 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-xs uppercase tracking-wider hover:opacity-95 transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 cursor-pointer"
                 >
                   <FileText size={16} />
                   <span>Demander le programme complet</span>
@@ -246,7 +246,7 @@ export function FormationPricingBox({
             <button
               type="button"
               onClick={() => openQuoteModal(`Formation Entreprise : ${formationTitle}`)}
-              className="py-4 px-8 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold text-sm uppercase tracking-wider hover:opacity-95 transition-all shadow-lg shadow-cyan-500/25 inline-flex items-center gap-2"
+              className="py-4 px-8 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-sm uppercase tracking-wider hover:opacity-95 transition-all shadow-lg shadow-cyan-500/25 inline-flex items-center gap-2"
             >
               <span>Demander un devis entreprise sur-mesure</span>
               <ArrowRight size={16} />

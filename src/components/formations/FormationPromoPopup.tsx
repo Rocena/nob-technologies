@@ -100,7 +100,7 @@ export function FormationPromoPopup({ formation }: FormationPromoPopupProps) {
             className="relative w-full max-w-lg bg-[#030712] border border-cyan-500/35 rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.9),0_0_50px_rgba(0,212,255,0.18)] text-slate-100 my-auto z-10 overflow-hidden"
           >
             {/* Liseré supérieur signature gradient NOBTECH */}
-            <div className="h-1.5 w-full bg-[#0284C7]" />
+            <div className="h-1.5 w-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]" />
 
             {/* Halos d'ambiance high-tech */}
             <div className="absolute -top-24 -right-24 w-56 h-56 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
@@ -206,7 +206,7 @@ export function FormationPromoPopup({ formation }: FormationPromoPopupProps) {
                 <button
                   type="button"
                   onClick={handleApply}
-                  className="w-full py-3.5 px-5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-black text-xs sm:text-sm uppercase tracking-wider hover:opacity-95 hover:shadow-cyan-500/35 transition-all flex items-center justify-center gap-2 shadow-xl shadow-cyan-500/25 cursor-pointer active:scale-98"
+                  className="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider hover:opacity-95 hover:shadow-cyan-500/35 transition-all flex items-center justify-center gap-2 shadow-xl shadow-cyan-500/25 cursor-pointer active:scale-98"
                 >
                   <span>Postuler &amp; Réserver ma place à ce tarif</span>
                   <ArrowRight size={16} />

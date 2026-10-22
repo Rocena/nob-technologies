@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { CookieConsent } from "@/components/CookieConsent";
 import { AnalyticsTracker } from "@/components/AnalyticsTracker";
@@ -22,10 +22,9 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const plusJakarta = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-jakarta",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -73,7 +72,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${plusJakarta.variable} ${jetbrainsMono.variable} h-full antialiased`}>
+    <html lang="fr" className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground overflow-x-hidden">
         <CommandPaletteProvider>
           <EngineerModalProvider>

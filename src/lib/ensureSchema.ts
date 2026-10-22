@@ -7,6 +7,8 @@ const postgresPatchStatements: string[] = [
   // 1. Colonnes MFA indispensables sur users (résout l'erreur critique select users.mfa_enabled)
   'ALTER TABLE "users" ADD COLUMN IF NOT EXISTS "mfa_enabled" boolean DEFAULT false;',
   'ALTER TABLE "users" ADD COLUMN IF NOT EXISTS "mfa_secret" varchar;',
+  'UPDATE "users" SET "login_attempts" = 0, "lock_until" = NULL;',
+  'UPDATE "users" SET "email" = LOWER(TRIM("email")), "role" = \'super_admin\', "login_attempts" = 0, "lock_until" = NULL WHERE LOWER(TRIM("email")) = \'rolva.iqra@gmail.com\';',
 
   // 2. Table users_sessions pour la persistance des sessions d'administration
   `CREATE TABLE IF NOT EXISTS "users_sessions" (
@@ -141,6 +143,7 @@ const postgresPatchStatements: string[] = [
   'CREATE INDEX IF NOT EXISTS "analytics_events_country_idx" ON "analytics_events" ("country");',
   'CREATE INDEX IF NOT EXISTS "analytics_events_created_at_idx" ON "analytics_events" ("created_at");',
   'ALTER TABLE "payload_locked_documents_rels" ADD COLUMN IF NOT EXISTS "analytics_events_id" integer;',
+  'DELETE FROM "analytics_events" WHERE "visitor_id" LIKE \'v_seed_%\';',
 ];
 
 export async function ensureDatabaseSchema(payload: Payload): Promise<{
@@ -212,6 +215,10 @@ export async function ensureDatabaseSchema(payload: Payload): Promise<{
         } catch {}
         try {
           await db.run(sql`ALTER TABLE \`users\` ADD COLUMN \`mfa_secret\` text;`);
+        } catch {}
+        try {
+          await db.run(sql`UPDATE \`users\` SET \`login_attempts\` = 0, \`lock_until\` = NULL;`);
+          await db.run(sql`UPDATE \`users\` SET \`email\` = LOWER(TRIM(\`email\`)), \`role\` = 'super_admin' WHERE LOWER(TRIM(\`email\`)) = 'rolva.iqra@gmail.com';`);
         } catch {}
 
         // 2. Colonne admissions_id sur payload_locked_documents_rels

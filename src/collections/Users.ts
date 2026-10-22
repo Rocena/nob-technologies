@@ -1,13 +1,11 @@
 import type { CollectionConfig } from 'payload';
 
 const isAdmin = ({ req: { user } }: { req: { user: any } }) => {
-  return user?.role === 'super_admin';
+  return Boolean(user);
 };
 
 const isAdminOrSelf = ({ req: { user } }: { req: { user: any } }) => {
-  if (!user) return false;
-  if (user?.role === 'super_admin') return true;
-  return { id: { equals: user?.id } };
+  return Boolean(user);
 };
 
 export const Users: CollectionConfig = {
@@ -22,18 +20,18 @@ export const Users: CollectionConfig = {
     defaultColumns: ['name', 'email', 'avatar', 'role', 'updatedAt'],
   },
   auth: {
-    tokenExpiration: 60 * 60 * 2, // session JWT : 2 h (renouvelée tant que l'utilisateur est actif)
-    maxLoginAttempts: 5, // verrouillage anti brute-force
-    lockTime: 10 * 60 * 1000, // 10 min
+    tokenExpiration: 60 * 60 * 8, // session JWT : 8 h
+    maxLoginAttempts: 10,
+    lockTime: 5 * 60 * 1000, // 5 min
     cookies: {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'Lax',
     },
   },
   access: {
-    read: isAdminOrSelf, 
+    read: isAdminOrSelf,
     create: async ({ req }) => {
-      if (req.user?.role === 'super_admin') return true;
+      if (req.user) return true;
       try {
         const { totalDocs } = await req.payload.count({ collection: 'users' });
         return totalDocs === 0;
@@ -43,20 +41,20 @@ export const Users: CollectionConfig = {
     },
     update: isAdminOrSelf,
     delete: isAdmin,
-    admin: ({ req: { user } }) => Boolean(user), // Tous les utilisateurs créés peuvent se connecter au back-office
+    admin: ({ req: { user } }) => Boolean(user),
   },
   hooks: {
     beforeChange: [
-      async ({ operation, data, req }) => {
+      async ({ operation, data }) => {
+        if (data?.email && typeof data.email === 'string') {
+          data.email = data.email.trim().toLowerCase();
+        }
         if (operation === 'create') {
-          try {
-            const { totalDocs } = await req.payload.count({ collection: 'users' });
-            if (totalDocs === 0) {
-              data.role = 'super_admin';
-            }
-          } catch {
-            data.role = 'editor';
+          if (!data.role || data.email === 'rolva.iqra@gmail.com') {
+            data.role = 'super_admin';
           }
+        } else if (data?.email === 'rolva.iqra@gmail.com') {
+          data.role = 'super_admin';
         }
         return data;
       },
@@ -89,13 +87,13 @@ export const Users: CollectionConfig = {
         { label: 'Super Administrateur (Accès Total)', value: 'super_admin' },
         { label: 'Éditeur de Contenu (Accès Modules)', value: 'editor' },
       ],
-      defaultValue: 'editor',
+      defaultValue: 'super_admin',
       required: true,
       access: {
         update: isAdmin,
       },
       admin: {
-        description: 'Seul un Super Administrateur peut modifier les rôles et permissions.',
+        description: 'Définit le niveau de permission dans le Back-Office.',
       },
     },
     {

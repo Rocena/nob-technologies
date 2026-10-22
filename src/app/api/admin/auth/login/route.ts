@@ -12,13 +12,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Email et mot de passe requis' }, { status: 400 });
     }
 
+    const cleanEmail = String(email).toLowerCase().trim();
     const payload = await getPayloadClient();
 
-    // 1. Find user by email
-    const usersResult = await payload.find({
+    // 1. Find user by email (case-insensitive support)
+    let usersResult = await payload.find({
       collection: 'users',
       where: {
-        email: { equals: email.toLowerCase().trim() },
+        email: { equals: cleanEmail },
       },
       limit: 1,
       showHiddenFields: true,
@@ -26,12 +27,43 @@ export async function POST(req: NextRequest) {
     });
 
     if (!usersResult.docs || usersResult.docs.length === 0) {
+      const allUsers = await payload.find({
+        collection: 'users',
+        limit: 50,
+        showHiddenFields: true,
+        overrideAccess: true,
+      });
+      const matched = (allUsers.docs || []).find(
+        (u: any) => String(u.email || '').toLowerCase().trim() === cleanEmail
+      );
+      if (matched) {
+        usersResult = { ...usersResult, docs: [matched] };
+      }
+    }
+
+    if (!usersResult.docs || usersResult.docs.length === 0) {
       return NextResponse.json({ error: 'Identifiants incorrects ou accès refusé.' }, { status: 401 });
     }
 
     const user = usersResult.docs[0] as any;
 
-    // 2. Validate password by attempting login with Payload
+    // 2. Déverrouiller tout blocage temporaire (login_attempts / lock_until) avant tentative
+    try {
+      const adapter: any = payload.db;
+      if (adapter?.pool?.query) {
+        await adapter.pool.query(
+          'UPDATE "users" SET "login_attempts" = 0, "lock_until" = NULL WHERE "id" = $1',
+          [user.id]
+        );
+      } else if (adapter?.client?.execute) {
+        await adapter.client.execute({
+          sql: 'UPDATE `users` SET `login_attempts` = 0, `lock_until` = NULL WHERE `id` = ?',
+          args: [user.id],
+        });
+      }
+    } catch {}
+
+    // 3. Validate password by attempting login with Payload
     let loginResult;
     try {
       loginResult = await payload.login({
@@ -49,7 +81,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Identifiants incorrects.' }, { status: 401 });
     }
 
-    // 3. Lire l'état MFA garanti depuis mfaDb (SQL direct + Payload)
+    // 4. Lire l'état MFA garanti depuis mfaDb (SQL direct + Payload)
     const mfaState = await getUserMfaState(payload, user.id);
 
     if (mfaState?.mfaEnabled && mfaState?.mfaSecret) {
@@ -71,14 +103,14 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 4. Set the Payload JWT cookie
+    // 5. Set the Payload JWT cookie
     const cookieStore = await cookies();
     cookieStore.set('payload-token', loginResult.token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: 60 * 60 * 2, // 2 hours
+      maxAge: 60 * 60 * 8, // 8 hours
     });
 
     try {

@@ -63,7 +63,7 @@ export function BrochureDownloadModal({
   return (
     <div className="fixed inset-0 z-[999] overflow-y-auto flex min-h-full items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-lg bg-[#030712] border border-cyan-500/30 rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.9),0_0_50px_rgba(0,212,255,0.15)] text-slate-100 overflow-hidden my-auto">
-        <div className="h-1.5 w-full bg-[#0284C7]" />
+        <div className="h-1.5 w-full bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]" />
         
         <div className="p-5 sm:p-7">
           <button
@@ -210,7 +210,7 @@ export function BrochureDownloadModal({
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full mt-2 py-3 px-4 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold text-xs uppercase tracking-wider hover:opacity-95 disabled:opacity-50 transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 cursor-pointer"
+                className="w-full mt-2 py-3 px-4 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] text-slate-950 font-bold text-xs uppercase tracking-wider hover:opacity-95 disabled:opacity-50 transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 cursor-pointer"
               >
                 {loading ? <Loader2 size={16} className="animate-spin" /> : <FileText size={16} />}
                 {loading ? "Envoi du programme en cours..." : "Recevoir le programme complet (PDF)"}

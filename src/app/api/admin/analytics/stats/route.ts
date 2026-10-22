@@ -4,6 +4,49 @@ import { getPayloadClient } from '@/lib/payload';
 
 export const dynamic = 'force-dynamic';
 
+const COUNTRY_NAME_TO_CODE: Record<string, string> = {
+  sénégal: 'SN',
+  senegal: 'SN',
+  france: 'FR',
+  "côte d'ivoire": 'CI',
+  'côte d’ivoire': 'CI',
+  mali: 'ML',
+  guinée: 'GN',
+  'burkina faso': 'BF',
+  cameroun: 'CM',
+  gabon: 'GA',
+  congo: 'CG',
+  'rd congo': 'CD',
+  togo: 'TG',
+  bénin: 'BJ',
+  niger: 'NE',
+  mauritanie: 'MR',
+  maroc: 'MA',
+  algérie: 'DZ',
+  tunisie: 'TN',
+  belgique: 'BE',
+  suisse: 'CH',
+  canada: 'CA',
+  'états-unis': 'US',
+  'royaume-uni': 'GB',
+  allemagne: 'DE',
+  espagne: 'ES',
+  italie: 'IT',
+  'émirats arabes unis': 'AE',
+};
+
+function normalizeCountryCode(rawCode?: string, countryName?: string): string {
+  const clean = (rawCode || '').trim().toUpperCase();
+  if (clean.length === 2 && /^[A-Z]{2}$/.test(clean)) {
+    return clean;
+  }
+  const lowerName = (countryName || '').trim().toLowerCase();
+  if (lowerName && COUNTRY_NAME_TO_CODE[lowerName]) {
+    return COUNTRY_NAME_TO_CODE[lowerName];
+  }
+  return 'SN';
+}
+
 function getStartDateForPeriod(period: string): Date {
   const now = new Date();
   if (period === 'today') {
@@ -21,113 +64,33 @@ function getStartDateForPeriod(period: string): Date {
     start.setDate(start.getDate() - 30);
     return start;
   }
-  // 'all'
   const start = new Date(now);
-  start.setDate(start.getDate() - 180);
+  start.setDate(start.getDate() - 365);
   return start;
 }
 
-// Seed baseline analytics data if the collection has few/no records
-async function ensureSeedAnalytics(payload: any) {
+// Nettoyer automatiquement les anciennes données fictives de démonstration (v_seed_*)
+let seedPurged = false;
+async function purgeFakeSeedAnalytics(payload: any) {
+  if (seedPurged) return;
+  seedPurged = true;
   try {
-    const countRes = await payload.count({ collection: 'analytics-events' });
-    if (countRes.totalDocs >= 30) return;
-
-    console.log('[Analytics] Ensemencement des données initiales pour le tableau de bord...');
-
-    const samplePages = [
-      { path: '/', title: 'NOB TECHNOLOGIES — Accueil' },
-      { path: '/formations', title: 'Catalogue Formations Professionnelles' },
-      { path: '/formations/cisco-ccna', title: 'Cisco CCNA (200-301) — Réseaux' },
-      { path: '/formations/preparation-certification-fortinet-nse4', title: 'Fortinet NSE 4 (FCP)' },
-      { path: '/formations/power-bi', title: 'Microsoft Power BI & Data Analytics' },
-      { path: '/services', title: 'Nos Services & Solutions IT' },
-      { path: '/services/cybersecurite', title: 'Cybersécurité & Firewalls' },
-      { path: '/services/reseaux-telecoms', title: 'Réseaux & Câblage Structuré' },
-      { path: '/contact', title: 'Contact & Devis' },
-      { path: '/realisations', title: 'Réalisations & Références' },
-    ];
-
-    const sampleCities = [
-      { city: 'Dakar', country: 'Sénégal', countryCode: 'SN', weight: 65 },
-      { city: 'Thiès', country: 'Sénégal', countryCode: 'SN', weight: 10 },
-      { city: 'Saint-Louis', country: 'Sénégal', countryCode: 'SN', weight: 5 },
-      { city: 'Paris', country: 'France', countryCode: 'FR', weight: 10 },
-      { city: 'Abidjan', country: 'Côte d’Ivoire', countryCode: 'CI', weight: 7 },
-      { city: 'Casablanca', country: 'Maroc', countryCode: 'MA', weight: 3 },
-    ];
-
-    const sampleClicks = [
-      { text: 'Demander un devis gratuit', type: 'click', path: '/services/cybersecurite' },
-      { text: 'WhatsApp direct (+221 77 301 08 38)', type: 'whatsapp_click', path: '/' },
-      { text: 'Télécharger le programme (PDF)', type: 'download_brochure', path: '/formations/cisco-ccna' },
-      { text: 'Candidater à cette session', type: 'click', path: '/formations/cisco-ccna' },
-      { text: 'Réserver un audit réseau 24h', type: 'click', path: '/reserver-audit' },
-      { text: 'Appel d’urgence DSI', type: 'call_click', path: '/contact' },
-    ];
-
-    const now = Date.now();
-    const docs = [];
-
-    // Générer 80 événements répartis sur les 10 derniers jours
-    for (let i = 0; i < 90; i++) {
-      const daysAgo = Math.floor(Math.random() * 10);
-      const hoursAgo = Math.floor(Math.random() * 24);
-      const ts = new Date(now - (daysAgo * 86400000 + hoursAgo * 3600000));
-
-      const page = samplePages[Math.floor(Math.random() * samplePages.length)];
-      const loc = sampleCities[Math.floor(Math.random() * sampleCities.length)];
-      const isMobile = Math.random() > 0.45;
-      const visitorId = `v_seed_${Math.floor(i / 3)}`;
-
-      // Pageview
-      docs.push({
-        type: 'pageview' as const,
-        path: page.path,
-        title: page.title,
-        referrer: Math.random() > 0.4 ? 'https://www.google.sn' : (Math.random() > 0.5 ? 'https://wa.me' : 'Direct'),
-        visitorId,
-        sessionId: `s_seed_${Math.floor(i / 2)}`,
-        country: loc.country,
-        countryCode: loc.countryCode,
-        city: loc.city,
-        device: isMobile ? ('mobile' as const) : ('desktop' as const),
-        browser: isMobile ? 'Chrome Mobile' : 'Chrome',
-        os: isMobile ? 'Android' : 'Windows',
-        createdAt: ts.toISOString(),
-      });
-
-      // 40% chance of an interaction click
-      if (Math.random() > 0.55) {
-        const clickItem = sampleClicks[Math.floor(Math.random() * sampleClicks.length)];
-        docs.push({
-          type: clickItem.type as any,
-          path: clickItem.path,
-          title: page.title,
-          elementText: clickItem.text,
-          elementId: 'cta_btn',
-          referrer: '',
-          visitorId,
-          sessionId: `s_seed_${Math.floor(i / 2)}`,
-          country: loc.country,
-          countryCode: loc.countryCode,
-          city: loc.city,
-          device: isMobile ? ('mobile' as const) : ('desktop' as const),
-          browser: isMobile ? 'Chrome Mobile' : 'Chrome',
-          os: isMobile ? 'Android' : 'Windows',
-          createdAt: new Date(ts.getTime() + 15000).toISOString(),
-        });
-      }
-    }
-
-    for (const d of docs) {
-      await payload.create({
+    const adapter: any = payload.db;
+    if (adapter?.pool?.query) {
+      await adapter.pool.query(`DELETE FROM "analytics_events" WHERE "visitor_id" LIKE 'v_seed_%';`);
+    } else if (adapter?.client?.execute) {
+      await adapter.client.execute(`DELETE FROM \`analytics_events\` WHERE \`visitor_id\` LIKE 'v_seed_%';`);
+    } else {
+      await payload.delete({
         collection: 'analytics-events',
-        data: d,
+        where: {
+          visitorId: { like: 'v_seed_' },
+        },
+        overrideAccess: true,
       });
     }
-  } catch (seedErr: any) {
-    console.warn('Analytics seed warning:', seedErr?.message);
+  } catch (err: any) {
+    console.warn('[Analytics] Purge seed warning:', err?.message);
   }
 }
 
@@ -136,7 +99,6 @@ export async function GET(req: Request) {
     const payload = await getPayloadClient();
     const reqHeaders = await headers();
 
-    // Authentification admin requise
     try {
       const { user } = await payload.auth({ headers: reqHeaders });
       if (!user) {
@@ -146,28 +108,48 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: 'Accès non autorisé' }, { status: 401 });
     }
 
-    // Auto-seed si collection vide
-    await ensureSeedAnalytics(payload);
+    // Supprimer définitivement les événements de démo fictifs pour ne garder que les données 100% réelles
+    await purgeFakeSeedAnalytics(payload);
 
     const { searchParams } = new URL(req.url);
     const period = searchParams.get('period') || '7d';
     const startDate = getStartDateForPeriod(period);
 
-    // Récupérer les événements de la période
     const eventsRes = await (payload as any).find({
       collection: 'analytics-events',
       where: {
-        createdAt: {
-          greater_than_equal: startDate.toISOString(),
-        },
+        and: [
+          {
+            createdAt: {
+              greater_than_equal: startDate.toISOString(),
+            },
+          },
+          {
+            visitorId: {
+              not_like: 'v_seed_',
+            },
+          },
+        ],
       },
-      limit: 1500,
+      limit: 5000,
       sort: '-createdAt',
     });
 
-    const docs = eventsRes?.docs || [];
+    const docs = (eventsRes?.docs || []).filter(
+      (d: any) => !String(d.visitorId || '').startsWith('v_seed_')
+    );
 
-    // Calcul des KPI
+    // Visiteurs en ligne dans les 15 dernières minutes
+    const fifteenMinAgo = Date.now() - 15 * 60 * 1000;
+    const liveVisitorSet = new Set<string>();
+    docs.forEach((d: any) => {
+      const ts = d.createdAt ? new Date(d.createdAt).getTime() : 0;
+      if (ts >= fifteenMinAgo && d.visitorId) {
+        liveVisitorSet.add(d.visitorId);
+      }
+    });
+    const liveVisitors = liveVisitorSet.size;
+
     const pageviewsList = docs.filter((d: any) => d.type === 'pageview');
     const clicksList = docs.filter((d: any) => d.type !== 'pageview');
 
@@ -177,13 +159,15 @@ export async function GET(req: Request) {
     const uniqueVisitorIds = new Set(docs.map((d: any) => d.visitorId).filter(Boolean));
     const uniqueVisitors = uniqueVisitorIds.size || (totalPageviews > 0 ? 1 : 0);
 
-    const engagementRate = totalPageviews > 0
-      ? ((totalClicks / totalPageviews) * 100).toFixed(1)
-      : '0.0';
+    const engagementRate =
+      totalPageviews > 0 ? ((totalClicks / totalPageviews) * 100).toFixed(1) : '0.0';
 
-    const avgPagesPerVisitor = uniqueVisitors > 0
-      ? (totalPageviews / uniqueVisitors).toFixed(1)
-      : '1.0';
+    const avgPagesPerVisitor =
+      uniqueVisitors > 0 ? (totalPageviews / uniqueVisitors).toFixed(1) : '0.0';
+
+    // Base d'analyse d'audience : privilégier les pageviews pour les répartitions (ou tous les événements si aucun pageview)
+    const audienceDocs = pageviewsList.length > 0 ? pageviewsList : docs;
+    const totalAudienceEvents = audienceDocs.length || 1;
 
     // 1. Pages les plus vues
     const pageCounts: Record<string, { count: number; title: string; uniqueSet: Set<string> }> = {};
@@ -201,122 +185,202 @@ export async function GET(req: Request) {
         path,
         title: data.title,
         views: data.count,
-        uniqueVisitors: data.uniqueSet.size,
+        uniqueVisitors: data.uniqueSet.size || 1,
         percentage: totalPageviews > 0 ? Math.round((data.count / totalPageviews) * 100) : 0,
       }))
       .sort((a, b) => b.views - a.views)
-      .slice(0, 10);
+      .slice(0, 15);
 
     // 2. Clics & Actions Marketing les plus fréquents
     const clickCounts: Record<string, { count: number; type: string; path: string }> = {};
     clicksList.forEach((d: any) => {
-      const key = d.elementText || d.type || 'Clic';
+      const key = `${d.elementText || d.type || 'Clic'}__${d.path || '/'}`;
       if (!clickCounts[key]) {
-        clickCounts[key] = { count: 0, type: d.type || 'click', path: d.path || '/' };
+        clickCounts[key] = {
+          count: 0,
+          type: d.type || 'click',
+          path: d.path || '/',
+        };
       }
       clickCounts[key].count++;
     });
 
     const topClicks = Object.entries(clickCounts)
-      .map(([elementText, data]) => ({
-        elementText,
-        type: data.type,
-        path: data.path,
-        count: data.count,
-        percentage: totalClicks > 0 ? Math.round((data.count / totalClicks) * 100) : 0,
-      }))
+      .map(([compositeKey, data]) => {
+        const elementText = compositeKey.split('__')[0];
+        return {
+          elementText,
+          type: data.type,
+          path: data.path,
+          count: data.count,
+          percentage: totalClicks > 0 ? Math.round((data.count / totalClicks) * 100) : 0,
+        };
+      })
       .sort((a, b) => b.count - a.count)
-      .slice(0, 10);
+      .slice(0, 15);
 
-    // 3. Localisations (Pays & Villes)
-    const countryCounts: Record<string, { count: number; code: string }> = {};
-    const cityCounts: Record<string, { count: number; country: string }> = {};
+    // 3. Localisations (Pays & Villes avec codes ISO normalisés pour les drapeaux)
+    const countryCounts: Record<string, { count: number; code: string; visitors: Set<string> }> = {};
+    const cityCounts: Record<string, { count: number; country: string; code: string; visitors: Set<string> }> = {};
 
-    docs.forEach((d: any) => {
-      const c = d.country || 'Sénégal';
-      const code = d.countryCode || 'SN';
-      const city = d.city || 'Dakar';
+    audienceDocs.forEach((d: any) => {
+      const c = (d.country || 'Sénégal').trim();
+      const code = normalizeCountryCode(d.countryCode, c);
+      const city = (d.city || 'Dakar').trim();
 
-      if (!countryCounts[c]) countryCounts[c] = { count: 0, code };
+      if (!countryCounts[c]) {
+        countryCounts[c] = { count: 0, code, visitors: new Set() };
+      }
       countryCounts[c].count++;
+      if (d.visitorId) countryCounts[c].visitors.add(d.visitorId);
 
-      if (!cityCounts[city]) cityCounts[city] = { count: 0, country: c };
-      cityCounts[city].count++;
+      const cityKey = `${city}__${c}`;
+      if (!cityCounts[cityKey]) {
+        cityCounts[cityKey] = { count: 0, country: c, code, visitors: new Set() };
+      }
+      cityCounts[cityKey].count++;
+      if (d.visitorId) cityCounts[cityKey].visitors.add(d.visitorId);
     });
-
-    const totalEvents = docs.length || 1;
 
     const topCountries = Object.entries(countryCounts)
       .map(([country, data]) => ({
         country,
         code: data.code,
+        countryCode: data.code,
         count: data.count,
-        percentage: Math.round((data.count / totalEvents) * 100),
+        uniqueVisitors: data.visitors.size || 1,
+        percentage:
+          audienceDocs.length > 0 ? Math.round((data.count / totalAudienceEvents) * 100) : 0,
       }))
       .sort((a, b) => b.count - a.count)
-      .slice(0, 8);
+      .slice(0, 12);
 
     const topCities = Object.entries(cityCounts)
-      .map(([city, data]) => ({
-        city,
+      .map(([cityKey, data]) => ({
+        city: cityKey.split('__')[0],
         country: data.country,
+        code: data.code,
+        countryCode: data.code,
         count: data.count,
-        percentage: Math.round((data.count / totalEvents) * 100),
+        uniqueVisitors: data.visitors.size || 1,
+        percentage:
+          audienceDocs.length > 0 ? Math.round((data.count / totalAudienceEvents) * 100) : 0,
       }))
       .sort((a, b) => b.count - a.count)
-      .slice(0, 10);
+      .slice(0, 12);
 
-    // 4. Appareils
-    const deviceCounts: Record<string, number> = { mobile: 0, desktop: 0, tablet: 0 };
-    docs.forEach((d: any) => {
-      const dev = (d.device || 'desktop') as 'mobile' | 'desktop' | 'tablet';
-      if (deviceCounts[dev] !== undefined) {
-        deviceCounts[dev]++;
-      } else {
-        deviceCounts.desktop++;
-      }
+    // 4. Appareils, Systèmes d'exploitation (OS) & Navigateurs
+    const deviceCounts: Record<'mobile' | 'desktop' | 'tablet', number> = {
+      mobile: 0,
+      desktop: 0,
+      tablet: 0,
+    };
+    const osCounts: Record<string, number> = {};
+    const browserCounts: Record<string, number> = {};
+
+    audienceDocs.forEach((d: any) => {
+      const rawDev = String(d.device || 'desktop').toLowerCase();
+      if (rawDev === 'mobile') deviceCounts.mobile++;
+      else if (rawDev === 'tablet') deviceCounts.tablet++;
+      else deviceCounts.desktop++;
+
+      const osName = (d.os || 'Autre').trim();
+      osCounts[osName] = (osCounts[osName] || 0) + 1;
+
+      const brName = (d.browser || 'Autre').trim();
+      browserCounts[brName] = (browserCounts[brName] || 0) + 1;
     });
 
+    const hasEvents = audienceDocs.length > 0;
     const devices = [
-      { name: 'Mobile', value: deviceCounts.mobile, percentage: Math.round((deviceCounts.mobile / totalEvents) * 100) },
-      { name: 'Ordinateur', value: deviceCounts.desktop, percentage: Math.round((deviceCounts.desktop / totalEvents) * 100) },
-      { name: 'Tablette', value: deviceCounts.tablet, percentage: Math.round((deviceCounts.tablet / totalEvents) * 100) },
+      {
+        key: 'desktop',
+        device: 'Ordinateur',
+        name: 'Ordinateur',
+        count: deviceCounts.desktop,
+        value: deviceCounts.desktop,
+        percentage: hasEvents ? Math.round((deviceCounts.desktop / totalAudienceEvents) * 100) : 0,
+      },
+      {
+        key: 'mobile',
+        device: 'Mobile (Smartphone)',
+        name: 'Mobile (Smartphone)',
+        count: deviceCounts.mobile,
+        value: deviceCounts.mobile,
+        percentage: hasEvents ? Math.round((deviceCounts.mobile / totalAudienceEvents) * 100) : 0,
+      },
+      {
+        key: 'tablet',
+        device: 'Tablette',
+        name: 'Tablette',
+        count: deviceCounts.tablet,
+        value: deviceCounts.tablet,
+        percentage: hasEvents ? Math.round((deviceCounts.tablet / totalAudienceEvents) * 100) : 0,
+      },
     ];
+
+    const osList = Object.entries(osCounts)
+      .map(([name, count]) => ({
+        name,
+        count,
+        percentage: hasEvents ? Math.round((count / totalAudienceEvents) * 100) : 0,
+      }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 6);
+
+    const browsers = Object.entries(browserCounts)
+      .map(([name, count]) => ({
+        name,
+        count,
+        percentage: hasEvents ? Math.round((count / totalAudienceEvents) * 100) : 0,
+      }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 6);
 
     // 5. Sources & Référents
     const sourceCounts: Record<string, number> = {
       'Accès Direct': 0,
-      'Google / Moteurs': 0,
+      'Google / Moteurs de recherche': 0,
       'WhatsApp direct': 0,
-      'Réseaux sociaux': 0,
-      'Autres sites': 0,
+      'Réseaux sociaux (LinkedIn, Facebook...)': 0,
+      'Autres sites référents': 0,
     };
 
-    docs.forEach((d: any) => {
+    audienceDocs.forEach((d: any) => {
       const ref = (d.referrer || '').toLowerCase();
-      if (!ref || ref === 'direct') {
+      if (!ref || ref === 'direct' || ref.includes('nobtech') || ref.includes('localhost')) {
         sourceCounts['Accès Direct']++;
-      } else if (ref.includes('google') || ref.includes('bing') || ref.includes('yahoo')) {
-        sourceCounts['Google / Moteurs']++;
+      } else if (ref.includes('google') || ref.includes('bing') || ref.includes('yahoo') || ref.includes('duckduckgo')) {
+        sourceCounts['Google / Moteurs de recherche']++;
       } else if (ref.includes('whatsapp') || ref.includes('wa.me')) {
         sourceCounts['WhatsApp direct']++;
-      } else if (ref.includes('linkedin') || ref.includes('facebook') || ref.includes('twitter') || ref.includes('instagram')) {
-        sourceCounts['Réseaux sociaux']++;
+      } else if (
+        ref.includes('linkedin') ||
+        ref.includes('facebook') ||
+        ref.includes('twitter') ||
+        ref.includes('x.com') ||
+        ref.includes('instagram')
+      ) {
+        sourceCounts['Réseaux sociaux (LinkedIn, Facebook...)']++;
       } else {
-        sourceCounts['Autres sites']++;
+        sourceCounts['Autres sites référents']++;
       }
     });
 
     const sources = Object.entries(sourceCounts)
       .map(([name, count]) => ({
+        source: name,
         name,
         count,
-        percentage: Math.round((count / totalEvents) * 100),
+        percentage: hasEvents ? Math.round((count / totalAudienceEvents) * 100) : 0,
       }))
       .sort((a, b) => b.count - a.count);
 
-    // 6. Chronologie temporelle (Histogramme des visites & clics)
-    const timelineMap: Record<string, { label: string; pageviews: number; visitors: Set<string>; clicks: number }> = {};
+    // 6. Chronologie temporelle
+    const timelineMap: Record<
+      string,
+      { label: string; pageviews: number; visitors: Set<string>; clicks: number }
+    > = {};
 
     const daysCount = period === 'today' ? 1 : period === '7d' ? 7 : 14;
     const nowMs = Date.now();
@@ -353,20 +417,28 @@ export async function GET(req: Request) {
       clicks: data.clicks,
     }));
 
-    // 7. Événements récents en direct (Flux temps réel)
-    const recentEvents = docs.slice(0, 15).map((d: any) => ({
-      id: d.id,
-      type: d.type,
-      path: d.path,
-      elementText: d.elementText,
-      city: d.city,
-      country: d.country,
-      device: d.device,
-      createdAt: d.createdAt,
-    }));
+    // 7. Flux temps réel des dernières visites & actions réelles
+    const recentEvents = docs.slice(0, 20).map((d: any) => {
+      const code = normalizeCountryCode(d.countryCode, d.country);
+      return {
+        id: d.id,
+        type: d.type,
+        path: d.path,
+        title: d.title || d.path,
+        elementText: d.elementText,
+        city: d.city || 'Dakar',
+        country: d.country || 'Sénégal',
+        countryCode: code,
+        device: d.device || 'desktop',
+        browser: d.browser || 'Autre',
+        os: d.os || 'Autre',
+        createdAt: d.createdAt,
+      };
+    });
 
     return NextResponse.json({
       period,
+      liveVisitors,
       kpis: {
         totalPageviews,
         uniqueVisitors,
@@ -381,6 +453,8 @@ export async function GET(req: Request) {
         cities: topCities,
       },
       devices,
+      osList,
+      browsers,
       sources,
       timeline,
       recentEvents,

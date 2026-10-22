@@ -61,7 +61,7 @@ export default async function FormationsCatalogPage() {
             <TextReveal>
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6 text-balance">
                 Formations Professionnelles :{" "}
-                <span className="text-[#0284C7] dark:text-sky-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                   Expertise Pratique &amp; Certifications Internationales
                 </span>
               </h1>
@@ -101,7 +101,7 @@ export default async function FormationsCatalogPage() {
           <Container>
             <FadeUp>
               <div className="text-center max-w-3xl mx-auto mb-16">
-                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-[#0284C7] dark:text-sky-400">
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                   EXCELLENCE &bull; PROGRAMMES CERTIFIANTS
                 </p>
                 <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
@@ -288,7 +288,7 @@ export default async function FormationsCatalogPage() {
           <Container>
             <FadeUp>
               <div className="text-center max-w-3xl mx-auto mb-16">
-                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-[#0284C7] dark:text-sky-400">
+                <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                   PÉDAGOGIE &bull; IMMERSION TECHNIQUE
                 </p>
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">

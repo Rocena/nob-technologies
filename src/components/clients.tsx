@@ -262,20 +262,21 @@ export function Clients({ clients = [] }: { clients: any[] }) {
     <Section className="py-14 md:py-20 bg-slate-50/80 dark:bg-[#070d1f] border-b border-slate-200/80 dark:border-slate-800/80 overflow-hidden transition-colors">
       <Container>
         {/* Section Header: Constructeurs & Éditeurs Partenaires */}
-        <div className="grid lg:grid-cols-12 gap-6 items-end mb-10 md:mb-12 pb-6 border-b border-slate-200 dark:border-slate-800">
-          <div className="lg:col-span-7">
-            <div className="text-xs font-semibold text-sky-700 dark:text-sky-400 mb-2">
-              Alliances technologiques &amp; Constructeurs
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              Partenaires Constructeurs &amp; Éditeurs Certifiés
-            </h2>
-          </div>
-          <div className="lg:col-span-5">
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
-              Des partenariats officiels avec les constructeurs leaders mondiaux pour garantir la sécurité et la haute disponibilité de vos systèmes d&apos;information.
+        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
+          <FadeUp>
+            <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold flex items-center justify-center gap-2 flex-wrap">
+              <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">&gt;<span className="text-[#10E760] animate-pulse">_</span></span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                ÉCOSYSTÈME TECHNOLOGIQUE INTERNATIONAL
+              </span>
             </p>
-          </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-3">
+              Partenaires Technologiques &amp; Constructeurs
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
+              Des partenariats certifiés avec les constructeurs et éditeurs leaders mondiaux pour garantir la fiabilité, la sécurité et la haute disponibilité de vos systèmes d’information.
+            </p>
+          </FadeUp>
         </div>
 
         {/* 12 Partner Brands with Authentic Logos & Outbound Links */}
@@ -321,21 +322,22 @@ export function Clients({ clients = [] }: { clients: any[] }) {
         </div>
 
         {/* Premier Corporate Section: Ils nous font confiance */}
-        <div className="pt-10 border-t border-slate-200/90 dark:border-slate-800">
-          <div className="grid lg:grid-cols-12 gap-6 items-end mb-10 md:mb-12">
-            <div className="lg:col-span-7">
-              <div className="text-xs font-semibold text-sky-700 dark:text-sky-400 mb-2">
-                Références institutionnelles &amp; Entreprises
-              </div>
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+        <div className="pt-10 border-t border-slate-200/90">
+          <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
+            <FadeUp>
+              <p className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-extrabold flex items-center justify-center gap-2 flex-wrap">
+                <span className="text-[#00D4FF] font-black select-none text-sm sm:text-base font-mono tracking-tighter inline-flex items-center">&gt;<span className="text-[#10E760] animate-pulse">_</span></span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
+                  RÉFÉRENCES CLIENTS &amp; DÉPLOIEMENTS MAJEURS
+                </span>
+              </p>
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
                 Ils Nous Font Confiance
               </h3>
-            </div>
-            <div className="lg:col-span-5">
-              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
-                Institutions diplomatiques, opérateurs ferroviaires, complexes hôteliers et établissements de santé : sélectionnez une référence pour consulter le périmètre technique déployé.
+              <p className="text-sm sm:text-base text-slate-600">
+                Institutions diplomatiques, fleurons industriels, complexes hôteliers et établissements médicaux : cliquez sur un logo pour consulter le détail des architectures et réalisations techniques déployées par NOB TECHNOLOGIES.
               </p>
-            </div>
+            </FadeUp>
           </div>
 
           {/* 6 Flagship Client Cards - Ultra Corporate Logo Showcase */}
@@ -524,7 +526,7 @@ export function Clients({ clients = [] }: { clients: any[] }) {
                           setSelectedClient(null);
                           openQuoteModal(clientName);
                         }}
-                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-white font-semibold text-xs bg-[#0284C7] hover:bg-[#0369A1] transition-colors cursor-pointer"
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-[#020617] font-bold text-xs bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760] hover:brightness-105 active:scale-95 transition-all shadow-[0_4px_14px_0_rgba(0,212,255,0.35)] hover:shadow-[0_6px_20px_rgba(16,231,96,0.35)] cursor-pointer"
                       >
                         Demander un projet similaire
                       </button>

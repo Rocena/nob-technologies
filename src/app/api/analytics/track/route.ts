@@ -2,58 +2,142 @@ import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { getPayloadClient } from '@/lib/payload';
 
-const COUNTRY_NAMES: Record<string, string> = {
-  SN: 'Sénégal',
-  FR: 'France',
-  CI: 'Côte d’Ivoire',
-  ML: 'Mali',
-  GN: 'Guinée',
-  BF: 'Burkina Faso',
-  CM: 'Cameroun',
-  GA: 'Gabon',
-  TG: 'Togo',
-  BJ: 'Bénin',
-  US: 'États-Unis',
-  CA: 'Canada',
-  BE: 'Belgique',
-  CH: 'Suisse',
-  MA: 'Maroc',
-  ES: 'Espagne',
-  IT: 'Italie',
-  DE: 'Allemagne',
-  GB: 'Royaume-Uni',
-  AE: 'Émirats Arabes Unis',
+const TIMEZONE_TO_LOCATION: Record<string, { code: string; city: string }> = {
+  'Africa/Dakar': { code: 'SN', city: 'Dakar' },
+  'Africa/Abidjan': { code: 'CI', city: 'Abidjan' },
+  'Africa/Bamako': { code: 'ML', city: 'Bamako' },
+  'Africa/Conakry': { code: 'GN', city: 'Conakry' },
+  'Africa/Ouagadougou': { code: 'BF', city: 'Ouagadougou' },
+  'Africa/Lome': { code: 'TG', city: 'Lomé' },
+  'Africa/Porto-Novo': { code: 'BJ', city: 'Cotonou' },
+  'Africa/Niamey': { code: 'NE', city: 'Niamey' },
+  'Africa/Nouakchott': { code: 'MR', city: 'Nouakchott' },
+  'Africa/Banjul': { code: 'GM', city: 'Banjul' },
+  'Africa/Bissau': { code: 'GW', city: 'Bissau' },
+  'Africa/Douala': { code: 'CM', city: 'Douala' },
+  'Africa/Libreville': { code: 'GA', city: 'Libreville' },
+  'Africa/Brazzaville': { code: 'CG', city: 'Brazzaville' },
+  'Africa/Kinshasa': { code: 'CD', city: 'Kinshasa' },
+  'Africa/Lubumbashi': { code: 'CD', city: 'Lubumbashi' },
+  'Africa/Ndjamena': { code: 'TD', city: "N'Djaména" },
+  'Africa/Bangui': { code: 'CF', city: 'Bangui' },
+  'Africa/Casablanca': { code: 'MA', city: 'Casablanca' },
+  'Africa/Algiers': { code: 'DZ', city: 'Alger' },
+  'Africa/Tunis': { code: 'TN', city: 'Tunis' },
+  'Africa/Lagos': { code: 'NG', city: 'Lagos' },
+  'Africa/Accra': { code: 'GH', city: 'Accra' },
+  'Africa/Nairobi': { code: 'KE', city: 'Nairobi' },
+  'Africa/Johannesburg': { code: 'ZA', city: 'Johannesburg' },
+  'Europe/Paris': { code: 'FR', city: 'Paris' },
+  'Europe/Brussels': { code: 'BE', city: 'Bruxelles' },
+  'Europe/Zurich': { code: 'CH', city: 'Genève' },
+  'Europe/London': { code: 'GB', city: 'Londres' },
+  'Europe/Berlin': { code: 'DE', city: 'Berlin' },
+  'Europe/Madrid': { code: 'ES', city: 'Madrid' },
+  'Europe/Rome': { code: 'IT', city: 'Rome' },
+  'Europe/Lisbon': { code: 'PT', city: 'Lisbonne' },
+  'Europe/Amsterdam': { code: 'NL', city: 'Amsterdam' },
+  'America/Montreal': { code: 'CA', city: 'Montréal' },
+  'America/Toronto': { code: 'CA', city: 'Toronto' },
+  'America/Vancouver': { code: 'CA', city: 'Vancouver' },
+  'America/New_York': { code: 'US', city: 'New York' },
+  'America/Chicago': { code: 'US', city: 'Chicago' },
+  'America/Los_Angeles': { code: 'US', city: 'Los Angeles' },
+  'Asia/Dubai': { code: 'AE', city: 'Dubaï' },
 };
+
+const COUNTRY_DEFAULT_CAPITAL: Record<string, string> = {
+  SN: 'Dakar',
+  FR: 'Paris',
+  CI: 'Abidjan',
+  ML: 'Bamako',
+  GN: 'Conakry',
+  BF: 'Ouagadougou',
+  CM: 'Douala',
+  GA: 'Libreville',
+  CG: 'Brazzaville',
+  CD: 'Kinshasa',
+  TG: 'Lomé',
+  BJ: 'Cotonou',
+  NE: 'Niamey',
+  MR: 'Nouakchott',
+  MA: 'Casablanca',
+  DZ: 'Alger',
+  TN: 'Tunis',
+  BE: 'Bruxelles',
+  CH: 'Genève',
+  CA: 'Montréal',
+  US: 'New York',
+  GB: 'Londres',
+  DE: 'Berlin',
+  ES: 'Madrid',
+  IT: 'Rome',
+  AE: 'Dubaï',
+};
+
+function getFrenchCountryName(code: string, fallback?: string): string {
+  const cleanCode = (code || '').trim().toUpperCase();
+  if (cleanCode.length === 2) {
+    try {
+      const displayNames = new Intl.DisplayNames(['fr'], { type: 'region' });
+      const name = displayNames.of(cleanCode);
+      if (name && name !== cleanCode) return name;
+    } catch {}
+  }
+  return fallback || cleanCode || 'International';
+}
 
 function parseUserAgent(ua: string) {
   const lower = ua.toLowerCase();
 
-  // Device
   let device: 'mobile' | 'desktop' | 'tablet' = 'desktop';
-  if (/ipad|tablet|(android(?!.*mobile))/i.test(lower)) {
+  if (/ipad|tablet|playbook|silk|(android(?!.*mobile))/i.test(lower)) {
     device = 'tablet';
-  } else if (/mobile|iphone|android|blackberry|opera mini|iemobile/i.test(lower)) {
+  } else if (/mobile|iphone|ipod|android|blackberry|opera mini|iemobile/i.test(lower)) {
     device = 'mobile';
   }
 
-  // Browser
   let browser = 'Autre';
   if (/edg\//i.test(lower)) browser = 'Edge';
-  else if (/chrome|crios/i.test(lower) && !/opr|opera/i.test(lower)) browser = 'Chrome';
-  else if (/safari/i.test(lower) && !/chrome/i.test(lower)) browser = 'Safari';
-  else if (/firefox|fxios/i.test(lower)) browser = 'Firefox';
-  else if (/opr|opera/i.test(lower)) browser = 'Opera';
+  else if (/opr\/|opera/i.test(lower)) browser = 'Opera';
   else if (/samsungbrowser/i.test(lower)) browser = 'Samsung Internet';
+  else if (/chrome|crios/i.test(lower)) browser = 'Chrome';
+  else if (/firefox|fxios/i.test(lower)) browser = 'Firefox';
+  else if (/safari/i.test(lower) && !/chrome|crios/i.test(lower)) browser = 'Safari';
 
-  // OS
   let os = 'Autre';
   if (/windows/i.test(lower)) os = 'Windows';
-  else if (/macintosh|mac os x/i.test(lower)) os = 'macOS';
   else if (/iphone|ipad|ipod/i.test(lower)) os = 'iOS';
   else if (/android/i.test(lower)) os = 'Android';
+  else if (/macintosh|mac os x/i.test(lower)) os = 'macOS';
   else if (/linux/i.test(lower)) os = 'Linux';
 
   return { device, browser, os };
+}
+
+async function lookupIpGeoServerSide(ip: string): Promise<{ countryCode?: string; country?: string; city?: string }> {
+  if (!ip || ip === '127.0.0.1' || ip === '::1' || ip.startsWith('192.168.') || ip.startsWith('10.')) {
+    return {};
+  }
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 1500);
+    const res = await fetch(`http://ip-api.com/json/${encodeURIComponent(ip)}?fields=status,country,countryCode,city&lang=fr`, {
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+    if (res.ok) {
+      const data = await res.json();
+      if (data?.status === 'success' && data?.countryCode) {
+        return {
+          countryCode: String(data.countryCode).toUpperCase(),
+          country: data.country || undefined,
+          city: data.city || undefined,
+        };
+      }
+    }
+  } catch {}
+  return {};
 }
 
 export async function POST(req: Request) {
@@ -68,55 +152,113 @@ export async function POST(req: Request) {
       elementId = '',
       visitorId = '',
       sessionId = '',
+      clientDevice,
+      clientOs,
+      clientBrowser,
+      timezone = '',
+      geoCountry,
+      geoCountryCode,
+      geoCity,
     } = body;
 
-    // Ne pas tracer les requêtes internes d'administration
     if (typeof path === 'string' && (path.startsWith('/admin') || path === '/root')) {
       return NextResponse.json({ success: true, ignored: true });
     }
 
     const headersList = await headers();
     const ua = headersList.get('user-agent') || '';
-    const { device, browser, os } = parseUserAgent(ua);
+    const parsedUa = parseUserAgent(ua);
 
-    // Résolution GeoIP (Vercel, Cloudflare, ou Dakar par défaut en environnement local)
-    const rawCountryCode = (
+    const device: 'mobile' | 'desktop' | 'tablet' =
+      clientDevice === 'mobile' || clientDevice === 'tablet' || clientDevice === 'desktop'
+        ? clientDevice
+        : parsedUa.device;
+    const os = typeof clientOs === 'string' && clientOs ? clientOs : parsedUa.os;
+    const browser = typeof clientBrowser === 'string' && clientBrowser ? clientBrowser : parsedUa.browser;
+
+    // 1. Vérifier les en-têtes Edge (Vercel / Cloudflare)
+    const headerCountryCode = (
       headersList.get('x-vercel-ip-country') ||
       headersList.get('cf-ipcountry') ||
       headersList.get('x-country-code') ||
-      'SN'
-    ).toUpperCase();
+      ''
+    )
+      .trim()
+      .toUpperCase();
 
-    const countryCode = rawCountryCode.length === 2 ? rawCountryCode : 'SN';
-    const country = COUNTRY_NAMES[countryCode] || countryCode;
-
-    let city = headersList.get('x-vercel-ip-city') || headersList.get('x-city') || '';
-    if (city) {
+    let headerCity =
+      headersList.get('x-vercel-ip-city') ||
+      headersList.get('cf-ipcity') ||
+      headersList.get('x-city') ||
+      '';
+    if (headerCity) {
       try {
-        city = decodeURIComponent(city);
+        headerCity = decodeURIComponent(headerCity);
       } catch {}
     }
 
-    if (!city || city === 'Unknown' || city === 'localhost') {
-      city = countryCode === 'SN' ? 'Dakar' : (countryCode === 'FR' ? 'Paris' : (countryCode === 'CI' ? 'Abidjan' : 'Dakar'));
+    // 2. Combiner avec la géolocalisation IP publique côté client ou serveur
+    let resolvedCode =
+      (typeof geoCountryCode === 'string' && geoCountryCode.trim().length === 2
+        ? geoCountryCode.trim().toUpperCase()
+        : '') ||
+      (headerCountryCode.length === 2 ? headerCountryCode : '');
+
+    let resolvedCity =
+      (typeof geoCity === 'string' && geoCity.trim() ? geoCity.trim() : '') ||
+      (headerCity && headerCity !== 'Unknown' && headerCity !== 'localhost' ? headerCity : '');
+
+    let resolvedCountryName =
+      typeof geoCountry === 'string' && geoCountry.trim() ? geoCountry.trim() : '';
+
+    // 3. Si aucun code pays ni en-tête n'est présent, tenter la résolution IP serveur
+    if (!resolvedCode) {
+      const forwardedFor = headersList.get('x-forwarded-for');
+      const clientIp = forwardedFor?.split(',')[0]?.trim() || headersList.get('x-real-ip') || '';
+      const ipGeo = await lookupIpGeoServerSide(clientIp);
+      if (ipGeo.countryCode) {
+        resolvedCode = ipGeo.countryCode;
+        if (!resolvedCity && ipGeo.city) resolvedCity = ipGeo.city;
+        if (!resolvedCountryName && ipGeo.country) resolvedCountryName = ipGeo.country;
+      }
     }
+
+    // 4. Fallback intelligent sur le fuseau horaire réel du navigateur (ex: Africa/Dakar, Europe/Paris, Africa/Libreville)
+    if (!resolvedCode && typeof timezone === 'string' && TIMEZONE_TO_LOCATION[timezone]) {
+      resolvedCode = TIMEZONE_TO_LOCATION[timezone].code;
+      if (!resolvedCity) resolvedCity = TIMEZONE_TO_LOCATION[timezone].city;
+    } else if (!resolvedCity && typeof timezone === 'string' && TIMEZONE_TO_LOCATION[timezone]) {
+      if (!resolvedCode || TIMEZONE_TO_LOCATION[timezone].code === resolvedCode) {
+        resolvedCity = TIMEZONE_TO_LOCATION[timezone].city;
+      }
+    }
+
+    const finalCountryCode = resolvedCode && resolvedCode.length === 2 ? resolvedCode : 'SN';
+    const finalCountry = getFrenchCountryName(finalCountryCode, resolvedCountryName);
+    const finalCity =
+      resolvedCity ||
+      COUNTRY_DEFAULT_CAPITAL[finalCountryCode] ||
+      finalCountry;
+
+    const validTypes = ['pageview', 'click', 'whatsapp_click', 'call_click', 'download_brochure', 'form_submit'];
+    const safeType = validTypes.includes(type) ? type : 'click';
 
     const payload = await getPayloadClient();
 
     await (payload as any).create({
       collection: 'analytics-events',
       data: {
-        type: type as any,
+        type: safeType as any,
         path: typeof path === 'string' ? path.slice(0, 200) : '/',
         title: typeof title === 'string' ? title.slice(0, 200) : '',
         referrer: typeof referrer === 'string' ? referrer.slice(0, 200) : '',
         elementText: typeof elementText === 'string' ? elementText.slice(0, 100) : '',
         elementId: typeof elementId === 'string' ? elementId.slice(0, 100) : '',
-        visitorId: typeof visitorId === 'string' ? visitorId.slice(0, 100) : 'v_anon',
+        visitorId: typeof visitorId === 'string' && visitorId ? visitorId.slice(0, 100) : 'v_anon',
         sessionId: typeof sessionId === 'string' ? sessionId.slice(0, 100) : '',
-        country,
-        countryCode,
-        city,
+        country: finalCountry,
+        countryCode: finalCountryCode,
+        city: finalCity,
         device,
         browser,
         os,
@@ -126,6 +268,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true });
   } catch (err: any) {
     console.warn('Analytics track warning:', err?.message);
-    return NextResponse.json({ success: false }, { status: 200 }); // Always 200 to not block client
+    return NextResponse.json({ success: false }, { status: 200 });
   }
 }

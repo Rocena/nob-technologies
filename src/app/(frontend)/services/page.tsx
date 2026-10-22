@@ -158,7 +158,7 @@ export default async function ServicesPage() {
               <TextReveal>
                 <h1 className="text-white mb-6 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-balance">
                   Nos Expertises :{" "}
-                  <span className="text-[#0284C7] dark:text-sky-400">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#00F0FF] to-[#10E760]">
                     L&apos;Ingénierie IT de Haute Précision
                   </span>
                 </h1>
